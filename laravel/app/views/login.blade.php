@@ -1,24 +1,26 @@
+@extends('layouts.webpage_master')
 
-{{ Form::open(array('url' => 'login')) }}
-<h1>Login</h1>
+@section('content')
+<div class="row">
+    <div class="col-sm-6 col-sm-push-3">
+        <h2>Entrar</h2>
 
-<!-- if there are login errors, show them here -->
-<p>
-      {{ $errors->first('email') }}
-      {{ $errors->first('password') }}
-</p>
-
-<p>
-      {{ Form::label('email', 'Email Address') }}
-      {{ Form::text('email', Input::old('email'), array('placeholder' => 'awesome@awesome.com')) }}
-</p>
-
-<p>
-      {{ Form::label('password', 'Password') }}
-      {{ Form::password('password') }}
-</p>
-
-<p>{{ Form::submit('Submit!') }}</p>
-{{ Form::close() }}
-
-{{ HTML::linkAction('RemindersController@getRemind','Remember Password')}}
+        {{ Form::open(array('url' => 'login')) }}        
+        <div class="form-group">
+            {{ Form::label('email', 'Correo Electrónico') }}
+            {{ Form::text('email', Input::old('email'), array('placeholder' => 'ejemplo@correo.com', 'class'=>'form-control')) }}
+        </div>
+        
+        <div class="form-group">
+            {{ Form::label('password', 'Password') }}
+            {{ Form::password('password',array('placeholder' => 'password', 'class'=>'form-control')) }}
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Entrar</button>        
+            {{ HTML::linkAction('RemindersController@getRemind','Recuperar Password')}}
+        </div>        
+        {{ Form::close() }}
+        
+    </div>
+</div>
+@stop

@@ -1,7 +1,27 @@
-<form action="{{ action('RemindersController@postReset') }}" method="POST">
-    <input type="hidden" name="token" value="{{ $token }}">
-    <input type="email" name="email">
-    <input type="password" name="password">
-    <input type="password" name="password_confirmation">
-    <input type="submit" value="Reset Password">
-</form>
+@extends('layouts.webpage_master')
+
+@section('content')
+<div class="col-sm-6 col-sm-push-3">
+    <h2>Cambiar Password</h2>
+
+    <form action="{{ action('RemindersController@postReset') }}" method="POST">
+        <input type="hidden" name="token" value="{{ $token }}">
+        <div class="form-group">
+            {{ Form::label('email', 'Correo Electrónico') }}
+            {{ Form::text('email', Input::old('email'), array('placeholder' => 'ejemplo@correo.com', 'class'=>'form-control')) }}
+        </div>
+        <div class="form-group">
+            {{ Form::label('password', 'Password') }}
+            {{ Form::password('password',array('placeholder' => 'password', 'class'=>'form-control')) }}
+        </div>
+        <div class="form-group">
+            {{ Form::label('password', 'Repetir Password') }}
+            {{ Form::password('password',array('placeholder' => 'Repetir password', 'class'=>'form-control')) }}
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>                    
+        </div>                
+    </form>
+</div>
+@stop
+

@@ -15,15 +15,14 @@ Route::get('/', function() {
       return View::make('hello');
 });
 
-
 // route to show the login form
-Route::get('login', array('uses' => 'HomeController@showLogin'));
+Route::get('login', array('as'=>'login.get','uses' => 'HomeController@showLogin'));
 
 // route to process the form
-Route::post('login', array('uses' => 'HomeController@doLogin'));
+Route::post('login', array('as'=>'login.post','uses' => 'HomeController@doLogin'));
 
 // route to logout user
-Route::post('logout',array('uses'=>'HomeController@doLogout'));
+Route::post('logout',array('as'=>'logout','uses'=>'HomeController@doLogout'));
 
 //Reminder Controller
 Route::controller('password', 'RemindersController');

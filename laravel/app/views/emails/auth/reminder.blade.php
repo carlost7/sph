@@ -4,12 +4,12 @@
 		<meta charset="utf-8">
 	</head>
 	<body>
-		<h2>Password Reset</h2>
+		<h2>Cambio de Password en Sphellar</h2>
 
 		<div>
-			To reset your password, complete this form: 
-                  {{ HTML::linkAction('RemindersController@getReset','Remember Password',array($token))}}<br/>                  
-			This link will expire in {{ Config::get('auth.reminder.expire', 60) }} minutes.
+			Para modificar la contraseña de acceso a Sphellar rellena el formulario en la pagina siguiente: 
+                        {{ HTML::linkAction('RemindersController@getReset','CambiarPassword',array($token))}}<br/>                  
+			Este link dejará de funcionar en {{ Config::get('auth.reminder.expire', 60) }} minutos.
 		</div>
 	</body>
 </html>

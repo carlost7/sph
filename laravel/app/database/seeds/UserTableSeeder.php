@@ -13,14 +13,23 @@
  */
 class UserTableSeeder extends Seeder {
 
-      public function run()
-      {
-            DB::table('users')->delete();
-		User::create(array(			
-			'username' => 'carlos',
-			'email'    => 'info@sphellar.com',
-			'password' => Hash::make('carlos'),
-		));
-      }
+    public function run() {
+        DB::table('users')->delete();
+        User::create(array(
+            'email' => 'info@sphellar.com',
+            'password' => Hash::make('carlos'),
+            'role_id' => 1,
+        ));
+        User::create(array(
+            'email' => 'carlos.juarez@t7marketing.com',
+            'password' => Hash::make('carlos'),
+            'role_id' => 2,
+        ));
+        User::create(array(
+            'email' => 'carlos.juarez@wortev.com',
+            'password' => Hash::make('carlos'),
+            'role_id' => 3,
+        ));
+    }
 
 }
