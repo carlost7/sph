@@ -5,6 +5,8 @@ use Sph\Storage\User\UserRepository as User;
 class UserController extends \BaseController
 {
 
+        protected $user;
+        
         public function __construct(User $user)
         {
                 $this->user = $user;
@@ -38,11 +40,14 @@ class UserController extends \BaseController
         public function store()
         {
                 $v = new \Sph\Services\Validators\User;
-
                 if ($v->passes())
                 {
-                        $this->user->create($input);
+                        //$this->user->create($input);
+                }else{
+                        return Redirect::back()->withInput()->withErrors($v->getErrors());
                 }
+                
+                
         }
 
         /**

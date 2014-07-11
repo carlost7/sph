@@ -4,7 +4,7 @@
 <div class="row">
         <div class="col-sm-6 col-sm-push-3">
                 <h2>Registrar nuevo usuario</h2>
-                {{ Form::open(array('route' => 'user.register')) }}
+                {{ Form::open(array('route' => 'register.store')) }}
                 <div class="form-group">
                         {{ Form::label('nombre', 'Nombre') }}
                         {{ Form::text('nombre', Input::old('nombre'), array('placeholder' => 'nombre', 'class'=>'form-control')) }}
@@ -26,7 +26,7 @@
                         {{ Form::password('password_confirm',array('placeholder' => 'repetir password', 'class'=>'form-control')) }}
                 </div>
                 
-                @include('layouts.show_form_errors');
+                @include('layouts.show_form_errors')
                 
                 <div class="form-group">
                         <button type="submit" class="btn btn-primary">Registrar</button>

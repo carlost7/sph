@@ -1,4 +1,4 @@
-<?php Sph\Storage\User;
+<?php namespace Sph\Storage\User;
 
 /**
  * Description of UserRepositoryEloquent
