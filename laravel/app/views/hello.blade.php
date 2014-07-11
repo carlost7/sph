@@ -8,7 +8,7 @@
         </div>
         <div class="col-xs-6">
             <h1><span class="glyphicon glyphicon-ok"></span></h1>
-            {{ HTML::linkRoute('logout','Registrarse') }}
+            {{ HTML::linkRoute('user.register','Registrarse') }}
         </div>
     </div>
 @stop

@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration {
                   $table->timestamps();                  
                   $table->integer('role_id');
                   $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade')->onUpdate('cascade');
+                  $table->boolean('is_activo');
             });
       }
 

@@ -15,4 +15,10 @@ class Role Extends Eloquent{
     
     protected $table = 'roles';
     
+    protected $fillable = array('role');
+    
+    public function user(){
+            return $this->has_many('User','role_id','id');
+    }
+    
 }

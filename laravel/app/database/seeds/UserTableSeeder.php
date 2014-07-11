@@ -19,16 +19,19 @@ class UserTableSeeder extends Seeder {
             'email' => 'info@sphellar.com',
             'password' => Hash::make('carlos'),
             'role_id' => 1,
+            'is_activo' => true
         ));
         User::create(array(
             'email' => 'carlos.juarez@t7marketing.com',
             'password' => Hash::make('carlos'),
             'role_id' => 2,
+            'is_activo' => true
         ));
         User::create(array(
             'email' => 'carlos.juarez@wortev.com',
             'password' => Hash::make('carlos'),
             'role_id' => 3,
+            'is_activo' => false
         ));
     }
 

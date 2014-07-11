@@ -26,3 +26,6 @@ Route::post('logout',array('as'=>'logout','uses'=>'HomeController@doLogout'));
 
 //Reminder Controller
 Route::controller('password', 'RemindersController');
+
+Route::get('user/register',array('as'=>'user.register','uses'=>'UserController@register'));
+Route::post('user/register',array('as'=>'user.register','uses'=>'UserController@store'));
