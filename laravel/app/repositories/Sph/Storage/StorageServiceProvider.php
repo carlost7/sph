@@ -1,4 +1,6 @@
-<?php namespace Sph\Storage;
+<?php
+
+namespace Sph\Storage;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -10,11 +12,14 @@ use Illuminate\Support\ServiceProvider;
 class StorageServiceProvider extends ServiceProvider
 {
 
-    public function register()
-    {
-        $this->app->bind(
-                'Sph\Storage\User\UserRepository', 'Sph\Storage\User\UserRepositoryEloquent'
-        );
-    }
+        public function register()
+        {
+                $this->app->bind(
+                        'Sph\Storage\User\UserRepository', 'Sph\Storage\User\UserRepositoryEloquent'
+                );
+                $this->app->bind(
+                        'Sph\Storage\Client\ClientRepository', 'Sph\Storage\Client\ClientRepositoryEloquent'
+                );
+        }
 
 }

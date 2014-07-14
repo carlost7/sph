@@ -36,12 +36,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface
         protected $guarded = array('id', 'password');
 
         /*
-         * Relation with role
+         * Determine the type of user we have
          */
 
-        public function role()
+        public function userable()
         {
-                return $this->belongs_to('Role','role_id','id');
+                return $this->morphTo();
         }
 
 }

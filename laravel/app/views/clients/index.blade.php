@@ -1,0 +1,1 @@
+/var/www/sph/laravel/app/views/clients/index.blade.php

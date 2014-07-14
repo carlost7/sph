@@ -31,10 +31,17 @@ class SessionController extends \BaseController
          */
         public function store()
         {
-                if (Auth::attempt(array('email' => Input::get('email'), 
-                                        'password' => Input::get('password'))))
+                if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password'))))
                 {
-                        return Redirect::intended('/');
+                        $user = Auth::user();
+                        
+                        if(Auth::user()->userable != null){
+                                $type = get_class(Auth::user()->userable);
+                                dd($type);
+                        }else{
+                                return Redirect::intended('/');
+                        }
+                        
                 }
                 return Redirect::route('session.create')
                                 ->withInput()

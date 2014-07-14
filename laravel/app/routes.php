@@ -16,6 +16,12 @@ Route::get('/', function()
         return View::make('hello');
 });
 
+
+/*
+ * *******************************
+ *            Users Login
+ * *******************************
+ */
 Route::get('login', array(
     'uses' => 'SessionController@create',
     'as' => 'session.create'
@@ -29,14 +35,56 @@ Route::get('logout', array(
     'as' => 'session.destroy'
 ));
 
-Route::get('register', array(
+//Reminder Controller
+Route::controller('password', 'RemindersController');
+
+
+
+
+/*
+ * ****************************
+ *      Registry of users
+ * ****************************
+ */
+Route::get('register_index',array(
     'uses' => 'RegisterController@index',
     'as' => 'register.index'
 ));
-Route::post('register', array(
-    'uses' => 'RegisterController@store',
-    'as' => 'register.store'
+
+Route::get('register_client', array(
+    'uses' => 'RegisterController@register_client',
+    'as' => 'register.client'
+));
+Route::post('register_client', array(
+    'uses' => 'RegisterController@store_client',
+    'as' => 'register.store_client'
 ));
 
-//Reminder Controller
-Route::controller('password', 'RemindersController');
+Route::get('register_user', array(
+    'uses' => 'RegisterController@register_user',
+    'as' => 'register.user'
+));
+Route::post('register_user', array(
+    'uses' => 'RegisterController@store_user',
+    'as' => 'register.store_user'
+));
+
+Route::get('register_marketing', array(
+    'uses' => 'RegisterController@register_marketing',
+    'as' => 'register.marketing'
+));
+Route::post('register_marketing', array(
+    'uses' => 'RegisterController@store_marketing',
+    'as' => 'register.store_marketing'
+));
+
+
+/*
+ * ***********************
+ *     clients
+ * ***********************
+ */
+Route::resource('clients', 'ClientsController');
+
+
+

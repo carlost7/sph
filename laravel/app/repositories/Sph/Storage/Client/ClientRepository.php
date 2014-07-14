@@ -1,12 +1,12 @@
-<?php namespace Sph\Storage\User;
+<?php namespace Sph\Storage\Client;
 
-interface UserRepository
+interface ClientRepository
 {
     public function all();
     
     public function find($id);
     
-    public function create(array $user_model);
+    public function create(array $client_model);
     
     public function update($id, $input);
     

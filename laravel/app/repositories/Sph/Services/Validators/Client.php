@@ -13,13 +13,12 @@ namespace Sph\Services\Validators;
  *
  * @author carlos
  */
-class User extends Validator
+class Client extends Validator
 {
 
         public static $rules = array(
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|same:password',
-            'password_confirm' => 'required',
+            'nombre' => 'required',
+            'telefono' => 'required|numeric',            
         );
 
 }
