@@ -14,40 +14,50 @@ class ClientRepositoryEloquent implements ClientRepository
 
         public function all()
         {
-                return User::all();
+                return Client::all();
         }
 
         public function create(array $client_model)
         {
 
-                $client = new Client();
-                $client->name = $client_model['name'];
-                $client->telephone = $client_model['telephone'];
-                $client->is_active = $client_model['is_active'];
-                $client->token = $client_model['token'];
-                
-                if($client->save()){
-                    $client->user()->save($client_model['user']);    
-                    return $client;
+                $client = new Client($client_model);
+
+                if ($client->save())
+                {
+                        $client->user()->save($client_model['user']);
+                        return $client;
                 }
                 return null;
-                
         }
 
         public function delete($id)
         {
-                return User::destroy($id);
+                return Client::destroy($id);
         }
 
         public function find($id)
         {
-                return User::find($id);
+                return Client::find($id);
         }
 
-        public function update($id, $input)
+        public function update($id, array $client_model)
         {
-                return User::where($id)->update($user_model);
+                $client = Client::find($id);
+
+                if (isset($client))
+                {
+                        $client->fill($client_model);
+
+                        if ($client->save())
+                        {
+                                return $client;
+                        }
+                        else
+                        {
+                                return null;
+                        }
+                }
+                return null;
         }
 
-//put your code here
 }

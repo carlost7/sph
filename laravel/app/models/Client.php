@@ -4,7 +4,7 @@ class Client extends \Eloquent
 {
 
         // Don't forget to fill this array
-        protected $fillable = ['name', 'telephone'];
+        protected $fillable = ['name', 'telephone','is_active','token'];
 
         public function user()
         {

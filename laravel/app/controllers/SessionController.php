@@ -33,11 +33,9 @@ class SessionController extends \BaseController
         {
                 if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password'))))
                 {
-                        $user = Auth::user();
-                        
-                        if(Auth::user()->userable != null){
-                                $type = get_class(Auth::user()->userable);
-                                dd($type);
+
+                        if(is_a(Auth::user()->userable, get_class(Client))){
+                                return Redirect::intended('/');
                         }else{
                                 return Redirect::intended('/');
                         }

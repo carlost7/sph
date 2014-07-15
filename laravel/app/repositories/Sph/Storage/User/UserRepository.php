@@ -8,7 +8,7 @@ interface UserRepository
     
     public function create(array $user_model);
     
-    public function update($id, $input);
+    public function update($id, array $user_model);
     
     public function delete($id);    
             

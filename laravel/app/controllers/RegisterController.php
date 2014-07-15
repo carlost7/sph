@@ -42,12 +42,22 @@ class RegisterController extends \BaseController
                         $user = $this->user->create($user_model);
                         if (isset($user))
                         {
-                                $token = 'abcd';
+                                $token = sha1(time());                                
                                 $client_model = array('name' => Input::get('nombre'), 'telephone' => Input::get('telefono'), 'is_active' => false, 'token' => $token, 'user' => $user);
                                 $client = $this->client->create($client_model);
                                 if (isset($client))
                                 {
-                                        Session::flash('message', 'El usuario se creo');
+                                        $data = array('nombre' => $client->name,
+                                            'token' => $client->token,
+                                            'id' => $client->id,
+                                        );
+
+                                        Mail::queue('emails.auth.confirm_new_user', $data, function($message) use ($user, $client)
+                                        {
+                                                $message->to($user->email, $client->name)->subject('Confirmación de Registro de Sphellar');
+                                        });
+                                        Session::flash('message', 'Usuario creado con exito, revisa tu correo para activarlo');
+                                        
                                         return Redirect::to('/');
                                 }
                         }
@@ -59,6 +69,30 @@ class RegisterController extends \BaseController
                 return Redirect::route('register.client')->withInput()->withErrors($validationMessages);
         }
 
+        /*
+         * Activate client
+         */
+
+        public function activate_client($token, $id)
+        {
+                $client = $this->client->find($id);
+                if(isset($client)){
+                        if($token==$client->token){
+                                $client_model = array('is_active'=>true,'token'=>'');
+                                $client = $this->client->update($id, $client_model);
+                                if(isset($client)){
+                                        return View::make('register.confirmation');
+                                }                                
+                        }else{
+                                Session::flash('error','El token no es el mismo');
+                                return View::make('register.confirmation')->with('confirmation',false);
+                        }
+                }else{
+                        Session::flash('error','No existe el id');
+                        return View::make('regoster.confirmation')->with('confirmation',false);
+                }
+        }                
+        
         /*
          * Display the form for user registry
          */

@@ -17,6 +17,8 @@ Route::get('/', function()
 });
 
 
+
+
 /*
  * *******************************
  *            Users Login
@@ -46,7 +48,7 @@ Route::controller('password', 'RemindersController');
  *      Registry of users
  * ****************************
  */
-Route::get('register_index',array(
+Route::get('register_index', array(
     'uses' => 'RegisterController@index',
     'as' => 'register.index'
 ));
@@ -58,6 +60,11 @@ Route::get('register_client', array(
 Route::post('register_client', array(
     'uses' => 'RegisterController@store_client',
     'as' => 'register.store_client'
+));
+
+Route::get('activate_client/{token?}/{id?}', array(
+    'uses' => 'RegisterController@activate_client',
+    'as' => 'register.activate_client'
 ));
 
 Route::get('register_user', array(

@@ -43,10 +43,25 @@ class UserRepositoryEloquent implements UserRepository
                 return User::find($id);
         }
 
-        public function update($id, $input)
+        public function update($id, array $user_model)
         {
-                return User::where($id)->update($user_model);
+                $user = User::find($id);
+
+                if (isset($user))
+                {
+                        $user->fill($user_model);
+
+                        if ($client->save())
+                        {
+                                return $client;
+                        }
+                        else
+                        {
+                                return null;
+                        }
+                }
+
+                return null;
         }
 
-//put your code here
 }

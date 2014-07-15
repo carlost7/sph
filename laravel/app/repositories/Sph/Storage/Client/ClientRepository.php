@@ -8,7 +8,7 @@ interface ClientRepository
     
     public function create(array $client_model);
     
-    public function update($id, $input);
+    public function update($id, array $client_model);
     
     public function delete($id);    
             
