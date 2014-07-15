@@ -34,8 +34,9 @@ class SessionController extends \BaseController
                 if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password'))))
                 {
 
-                        if(is_a(Auth::user()->userable, get_class(Client))){
-                                return Redirect::intended('/');
+                        if(is_a(Auth::user()->userable, Client::class)){
+                                Session::set('is_client',true);
+                                return Redirect::intended('clients');
                         }else{
                                 return Redirect::intended('/');
                         }
@@ -53,7 +54,7 @@ class SessionController extends \BaseController
          * @param  int  $id
          * @return Response
          */
-        public function destroy($id)
+        public function destroy()
         {
                 Auth::logout();
                 return View::make('session.destroy');

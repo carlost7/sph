@@ -46,14 +46,19 @@ class UserRepositoryEloquent implements UserRepository
         public function update($id, array $user_model)
         {
                 $user = User::find($id);
-
                 if (isset($user))
                 {
-                        $user->fill($user_model);
-
-                        if ($client->save())
+                        if(isset($user_model['email'])){
+                                $user->email = $user_model['email'];
+                        }
+                       
+                        if(isset($user_model['password'])){
+                                $user->password = \Hash::make($user_model['password']);
+                        }
+                        
+                        if ($user->save())
                         {
-                                return $client;
+                                return $user;
                         }
                         else
                         {

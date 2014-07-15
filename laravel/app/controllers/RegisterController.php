@@ -33,8 +33,8 @@ class RegisterController extends \BaseController
          */
         public function store_client()
         {
-                $validateUser = new Sph\Services\Validators\User;
-                $validateClient = new Sph\Services\Validators\Client;
+                $validateUser = new Sph\Services\Validators\User(Input::all(),'save');
+                $validateClient = new Sph\Services\Validators\Client(Input::all(),'save');
 
                 if ($validateUser->passes() & $validateClient->passes())
                 {
@@ -109,7 +109,7 @@ class RegisterController extends \BaseController
         public function store_user()
         {
 
-                $validateUser = new Sph\Services\Validators\User;
+                $validateUser = new Sph\Services\Validators\User(Input::all(),'save');
                 if ($validateUser->passes())
                 {
                         $user_model = array('password' => Input::get('password'), 'email' => Input::get('email'), 'userable' => null);

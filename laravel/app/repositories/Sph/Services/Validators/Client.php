@@ -17,8 +17,13 @@ class Client extends Validator
 {
 
         public static $rules = array(
-            'nombre' => 'required',
-            'telefono' => 'required|numeric',            
+            "save" => array(
+                'nombre' => 'required',
+                'telefono' => 'required|numeric',
+            ),
+            "update" => array(
+                'telefono' => 'numeric'
+            ),
         );
 
 }

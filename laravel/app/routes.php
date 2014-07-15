@@ -21,7 +21,7 @@ Route::get('/', function()
 
 /*
  * *******************************
- *            Users Login
+ *            Users Session
  * *******************************
  */
 Route::get('login', array(
@@ -91,7 +91,26 @@ Route::post('register_marketing', array(
  *     clients
  * ***********************
  */
-Route::resource('clients', 'ClientsController');
+
+Route::get('/clients',array(
+    'uses' => 'ClientsController@index',
+    'as' => 'clients.index'
+));
+
+Route::get('/clients_edit',array(
+    'uses' => 'ClientsController@edit',
+    'as' => 'clients.edit'
+));
+
+Route::post('/clients_update',array(
+    'uses' => 'ClientsController@update',
+    'as' => 'clients.update'
+));
+
+Route::post('/clients_delete',array(
+    'uses' => 'ClientsController@destroy',
+    'as' => 'clients.destroy'
+));
 
 
 

@@ -1,107 +1,97 @@
 <?php
 
-class ClientsController extends \BaseController {
+use Sph\Storage\User\UserRepository as User;
+use Sph\Storage\Client\ClientRepository as Client;
 
-	/**
-	 * Display a listing of clients
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$clients = Client::all();
+class ClientsController extends \BaseController
+{
 
-		return View::make('clients.index', compact('clients'));
-	}
+        protected $user;
+        protected $client;
 
-	/**
-	 * Show the form for creating a new client
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('clients.create');
-	}
+        public function __construct(User $user, Client $client)
+        {
+                $this->user = $user;
+                $this->client = $client;
+        }
 
-	/**
-	 * Store a newly created client in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$validator = Validator::make($data = Input::all(), Client::$rules);
+        /**
+         * Display a listing of clients
+         *
+         * @return Response
+         */
+        public function index()
+        {
+                return View::make('clients.index');
+        }
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+        /**
+         * Show the form for editing the specified client.
+         *
+         * @param  int  $id
+         * @return Response
+         */
+        public function edit()
+        {
+                return View::make('clients.edit');
+        }
 
-		Client::create($data);
+        /**
+         * Update the specified client in storage.
+         *
+         * @param  int  $id
+         * @return Response
+         */
+        public function update()
+        {
+                $validateUser = new Sph\Services\Validators\User(Input::all(), 'update');
+                $validateClient = new Sph\Services\Validators\Client(Input::all(), 'update');
 
-		return Redirect::route('clients.index');
-	}
+                if ($validateUser->passes() & $validateClient->passes())
+                {
+                        $user_model = array();
+                        if("" !== Input::get('password')){
+                                $user_model = array_add($user_model, "password", Input::get('password'));
+                        }
+                        if("" !== Input::get('email')){
+                                $user_model = array_add($user_model, "email", Input::get('email'));
+                        }
+                        $user = $this->user->update(Auth::user()->id, $user_model);
+                        if (isset($user))
+                        {
+                                $client_model = array();
+                                if("" !== Input::get('nombre')){
+                                        $client_model = array_add($client_model, "name", Input::get('nombre'));
+                                }
+                                if("" !== Input::get('telefono')){
+                                        $client_model = array_add($client_model, "telephone", Input::get('telefono'));
+                                }
+                                $client = $this->client->update(Auth::user()->userable->id, $client_model);
+                                if (isset($client))
+                                {
+                                        Session::flash('message', 'Usuario modificado con exito');
+                                        return Redirect::route('clients.index');
+                                }
+                        }
+                }
+                $user_messages = ($validateUser->getErrors() != null) ? $validateUser->getErrors()->all() : array();
+                $client_messages = ($validateClient->getErrors() != null) ? $validateClient->getErrors()->all() : array();
+                $validationMessages = array_merge_recursive($user_messages, $client_messages);
 
-	/**
-	 * Display the specified client.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$client = Client::findOrFail($id);
+                return Redirect::back()->withInput()->withErrors($validationMessages);
+        }
 
-		return View::make('clients.show', compact('client'));
-	}
+        /**
+         * Remove the specified client from storage.
+         *
+         * @param  int  $id
+         * @return Response
+         */
+        public function destroy($id)
+        {
+                Client::destroy($id);
 
-	/**
-	 * Show the form for editing the specified client.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$client = Client::find($id);
-
-		return View::make('clients.edit', compact('client'));
-	}
-
-	/**
-	 * Update the specified client in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$client = Client::findOrFail($id);
-
-		$validator = Validator::make($data = Input::all(), Client::$rules);
-
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
-
-		$client->update($data);
-
-		return Redirect::route('clients.index');
-	}
-
-	/**
-	 * Remove the specified client from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		Client::destroy($id);
-
-		return Redirect::route('clients.index');
-	}
+                return Redirect::route('clients.index');
+        }
 
 }

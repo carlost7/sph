@@ -50,7 +50,7 @@ class ClientRepositoryEloquent implements ClientRepository
 
                         if ($client->save())
                         {
-                                return $client;
+                                return $client;                                
                         }
                         else
                         {
