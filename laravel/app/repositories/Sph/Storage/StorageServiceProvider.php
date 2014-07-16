@@ -20,6 +20,9 @@ class StorageServiceProvider extends ServiceProvider
                 $this->app->bind(
                         'Sph\Storage\Client\ClientRepository', 'Sph\Storage\Client\ClientRepositoryEloquent'
                 );
+                $this->app->bind(
+                        'Sph\Storage\Negocio\NegocioRepository', 'Sph\Storage\Negocio\NegocioRepositoryEloquent'
+                );
         }
 
 }

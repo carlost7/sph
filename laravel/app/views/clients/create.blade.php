@@ -1,1 +1,5 @@
-/var/www/sph/laravel/app/views/clients/create.blade.php
+@extends('layouts.client_dashboard_master')
+
+@section('content')
+
+@stop

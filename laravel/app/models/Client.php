@@ -10,5 +10,9 @@ class Client extends \Eloquent
         {
                 return $this->morphOne('User','userable');
         }
+        
+        public function negocios(){
+              return $this->hasMany('Negocio','client_id','id');
+        }
 
 }

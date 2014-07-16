@@ -44,4 +44,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface
                 return $this->morphTo();
         }
 
+        
+        
 }

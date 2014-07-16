@@ -8,7 +8,7 @@
 
                 <div>
                         <p>Para confirmar tus datos da click en el siguiente link: </p>
-                        {{ HTML::linkRoute('register.activate_client','Cambiar Password',array($token,$id))}}<br/>                        
+                        {{ HTML::linkRoute('register.activate_client','Confirmar registro',array($token,$id))}}<br/>                        
                         <p>Una vez confirmado, podras ingresar con tus datos.</p>
                 </div>
         </body>

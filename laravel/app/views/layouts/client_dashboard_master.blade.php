@@ -59,16 +59,16 @@
                               <div class="row">
                                     <div class="col-xs-12 hidden-sm hidden-md hidden-lg">
                                           <ul class="nav nav-pills">
-                                                <li><a href="#">Negocios</a></li>
+                                                <li {{ Request::is('clientes_negocios*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_negocios.index','Negocios',null) }}</li>
                                                 <li><a href="#">Eventos</a></li>
                                                 <li><a href="#">Cupones</a></li>
-                                                <li><a href="#">Pagos</a></li>
+                                                <li ><a href="#">Pagos</a></li>
                                                 <li {{ Request::is('clients*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clients.index','Cuenta',null) }}</li>
                                           </ul>
                                     </div>
                                     <div class="col-md-3 hidden-xs">
                                           <ul class="nav nav-pills nav-stacked">
-                                                <li><a href="#">Negocios</a></li>
+                                                <li {{ Request::is('clientes_negocios*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_negocios.index','Negocios',null) }}</li>
                                                 <li><a href="#">Eventos</a></li>
                                                 <li><a href="#">Cupones</a></li>
                                                 <li><a href="#">Pagos</a></li>

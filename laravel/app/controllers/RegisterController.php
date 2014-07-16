@@ -81,7 +81,7 @@ class RegisterController extends \BaseController
                                 $client_model = array('is_active'=>true,'token'=>'');
                                 $client = $this->client->update($id, $client_model);
                                 if(isset($client)){
-                                        return View::make('register.confirmation');
+                                        return View::make('register.confirmation')->with('confirmation',true);
                                 }                                
                         }else{
                                 Session::flash('error','El token no es el mismo');

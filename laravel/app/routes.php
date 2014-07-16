@@ -113,4 +113,10 @@ Route::post('/clients_delete',array(
 ));
 
 
+/*
+ * *************************
+ *    Negocios de Cliente
+ * *************************
+ */
 
+Route::resource('clientes_negocios','ClientsNegociosController');
