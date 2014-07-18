@@ -17,8 +17,9 @@
 
       <li class="list-group-item">
             <h3 class="text-left">                  
-                  {{ HTML::linkRoute("clientes_promociones.show",$promocion->nombre,$promocion->id) }}
+                  {{ HTML::linkRoute("clientes_promociones.show",$promocion->nombre,$promocion->id) }}                  
             </h3>
+            <p>{{ date('d-m-Y',strtotime($promocion->inicio)).' - '.date('d-m-Y',strtotime($promocion->fin)) }}</p>
             <p class="text-right">
                   {{ HTML::linkRoute('clientes_promociones.edit','editar',$promocion->id,array('class'=>'btn btn-sm btn-info')) }}       
             </p>

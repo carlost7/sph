@@ -53,7 +53,7 @@ class ClientsPromocionesController extends \BaseController
                   if (isset($promocion))
                   {
                         Session::flash('message', 'Promoción agregada con éxito');
-                        return Redirect::route('clientes_eventos.index');
+                        return Redirect::route('clientes_promociones.index');
                   }
                   else
                   {
@@ -106,7 +106,7 @@ class ClientsPromocionesController extends \BaseController
                   if (isset($promocion))
                   {
                         Session::flash('message', 'Promoción editada con éxito');
-                        return Redirect::route('clientes_eventos.index');
+                        return Redirect::route('clientes_promociones.index');
                   }
                   else
                   {
@@ -132,7 +132,7 @@ class ClientsPromocionesController extends \BaseController
             {
                   Session::flash('error', 'No se pudo eliminar la promoción');
             }
-            return Redirect::route('clientes_eventos.index');
+            return Redirect::route('clientes_promociones.index');
       }
 
 }
