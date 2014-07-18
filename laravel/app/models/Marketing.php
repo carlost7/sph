@@ -1,5 +1,8 @@
 <?php
 
-class Marketing extends \Eloquent {
-	protected $fillable = [];
+class Marketing extends \Eloquent
+{
+
+      protected $fillable = [];
+
 }

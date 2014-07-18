@@ -17,10 +17,12 @@ class CreateEventosTable extends Migration
             {
                   $table->increments('id');
                   $table->string('nombre');
+                  $table->string('direccion');
                   $table->text('descripcion');
                   $table->datetime('inicio');
                   $table->datetime('fin');
                   $table->integer('client_id')->unsigned();
+                  $table->boolean('publicar');
                   $table->timestamps();
                   $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade')->onUpdate('cascade');
             });

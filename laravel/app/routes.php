@@ -120,3 +120,19 @@ Route::post('/clients_delete',array(
  */
 
 Route::resource('clientes_negocios','ClientsNegociosController');
+
+/*
+ * *************************
+ *    Eventos de Cliente
+ * *************************
+ */
+
+Route::resource('clientes_eventos','ClientsEventosController');
+
+/*
+ * *************************
+ *    Promociones de Cliente
+ * *************************
+ */
+
+Route::resource('clientes_promociones','ClientsPromocionesController');

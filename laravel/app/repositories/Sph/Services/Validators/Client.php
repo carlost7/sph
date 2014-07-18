@@ -16,14 +16,14 @@ namespace Sph\Services\Validators;
 class Client extends Validator
 {
 
-        public static $rules = array(
-            "save" => array(
-                'nombre' => 'required',
-                'telefono' => 'required|numeric',
-            ),
-            "update" => array(
-                'telefono' => 'numeric'
-            ),
-        );
+      public static $rules = array(
+          "save" => array(
+              'nombre' => 'required',
+              'telefono' => 'required|numeric',
+          ),
+          "update" => array(
+              'telefono' => 'numeric'
+          ),
+      );
 
 }

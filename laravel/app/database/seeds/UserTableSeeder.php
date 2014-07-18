@@ -11,28 +11,30 @@
  *
  * @author carlos
  */
-class UserTableSeeder extends Seeder {
+class UserTableSeeder extends Seeder
+{
 
-    public function run() {
-        DB::table('users')->delete();
-        User::create(array(
-            'email' => 'carlos.juarez@t7marketing.com',
-            'password' => Hash::make('klendactu'),
-            'role_id' => 1,
-            'is_activo' => true
-        ));
-        User::create(array(
-            'email' => 'carlos.juarez@t7marketing.com',
-            'password' => Hash::make('carlos'),
-            'role_id' => 2,
-            'is_activo' => true
-        ));
-        User::create(array(
-            'email' => 'carlos.juarez@wortev.com',
-            'password' => Hash::make('carlos'),
-            'role_id' => 3,
-            'is_activo' => false
-        ));
-    }
+      public function run()
+      {
+            DB::table('users')->delete();
+            User::create(array(
+                'email' => 'carlos.juarez@t7marketing.com',
+                'password' => Hash::make('klendactu'),
+                'role_id' => 1,
+                'is_activo' => true
+            ));
+            User::create(array(
+                'email' => 'carlos.juarez@t7marketing.com',
+                'password' => Hash::make('carlos'),
+                'role_id' => 2,
+                'is_activo' => true
+            ));
+            User::create(array(
+                'email' => 'carlos.juarez@wortev.com',
+                'password' => Hash::make('carlos'),
+                'role_id' => 3,
+                'is_activo' => false
+            ));
+      }
 
 }

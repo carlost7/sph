@@ -35,6 +35,8 @@
 
       @endforeach
 </ul>
+@else
+<h3>Aún no has agregado ningún negocio</h3>
 
 @endif
 

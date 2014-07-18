@@ -8,42 +8,40 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 class User extends Eloquent implements UserInterface, RemindableInterface
 {
 
-        use UserTrait,
-            RemindableTrait;
+      use UserTrait,
+          RemindableTrait;
 
-        /**
-         * The database table used by the model.
-         *
-         * @var string
-         */
-        protected $table = 'users';
+      /**
+       * The database table used by the model.
+       *
+       * @var string
+       */
+      protected $table = 'users';
 
-        /**
-         * The attributes excluded from the model's JSON form.
-         *
-         * @var array
-         */
-        protected $hidden = array('password', 'remember_token');
+      /**
+       * The attributes excluded from the model's JSON form.
+       *
+       * @var array
+       */
+      protected $hidden = array('password', 'remember_token');
 
-        /*
-         * Create fillable for our data
-         */
-        protected $fillable = array('nombre', 'email', 'telefono', 'role_id', 'is_activo');
+      /*
+       * Create fillable for our data
+       */
+      protected $fillable = array('nombre', 'email', 'telefono', 'role_id', 'is_activo');
 
-        /*
-         * Create guarded for our data
-         */
-        protected $guarded = array('id', 'password');
+      /*
+       * Create guarded for our data
+       */
+      protected $guarded = array('id', 'password');
 
-        /*
-         * Determine the type of user we have
-         */
+      /*
+       * Determine the type of user we have
+       */
 
-        public function userable()
-        {
-                return $this->morphTo();
-        }
+      public function userable()
+      {
+            return $this->morphTo();
+      }
 
-        
-        
 }

@@ -1,12 +1,16 @@
 <?php
 
-class Negocio extends \Eloquent {
+class Negocio extends \Eloquent
+{
 
-	// Don't forget to fill this array
-	protected $fillable = ['nombre','direccion','telefono','descripcion'];
+      protected $table = 'negocios';
       
-      public function client(){
-            return $this->belongsTo('Client','client_id','id');
+      // Don't forget to fill this array
+      protected $fillable = ['nombre', 'direccion', 'telefono', 'descripcion'];
+
+      public function client()
+      {
+            return $this->belongsTo('Client', 'client_id', 'id');
       }
 
 }

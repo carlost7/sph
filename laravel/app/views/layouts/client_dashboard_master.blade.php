@@ -11,6 +11,7 @@
             <meta name="viewport" content="width=device-width, initial-scale=1">
             {{ HTML::style('css/bootstrap.css') }}
             {{ HTML::style('css/bootstrap-theme.css') }}
+            {{ HTML::style('css/bootstrap-datetimepicker.min.css') }}
             {{ HTML::style('css/main.css') }}
             {{ HTML::script('js/vendor/modernizr-2.6.2-respond-1.1.0.min.js') }}
             <script>
@@ -60,8 +61,8 @@
                                     <div class="col-xs-12 hidden-sm hidden-md hidden-lg">
                                           <ul class="nav nav-pills">
                                                 <li {{ Request::is('clientes_negocios*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_negocios.index','Negocios',null) }}</li>
-                                                <li><a href="#">Eventos</a></li>
-                                                <li><a href="#">Cupones</a></li>
+                                                <li {{ Request::is('clientes_eventos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_eventos.index','Eventos',null) }}</li>
+                                                <li {{ Request::is('clientes_promociones*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_promociones.index','Promociones',null) }}</li>
                                                 <li ><a href="#">Pagos</a></li>
                                                 <li {{ Request::is('clients*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clients.index','Cuenta',null) }}</li>
                                           </ul>
@@ -69,8 +70,8 @@
                                     <div class="col-md-3 hidden-xs">
                                           <ul class="nav nav-pills nav-stacked">
                                                 <li {{ Request::is('clientes_negocios*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_negocios.index','Negocios',null) }}</li>
-                                                <li><a href="#">Eventos</a></li>
-                                                <li><a href="#">Cupones</a></li>
+                                                <li {{ Request::is('clientes_eventos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_eventos.index','Eventos',null) }}</li>
+                                                <li {{ Request::is('clientes_promociones*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_promociones.index','Promociones',null) }}</li>
                                                 <li><a href="#">Pagos</a></li>
                                                 <li {{ Request::is('clients*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clients.index','Cuenta',null) }}</li>
                                           </ul>
@@ -100,6 +101,7 @@
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>                
             {{ HTML::script('js/vendor/bootstrap.min.js') }}
             {{ HTML::script('js/main.js') }}
-            @section('scripts')@show
+            @section('scripts')
+            @show
       </body>
 </html>

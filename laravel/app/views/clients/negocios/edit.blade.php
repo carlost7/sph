@@ -29,9 +29,9 @@
 
 
 @else
-<h2>No seleccionó ningún negocio para editar</h2>
+<h2>No seleccionó ningún evento para editar</h2>
 
 @endif
-<h2></h2>
+
 
 @stop

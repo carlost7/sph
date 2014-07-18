@@ -1,13 +1,15 @@
 <?php
 
-class Evento extends \Eloquent {
+class Evento extends \Eloquent
+{
 
-	// Add your validation rules here
-	public static $rules = [
-		// 'title' => 'required'
-	];
+      protected $table = 'eventos';
+      // Don't forget to fill this array
+      protected $fillable = ['nombre', 'direccion', 'descripcion', 'inicio', 'fin'];
 
-	// Don't forget to fill this array
-	protected $fillable = [];
+      public function client()
+      {
+            return $this->belongsTo('Client', 'client_id', 'id');
+      }
 
 }

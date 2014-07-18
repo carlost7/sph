@@ -16,17 +16,17 @@ namespace Sph\Services\Validators;
 class User extends Validator
 {
 
-        public static $rules = array(
-            "save" => array(
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required||alpha_dash|min:6',
-                'password_confirm' => 'required|same:password',
-            ),
-            "update" => array(
-                'email' => 'email',
-                'password' => 'alpha_dash|min:6',
-                'password_confirm' => 'same:password',
-            ),
-        );
+      public static $rules = array(
+          "save" => array(
+              'email' => 'required|email|unique:users,email',
+              'password' => 'required||alpha_dash|min:6',
+              'password_confirm' => 'required|same:password',
+          ),
+          "update" => array(
+              'email' => 'email',
+              'password' => 'alpha_dash|min:6',
+              'password_confirm' => 'same:password',
+          ),
+      );
 
 }
