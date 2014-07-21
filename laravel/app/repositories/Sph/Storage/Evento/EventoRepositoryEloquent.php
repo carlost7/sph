@@ -64,4 +64,17 @@ class EventoRepositoryEloquent implements EventoRepository
             return null;
       }
 
+      public function agregar_pago($evento_model, $pago_model)
+      {
+
+            if ($evento_model->pago()->save($pago_model))
+            {
+                  return $evento_model;
+            }
+            else
+            {
+                  return null;
+            }
+      }
+      
 }

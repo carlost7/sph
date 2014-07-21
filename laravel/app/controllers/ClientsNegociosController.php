@@ -1,15 +1,18 @@
 <?php
 
 use Sph\Storage\Negocio\NegocioRepository as Negocio;
+use Sph\Storage\Pago\PagoRepository as Pago;
 
 class ClientsNegociosController extends \BaseController
 {
 
       protected $negocio;
+      protected $pago;
 
-      public function __construct(Negocio $negocio)
+      public function __construct(Negocio $negocio, Pago $pago)
       {
             $this->negocio = $negocio;
+            $this->pago = $pago;
       }
 
       /**
@@ -52,8 +55,21 @@ class ClientsNegociosController extends \BaseController
                   $negocio = $this->negocio->create($negocio_model);
                   if (isset($negocio))
                   {
-                        Session::flash('message', 'Negocio agregado con éxito');
-                        return Redirect::route('clientes_negocios.index');
+                        $pago_model = array(
+                            'nombre' => 'Publicación de Negocio',
+                            'descripcion' => $negocio->nombre,
+                            'monto' => 100.00,
+                            'client' => Auth::user()->userable,
+                        );
+                        $pago = $this->pago->create($pago_model);
+                        if (isset($pago))
+                        {
+                              if ($this->negocio->agregar_pago($negocio, $pago))
+                              {
+                                    Session::flash('message', 'Negocio agregado con éxito');
+                                    return Redirect::route('clientes_negocios.index');
+                              }
+                        }
                   }
                   else
                   {

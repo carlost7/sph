@@ -63,7 +63,7 @@
                                                 <li {{ Request::is('clientes_negocios*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_negocios.index','Negocios',null) }}</li>
                                                 <li {{ Request::is('clientes_eventos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_eventos.index','Eventos',null) }}</li>
                                                 <li {{ Request::is('clientes_promociones*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_promociones.index','Promociones',null) }}</li>
-                                                <li ><a href="#">Pagos</a></li>
+                                                <li {{ Request::is('clientes_pagos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_pagos.index','Pagos',null) }}</li>
                                                 <li {{ Request::is('clients*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clients.index','Cuenta',null) }}</li>
                                           </ul>
                                     </div>
@@ -72,7 +72,7 @@
                                                 <li {{ Request::is('clientes_negocios*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_negocios.index','Negocios',null) }}</li>
                                                 <li {{ Request::is('clientes_eventos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_eventos.index','Eventos',null) }}</li>
                                                 <li {{ Request::is('clientes_promociones*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_promociones.index','Promociones',null) }}</li>
-                                                <li><a href="#">Pagos</a></li>
+                                                <li {{ Request::is('clientes_pagos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_pagos.index','Pagos',null) }}</li>
                                                 <li {{ Request::is('clients*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clients.index','Cuenta',null) }}</li>
                                           </ul>
                                     </div>

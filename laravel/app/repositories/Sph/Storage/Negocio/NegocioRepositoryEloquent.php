@@ -61,4 +61,17 @@ class NegocioRepositoryEloquent implements NegocioRepository
             return null;
       }
 
+      public function agregar_pago($negocio_model, $pago_model)
+      {
+
+            if ($negocio_model->pago()->save($pago_model))
+            {
+                  return $negocio_model;
+            }
+            else
+            {
+                  return null;
+            }
+      }
+      
 }

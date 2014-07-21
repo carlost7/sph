@@ -14,4 +14,6 @@ interface NegocioRepository
       public function update($id, array $negocio_model);
 
       public function delete($id);
+      
+      public function agregar_pago($negocio_model,$pago_model);
 }

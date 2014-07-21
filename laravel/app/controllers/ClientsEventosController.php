@@ -1,16 +1,19 @@
 <?php
 
 use Sph\Storage\Evento\EventoRepository as Evento;
+use Sph\Storage\Pago\PagoRepository as Pago;
 use Carbon\Carbon;
 
 class ClientsEventosController extends \BaseController
 {
 
       protected $evento;
+      protected $pago;
 
-      public function __construct(Evento $evento)
+      public function __construct(Evento $evento, Pago $pago)
       {
             $this->evento = $evento;
+            $this->pago = $pago;
       }
 
       /**
@@ -52,8 +55,21 @@ class ClientsEventosController extends \BaseController
                   $evento = $this->evento->create($evento_model);
                   if (isset($evento))
                   {
-                        Session::flash('message', 'Evento agregado con éxito');
-                        return Redirect::route('clientes_eventos.index');
+                        $pago_model = array(
+                            'nombre' => 'Publicación de Evento',
+                            'descripcion' => $evento->nombre,
+                            'monto' => 100.00,
+                            'client' => Auth::user()->userable,
+                        );
+                        $pago = $this->pago->create($pago_model);
+                        if (isset($pago))
+                        {
+                              if ($this->evento->agregar_pago($evento, $pago))
+                              {
+                                    Session::flash('message', 'Evento agregado con éxito');
+                                    return Redirect::route('clientes_eventos.index');
+                              }
+                        }
                   }
                   else
                   {

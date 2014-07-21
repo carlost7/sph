@@ -26,5 +26,10 @@ class Client extends \Eloquent
       {
             return $this->hasMany('Promocion', 'client_id', 'id');
       }
+      
+      public function pagos()
+      {
+            return $this->hasMany('Pago', 'client_id', 'id');
+      }
 
 }

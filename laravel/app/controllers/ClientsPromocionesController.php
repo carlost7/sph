@@ -1,16 +1,19 @@
 <?php
 
 use Sph\Storage\Promocion\PromocionRepository as Promocion;
+use Sph\Storage\Pago\PagoRepository as Pago;
 use Carbon\Carbon;
 
 class ClientsPromocionesController extends \BaseController
 {
 
       protected $promocion;
+      protected $pago;
 
-      public function __construct(Promocion $promocion)
+      public function __construct(Promocion $promocion, Pago $pago)
       {
             $this->promocion = $promocion;
+            $this->pago = $pago;
       }
 
       /**
@@ -20,7 +23,7 @@ class ClientsPromocionesController extends \BaseController
        */
       public function index()
       {
-            $promociones = Auth::user()->userable->promociones;            
+            $promociones = Auth::user()->userable->promociones;
             return View::make('clients.promociones.index')->with("promociones", $promociones);
       }
 
@@ -48,12 +51,24 @@ class ClientsPromocionesController extends \BaseController
                   $promocion_model = Input::all();
                   $promocion_model = array_add($promocion_model, 'client', Auth::user()->userable);
                   $promocion_model = array_add($promocion_model, 'publicar', false);
-
                   $promocion = $this->promocion->create($promocion_model);
                   if (isset($promocion))
                   {
-                        Session::flash('message', 'Promoción agregada con éxito');
-                        return Redirect::route('clientes_promociones.index');
+                        $pago_model = array(
+                            'nombre' => 'Publicación de promoción',
+                            'descripcion' => Input::get('nombre'),
+                            'monto' => 100.00,
+                            'client' => Auth::user()->userable,
+                        );
+                        $pago = $this->pago->create($pago_model);
+                        if (isset($pago))
+                        {
+                              if($this->promocion->agregar_pago($promocion, $pago)){
+                                    Session::flash('message', 'Promoción agregada con éxito');
+                                    return Redirect::route('clientes_promociones.index');                                    
+                              }
+                        }
+                        Session::flash('error', 'Error al agregar el pago');
                   }
                   else
                   {

@@ -12,4 +12,8 @@ class Evento extends \Eloquent
             return $this->belongsTo('Client', 'client_id', 'id');
       }
 
+      public function pago(){            
+            return $this->morphOne('Pago', 'pagable');
+      }
+      
 }

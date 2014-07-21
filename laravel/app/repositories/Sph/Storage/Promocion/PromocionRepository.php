@@ -14,4 +14,7 @@ interface PromocionRepository
       public function update($id, array $evento_model);
 
       public function delete($id);
+      
+      public function agregar_pago($promocion_model,$pago_model);
+      
 }

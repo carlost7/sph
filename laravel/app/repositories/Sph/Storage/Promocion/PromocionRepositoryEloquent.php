@@ -64,4 +64,17 @@ class PromocionRepositoryEloquent implements PromocionRepository
             return null;
       }
 
+      public function agregar_pago($promocion_model, $pago_model)
+      {
+
+            if ($promocion_model->pago()->save($pago_model))
+            {
+                  return $promocion_model;
+            }
+            else
+            {
+                  return null;
+            }
+      }
+
 }

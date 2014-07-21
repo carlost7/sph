@@ -136,3 +136,10 @@ Route::resource('clientes_eventos','ClientsEventosController');
  */
 
 Route::resource('clientes_promociones','ClientsPromocionesController');
+
+/*
+ * *************************
+ *    Promociones de Cliente
+ * *************************
+ */
+Route::resource('clientes_pagos', 'ClientsPagosController');
