@@ -99,9 +99,8 @@ class ClientsEventosController extends \BaseController
        */
       public function edit($id)
       {
-            $evento = $this->evento->find($id);
-
-            return View::make('clients.eventos.edit')->with('evento', $evento);
+            $evento = $this->evento->find($id);                        
+            return View::make('clients.eventos.edit')->with(array('evento'=>$evento));
       }
 
       /**
@@ -113,10 +112,14 @@ class ClientsEventosController extends \BaseController
       public function update($id)
       {
             $validatorEvento = new Sph\Services\Validators\Evento(Input::all(), 'update');
+            $validatorEventoEspecial = new Sph\Services\Validators\Evento_especial(Input::all(), 'update');
 
-            if ($validatorEvento->passes())
+            if ($validatorEvento->passes() & $validatorEventoEspecial->passes())
             {
                   $evento_model = Input::all();
+                  $especial = array('imagenes'=>Input::get('imagenes'));
+                  
+                  $evento_model = array_add($evento_model, 'especial', $especial);
 
                   $evento = $this->evento->update($id, $evento_model);
                   if (isset($evento))
@@ -129,7 +132,12 @@ class ClientsEventosController extends \BaseController
                         Session::flash('error', 'Error al agregar el evento');
                   }
             }
-            return Redirect::back()->withErrors($validatorEvento->getErrors())->withInput();
+            
+            $evento_messages = ($validatorEvento->getErrors() != null) ? $validatorEventoEspecial->getErrors()->all() : array();
+            $evento_especial_messages = ($validatorEventoEspecial->getErrors() != null) ? $validatorEventoEspecial->getErrors()->all() : array();
+            $validationMessages = array_merge_recursive($evento_messages, $evento_especial_messages);
+            
+            return Redirect::back()->withErrors($validationMessages)->withInput();
       }
 
       /**

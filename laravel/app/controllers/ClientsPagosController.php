@@ -20,7 +20,7 @@ class ClientsPagosController extends \BaseController
        */
       public function index()
       {
-            $pagos = Auth::user()->userable->pagos;            
+            $pagos = Auth::user()->userable->pagos->sortByDesc('created_at')->sortBy('pagado');
             return View::make('clients.pagos.index')->with("pagos", $pagos);
       }
 
@@ -133,6 +133,52 @@ class ClientsPagosController extends \BaseController
                   Session::flash('error', 'No se pudo eliminar el pago');
             }
             return Redirect::route('clientes_pagos.index');
+      }
+
+      public function usar_codigo($id)
+      {
+            $pago = $this->pago->find($id);
+            return View::make('clients.pagos.codigo')->with('pago', $pago);
+      }
+
+      public function guardar_codigo($id)
+      {
+            $numero = Input::get('numero');
+            $codigo = $this->pago->checar_codigo($numero);
+            if (isset($codigo))
+            {
+                  $codigo_model = array('usado' => true, 'client' => Auth::user()->userable);
+                  $codigo = $this->pago->usar_codigo($codigo->id, $codigo_model);
+                  if (isset($codigo))
+                  {
+                        $pago_model = array('pagado' => true, 'metodo' => 'Codigo Promocional');
+                        $pago = $this->pago->update($id, $pago_model);
+                        if ($this->publicar_contenido($pago))
+                        {
+                              Session::flash('message', 'Código satisfactorio');
+                              return Redirect::route('clientes_pagos.index');
+                        }
+                        else
+                        {
+                              Session::flash('message', 'Código satisfactorio');
+                        }
+                  }
+            }
+            else
+            {
+                  Session::flash('error', 'El codigo no existe o ya fue utilizado');
+            }
+            return Redirect::back();
+      }
+
+      protected function publicar_contenido($pago)
+      {
+            $pago->pagable->publicar = true;
+            $pago->pagable->is_especial = true;
+            if ($pago->pagable->save())
+            {
+                  return true;
+            }
       }
 
 }

@@ -8,6 +8,7 @@ namespace Sph\Storage\Pago;
  * @author carlos
  */
 use Pago;
+use Codigo;
 
 class PagoRepositoryEloquent implements PagoRepository
 {
@@ -20,7 +21,7 @@ class PagoRepositoryEloquent implements PagoRepository
       public function create(array $pago_model)
       {
 
-            $pago = new Pago($pago_model);            
+            $pago = new Pago($pago_model);
             $pago->client_id = $pago_model['client']->id;
             if ($pago->save())
             {
@@ -46,9 +47,6 @@ class PagoRepositoryEloquent implements PagoRepository
             if (isset($pago))
             {
                   $pago->fill($pago_model);
-                  $pago->inicio = new \DateTime($pago_model['inicio']);
-                  $pago->fin = new \DateTime($pago_model['fin']);
-
                   if ($pago->save())
                   {
                         return $pago;
@@ -59,6 +57,34 @@ class PagoRepositoryEloquent implements PagoRepository
                   }
             }
             return null;
+      }
+
+      public function checar_codigo($codigo)
+      {
+            $codigo = Codigo::where('numero', $codigo)->where('usado', false)->first();
+            if (isset($codigo))
+            {
+                  return $codigo;
+            }
+            else
+            {
+                  return null;
+            }
+      }
+
+      public function usar_codigo($id, $codigo_model)
+      {
+            $codigo = Codigo::find($id);
+            $codigo->usado = $codigo_model['usado'];
+            $codigo->client_id = $codigo_model['client']->id;
+            if ($codigo->save())
+            {
+                  return $codigo;
+            }
+            else
+            {
+                  return null;
+            }
       }
 
 }

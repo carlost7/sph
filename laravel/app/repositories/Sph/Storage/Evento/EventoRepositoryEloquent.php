@@ -8,6 +8,7 @@ namespace Sph\Storage\Evento;
  * @author carlos
  */
 use Evento;
+use Evento_especial;
 
 class EventoRepositoryEloquent implements EventoRepository
 {
@@ -54,7 +55,35 @@ class EventoRepositoryEloquent implements EventoRepository
 
                   if ($evento->save())
                   {
-                        return $evento;
+                        if(!$evento->is_especial){
+                              return $evento;
+                        }
+                        
+                        $evento_especial = $evento->especial;
+
+                        if (isset($evento_especial))
+                        {
+                              if ($evento->especial()->update($evento_model['especial']))
+                              {
+                                    return $evento;
+                              }
+                              else
+                              {
+                                    return null;
+                              }
+                        }
+                        else
+                        {
+                              $evento_especial = new Evento_especial($evento_model['especial']);
+                              if ($evento->especial()->save($evento_especial))
+                              {
+                                    return $evento;
+                              }
+                              else
+                              {
+                                    return null;
+                              }
+                        }
                   }
                   else
                   {
@@ -76,5 +105,5 @@ class EventoRepositoryEloquent implements EventoRepository
                   return null;
             }
       }
-      
+
 }

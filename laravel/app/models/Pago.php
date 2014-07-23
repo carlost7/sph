@@ -3,7 +3,7 @@
 class Pago extends \Eloquent {
 
 	// Don't forget to fill this array
-	protected $fillable = ["nombre","descripcion","monto","pagado"];
+	protected $fillable = ["nombre","descripcion","monto","pagado","metodo"];
       
       public function client()
       {

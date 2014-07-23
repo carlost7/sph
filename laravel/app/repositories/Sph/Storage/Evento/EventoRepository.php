@@ -12,7 +12,7 @@ interface EventoRepository
       public function create(array $evento_model);
 
       public function update($id, array $evento_model);
-
+      
       public function delete($id);
       
       public function agregar_pago($evento_model,$pago_model);

@@ -23,6 +23,7 @@ class CreatePromocionesTable extends Migration
                   $table->string('path');
                   $table->integer('client_id')->unsigned();
                   $table->boolean('publicar');
+                  $table->boolean('is_especial');
                   $table->timestamps();
                   $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade')->onUpdate('cascade');
             });

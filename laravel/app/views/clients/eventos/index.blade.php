@@ -17,18 +17,24 @@
 
       <li class="list-group-item">
             <h3 class="text-left">                  
-                  {{ HTML::linkRoute("clientes_eventos.show",$evento->nombre,$evento->id) }}                  
+                  {{ HTML::linkRoute("clientes_eventos.show",$evento->nombre,$evento->id) }}
             </h3>
             <p>{{ date('d-m-Y',strtotime($evento->inicio)).' - '.date('d-m-Y',strtotime($evento->fin)) }}</p>
+            @if($evento->is_especial)
             <p class="text-right">
-                  {{ HTML::linkRoute('clientes_eventos.edit','editar',$evento->id,array('class'=>'btn btn-sm btn-info')) }}       
+                  {{ HTML::linkRoute('clientes_eventos.edit','Agregar datos especiales',$evento->id,array('class'=>'btn btn-sm btn-success')) }}       
             </p>
-
-            {{ Form::open(array('route' => array('clientes_eventos.destroy',$evento->id))) }}            
-            {{ Form::hidden('_method', 'DELETE') }}            
-            <p class="text-right">{{ Form::submit('eliminar', array('class' => 'btn btn-sm btn-danger')) }} </p>
-            {{ Form::close() }}                        
-
+            @endif
+            <p class="text-right">
+                  {{ HTML::linkRoute('clientes_eventos.edit','editar',$evento->id,array('class'=>'btn btn-sm btn-info')) }}                         
+            </p>
+            
+                  
+                  {{ Form::open(array('route' => array('clientes_eventos.destroy',$evento->id))) }}            
+                  {{ Form::hidden('_method', 'DELETE') }}            
+                  <p class="text-right">{{ Form::submit('eliminar', array('class' => 'btn btn-sm btn-danger')) }}</p>
+                  {{ Form::close() }}                        
+             
       </li>
 
       @endforeach

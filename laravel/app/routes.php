@@ -121,6 +121,16 @@ Route::post('/clients_delete',array(
 
 Route::resource('clientes_negocios','ClientsNegociosController');
 
+Route::get('clientes_negocios_especial/{id}',
+        array('as'=>'clientes_negocios_especiales.get',
+            'uses'=>'ClientsNegociosController@edit_especial')
+);
+
+Route::post('clientes_negocios_especial/{id}',
+        array('as'=>'clientes_eventos_especiales.post',
+            'uses'=>'ClientsNegociosController@update_especial')
+);
+
 /*
  * *************************
  *    Eventos de Cliente
@@ -137,9 +147,39 @@ Route::resource('clientes_eventos','ClientsEventosController');
 
 Route::resource('clientes_promociones','ClientsPromocionesController');
 
+Route::get('clientes_promociones_especial/{id}',
+        array('as'=>'clientes_promociones_especiales.get',
+            'uses'=>'ClientsPromocionesController@edit_especial')
+);
+
+Route::post('clientes_promociones_especial/{id}',
+        array('as'=>'clientes_promociones_especiales.post',
+            'uses'=>'ClientsPromocionesController@update_especial')
+);
+
 /*
  * *************************
  *    Promociones de Cliente
  * *************************
  */
 Route::resource('clientes_pagos', 'ClientsPagosController');
+
+Route::get('clientes_pagos_codigo/{id}',
+        array('as'=>'clientes_pagos_codigo.get',
+            'uses'=>'ClientsPagosController@usar_codigo')
+);
+
+Route::post('clientes_pagos_codigo/{id}',
+        array('as'=>'clientes_pagos_codigo.post',
+            'uses'=>'ClientsPagosController@guardar_codigo')
+);
+
+/*Generación de codigos*/
+
+Route::get('create_codes',function(){
+      for($i = 0; $i<10;$i++){
+            $numero = rand(1000, 9999)."-".rand(1000, 9999)."-".rand(1000, 9999);
+            Codigo::create(array('numero'=> $numero));
+            echo $numero."<br>";            
+      }      
+});

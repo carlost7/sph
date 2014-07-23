@@ -21,6 +21,7 @@ class CreateNegociosTable extends Migration
                   $table->string('telefono');
                   $table->text('descripcion');
                   $table->boolean('publicar');
+                  $table->boolean('is_especial');
                   $table->integer('client_id')->unsigned();
                   $table->timestamps();
                   $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade')->onUpdate('cascade');
