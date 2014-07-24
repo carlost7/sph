@@ -20,7 +20,8 @@ class ClientsPagosController extends \BaseController
        */
       public function index()
       {
-            $pagos = Auth::user()->userable->pagos->sortByDesc('created_at')->sortBy('pagado');
+            $pagos = Auth::user()->userable->pagos()->orderBy('created_at', 'desc')->orderBy('pagado', 'asc')->paginate(5);
+            //->sortByDesc('created_at')->sortBy('pagado');
             return View::make('clients.pagos.index')->with("pagos", $pagos);
       }
 
@@ -177,6 +178,13 @@ class ClientsPagosController extends \BaseController
             $pago->pagable->is_especial = true;
             if ($pago->pagable->save())
             {
+                  $data = array(
+                      'tipo' => get_class($pago->pagable),
+                  );
+                  Mail::queue('emails.publicacion_contenido_pago', $data, function($message)
+                  {
+                        $message->to(Auth::user()->email, Auth::user()->userable->name)->subject('Confirmación de Registro de Sphellar');
+                  });
                   return true;
             }
       }

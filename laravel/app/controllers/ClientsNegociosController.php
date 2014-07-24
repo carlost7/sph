@@ -113,10 +113,15 @@ class ClientsNegociosController extends \BaseController
       public function update($id)
       {
             $validatorNegocio = new Sph\Services\Validators\Negocio(Input::all(), 'update');
+            $validatorNegocioEspecial = new Sph\Services\Validators\Negocio_especial(Input::all(), 'update');
 
-            if ($validatorNegocio->passes())
+            if ($validatorNegocio->passes() & $validatorNegocioEspecial->passes())
             {
                   $negocio_model = Input::all();
+                  
+                  $especial = array('horario'=>Input::get('horario'));
+                  
+                  $negocio_model = array_add($negocio_model, 'especial', $especial);
 
                   $negocio = $this->negocio->update($id, $negocio_model);
                   if (isset($negocio))
@@ -129,7 +134,14 @@ class ClientsNegociosController extends \BaseController
                         Session::flash('error', 'Error al agregar el negocio');
                   }
             }
-            return Redirect::back()->withErrors($validatorNegocio->getErrors())->withInput();
+            
+            $negocio_messages = ($validatorNegocio->getErrors() != null) ? $validatorNegocio->getErrors()->all() : array();
+            $negocio_especial_messages = ($validatorNegocioEspecial->getErrors() != null) ? $validatorNegocioEspecial->getErrors()->all() : array();
+            $validationMessages = array_merge_recursive($negocio_messages, $negocio_especial_messages);
+            
+            return Redirect::back()->withErrors($validationMessages)->withInput();
+            
+            
       }
 
       /**

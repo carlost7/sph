@@ -14,7 +14,7 @@ class Evento extends \Eloquent
 
       public function especial()
       {
-            return $this->hasOne('Evento_especial');
+            return $this->hasOne('Evento_especial','evento_id','id');
       }
 
       public function pago()

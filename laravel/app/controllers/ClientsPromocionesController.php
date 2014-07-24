@@ -112,10 +112,15 @@ class ClientsPromocionesController extends \BaseController
       public function update($id)
       {
             $validatorPromocion = new Sph\Services\Validators\Promocion(Input::all(), 'update');
+            $validatorPromocionEspecial = new Sph\Services\Validators\Promocion_especial(Input::all(), 'update');
 
-            if ($validatorPromocion->passes())
+            if ($validatorPromocion->passes() & $validatorPromocionEspecial->passes())
             {
                   $promocion_model = Input::all();
+                  
+                  $especial = array('imagenes'=>Input::get('imagenes'));
+                  
+                  $promocion_model = array_add($promocion_model, 'especial', $especial);
 
                   $promocion = $this->promocion->update($id, $promocion_model);
                   if (isset($promocion))
@@ -128,7 +133,11 @@ class ClientsPromocionesController extends \BaseController
                         Session::flash('error', 'Error al agregar la promoción');
                   }
             }
-            return Redirect::back()->withErrors($validatorPromocion->getErrors())->withInput();
+            $promocion_messages = ($validatorPromocion->getErrors() != null) ? $validatorPromocion->getErrors()->all() : array();
+            $promocion_especial_messages = ($validatorPromocionEspecial->getErrors() != null) ? $validatorPromocionEspecial->getErrors()->all() : array();
+            $validationMessages = array_merge_recursive($promocion_messages, $promocion_especial_messages);
+            
+            return Redirect::back()->withErrors($validationMessages)->withInput();
       }
 
       /**

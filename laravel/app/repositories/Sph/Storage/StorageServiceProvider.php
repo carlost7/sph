@@ -32,6 +32,9 @@ class StorageServiceProvider extends ServiceProvider
             $this->app->bind(
                     'Sph\Storage\Pago\PagoRepository', 'Sph\Storage\Pago\PagoRepositoryEloquent'
             );
+            $this->app->bind(
+                    'Sph\Storage\Marketing\MarketingRepository', 'Sph\Storage\Marketing\MarketingRepositoryEloquent'
+            );
       }
 
 }

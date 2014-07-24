@@ -25,6 +25,17 @@
             <input type='text' class="form-control" name="fin" value="{{ date('d-m-Y H:i',strtotime($promocion->fin)) }}" placeholder="fecha de finalización" />
       </div>
 </div>
+
+@if($promocion->is_especial)
+<hr />
+<h3>Datos Especiales</h3>
+
+<div class="form-group">
+      {{ Form::label('imagenes', 'Imágenes') }}            
+      {{ Form::text('imagenes', ($promocion->especial) ? $promocion->especial->imagenes : '' ,array('placeholder'=>'imágenes','class'=>'form-control')) }}
+</div>        
+@endif
+
 @include('layouts.show_form_errors')
 
 <div class="form-group">

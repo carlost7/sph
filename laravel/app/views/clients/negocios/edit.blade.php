@@ -19,6 +19,17 @@
       {{ Form::label('descripcion', 'Descripción') }}
       {{ Form::textArea('descripcion', Input::old('descripcion'), array('placeholder' => 'Descripcion', 'class'=>'form-control')) }}
 </div>
+
+@if($negocio->is_especial)
+<hr />
+<h3>Datos Especiales</h3>
+
+<div class="form-group">
+      {{ Form::label('horario', 'Horario') }}            
+      {{ Form::text('horario', ($negocio->especial) ? $negocio->especial->horario : '' ,array('placeholder'=>'horario','class'=>'form-control')) }}
+</div>        
+@endif
+
 @include('layouts.show_form_errors')
 
 <div class="form-group">

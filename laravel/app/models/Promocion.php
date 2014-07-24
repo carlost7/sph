@@ -12,7 +12,7 @@ class Promocion extends \Eloquent
             return $this->belongsTo('Client', 'client_id', 'id');
       }
       
-      public function promocion_especial(){
+      public function especial(){
             return $this->hasOne('Promocion_especial','promocion_id','id');
       }
       

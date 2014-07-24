@@ -8,6 +8,7 @@ namespace Sph\Storage\Negocio;
  * @author carlos
  */
 use Negocio;
+use Negocio_especial;
 
 class NegocioRepositoryEloquent implements NegocioRepository
 {
@@ -50,7 +51,35 @@ class NegocioRepositoryEloquent implements NegocioRepository
                   $negocio->fill($negocio_model);
                   if ($negocio->save())
                   {
-                        return $negocio;
+                        if(!$negocio->is_especial){
+                              return $negocio;
+                        }
+                        
+                        $negocio_especial = $negocio->especial;
+
+                        if (isset($negocio_especial))
+                        {
+                              if ($negocio->especial()->update($negocio_model['especial']))
+                              {
+                                    return $negocio;
+                              }
+                              else
+                              {
+                                    return null;
+                              }
+                        }
+                        else
+                        {
+                              $negocio_especial = new Negocio_especial($negocio_model['especial']);
+                              if ($negocio->especial()->save($negocio_especial))
+                              {
+                                    return $negocio;
+                              }
+                              else
+                              {
+                                    return null;
+                              }
+                        }
                   }
                   else
                   {

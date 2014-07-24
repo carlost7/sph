@@ -6,10 +6,12 @@
 
 @if($pagos->count())
 
-<ul class="list-group">
+{{ $pagos->links() }}
+
+<div class="list-group">
       @foreach($pagos as $pago)
 
-      <li class="list-group-item">
+      <div class="list-group-item {{ $pago->pagado ? 'published' : 'not-published' }}">
             <h3 class="text-left">                  
                   {{ $pago->descripcion }}
             </h3>
@@ -31,9 +33,12 @@
                   {{ HTML::linkRoute('clientes_pagos.edit','Pagar Paypal',$pago->id,array('class'=>'btn btn-sm btn-info')) }}                  
                   @endif
             </p>
-      </li>
+      </div>
       @endforeach
-</ul>
+</div>
+
+
+
 
 @else
 

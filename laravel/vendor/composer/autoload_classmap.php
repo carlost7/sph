@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddNombreToMarketing' => $baseDir . '/app/database/migrations/2014_07_24_154418_add_nombre_to_marketing.php',
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
     'Boris\\Boris' => $vendorDir . '/d11wtq/boris/lib/Boris/Boris.php',
     'Boris\\CLIOptionsHandler' => $vendorDir . '/d11wtq/boris/lib/Boris/CLIOptionsHandler.php',
@@ -1333,14 +1334,19 @@ return array(
     'Sph\\Services\\Validators\\Client' => $baseDir . '/app/repositories/Sph/Services/Validators/Client.php',
     'Sph\\Services\\Validators\\Evento' => $baseDir . '/app/repositories/Sph/Services/Validators/Evento.php',
     'Sph\\Services\\Validators\\Evento_especial' => $baseDir . '/app/repositories/Sph/Services/Validators/Evento_especial.php',
+    'Sph\\Services\\Validators\\Marketing' => $baseDir . '/app/repositories/Sph/Services/Validators/Marketing.php',
     'Sph\\Services\\Validators\\Negocio' => $baseDir . '/app/repositories/Sph/Services/Validators/Negocio.php',
+    'Sph\\Services\\Validators\\Negocio_especial' => $baseDir . '/app/repositories/Sph/Services/Validators/Negocio_especial.php',
     'Sph\\Services\\Validators\\Promocion' => $baseDir . '/app/repositories/Sph/Services/Validators/Pago.php',
+    'Sph\\Services\\Validators\\Promocion_especial' => $baseDir . '/app/repositories/Sph/Services/Validators/Promocion_especial.php',
     'Sph\\Services\\Validators\\User' => $baseDir . '/app/repositories/Sph/Services/Validators/User.php',
     'Sph\\Services\\Validators\\Validator' => $baseDir . '/app/repositories/Sph/Services/Validators/Validator.php',
     'Sph\\Storage\\Client\\ClientRepository' => $baseDir . '/app/repositories/Sph/Storage/Client/ClientRepository.php',
     'Sph\\Storage\\Client\\ClientRepositoryEloquent' => $baseDir . '/app/repositories/Sph/Storage/Client/ClientRepositoryEloquent.php',
     'Sph\\Storage\\Evento\\EventoRepository' => $baseDir . '/app/repositories/Sph/Storage/Evento/EventoRepository.php',
     'Sph\\Storage\\Evento\\EventoRepositoryEloquent' => $baseDir . '/app/repositories/Sph/Storage/Evento/EventoRepositoryEloquent.php',
+    'Sph\\Storage\\Marketing\\MarketingRepository' => $baseDir . '/app/repositories/Sph/Storage/Marketing/MarketingRepository.php',
+    'Sph\\Storage\\Marketing\\MarketingRepositoryEloquent' => $baseDir . '/app/repositories/Sph/Storage/Marketing/MarketingRepositoryEloquent.php',
     'Sph\\Storage\\Negocio\\NegocioRepository' => $baseDir . '/app/repositories/Sph/Storage/Negocio/NegocioRepository.php',
     'Sph\\Storage\\Negocio\\NegocioRepositoryEloquent' => $baseDir . '/app/repositories/Sph/Storage/Negocio/NegocioRepositoryEloquent.php',
     'Sph\\Storage\\Pago\\PagoRepository' => $baseDir . '/app/repositories/Sph/Storage/Pagos/PagoRepository.php',

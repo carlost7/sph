@@ -12,27 +12,34 @@
 
 @if($promociones->count())
 
-<ul class="list-group">
+<div class="list-group">
       @foreach($promociones as $promocion)
 
-      <li class="list-group-item">
+      <div class="list-group-item {{ $promocion->publicar ? 'published' : 'not-published' }}">
             <h3 class="text-left">                  
                   {{ HTML::linkRoute("clientes_promociones.show",$promocion->nombre,$promocion->id) }}                  
             </h3>
             <p>{{ date('d-m-Y',strtotime($promocion->inicio)).' - '.date('d-m-Y',strtotime($promocion->fin)) }}</p>
+            @if($promocion->is_especial  && !$promocion->especial )
+            <p class="text-right">
+                  {{ HTML::linkRoute('clientes_promociones.edit','Agregar datos especiales',$promocion->id,array('class'=>'btn btn-sm btn-success')) }}
+            </p>
+            @endif
+            
             <p class="text-right">
                   {{ HTML::linkRoute('clientes_promociones.edit','editar',$promocion->id,array('class'=>'btn btn-sm btn-info')) }}       
             </p>
+            
 
             {{ Form::open(array('route' => array('clientes_promociones.destroy',$promocion->id))) }}            
             {{ Form::hidden('_method', 'DELETE') }}            
             <p class="text-right">{{ Form::submit('eliminar', array('class' => 'btn btn-sm btn-danger')) }} </p>
             {{ Form::close() }}                        
 
-      </li>
+      </div>
 
       @endforeach
-</ul>
+</div>
 
 @else
 

@@ -8,6 +8,7 @@ namespace Sph\Storage\Promocion;
  * @author carlos
  */
 use Promocion;
+use Promocion_especial;
 
 class PromocionRepositoryEloquent implements PromocionRepository
 {
@@ -54,7 +55,35 @@ class PromocionRepositoryEloquent implements PromocionRepository
 
                   if ($promocion->save())
                   {
-                        return $promocion;
+                        if(!$promocion->is_especial){
+                              return $promocion;
+                        }
+                        
+                        $promocion_especial = $promocion->especial;
+
+                        if (isset($promocion_especial))
+                        {
+                              if ($promocion->especial()->update($promocion_model['especial']))
+                              {
+                                    return $promocion;
+                              }
+                              else
+                              {
+                                    return null;
+                              }
+                        }
+                        else
+                        {
+                              $promocion_especial = new Promocion_especial($promocion_model['especial']);
+                              if ($promocion->especial()->save($promocion_especial))
+                              {
+                                    return $promocion;
+                              }
+                              else
+                              {
+                                    return null;
+                              }
+                        }
                   }
                   else
                   {

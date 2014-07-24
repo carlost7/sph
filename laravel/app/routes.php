@@ -76,6 +76,8 @@ Route::post('register_user', array(
     'as' => 'register.store_user'
 ));
 
+
+
 Route::get('register_marketing', array(
     'uses' => 'RegisterController@register_marketing',
     'as' => 'register.marketing'

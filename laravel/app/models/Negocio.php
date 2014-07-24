@@ -13,7 +13,7 @@ class Negocio extends \Eloquent
             return $this->belongsTo('Client', 'client_id', 'id');
       }
       
-      public function negocio_especial(){
+      public function especial(){
             return $this->hasOne('Negocio_especial','negocio_id','id');
       }
       

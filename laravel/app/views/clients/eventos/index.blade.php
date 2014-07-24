@@ -12,15 +12,15 @@
 
 @if($eventos->count())
 
-<ul class="list-group">
+<div class="list-group">
       @foreach($eventos as $evento)
 
-      <li class="list-group-item">
+      <div class="list-group-item {{ $evento->publicar ? 'published' : 'not-published' }}">
             <h3 class="text-left">                  
                   {{ HTML::linkRoute("clientes_eventos.show",$evento->nombre,$evento->id) }}
             </h3>
             <p>{{ date('d-m-Y',strtotime($evento->inicio)).' - '.date('d-m-Y',strtotime($evento->fin)) }}</p>
-            @if($evento->is_especial)
+            @if($evento->is_especial  && !$evento->especial )
             <p class="text-right">
                   {{ HTML::linkRoute('clientes_eventos.edit','Agregar datos especiales',$evento->id,array('class'=>'btn btn-sm btn-success')) }}       
             </p>
@@ -35,10 +35,10 @@
                   <p class="text-right">{{ Form::submit('eliminar', array('class' => 'btn btn-sm btn-danger')) }}</p>
                   {{ Form::close() }}                        
              
-      </li>
+      </div>
 
       @endforeach
-</ul>
+</div>
 
 @else
 
