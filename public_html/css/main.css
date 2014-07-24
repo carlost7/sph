@@ -10,7 +10,15 @@ body {
     padding-bottom: 20px;
 }
 
+.published{
+    border: 1px solid #3c763d;
+    box-shadow: 0 1px 3px rgba(60, 118, 61, 0.6);
+}
 
+.not-published{
+   border: 1px solid #a94442;
+   box-shadow: 0 1px 3px rgba(169, 68, 66, 0.6);
+}
 
 
 

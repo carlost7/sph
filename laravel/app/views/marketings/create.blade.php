@@ -1,1 +1,0 @@
-/var/www/sph/laravel/app/views/marketings/create.blade.php

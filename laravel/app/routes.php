@@ -185,3 +185,29 @@ Route::get('create_codes',function(){
             echo $numero."<br>";            
       }      
 });
+
+/*
+ * ***********************
+ *     marketing
+ * ***********************
+ */
+
+Route::get('/marketing',array(
+    'uses' => 'MarketingController@index',
+    'as' => 'marketing.index'
+));
+
+Route::get('/marketing_edit',array(
+    'uses' => 'MarketingController@edit',
+    'as' => 'marketing.edit'
+));
+
+Route::post('/marketing_update',array(
+    'uses' => 'MarketingController@update',
+    'as' => 'marketing.update'
+));
+
+Route::post('/marketing_delete',array(
+    'uses' => 'MarketingController@destroy',
+    'as' => 'marketing.destroy'
+));

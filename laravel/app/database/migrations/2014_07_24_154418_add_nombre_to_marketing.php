@@ -14,7 +14,7 @@ class AddNombreToMarketing extends Migration {
 	{
 		Schema::table('marketings', function(Blueprint $table)
 		{
-			$table->string('nombre');
+			$table->string('name');
                   $table->boolean('is_activo');
 		});
 	}
@@ -29,7 +29,7 @@ class AddNombreToMarketing extends Migration {
 	{
 		Schema::table('marketings', function(Blueprint $table)
 		{
-			$table->dropColumn('nombre');
+			$table->dropColumn('name');
 		});
 	}
 

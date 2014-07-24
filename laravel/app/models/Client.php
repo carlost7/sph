@@ -31,5 +31,9 @@ class Client extends \Eloquent
       {
             return $this->hasMany('Pago', 'client_id', 'id');
       }
+      
+      public function marketing(){
+            return $this->belongsTo('Marketing','marketing_id','id');
+      }
 
 }

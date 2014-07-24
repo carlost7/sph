@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddMarketingIdToClients' => $baseDir . '/app/database/migrations/2014_07_24_172952_add_marketing_id_to_clients.php',
     'AddNombreToMarketing' => $baseDir . '/app/database/migrations/2014_07_24_154418_add_nombre_to_marketing.php',
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
     'Boris\\Boris' => $vendorDir . '/d11wtq/boris/lib/Boris/Boris.php',
@@ -444,7 +445,7 @@ return array(
     'Jeremeamia\\SuperClosure\\Visitor\\ClosureFinderVisitor' => $vendorDir . '/jeremeamia/SuperClosure/src/Jeremeamia/SuperClosure/Visitor/ClosureFinderVisitor.php',
     'Jeremeamia\\SuperClosure\\Visitor\\MagicConstantVisitor' => $vendorDir . '/jeremeamia/SuperClosure/src/Jeremeamia/SuperClosure/Visitor/MagicConstantVisitor.php',
     'Marketing' => $baseDir . '/app/models/Marketing.php',
-    'MarketingsController' => $baseDir . '/app/controllers/MarketingsController.php',
+    'MarketingController' => $baseDir . '/app/controllers/MarketingController.php',
     'MarketingsTableSeeder' => $baseDir . '/app/database/seeds/MarketingsTableSeeder.php',
     'Math_BigInteger' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Math/BigInteger.php',
     'Monolog\\ErrorHandler' => $vendorDir . '/monolog/monolog/src/Monolog/ErrorHandler.php',
