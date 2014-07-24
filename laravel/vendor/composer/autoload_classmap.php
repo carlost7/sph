@@ -6,6 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddActivacionToEventos' => $baseDir . '/app/database/migrations/2014_07_24_183917_add_activacion_to_eventos.php',
+    'AddActivacionToNegocios' => $baseDir . '/app/database/migrations/2014_07_24_183906_add_activacion_to_negocios.php',
+    'AddActivacionToPromociones' => $baseDir . '/app/database/migrations/2014_07_24_183930_add_activacion_to_promociones.php',
     'AddMarketingIdToClients' => $baseDir . '/app/database/migrations/2014_07_24_172952_add_marketing_id_to_clients.php',
     'AddNombreToMarketing' => $baseDir . '/app/database/migrations/2014_07_24_154418_add_nombre_to_marketing.php',
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
