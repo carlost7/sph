@@ -29,7 +29,7 @@ App::after(function($request, $response)
 |
 | The following filters are used to verify that the user of the current
 | session is logged into this application. The "basic" filter easily
-| integrates HTTP Basic authentication for quick, simple checking.
+| integrates HTTP Basic authentication for quick, change simple checking.
 |
 */
 
