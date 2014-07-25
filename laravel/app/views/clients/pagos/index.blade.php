@@ -24,15 +24,23 @@
             <p>
                   {{ $pago->created_at }}
             </p>
-            
-            <p class="text-right">
+
+            <div class="text-right">
                   @if($pago->pagado)
-                  Pagado: {{ ($pago->pagado) ? 'Si' : 'No' }} - Método:{{$pago->metodo}}
+                  <p>Pagado: {{ ($pago->pagado) ? 'Si' : 'No' }} - Método:{{$pago->metodo}}</p>
                   @else
-                  {{ HTML::linkRoute('clientes_pagos_codigo.get','Usar código',$pago->id,array('class'=>'btn btn-sm btn-info')) }}                   
-                  {{ HTML::linkRoute('clientes_pagos.edit','Pagar Paypal',$pago->id,array('class'=>'btn btn-sm btn-info')) }}                  
+                  <div class="show">
+                        {{ HTML::linkRoute('client_avisar','Activación Manual',null,array('class'=>'btn btn-sm btn-info')) }}
+                        <a href='#' class='btn btn-sm btn-success' onclick='show_buttons({{$pago->id}})'>Activación Automática</a>
+                  </div>
+                  <br/>
+                  <div id="{{ $pago->id }}" class="hidden">
+                        {{ HTML::linkRoute('clientes_pagos_codigo.get','Usar código',$pago->id,array('class'=>'btn btn-sm btn-success')) }}                   
+                        {{ HTML::linkRoute('clientes_pagos.edit','Mercado Pago',$pago->id,array('class'=>'btn btn-sm btn-success')) }}                  
+
+                  </div>
                   @endif
-            </p>
+            </div>
       </div>
       @endforeach
 </div>
@@ -46,5 +54,23 @@
 
 @endif
 
+
+@stop
+
+@section('scripts')
+
+<script type="text/javascript">
+              function show_buttons(id) {
+                  var buttons = $("#" + id);
+                  if(buttons.hasClass('hidden')){
+                        buttons.removeClass('hidden');
+                        buttons.addClass('show');
+                  }else{
+                        buttons.removeClass('show');
+                        buttons.addClass('hidden');
+                  }
+                  
+              }
+</script>
 
 @stop

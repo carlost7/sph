@@ -14,4 +14,6 @@ interface ClientRepository
       public function update($id, array $client_model);
 
       public function delete($id);
+      
+      public function avisar_marketing($id);
 }

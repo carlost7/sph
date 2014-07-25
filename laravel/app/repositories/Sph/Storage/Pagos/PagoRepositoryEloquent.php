@@ -86,5 +86,23 @@ class PagoRepositoryEloquent implements PagoRepository
                   return null;
             }
       }
+      
+      public function publicar_contenido($pago)
+      {
+            $pago->pagable->publicar = true;
+            $pago->pagable->is_especial = true;
+            $pago->pagable->is_activo = true;
+            if ($pago->pagable->save())
+            {
+                  $data = array(
+                      'tipo' => get_class($pago->pagable),
+                  );
+                  Mail::queue('emails.publicacion_contenido_pago', $data, function($message)
+                  {
+                        $message->to(Auth::user()->email, Auth::user()->userable->name)->subject('Confirmación de Registro de Sphellar');
+                  });
+                  return true;
+            }
+      }
 
 }

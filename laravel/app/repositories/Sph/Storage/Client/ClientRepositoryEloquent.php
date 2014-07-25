@@ -60,4 +60,21 @@ class ClientRepositoryEloquent implements ClientRepository
             return null;
       }
 
+      public function avisar_marketing($id)
+      {
+
+            $client = Client::find($id);
+
+            $client->tiene_aviso = true;
+
+            if ($client->save())
+            {
+                  return true;
+            }
+            else
+            {
+                  return false;
+            }
+      }
+
 }

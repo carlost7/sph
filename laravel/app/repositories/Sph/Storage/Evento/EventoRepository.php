@@ -16,4 +16,6 @@ interface EventoRepository
       public function delete($id);
       
       public function agregar_pago($evento_model,$pago_model);
+      
+      public function activar($id);
 }

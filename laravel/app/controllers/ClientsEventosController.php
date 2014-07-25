@@ -159,4 +159,20 @@ class ClientsEventosController extends \BaseController
             return Redirect::route('clientes_eventos.index');
       }
 
+      public function activar($id)
+      {
+            $evento = $this->evento->find($id);
+            if($evento->client->id == Auth::user()->userable->id){
+                  if($this->evento->activar($id)){
+                        Session::flash('message','Activación correcta');
+                        return Redirect::route('clientes_eventos.index');
+                  }else{
+                        Session::flash('error','Ocurrio un error en la activación');
+                  }
+            }else{
+                  Session::flash('error','El evento no pertenece al usuario');
+            }     
+            return Redirect::back();
+      }
+      
 }

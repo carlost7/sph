@@ -20,6 +20,11 @@
                   {{ HTML::linkRoute("clientes_promociones.show",$promocion->nombre,$promocion->id) }}                  
             </h3>
             <p>{{ date('d-m-Y',strtotime($promocion->inicio)).' - '.date('d-m-Y',strtotime($promocion->fin)) }}</p>
+            @if(!$promocion->is_activo && !$promocion->fecha_nueva_activacion)
+            <p class="text-right">
+                  {{ HTML::linkRoute('clientes_promociones_activar.get','Activar',$promocion->id,array('class'=>'btn btn-sm btn-warning')) }}
+            </p>
+            @endif
             @if($promocion->is_especial  && !$promocion->especial )
             <p class="text-right">
                   {{ HTML::linkRoute('clientes_promociones.edit','Agregar datos especiales',$promocion->id,array('class'=>'btn btn-sm btn-success')) }}
@@ -43,7 +48,7 @@
 
 @else
 
-<h3>Aún no has agregado ningúna promocion</h3>
+<h3>Aún no has agregado ninguna promocion</h3>
 
 @endif
 

@@ -18,4 +18,6 @@ interface PagoRepository
       public function checar_codigo($numero);
       
       public function usar_codigo($id,$codigo_model);
+      
+      public function publicar_contenido($pago);
 }

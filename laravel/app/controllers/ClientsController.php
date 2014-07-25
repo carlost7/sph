@@ -98,4 +98,25 @@ class ClientsController extends \BaseController
             return Redirect::route('clients.index');
       }
 
+      /*
+       * ********************
+       * El usuario se queda con un flag que se mostrará en la pantalla de marketing
+       * ********************
+       */
+
+      public function avisar_marketing()
+      {
+            $id = Auth::user()->userable->id;
+            if ($this->client->avisar_marketing($id))
+            {
+                  Session::flash("message", "Sus registros se encuentran en revision por un ejecutivo");
+            }
+            else
+            {
+                  Session::flash("error", "Ocurrio un error al realizar la operacion");
+            }
+            
+            return Redirect::back();
+      }
+
 }

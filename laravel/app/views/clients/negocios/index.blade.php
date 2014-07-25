@@ -19,6 +19,11 @@
             <h3 class="text-left">                  
                   {{ HTML::linkRoute("clientes_negocios.show",$negocio->nombre,$negocio->id) }}
             </h3>
+            @if(!$negocio->is_activo && !$negocio->fecha_nueva_activacion)
+            <p class="text-right">
+                  {{ HTML::linkRoute('clientes_negocios_activar.get','Activar',$negocio->id,array('class'=>'btn btn-sm btn-warning')) }}       
+            </p>
+            @endif
             @if($negocio->is_especial && !$negocio->especial)
             <p class="text-right">
                   {{ HTML::linkRoute('clientes_negocios.edit','Agregar datos especiales',$negocio->id,array('class'=>'btn btn-sm btn-success')) }}       

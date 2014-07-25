@@ -13,11 +13,8 @@
 
 Route::get('/', function()
 {
-        return View::make('hello');
+      return View::make('hello');
 });
-
-
-
 
 /*
  * *******************************
@@ -45,7 +42,7 @@ Route::controller('password', 'RemindersController');
 
 /*
  * ****************************
- *      Registry of users
+ *      Registro de usuarios
  * ****************************
  */
 Route::get('register_index', array(
@@ -67,6 +64,12 @@ Route::get('activate_client/{token?}/{id?}', array(
     'as' => 'register.activate_client'
 ));
 
+
+/*
+ * **************************
+ * Registro de usuario
+ * **************************
+ */
 Route::get('register_user', array(
     'uses' => 'RegisterController@register_user',
     'as' => 'register.user'
@@ -76,7 +79,11 @@ Route::post('register_user', array(
     'as' => 'register.store_user'
 ));
 
-
+/*
+ * *************************
+ * Registro de marketing
+ * *************************
+ */
 
 Route::get('register_marketing', array(
     'uses' => 'RegisterController@register_marketing',
@@ -88,126 +95,146 @@ Route::post('register_marketing', array(
 ));
 
 
-/*
- * ***********************
- *     clients
- * ***********************
- */
+/* Generación de codigos */
 
-Route::get('/clients',array(
-    'uses' => 'ClientsController@index',
-    'as' => 'clients.index'
-));
-
-Route::get('/clients_edit',array(
-    'uses' => 'ClientsController@edit',
-    'as' => 'clients.edit'
-));
-
-Route::post('/clients_update',array(
-    'uses' => 'ClientsController@update',
-    'as' => 'clients.update'
-));
-
-Route::post('/clients_delete',array(
-    'uses' => 'ClientsController@destroy',
-    'as' => 'clients.destroy'
-));
-
-
-/*
- * *************************
- *    Negocios de Cliente
- * *************************
- */
-
-Route::resource('clientes_negocios','ClientsNegociosController');
-
-Route::get('clientes_negocios_especial/{id}',
-        array('as'=>'clientes_negocios_especiales.get',
-            'uses'=>'ClientsNegociosController@edit_especial')
-);
-
-Route::post('clientes_negocios_especial/{id}',
-        array('as'=>'clientes_eventos_especiales.post',
-            'uses'=>'ClientsNegociosController@update_especial')
-);
-
-/*
- * *************************
- *    Eventos de Cliente
- * *************************
- */
-
-Route::resource('clientes_eventos','ClientsEventosController');
-
-/*
- * *************************
- *    Promociones de Cliente
- * *************************
- */
-
-Route::resource('clientes_promociones','ClientsPromocionesController');
-
-Route::get('clientes_promociones_especial/{id}',
-        array('as'=>'clientes_promociones_especiales.get',
-            'uses'=>'ClientsPromocionesController@edit_especial')
-);
-
-Route::post('clientes_promociones_especial/{id}',
-        array('as'=>'clientes_promociones_especiales.post',
-            'uses'=>'ClientsPromocionesController@update_especial')
-);
-
-/*
- * *************************
- *    Promociones de Cliente
- * *************************
- */
-Route::resource('clientes_pagos', 'ClientsPagosController');
-
-Route::get('clientes_pagos_codigo/{id}',
-        array('as'=>'clientes_pagos_codigo.get',
-            'uses'=>'ClientsPagosController@usar_codigo')
-);
-
-Route::post('clientes_pagos_codigo/{id}',
-        array('as'=>'clientes_pagos_codigo.post',
-            'uses'=>'ClientsPagosController@guardar_codigo')
-);
-
-/*Generación de codigos*/
-
-Route::get('create_codes',function(){
-      for($i = 0; $i<10;$i++){
-            $numero = rand(1000, 9999)."-".rand(1000, 9999)."-".rand(1000, 9999);
-            Codigo::create(array('numero'=> $numero));
-            echo $numero."<br>";            
-      }      
+Route::get('create_codes', function()
+{
+      for ($i = 0; $i < 10; $i++)
+      {
+            $numero = rand(1000, 9999) . "-" . rand(1000, 9999) . "-" . rand(1000, 9999);
+            Codigo::create(array('numero' => $numero));
+            echo $numero . "<br>";
+      }
 });
 
+
+
 /*
  * ***********************
- *     marketing
+ * Solo para usuarios autenticados
  * ***********************
  */
+Route::group(array('before' => 'auth'), function()
+{
 
-Route::get('/marketing',array(
-    'uses' => 'MarketingController@index',
-    'as' => 'marketing.index'
-));
 
-Route::get('/marketing_edit',array(
-    'uses' => 'MarketingController@edit',
-    'as' => 'marketing.edit'
-));
+      /*
+       * ***********************
+       *     clients
+       * ***********************
+       */
 
-Route::post('/marketing_update',array(
-    'uses' => 'MarketingController@update',
-    'as' => 'marketing.update'
-));
+      Route::group(array('before' => 'is_client'), function()
+      {
 
-Route::post('/marketing_delete',array(
-    'uses' => 'MarketingController@destroy',
-    'as' => 'marketing.destroy'
-));
+            Route::get('clients', array(
+                'uses' => 'ClientsController@index',
+                'as' => 'clients.index'
+            ));
+
+            Route::get('clients_edit', array(
+                'uses' => 'ClientsController@edit',
+                'as' => 'clients.edit'
+            ));
+
+            Route::post('clients_update', array(
+                'uses' => 'ClientsController@update',
+                'as' => 'clients.update'
+            ));
+
+            Route::post('clients_delete', array(
+                'uses' => 'ClientsController@destroy',
+                'as' => 'clients.destroy'
+            ));
+            
+            Route::get('client_avisar_marketing',array(
+                'uses' => 'ClientsController@avisar_marketing',
+                'as' => 'client_avisar'
+            ));
+
+
+            /*
+             * *************************
+             *    Negocios de Cliente
+             * *************************
+             */
+
+            Route::resource('clientes_negocios', 'ClientsNegociosController');
+
+            Route::get('clientes_negocios_activar/{id}', array('as' => 'clientes_negocios_activar.get',
+                'uses' => 'ClientsNegociosController@activar')
+            );
+
+            /*
+             * *************************
+             *    Eventos de Cliente
+             * *************************
+             */
+
+            Route::resource('clientes_eventos', 'ClientsEventosController');
+
+            Route::get('clientes_eventos_activar/{id}', array('as' => 'clientes_eventos_activar.post',
+                'uses' => 'ClientsEventosController@activar')
+            );
+
+            /*
+             * *************************
+             *    Promociones de Cliente
+             * *************************
+             */
+
+            Route::resource('clientes_promociones', 'ClientsPromocionesController');
+
+            Route::get('clientes_promociones_activar/{id}', array('as' => 'clientes_promociones_activar.get',
+                'uses' => 'ClientsPromocionesController@activar')
+            );
+
+
+            /*
+             * *************************
+             *    Promociones de Cliente
+             * *************************
+             */
+            Route::resource('clientes_pagos', 'ClientsPagosController');
+
+
+            Route::get('clientes_pagos_codigo/{id}', array('as' => 'clientes_pagos_codigo.get',
+                'uses' => 'ClientsPagosController@usar_codigo')
+            );
+
+            Route::post('clientes_pagos_codigo/{id}', array('as' => 'clientes_pagos_codigo.post',
+                'uses' => 'ClientsPagosController@guardar_codigo')
+            );
+
+            Route::post('clientes_negocios_activar/{id}', array('as' => 'clientes_negocios_activar.post',
+                'uses' => 'ClientsNegociosController@activar')
+            );
+      });
+
+      /*
+       * ***********************
+       *     marketing
+       * ***********************
+       */
+
+      Route::get('/marketing', array(
+          'uses' => 'MarketingController@index',
+          'as' => 'marketing.index'
+      ));
+
+      Route::get('/marketing_edit', array(
+          'uses' => 'MarketingController@edit',
+          'as' => 'marketing.edit'
+      ));
+
+      Route::post('/marketing_update', array(
+          'uses' => 'MarketingController@update',
+          'as' => 'marketing.update'
+      ));
+
+      Route::post('/marketing_delete', array(
+          'uses' => 'MarketingController@destroy',
+          'as' => 'marketing.destroy'
+      ));
+});
+

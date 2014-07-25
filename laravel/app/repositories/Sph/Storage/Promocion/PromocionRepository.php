@@ -17,4 +17,6 @@ interface PromocionRepository
       
       public function agregar_pago($promocion_model,$pago_model);
       
+      public function activar($id);
+      
 }

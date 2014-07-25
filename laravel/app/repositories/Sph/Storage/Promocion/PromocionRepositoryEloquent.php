@@ -55,10 +55,11 @@ class PromocionRepositoryEloquent implements PromocionRepository
 
                   if ($promocion->save())
                   {
-                        if(!$promocion->is_especial){
+                        if (!$promocion->is_especial)
+                        {
                               return $promocion;
                         }
-                        
+
                         $promocion_especial = $promocion->especial;
 
                         if (isset($promocion_especial))
@@ -103,6 +104,19 @@ class PromocionRepositoryEloquent implements PromocionRepository
             else
             {
                   return null;
+            }
+      }
+
+      public function activar($id)
+      {
+            $promocion = Promocion::find($id);
+            $promocion->is_activo = true;
+            $promocion->fecha_nueva_activacion = \Carbon\Carbon::now()->addMonth();
+            if ($promocion->save())
+            {
+                  return true;
+            }else{
+                  return false;
             }
       }
 

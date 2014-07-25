@@ -118,9 +118,9 @@ class ClientsNegociosController extends \BaseController
             if ($validatorNegocio->passes() & $validatorNegocioEspecial->passes())
             {
                   $negocio_model = Input::all();
-                  
-                  $especial = array('horario'=>Input::get('horario'));
-                  
+
+                  $especial = array('horario' => Input::get('horario'));
+
                   $negocio_model = array_add($negocio_model, 'especial', $especial);
 
                   $negocio = $this->negocio->update($id, $negocio_model);
@@ -134,14 +134,12 @@ class ClientsNegociosController extends \BaseController
                         Session::flash('error', 'Error al agregar el negocio');
                   }
             }
-            
+
             $negocio_messages = ($validatorNegocio->getErrors() != null) ? $validatorNegocio->getErrors()->all() : array();
             $negocio_especial_messages = ($validatorNegocioEspecial->getErrors() != null) ? $validatorNegocioEspecial->getErrors()->all() : array();
             $validationMessages = array_merge_recursive($negocio_messages, $negocio_especial_messages);
-            
+
             return Redirect::back()->withErrors($validationMessages)->withInput();
-            
-            
       }
 
       /**
@@ -161,6 +159,22 @@ class ClientsNegociosController extends \BaseController
                   Session::flash('error', 'No se pudo eliminar el negocio');
             }
             return Redirect::route('clientes_negocios.index');
+      }
+
+      public function activar($id)
+      {
+            $negocio = $this->negocio->find($id);
+            if($negocio->client->id == Auth::user()->userable->id){
+                  if($this->negocio->activar($id)){
+                        Session::flash('message','Activación correcta');
+                        return Redirect::route('clientes_negocios.index');
+                  }else{
+                        Session::flash('error','El negocio no pertenece al usuario');
+                  }
+            }else{
+                  Session::flash('error','El negocio no pertenece al usuario');
+            }           
+            return Redirect::back();
       }
 
 }

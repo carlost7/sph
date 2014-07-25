@@ -154,7 +154,7 @@ class ClientsPagosController extends \BaseController
                   {
                         $pago_model = array('pagado' => true, 'metodo' => 'Codigo Promocional');
                         $pago = $this->pago->update($id, $pago_model);
-                        if ($this->publicar_contenido($pago))
+                        if ($this->pago->publicar_contenido($pago))
                         {
                               Session::flash('message', 'Código satisfactorio');
                               return Redirect::route('clientes_pagos.index');
@@ -172,21 +172,6 @@ class ClientsPagosController extends \BaseController
             return Redirect::back();
       }
 
-      protected function publicar_contenido($pago)
-      {
-            $pago->pagable->publicar = true;
-            $pago->pagable->is_especial = true;
-            if ($pago->pagable->save())
-            {
-                  $data = array(
-                      'tipo' => get_class($pago->pagable),
-                  );
-                  Mail::queue('emails.publicacion_contenido_pago', $data, function($message)
-                  {
-                        $message->to(Auth::user()->email, Auth::user()->userable->name)->subject('Confirmación de Registro de Sphellar');
-                  });
-                  return true;
-            }
-      }
+      
 
 }

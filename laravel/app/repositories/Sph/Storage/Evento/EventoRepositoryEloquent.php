@@ -105,5 +105,16 @@ class EventoRepositoryEloquent implements EventoRepository
                   return null;
             }
       }
+      
+      public function activar($id){
+            $evento = Evento::find($id);
+            $evento->is_activo = true;
+            $evento->fecha_nueva_activacion = \Carbon\Carbon::now()->addMonth();
+            if($evento->save()){
+                  return true;
+            }else{
+                  return false;
+            }
+      }
 
 }

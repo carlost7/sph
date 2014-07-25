@@ -102,5 +102,16 @@ class NegocioRepositoryEloquent implements NegocioRepository
                   return null;
             }
       }
+     
+      public function activar($id){
+            $negocio = Negocio::find($id);
+            $negocio->is_activo = true;
+            $negocio->fecha_nueva_activacion = \Carbon\Carbon::now()->addMonth();
+            if($negocio->save()){
+                  return true;
+            }else{
+                  return false;
+            }
+      }
       
 }
