@@ -23,17 +23,6 @@ App::after(function($request, $response)
 });
 
 /*
-<<<<<<< HEAD
-  |--------------------------------------------------------------------------
-  | Authentication Filters
-  |--------------------------------------------------------------------------
-  |
-  | The following filters are used to verify that the user of the current
-  | session is logged into this application. The "basic" filter easily
-  | integrates HTTP Basic authentication for quick, simple checking.
-  |
- */
-
 |--------------------------------------------------------------------------
 | Authentication Filters
 |--------------------------------------------------------------------------
@@ -43,7 +32,6 @@ App::after(function($request, $response)
 | integrates HTTP Basic authentication for quick, change simple checking.
 |
 */
->>>>>>> origin/master
 
 Route::filter('auth', function()
 {
