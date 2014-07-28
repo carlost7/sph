@@ -60,4 +60,30 @@ class MarketingRepositoryEloquent implements MarketingRepository
             return null;
       }
 
+      public function asignar_cliente($client_object)
+      {
+            $marketings = Marketing::with('clientes')->get();
+            $conteo = array();
+            foreach ($marketings as $marketing)
+            {
+                  $conteo = array_add($conteo, $marketing->id, $marketing->clientes->count());
+            }
+
+            if (sizeof($conteo))
+            {
+                  $conteo = array_keys($conteo, min($conteo));
+                  $marketing = Marketing::find($conteo[rand(0, count($conteo) - 1)]);
+                  if ($marketing->clientes()->save($client_object))
+                  {
+                        return $marketing;
+                  }else{
+                        return null;
+                  }
+            }
+            else
+            {
+                  return null;
+            }
+      }
+
 }

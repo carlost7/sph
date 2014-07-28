@@ -18,7 +18,7 @@ class Marketing extends Validator
 
       public static $rules = array(
           "save" => array(
-              'nombre' => 'required',              
+              'name' => 'required',              
           ),
           "update" => array(
               'nombre' => ''

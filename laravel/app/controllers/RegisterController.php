@@ -87,7 +87,10 @@ class RegisterController extends \BaseController
                         $client = $this->client->update($id, $client_model);
                         if (isset($client))
                         {
-                              return View::make('register.confirmation')->with('confirmation', true);
+                              $marketing = $this->marketing->asignar_cliente($client);
+                              if(isset($marketing)){
+                                    return View::make('register.confirmation')->with('confirmation', true);                                    
+                              }
                         }
                   }
                   else
@@ -173,7 +176,7 @@ class RegisterController extends \BaseController
             $marketing_messages = ($validateMarketing->getErrors() != null) ? $validateMarketing->getErrors()->all() : array();
             $validationMessages = array_merge_recursive($user_messages, $marketing_messages);
 
-            return Redirect::route('register.client')->withInput()->withErrors($validationMessages);
+            return Redirect::route('register.marketing')->withInput()->withErrors($validationMessages);
       }
 
 }

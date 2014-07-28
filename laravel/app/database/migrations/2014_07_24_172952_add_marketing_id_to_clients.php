@@ -29,6 +29,7 @@ class AddMarketingIdToClients extends Migration {
 	{
 		Schema::table('clients', function(Blueprint $table)
 		{
+                  $table->dropForeign('clients_marketing_id_foreign');
 			$table->dropColumn('marketing_id');
 		});
 	}

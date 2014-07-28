@@ -13,7 +13,7 @@ class Marketing extends \Eloquent
       }
       
       public function clientes(){
-            return $this->hasMany('Client','client_id','id');
+            return $this->hasMany('Client','marketing_id','id');
       }
       
 }

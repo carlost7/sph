@@ -108,7 +108,6 @@ Route::get('create_codes', function()
 });
 
 
-
 /*
  * ***********************
  * Solo para usuarios autenticados
@@ -146,8 +145,8 @@ Route::group(array('before' => 'auth'), function()
                 'uses' => 'ClientsController@destroy',
                 'as' => 'clients.destroy'
             ));
-            
-            Route::get('client_avisar_marketing',array(
+
+            Route::get('client_avisar_marketing', array(
                 'uses' => 'ClientsController@avisar_marketing',
                 'as' => 'client_avisar'
             ));

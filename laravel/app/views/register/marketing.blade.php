@@ -6,8 +6,8 @@
             <h2>Registrar nuevo usuario marketing</h2>
             {{ Form::open(array('route' => 'register.store_marketing')) }}
             <div class="form-group">
-                  {{ Form::label('nombre', 'Nombre') }}
-                  {{ Form::text('nombre', Input::old('nombre'), array('placeholder' => 'nombre', 'class'=>'form-control')) }}
+                  {{ Form::label('name', 'Nombre') }}
+                  {{ Form::text('name', Input::old('nombre'), array('placeholder' => 'nombre', 'class'=>'form-control')) }}
             </div>
             <div class="form-group">
                   {{ Form::label('email', 'Correo electrónico') }}
