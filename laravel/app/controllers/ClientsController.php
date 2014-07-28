@@ -107,7 +107,8 @@ class ClientsController extends \BaseController
       public function avisar_marketing()
       {
             $id = Auth::user()->userable->id;
-            if ($this->client->avisar_marketing($id))
+            $client_model = array('tiene_aviso'=>true);
+            if ($this->client->update($id, $client_model))
             {
                   Session::flash("message", "Sus registros se encuentran en revision por un ejecutivo");
             }

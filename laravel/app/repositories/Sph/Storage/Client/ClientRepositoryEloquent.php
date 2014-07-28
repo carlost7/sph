@@ -76,5 +76,7 @@ class ClientRepositoryEloquent implements ClientRepository
                   return false;
             }
       }
+      
+      
 
 }

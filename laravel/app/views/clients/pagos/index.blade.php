@@ -30,7 +30,11 @@
                   <p>Pagado: {{ ($pago->pagado) ? 'Si' : 'No' }} - Método:{{$pago->metodo}}</p>
                   @else
                   <div class="show">
+                        @if(Auth::user()->userable->tiene_aviso)
+                        {{ HTML::linkRoute('client_avisar','Activación Manual',null,array('class'=>'btn btn-sm btn-info disabled')) }}
+                        @else
                         {{ HTML::linkRoute('client_avisar','Activación Manual',null,array('class'=>'btn btn-sm btn-info')) }}
+                        @endif
                         <a href='#' class='btn btn-sm btn-success' onclick='show_buttons({{$pago->id}})'>Activación Automática</a>
                   </div>
                   <br/>

@@ -1,16 +1,19 @@
 <?php
 
 use Sph\Storage\Pago\PagoRepository as Pago;
+use Sph\Storage\Client\ClientRepository as Client;
 use Carbon\Carbon;
 
 class ClientsPagosController extends \BaseController
 {
 
       protected $pago;
+      protected $client;
 
-      public function __construct(Pago $pago)
+      public function __construct(Pago $pago, Client $client)
       {
             $this->pago = $pago;
+            $this->client = $client;
       }
 
       /**
@@ -156,6 +159,17 @@ class ClientsPagosController extends \BaseController
                         $pago = $this->pago->update($id, $pago_model);
                         if ($this->pago->publicar_contenido($pago))
                         {
+                              $client_model = array('tiene_aviso' => false);
+                              $this->client->update($pago->client->id, $client_model);
+
+                              $data = array(
+                                  'tipo' => get_class($pago->pagable),
+                              );
+                              Mail::queue('emails.publicacion_contenido_pago', $data, function($message)
+                              {
+                                    $message->to(Auth::user()->email, Auth::user()->userable->name)->subject('Confirmación de Registro de Sphellar');
+                              });
+
                               Session::flash('message', 'Código satisfactorio');
                               return Redirect::route('clientes_pagos.index');
                         }
@@ -171,7 +185,5 @@ class ClientsPagosController extends \BaseController
             }
             return Redirect::back();
       }
-
-      
 
 }
