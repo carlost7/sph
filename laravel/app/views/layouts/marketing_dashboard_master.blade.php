@@ -42,7 +42,7 @@
                                     <li class="dropdown">
                                           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuario <span class="caret"></span></a>
                                           <ul class="dropdown-menu" role="menu">
-                                                <li>{{ HTML::linkRoute('session.destroy','Salir') }}</li>                                                                               
+                                                <li>{{ HTML::linkRoute('session.destroy','Salir') }}</li>                                                
                                           </ul>
                                     </li>
                               </ul>
@@ -58,12 +58,14 @@
                               <div class="row">
                                     <div class="col-xs-12 hidden-sm hidden-md hidden-lg">
                                           <ul class="nav nav-pills">
-                                                <li>Link 1</li>
+                                                <li {{ Request::is('marketing_clientes*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing_clientes.index','Clientes',null) }}</li>
+                                                <li {{ Request::is('marketing') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing.index','Cuenta',null) }}</li>
                                           </ul>
                                     </div>
                                     <div class="col-md-3 hidden-xs">
                                           <ul class="nav nav-pills nav-stacked">
-                                                <li>Link 1</li>                                                
+                                                <li {{ Request::is('marketing_clientes*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing_clientes.index','Clientes',null) }}</li>
+                                                <li {{ Request::is('marketing') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing.index','Cuenta',null) }}</li>
                                           </ul>
                                     </div>
                                     <div class="col-xs-12 col-md-9">

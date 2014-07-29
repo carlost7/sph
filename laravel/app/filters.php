@@ -106,3 +106,13 @@ Route::filter('is_client', function()
             return Redirect::to('/');
       }
 });
+
+Route::filter('is_marketing', function()
+{
+      $is_marketing = Session::get('is_marketing');
+      if (!$is_marketing)
+      {
+            Session::set('error', 'El tipo de usuario no es correcto');
+            return Redirect::to('/');
+      }
+});

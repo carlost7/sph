@@ -215,25 +215,36 @@ Route::group(array('before' => 'auth'), function()
        *     marketing
        * ***********************
        */
+      Route::group(array('before' => 'is_marketing'), function()
+      {
+            Route::get('/marketing', array(
+                'uses' => 'MarketingController@index',
+                'as' => 'marketing.index'
+            ));
 
-      Route::get('/marketing', array(
-          'uses' => 'MarketingController@index',
-          'as' => 'marketing.index'
-      ));
+            Route::get('/marketing_edit', array(
+                'uses' => 'MarketingController@edit',
+                'as' => 'marketing.edit'
+            ));
 
-      Route::get('/marketing_edit', array(
-          'uses' => 'MarketingController@edit',
-          'as' => 'marketing.edit'
-      ));
+            Route::post('/marketing_update', array(
+                'uses' => 'MarketingController@update',
+                'as' => 'marketing.update'
+            ));
 
-      Route::post('/marketing_update', array(
-          'uses' => 'MarketingController@update',
-          'as' => 'marketing.update'
-      ));
+            Route::post('/marketing_delete', array(
+                'uses' => 'MarketingController@destroy',
+                'as' => 'marketing.destroy'
+            ));
+            
+            /*
+             * *************************
+             *    Negocios de Cliente
+             * *************************
+             */
 
-      Route::post('/marketing_delete', array(
-          'uses' => 'MarketingController@destroy',
-          'as' => 'marketing.destroy'
-      ));
+            Route::resource('marketing_clientes', 'MarketingClientesController');
+            
+      });
 });
 
