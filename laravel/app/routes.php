@@ -217,22 +217,22 @@ Route::group(array('before' => 'auth'), function()
        */
       Route::group(array('before' => 'is_marketing'), function()
       {
-            Route::get('/marketing', array(
+            Route::get('/marketings', array(
                 'uses' => 'MarketingController@index',
                 'as' => 'marketing.index'
             ));
 
-            Route::get('/marketing_edit', array(
+            Route::get('/marketings_edit', array(
                 'uses' => 'MarketingController@edit',
                 'as' => 'marketing.edit'
             ));
 
-            Route::post('/marketing_update', array(
+            Route::post('/marketings_update', array(
                 'uses' => 'MarketingController@update',
                 'as' => 'marketing.update'
             ));
 
-            Route::post('/marketing_delete', array(
+            Route::post('/marketings_delete', array(
                 'uses' => 'MarketingController@destroy',
                 'as' => 'marketing.destroy'
             ));
@@ -243,7 +243,8 @@ Route::group(array('before' => 'auth'), function()
              * *************************
              */
 
-            Route::resource('marketing_clientes', 'MarketingClientesController');
+            Route::resource('marketing_avisos', 'MarketingAvisosController');
+            Route::post('marketing_avisos_publicar/{id}', array('as' => 'marketing_avisos_negocios.update', 'uses' => 'MarketingAvisosController@update'));
             
       });
 });

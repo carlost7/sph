@@ -110,6 +110,7 @@ class PromocionRepositoryEloquent implements PromocionRepository
       public function activar($id)
       {
             $promocion = Promocion::find($id);
+            $promocion->publicar = true;
             $promocion->is_activo = true;
             $promocion->fecha_nueva_activacion = \Carbon\Carbon::now()->addMonth();
             if ($promocion->save())

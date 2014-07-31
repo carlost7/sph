@@ -20,7 +20,11 @@ body {
    box-shadow: 0 1px 3px rgba(169, 68, 66, 0.6);
 }
 
-
+@-moz-document url-prefix() {
+    fieldset {
+        display: table-cell;
+    }
+}
 
 
 

@@ -1,16 +1,17 @@
 <?php
 
 use Sph\Storage\Marketing\MarketingRepository as Marketing;
+use Sph\Storage\Client\ClientRepository as Client;
 
 class MarketingClientesController extends \BaseController
 {
 
-      protected $user;
+      protected $client;
       protected $marketing;
 
-      public function __construct(User $user, Marketing $marketing)
+      public function __construct(Client $client, Marketing $marketing)
       {
-            $this->user = $user;
+            $this->client = $client;
             $this->marketing = $marketing;
       }
 
@@ -22,85 +23,73 @@ class MarketingClientesController extends \BaseController
       public function index()
       {
             $clientes = Auth::user()->userable->clientes;
-            
-            
-        /*->filter(function($client){
-                  return $client->tiene_aviso == true;
-            });*/
-            return View::make('marketing.clientes.index')->with('clientes',$clientes);
-      }
 
-      /**
-       * Show the form for editing the specified marketing.
-       *
-       * @param  int  $id
-       * @return Response
-       */
-      public function edit()
-      {
-            return View::make('marketing.edit');
-      }
-
-      /**
-       * Update the specified marketing in storage.
-       *
-       * @param  int  $id
-       * @return Response
-       */
-      public function update()
-      {
-            $validateUser = new Sph\Services\Validators\User(Input::all(), 'update');
-            $validateMarketing = new Sph\Services\Validators\Marketing(Input::all(), 'update');
-
-            if ($validateUser->passes() & $validateMarketing->passes())
+            $clientes = $clientes->filter(function($clientes)
             {
-                  $user_model = array();
-                  if ("" !== Input::get('password'))
-                  {
-                        $user_model = array_add($user_model, "password", Input::get('password'));
-                  }
-                  if ("" !== Input::get('email'))
-                  {
-                        $user_model = array_add($user_model, "email", Input::get('email'));
-                  }
-                  $user = $this->user->update(Auth::user()->id, $user_model);
-                  if (isset($user))
-                  {
-                        $marketing_model = array();
-                        if ("" !== Input::get('nombre'))
-                        {
-                              $marketing_model = array_add($marketing_model, "name", Input::get('nombre'));
-                        }
-                        if ("" !== Input::get('telefono'))
-                        {
-                              $marketing_model = array_add($marketing_model, "telephone", Input::get('telefono'));
-                        }
-                        $marketing = $this->marketing->update(Auth::user()->userable->id, $marketing_model);
-                        if (isset($marketing))
-                        {
-                              Session::flash('message', 'Usuario modificado con éxito');
-                              return Redirect::route('marketing.index');
-                        }
-                  }
-            }
-            $user_messages = ($validateUser->getErrors() != null) ? $validateUser->getErrors()->all() : array();
-            $marketing_messages = ($validateMarketing->getErrors() != null) ? $validateMarketing->getErrors()->all() : array();
-            $validationMessages = array_merge_recursive($user_messages, $marketing_messages);
+                  return $clientes->tiene_aviso == true;
+            });
 
-            return Redirect::back()->withInput()->withErrors($validationMessages);
+            return View::make('marketing.clientes.index')->with('clientes', $clientes);
       }
 
       /**
-       * Remove the specified marketing from storage.
+       * Display the specified resource.
+       * GET /marketingclientes/{id}
+       *
+       * @param  int  $id
+       * @return Response
+       */
+      public function show($id)
+      {
+            $cliente = $this->client->find($id);
+            $negocios = $cliente->negocios()->where('publicar', false)->get();
+            $eventos = $cliente->eventos()->where('publicar', false)->get();
+            $promociones = $cliente->promociones()->where('publicar', false)->get();
+            $bitacoras = $cliente->promociones()->where('publicar', false)->get();
+            
+            return View::make('marketing.clientes.show')
+                            ->with(array('cliente' => $cliente,
+                                'negocios' => $negocios,
+                                'eventos' => $eventos,
+                                'promociones' => $promociones,
+                                'bitacoras' => $bitacoras,
+                              ));
+      }
+
+      /**
+       * Show the form for editing the specified resource.
+       * GET /marketingclientes/{id}/edit
+       *
+       * @param  int  $id
+       * @return Response
+       */
+      public function edit($id)
+      {
+            //
+      }
+
+      /**
+       * Update the specified resource in storage.
+       * PUT /marketingclientes/{id}
+       *
+       * @param  int  $id
+       * @return Response
+       */
+      public function update($id)
+      {
+            //
+      }
+
+      /**
+       * Remove the specified resource from storage.
+       * DELETE /marketingclientes/{id}
        *
        * @param  int  $id
        * @return Response
        */
       public function destroy($id)
       {
-            Marketing::destroy($id);
-
-            return Redirect::route('marketing.index');
+            //
       }
 
 }
