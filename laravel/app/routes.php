@@ -244,7 +244,7 @@ Route::group(array('before' => 'auth'), function()
              */
 
             Route::resource('marketing_avisos', 'MarketingAvisosController');
-            Route::post('marketing_avisos_publicar/{id}', array('as' => 'marketing_avisos_negocios.update', 'uses' => 'MarketingAvisosController@update'));
+            Route::post('marketing_avisos_publicar/{id}', array('as' => 'marketing_avisos_publicar.update', 'uses' => 'MarketingAvisosController@publicar'));
             
       });
 });

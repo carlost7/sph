@@ -35,6 +35,9 @@ class StorageServiceProvider extends ServiceProvider
             $this->app->bind(
                     'Sph\Storage\Marketing\MarketingRepository', 'Sph\Storage\Marketing\MarketingRepositoryEloquent'
             );
+            $this->app->bind(
+                    'Sph\Storage\Bitacora_cliente\BitacoraClienteRepository', 'Sph\Storage\Bitacora_cliente\BitacoraClienteRepositoryEloquent'
+            );
       }
 
 }

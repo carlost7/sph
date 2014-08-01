@@ -36,4 +36,8 @@ class Client extends \Eloquent
             return $this->belongsTo('Marketing','marketing_id','id');
       }
 
+      public function bitacoras(){
+            return $this->hasMany('Bitacora_cliente','client_id','id');
+      }
+      
 }

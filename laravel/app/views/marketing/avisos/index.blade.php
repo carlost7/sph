@@ -28,7 +28,7 @@
 
 @else
 
-<h3>Ningun cliente ha agregado registros</h3>
+<h3>Ningun cliente tiene aviso</h3>
 
 @endif
 

@@ -5,8 +5,7 @@ use Sph\Storage\Client\ClientRepository as Client;
 use Sph\Storage\Negocio\NegocioRepository as Negocio;
 use Sph\Storage\Evento\EventoRepository as Evento;
 use Sph\Storage\Promocion\PromocionRepository as Promocion;
-
-
+use Sph\Storage\Bitacora_cliente\BitacoraClienteRepository as Bitacora_cliente;
 
 class MarketingAvisosController extends \BaseController
 {
@@ -16,16 +15,16 @@ class MarketingAvisosController extends \BaseController
       protected $negocio;
       protected $evento;
       protected $promocion;
-      protected $bitacora;
-      
+      protected $bitacora_cliente;
 
-      public function __construct(Client $client, Marketing $marketing, Negocio $negocio, Evento $evento, Promocion $promocion)
+      public function __construct(Client $client, Marketing $marketing, Negocio $negocio, Evento $evento, Promocion $promocion, Bitacora_cliente $bitacora_cliente)
       {
             $this->client = $client;
             $this->marketing = $marketing;
             $this->negocio = $negocio;
             $this->evento = $evento;
             $this->promocion = $promocion;
+            $this->bitacora_cliente = $bitacora_cliente;
       }
 
       /**
@@ -39,7 +38,8 @@ class MarketingAvisosController extends \BaseController
             $clientes = Auth::user()->userable->clientes->filter(function($clientes)
             {
                   return $clientes->tiene_aviso == true;
-            });;
+            });
+            ;
 
             return View::make('marketing.avisos.index')->with('clientes', $clientes);
       }
@@ -59,13 +59,34 @@ class MarketingAvisosController extends \BaseController
             $promociones = $cliente->promociones()->where('publicar', false)->get();
             $bitacoras = $cliente->promociones()->where('publicar', false)->get();
 
-            return View::make('marketing.avisos.show')
-                            ->with(array('cliente' => $cliente,
-                                'negocios' => $negocios,
-                                'eventos' => $eventos,
-                                'promociones' => $promociones,
-                                'bitacoras' => $bitacoras,
-            ));
+            $total = 0;
+            $total += $negocios->count();
+            $total += $eventos->count();
+            $total += $promociones->count();
+
+            if ($total)
+            {
+                  return View::make('marketing.avisos.show')
+                                  ->with(array('cliente' => $cliente,
+                                      'negocios' => $negocios,
+                                      'eventos' => $eventos,
+                                      'promociones' => $promociones,
+                                      'bitacoras' => $bitacoras,
+                  ));
+            }
+            else
+            {
+                  $client_model = array('tiene_aviso' => false);
+                  if ($this->client->update($id, $client_model))
+                  {
+                        return Redirect::route('marketing_avisos.index');
+                  }
+                  else
+                  {
+                        Session::flash('error', 'Error al actualizar el usuario');
+                        return Redirect::route('marketing_avisos.index');
+                  }
+            }
       }
 
       /**
@@ -75,32 +96,45 @@ class MarketingAvisosController extends \BaseController
        * @param  int  $id
        * @return Response
        */
-      public function update($id)
+      public function publicar($id)
       {
-            $class = strtolower(Input::get('class'));
+
+            $class = strtolower(Input::get('clase'));
             $object = $this->$class->find($id);
-            if(isset($object)){
-                  if(Input::get('publicar')){
-                        if($this->$class->activar($id)){
-                              echo "publicado";
-                        }else{
-                              echo "no publicado";
+            if (isset($object))
+            {
+                  $bitacora_model = array(Input::all());
+                  $bitacora_model = array_add($bitacora_model, 'fecha', \Carbon\Carbon::now());
+                  $bitacora_model = array_add($bitacora_model, 'client', $object->cliente);
+                  $bitacora = $this->bitacora_cliente->create($bitacora_model);
+
+                  if (Input::get('publicar'))
+                  {
+                        if ($this->$class->activar($id))
+                        {
+                              $data = array(
+                                  'tipo' => get_class($pago->pagable),
+                              );
+                              Mail::queue('emails.publicacion_contenido_gratuito', $data, function($message)
+                              {
+                                    $message->to(Auth::user()->email, Auth::user()->userable->name)->subject('Confirmación de Registro de Sphellar');
+                              });
+
+                              Session::flash('message', 'Publicado exitosamente');
                         }
-                  }else{
-                        echo "no se publicara";
+                        else
+                        {
+                              Session::flash('error', 'Error al publicar el contenido');
+                        }
                   }
-                  
-                  //Guardar bitacora
-                  
-                  //Avisar por correo al usuario
-            }else{
-                  echo "no existe";
             }
-            
-            echo "adios";
-            
+            else
+            {
+                  Session::flash('error', 'No existe ese id');
+            }
+
+            return Redirect::back();
       }
-      
 
       /**
        * Remove the specified resource from storage.

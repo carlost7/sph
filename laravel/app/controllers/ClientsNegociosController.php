@@ -161,6 +161,10 @@ class ClientsNegociosController extends \BaseController
             return Redirect::route('clientes_negocios.index');
       }
 
+      /*
+       * Funcion que le permite al usuario activar su negocio nuevamente
+       * 
+       */
       public function activar($id)
       {
             $negocio = $this->negocio->find($id);
