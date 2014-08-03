@@ -19,9 +19,7 @@ class MarketingAvisosController extends \BaseController
       protected $bitacora_cliente;
       protected $aviso_cliente;
 
-      public function __construct(Client $client, Marketing $marketing, Negocio $negocio, 
-              Evento $evento, Promocion $promocion, Bitacora_cliente $bitacora_cliente, 
-              Aviso_cliente $aviso_cliente)
+      public function __construct(Client $client, Marketing $marketing, Negocio $negocio, Evento $evento, Promocion $promocion, Bitacora_cliente $bitacora_cliente, Aviso_cliente $aviso_cliente)
       {
             $this->client = $client;
             $this->marketing = $marketing;
@@ -40,7 +38,7 @@ class MarketingAvisosController extends \BaseController
        */
       public function index()
       {
-            $clientes = Auth::user()->userable->clientes->filter(function($client){
+            $clientes = Auth::user()->userable->clientes->filter(function($client) {
                   return $client->avisos->count() > 0;
             });
 
@@ -62,34 +60,13 @@ class MarketingAvisosController extends \BaseController
             $promociones = $cliente->promociones()->where('publicar', false)->get();
             $bitacoras = $cliente->bitacoras;
 
-            $total = 0;
-            $total += $negocios->count();
-            $total += $eventos->count();
-            $total += $promociones->count();
-
-            if ($total)
-            {
-                  return View::make('marketing.avisos.show')
-                                  ->with(array('cliente' => $cliente,
-                                      'negocios' => $negocios,
-                                      'eventos' => $eventos,
-                                      'promociones' => $promociones,
-                                      'bitacoras' => $bitacoras,
-                  ));
-            }
-            else
-            {
-                  $client_model = array('tiene_aviso' => false);
-                  if ($this->client->update($id, $client_model))
-                  {
-                        return Redirect::route('marketing_avisos.index');
-                  }
-                  else
-                  {
-                        Session::flash('error', 'Error al actualizar el usuario');
-                        return Redirect::route('marketing_avisos.index');
-                  }
-            }
+            return View::make('marketing.avisos.show')
+                            ->with(array('cliente' => $cliente,
+                                  'negocios' => $negocios,
+                                  'eventos' => $eventos,
+                                  'promociones' => $promociones,
+                                  'bitacoras' => $bitacoras,
+            ));
       }
 
       /**
@@ -116,10 +93,9 @@ class MarketingAvisosController extends \BaseController
                         if ($this->$class->activar($id))
                         {
                               $data = array(
-                                  'tipo' => Input::get('clase'),
+                                    'tipo' => Input::get('clase'),
                               );
-                              Mail::queue('emails.publicacion_contenido_gratuito', $data, function($message) use ($object)
-                              {
+                              Mail::queue('emails.publicacion_contenido_gratuito', $data, function($message) use ($object) {
                                     $message->to($object->client->user->email, $object->client->name)->subject('publicacion de contenido en Sphellar');
                               });
 
@@ -130,9 +106,8 @@ class MarketingAvisosController extends \BaseController
                               Session::flash('error', 'Error al publicar el contenido');
                         }
                   }
-                  
+
                   $this->aviso_cliente->delete($object->aviso->id);
-                  
             }
             else
             {

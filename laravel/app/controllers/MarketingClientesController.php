@@ -24,11 +24,6 @@ class MarketingClientesController extends \BaseController
       {
             $clientes = Auth::user()->userable->clientes;
 
-            $clientes = $clientes->filter(function($clientes)
-            {
-                  return $clientes->tiene_aviso == true;
-            });
-
             return View::make('marketing.clientes.index')->with('clientes', $clientes);
       }
 
@@ -42,10 +37,10 @@ class MarketingClientesController extends \BaseController
       public function show($id)
       {
             $cliente = $this->client->find($id);
-            $negocios = $cliente->negocios()->where('publicar', false)->get();
-            $eventos = $cliente->eventos()->where('publicar', false)->get();
-            $promociones = $cliente->promociones()->where('publicar', false)->get();
-            $bitacoras = $cliente->promociones()->where('publicar', false)->get();
+            $negocios = $cliente->negocios;
+            $eventos = $cliente->eventos;
+            $promociones = $cliente->promociones;
+            $bitacoras = $cliente->bitacoras;
             
             return View::make('marketing.clientes.show')
                             ->with(array('cliente' => $cliente,

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h2>Lista de clientes</h2>
+<h2>Clientes que requieren atención</h2>
 
 @if($clientes->count())
 

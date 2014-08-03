@@ -59,12 +59,14 @@
                                     <div class="col-xs-12 col-sm-12 hidden-md hidden-lg">
                                           <ul class="nav nav-pills">
                                                 <li {{ Request::is('marketing_avisos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing_avisos.index','Avisos',null) }}</li>
+                                                <li {{ Request::is('marketing_clientes*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing_clientes.index','Clientes',null) }}</li>
                                                 <li {{ Request::is('marketing') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing.index','Cuenta',null) }}</li>
                                           </ul>
                                     </div>
                                     <div class="col-sm-3 hidden-xs hidden-sm">
                                           <ul class="nav nav-pills nav-stacked">
                                                 <li {{ Request::is('marketing_avisos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing_avisos.index','Avisos',null) }}</li>
+                                                <li {{ Request::is('marketing_clientes*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing_clientes.index','Clientes',null) }}</li>
                                                 <li {{ Request::is('marketings*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing.index','Cuenta',null) }}</li>
                                           </ul>
                                     </div>

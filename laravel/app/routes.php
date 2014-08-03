@@ -241,12 +241,19 @@ Route::group(array('before' => 'auth'), function()
             
             /*
              * *************************
-             *    Negocios de Cliente
+             *    Publicaciones de cliente
              * *************************
              */
 
             Route::resource('marketing_avisos', 'MarketingAvisosController');
             Route::post('marketing_avisos_publicar/{id}', array('as' => 'marketing_avisos_publicar.update', 'uses' => 'MarketingAvisosController@publicar'));
+            
+            /*
+             * ********************************
+             *    Clientes y Agenda
+             * ********************************
+             */
+            Route::resource('marketing_clientes','MarketingClientesController');
             
       });
 });
