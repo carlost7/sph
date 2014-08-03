@@ -11,7 +11,7 @@
 <div class="list-group">
       @foreach($pagos as $pago)
 
-      <div class="list-group-item {{ $pago->pagado ? 'published' : 'not-published' }}">
+      <div class="list-group-item {{ $pago->pagado || $pago->pagable->publicar ? 'published' : 'not-published' }}">
             <h3 class="text-left">                  
                   {{ $pago->descripcion }}
             </h3>
@@ -30,13 +30,13 @@
                   <p>Pagado: {{ ($pago->pagado) ? 'Si' : 'No' }} - Método:{{$pago->metodo}}</p>
                   @else
                   <div class="show">
-                        @if(Auth::user()->userable->tiene_aviso)
-                        {{ HTML::linkRoute('client_avisar','Activación Manual',null,array('class'=>'btn btn-sm btn-info disabled')) }}
+                        @if($pago->pagable->aviso || $pago->pagable->publicar )
+                        {{ Form::button('Activación Manual',array('class'=>'btn btn-sm btn-info disabled')) }}
                         @else
-                        {{ HTML::linkRoute('client_avisar','Activación Manual',null,array('class'=>'btn btn-sm btn-info')) }}
+                        {{ HTML::linkRoute('clientes_pagos_avisar_marketing.get','Activación Manual',$pago->id,array('class'=>'btn btn-sm btn-info')) }}
                         @endif
                         <a href='#' class='btn btn-sm btn-success' onclick='show_buttons({{$pago->id}})'>Activación Automática</a>
-                  </div>
+                  </div>      
                   <br/>
                   <div id="{{ $pago->id }}" class="hidden">
                         {{ HTML::linkRoute('clientes_pagos_codigo.get','Usar código',$pago->id,array('class'=>'btn btn-sm btn-success')) }}                   

@@ -146,11 +146,7 @@ Route::group(array('before' => 'auth'), function()
                 'as' => 'clients.destroy'
             ));
 
-            Route::get('client_avisar_marketing', array(
-                'uses' => 'ClientsController@avisar_marketing',
-                'as' => 'client_avisar'
-            ));
-
+            
 
             /*
              * *************************
@@ -164,6 +160,8 @@ Route::group(array('before' => 'auth'), function()
                 'uses' => 'ClientsNegociosController@activar')
             );
 
+            
+            
             /*
              * *************************
              *    Eventos de Cliente
@@ -207,6 +205,10 @@ Route::group(array('before' => 'auth'), function()
 
             Route::post('clientes_negocios_activar/{id}', array('as' => 'clientes_negocios_activar.post',
                 'uses' => 'ClientsNegociosController@activar')
+            );
+            
+            Route::get('clientes_pagos_avisar_marketing/{id}', array('as' => 'clientes_pagos_avisar_marketing.get',
+                'uses' => 'ClientsPagosController@avisar_marketing')
             );
       });
 

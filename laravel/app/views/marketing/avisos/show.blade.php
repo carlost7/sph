@@ -194,7 +194,7 @@
                                     </tr>                                    
                                     @foreach($bitacoras as $bitacora)
                                     <tr>
-                                          <td>{{ $bitacora->horario }}</td>
+                                          <td>{{ $bitacora->fecha }}</td>
                                           <td>{{ $bitacora->mensaje }}</td>                                          
                                     </tr>
 
@@ -227,8 +227,12 @@
 
       function show_prompt(form_id) {
             bootbox.prompt("¿Qué dijo el cliente?", function(result) {
-                  $('#' + form_id).find('[name="mensaje"]').val(result);
-                  $('#' + form_id).submit();
+                  if(result == null || result==""){
+                        alert("Es necesario llenar el registro de usuario");
+                  }else{
+                        $('#' + form_id).find('[name="mensaje"]').val(result);
+                        $('#' + form_id).submit();                        
+                  }
             });
       }
 

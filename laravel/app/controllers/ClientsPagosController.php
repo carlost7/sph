@@ -2,6 +2,7 @@
 
 use Sph\Storage\Pago\PagoRepository as Pago;
 use Sph\Storage\Client\ClientRepository as Client;
+use Sph\Storage\Aviso_cliente\AvisoClienteRepository as Aviso;
 use Carbon\Carbon;
 
 class ClientsPagosController extends \BaseController
@@ -9,11 +10,13 @@ class ClientsPagosController extends \BaseController
 
       protected $pago;
       protected $client;
+      protected $aviso;
 
-      public function __construct(Pago $pago, Client $client)
+      public function __construct(Pago $pago, Client $client, Aviso $aviso)
       {
             $this->pago = $pago;
             $this->client = $client;
+            $this->aviso = $aviso;
       }
 
       /**
@@ -163,10 +166,9 @@ class ClientsPagosController extends \BaseController
                               $this->client->update($pago->client->id, $client_model);
 
                               $data = array(
-                                  'tipo' => get_class($pago->pagable),
+                                    'tipo' => get_class($pago->pagable),
                               );
-                              Mail::queue('emails.publicacion_contenido_pago', $data, function($message)
-                              {
+                              Mail::queue('emails.publicacion_contenido_pago', $data, function($message) {
                                     $message->to(Auth::user()->email, Auth::user()->userable->name)->subject('Confirmación de Registro de Sphellar');
                               });
 
@@ -182,6 +184,26 @@ class ClientsPagosController extends \BaseController
             else
             {
                   Session::flash('error', 'El codigo no existe o ya fue utilizado');
+            }
+            return Redirect::back();
+      }
+
+      public function avisar_marketing($id)
+      {
+            $pago = $this->pago->find($id);
+            if (isset($pago))
+            {
+                  $aviso_model = array('client'=>Auth::user()->userable);
+                  $aviso_model = array_add($aviso_model, 'object', $pago->pagable);
+                  $aviso = $this->aviso->create($aviso_model);
+                  if (isset($aviso))
+                  {
+                        Session::flash('message', 'Un ejecutivo revisará el contenido y se le avisará por correo cuando este sea publicado');
+                  }
+            }
+            else
+            {
+                  Session::flash('error', 'El pago no corresponde al usuario');
             }
             return Redirect::back();
       }

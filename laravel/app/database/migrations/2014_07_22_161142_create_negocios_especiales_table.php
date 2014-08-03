@@ -18,7 +18,7 @@ class CreateNegociosEspecialesTable extends Migration {
 			$table->integer('negocio_id')->unsigned();
 			$table->string('horario');
 			$table->timestamps();
-                  $table->foreign('negocio_id')->references('id')->on('negocios')->onDelete('cascade')->onUpdate('cascade');
+                        $table->foreign('negocio_id')->references('id')->on('negocios')->onDelete('cascade')->onUpdate('cascade');
 		});
 	}
 

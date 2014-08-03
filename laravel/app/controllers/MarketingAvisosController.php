@@ -6,6 +6,7 @@ use Sph\Storage\Negocio\NegocioRepository as Negocio;
 use Sph\Storage\Evento\EventoRepository as Evento;
 use Sph\Storage\Promocion\PromocionRepository as Promocion;
 use Sph\Storage\Bitacora_cliente\BitacoraClienteRepository as Bitacora_cliente;
+use Sph\Storage\Aviso_cliente\AvisoClienteRepository as Aviso_cliente;
 
 class MarketingAvisosController extends \BaseController
 {
@@ -16,8 +17,11 @@ class MarketingAvisosController extends \BaseController
       protected $evento;
       protected $promocion;
       protected $bitacora_cliente;
+      protected $aviso_cliente;
 
-      public function __construct(Client $client, Marketing $marketing, Negocio $negocio, Evento $evento, Promocion $promocion, Bitacora_cliente $bitacora_cliente)
+      public function __construct(Client $client, Marketing $marketing, Negocio $negocio, 
+              Evento $evento, Promocion $promocion, Bitacora_cliente $bitacora_cliente, 
+              Aviso_cliente $aviso_cliente)
       {
             $this->client = $client;
             $this->marketing = $marketing;
@@ -25,6 +29,7 @@ class MarketingAvisosController extends \BaseController
             $this->evento = $evento;
             $this->promocion = $promocion;
             $this->bitacora_cliente = $bitacora_cliente;
+            $this->aviso_cliente = $aviso_cliente;
       }
 
       /**
@@ -35,11 +40,9 @@ class MarketingAvisosController extends \BaseController
        */
       public function index()
       {
-            $clientes = Auth::user()->userable->clientes->filter(function($clientes)
-            {
-                  return $clientes->tiene_aviso == true;
+            $clientes = Auth::user()->userable->clientes->filter(function($client){
+                  return $client->avisos->count() > 0;
             });
-            ;
 
             return View::make('marketing.avisos.index')->with('clientes', $clientes);
       }
@@ -57,7 +60,7 @@ class MarketingAvisosController extends \BaseController
             $negocios = $cliente->negocios()->where('publicar', false)->get();
             $eventos = $cliente->eventos()->where('publicar', false)->get();
             $promociones = $cliente->promociones()->where('publicar', false)->get();
-            $bitacoras = $cliente->promociones()->where('publicar', false)->get();
+            $bitacoras = $cliente->bitacoras;
 
             $total = 0;
             $total += $negocios->count();
@@ -103,9 +106,9 @@ class MarketingAvisosController extends \BaseController
             $object = $this->$class->find($id);
             if (isset($object))
             {
-                  $bitacora_model = array(Input::all());
+                  $bitacora_model = Input::all();
                   $bitacora_model = array_add($bitacora_model, 'fecha', \Carbon\Carbon::now());
-                  $bitacora_model = array_add($bitacora_model, 'client', $object->cliente);
+                  $bitacora_model = array_add($bitacora_model, 'client', $object->client);
                   $bitacora = $this->bitacora_cliente->create($bitacora_model);
 
                   if (Input::get('publicar'))
@@ -113,11 +116,11 @@ class MarketingAvisosController extends \BaseController
                         if ($this->$class->activar($id))
                         {
                               $data = array(
-                                  'tipo' => get_class($pago->pagable),
+                                  'tipo' => Input::get('clase'),
                               );
-                              Mail::queue('emails.publicacion_contenido_gratuito', $data, function($message)
+                              Mail::queue('emails.publicacion_contenido_gratuito', $data, function($message) use ($object)
                               {
-                                    $message->to(Auth::user()->email, Auth::user()->userable->name)->subject('Confirmación de Registro de Sphellar');
+                                    $message->to($object->client->user->email, $object->client->name)->subject('publicacion de contenido en Sphellar');
                               });
 
                               Session::flash('message', 'Publicado exitosamente');
@@ -127,6 +130,9 @@ class MarketingAvisosController extends \BaseController
                               Session::flash('error', 'Error al publicar el contenido');
                         }
                   }
+                  
+                  $this->aviso_cliente->delete($object->aviso->id);
+                  
             }
             else
             {

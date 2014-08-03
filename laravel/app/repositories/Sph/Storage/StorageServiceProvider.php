@@ -38,6 +38,9 @@ class StorageServiceProvider extends ServiceProvider
             $this->app->bind(
                     'Sph\Storage\Bitacora_cliente\BitacoraClienteRepository', 'Sph\Storage\Bitacora_cliente\BitacoraClienteRepositoryEloquent'
             );
+            $this->app->bind(
+                    'Sph\Storage\Aviso_cliente\AvisoClienteRepository', 'Sph\Storage\Aviso_cliente\AvisoClienteRepositoryEloquent'
+            );
       }
 
 }

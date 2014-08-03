@@ -15,5 +15,4 @@ interface ClientRepository
 
       public function delete($id);
       
-      public function avisar_marketing($id);
 }

@@ -19,10 +19,9 @@ class BitacoraClienteRepositoryEloquent implements BitacoraClienteRepository
 
       public function create(array $bitacora_model)
       {
-
-            $bitacora = new \Bitacora_cliente($bitacora_model);
+            $bitacora = new Bitacora_cliente($bitacora_model);
             $bitacora->client_id = $bitacora_model['client']->id;
-
+            
             if ($bitacora->save())
             {
                   return $bitacora;

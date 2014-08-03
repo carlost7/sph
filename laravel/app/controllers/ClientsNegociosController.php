@@ -180,5 +180,6 @@ class ClientsNegociosController extends \BaseController
             }           
             return Redirect::back();
       }
-
+      
+      
 }

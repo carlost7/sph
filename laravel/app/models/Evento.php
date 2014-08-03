@@ -21,5 +21,9 @@ class Evento extends \Eloquent
       {
             return $this->morphOne('Pago', 'pagable');
       }
+      
+      public function aviso(){            
+            return $this->morphOne('Aviso_cliente', 'avisable');
+      }
 
 }
