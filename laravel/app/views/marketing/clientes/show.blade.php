@@ -3,6 +3,13 @@
 @section('content')
 @if($cliente)
 
+<div class="col-xs-12">
+      <ul class="nav nav-pills">            
+            <li>{{ HTML::linkRoute('marketing_clientes.index','Regresar') }}</li>            
+      </ul>
+</div>
+
+
 <h1>Nombre: {{ $cliente->name }}</h1>
 <h2>Teléfono: {{$cliente->telephone}}</h2>
 <h2>Correo: {{$cliente->user->email}}</h2>

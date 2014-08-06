@@ -26,9 +26,9 @@ class MarketingsTableSeeder extends Seeder
             
             $user2 = new User();
             $user2->password = Hash::make('klendactu');
-            $user2->email = 'mkt1@sphellar.com';
-            $user2->userable_id = $marketing1->id;
-            $user2->userable_type = get_class($marketing1);
+            $user2->email = 'mkt2@sphellar.com';
+            $user2->userable_id = $marketing2->id;
+            $user2->userable_type = get_class($marketing2);
             $user2->save();
             
       }
