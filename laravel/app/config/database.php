@@ -57,10 +57,10 @@ return array(
 			'host'      => 'sphellar.csy6kwgdyuct.us-east-1.rds.amazonaws.com',
 			'database'  => 'sph',
 			'username'  => 'sphellar',
-			'password'  => 'mxsphellar',
+			'password'  => 'sphellar123',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
-			'prefix'    => '',
+			'prefix'    => 'app_',
 		),
 
 		'pgsql' => array(
