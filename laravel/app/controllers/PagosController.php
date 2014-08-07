@@ -46,7 +46,7 @@ class PagosController extends \BaseController
             $data = array(
                 'mensaje' => $mensaje,
             );
-            Mail::queue('emails.publicacion_contenido_pago', $data, function($message)
+            Mail::queue('emails.notificacion_pago_prueba', $data, function($message)
             {
                   $message->to('carlos.juarez@t7marketing.com', 'Carlos Juarez')->subject('Notificación de mercado pago');
             });
