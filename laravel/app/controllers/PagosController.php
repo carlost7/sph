@@ -23,7 +23,8 @@ class PagosController extends \BaseController
 
       public function recibir_notificacion_prueba()
       {
-            $id = Input::get('id');
+            //$id = Input::get('id');
+            $id = "1407455060";            
             Log::info('PagosController@recibir_notificacion_prueba: '.$id."/n".\Carbon\Carbon::now()->toDateString());
             if (isset($id))
             {
@@ -36,13 +37,14 @@ class PagosController extends \BaseController
                   {
                         $mensaje = "no se recibio notificacion";
                   }
-                  Log::info('PagosController@recibir_notificacion_prueba: '.$mensaje."/n".\Carbon\Carbon::now()->toDateString());
+                  Log::info('PagosController@recibir_notificacion_prueba: '.print_r($mensaje,true)."/n".\Carbon\Carbon::now()->toDateString());
             }
             else
             {
                   $mensaje = "no hubo id";
             }
 
+            
             $data = array(
                 'mensaje' => $mensaje,
             );

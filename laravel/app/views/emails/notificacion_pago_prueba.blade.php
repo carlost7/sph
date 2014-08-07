@@ -4,7 +4,6 @@
             <meta charset="utf-8">
       </head>
       <body>
-            {{ $mensaje }}
-            
+            {{ print_r($mensaje,true) }}            
       </body>
 </html>
