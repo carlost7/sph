@@ -1,109 +1,116 @@
 <?php
 
-class PagosController extends \BaseController {
+use Sph\Storage\Checkout\CheckoutRepository as Checkout;
+use Sph\Storage\Pago\PagoRepository as Pago;
 
-	/**
-	 * Display a listing of pagos
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$pagos = Pago::all();
+class PagosController extends \BaseController
+{
 
-		return View::make('pagos.index', compact('pagos'));
-	}
+      protected $checkout;
+      protected $pago;
 
-	/**
-	 * Show the form for creating a new pago
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('pagos.create');
-	}
+      public function __construct(Checkout $checkout, Pago $pago)
+      {
+            $this->checkout = $checkout;
+            $this->pago = $pago;
+      }
 
-	/**
-	 * Store a newly created pago in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$validator = Validator::make($data = Input::all(), Pago::$rules);
+      /*
+       * ****************************
+       * Espera notificaciones de pago desde Mercado pago y la envia por correo a un programador
+       * ****************************
+       */
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+      public function recibir_notificacion_prueba()
+      {
+            $id = Input::get('id');
+            Log::info('PagosController@recibir_notificacion_prueba: '.$id."/n".\Carbon\Carbon::now()->toDateString());
+            if (isset($id))
+            {
+                  $response = $this->checkout->recibir_notificacion($id);
+                  if (isset($response))
+                  {
+                        $mensaje = $response;
+                  }
+                  else
+                  {
+                        $mensaje = "no se recibio notificacion";
+                  }
+                  Log::info('PagosController@recibir_notificacion_prueba: '.$mensaje."/n".\Carbon\Carbon::now()->toDateString());
+            }
+            else
+            {
+                  $mensaje = "no hubo id";
+            }
 
-		Pago::create($data);
+            $data = array(
+                'mensaje' => $mensaje,
+            );
+            Mail::queue('emails.publicacion_contenido_pago', $data, function($message)
+            {
+                  $message->to('carlos.juarez@t7marketing.com', 'Carlos Juarez')->subject('Notificación de mercado pago');
+            });
+      }
 
-		return Redirect::route('pagos.index');
-	}
+      public function recibir_notificacion()
+      {
+            $id = Input::get('id');
+            if (isset($id))
+            {
+                  $response = $this->checkout->recibir_notificacion($id);
+                  if (isset($response))
+                  {
+                        $external_reference = $response['collection']['external_reference'];
+                        $status = $response['collection']['status'];
 
-	/**
-	 * Display the specified pago.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$pago = Pago::findOrFail($id);
+                        $user = $this->Pagos->actualizarStatusPagos($external_reference, $status);
+                        if (isset($user))
+                        {
 
-		return View::make('pagos.show', compact('pago'));
-	}
-
-	/**
-	 * Show the form for editing the specified pago.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$pago = Pago::find($id);
-
-		return View::make('pagos.edit', compact('pago'));
-	}
-
-	/**
-	 * Update the specified pago in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$pago = Pago::findOrFail($id);
-
-		$validator = Validator::make($data = Input::all(), Pago::$rules);
-
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
-
-		$pago->update($data);
-
-		return Redirect::route('pagos.index');
-	}
-
-	/**
-	 * Remove the specified pago from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		Pago::destroy($id);
-
-		return Redirect::route('pagos.index');
-	}
-      
-      
+                              switch ($status)
+                              {
+                                    case 'approved':
+                                          $this->agregarDominio($user);
+                                          break;
+                                    case "pending":
+                                          echo "Pago pendiente";
+                                          break;
+                                    case "in_process":
+                                          echo "pago en proceso";
+                                          break;
+                                    case "rejected":
+                                          echo "Pago rechazado";
+                                          break;
+                                    case "refunded":
+                                          echo "Pago regresado";
+                                          break;
+                                    case "cancelled":
+                                          $this->cancelarUsuario($user);
+                                          break;
+                                    case "in_mediation":
+                                          echo "status en_mediacion";
+                                          break;
+                                    default :
+                                          echo "status incorrecto";
+                                          break;
+                              }
+                        }
+                        else
+                        {
+                              Log::info('PagosController . obtenerIPNMercadoPago No se encuentra ningun usuario con el numero de orden ' . $external_reference);
+                              echo "no se encontro ningun usuario";
+                        }
+                  }
+                  else
+                  {
+                        Log::error('PagosController.obtenerIPNMercadoPago No se recibio informacion de pago ID:' . $id);
+                        echo "no recibido";
+                  }
+            }
+            else
+            {
+                  echo "no recibi nada";
+            }
+      }
 
 }

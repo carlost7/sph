@@ -54,10 +54,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
+			'host'      => 'sphellar.csy6kwgdyuct.us-east-1.rds.amazonaws.com',
 			'database'  => 'sph',
-			'username'  => 'sph',
-			'password'  => '1234',
+			'username'  => 'sphellar',
+			'password'  => 'mxsphellar',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

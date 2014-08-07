@@ -109,6 +109,15 @@ Route::get('create_codes', function()
 
 
 /*
+ * **************************************
+ * recibir_notificacion_prueba
+ * **************************************
+ */
+
+Route::get('pagos/recibir_notificacion_prueba',array('uses'=>'PagosController@recibir_notificacion_prueba','as'=>'recibir_notificacion_prueba'));
+Route::get('pagos/recibir_notificacion',array('uses'=>'PagosController@recibir_notificacion','as'=>'recibir_notificacion'));
+
+/*
  * ***********************
  * Solo para usuarios autenticados
  * ***********************

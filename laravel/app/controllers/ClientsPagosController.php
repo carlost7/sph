@@ -253,5 +253,7 @@ class ClientsPagosController extends \BaseController
                   return Redirect::back();
             }
       }
+      
+      
 
 }
