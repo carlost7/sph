@@ -97,5 +97,18 @@ class PagoRepositoryEloquent implements PagoRepository
                   return true;
             }
       }
+      
+      public function update_status($id,$status){
+            $pago = Pago::find($id);
+            $pago->status = $status;
+            if ($pago->save())
+            {
+                  return $pago;
+            }
+            else
+            {
+                  return null;
+            }
+      }
 
 }

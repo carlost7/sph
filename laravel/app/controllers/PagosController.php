@@ -103,5 +103,7 @@ class PagosController extends \BaseController {
 
 		return Redirect::route('pagos.index');
 	}
+      
+      
 
 }

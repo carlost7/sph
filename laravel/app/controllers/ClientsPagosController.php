@@ -3,6 +3,7 @@
 use Sph\Storage\Pago\PagoRepository as Pago;
 use Sph\Storage\Client\ClientRepository as Client;
 use Sph\Storage\Aviso_cliente\AvisoClienteRepository as Aviso;
+use Sph\Storage\Checkout\CheckoutRepository as Checkout;
 use Carbon\Carbon;
 
 class ClientsPagosController extends \BaseController
@@ -11,12 +12,14 @@ class ClientsPagosController extends \BaseController
       protected $pago;
       protected $client;
       protected $aviso;
+      protected $checkout;
 
-      public function __construct(Pago $pago, Client $client, Aviso $aviso)
+      public function __construct(Pago $pago, Client $client, Aviso $aviso, Checkout $checkout)
       {
             $this->pago = $pago;
             $this->client = $client;
             $this->aviso = $aviso;
+            $this->checkout = $checkout;
       }
 
       /**
@@ -166,9 +169,10 @@ class ClientsPagosController extends \BaseController
                               $this->client->update($pago->client->id, $client_model);
 
                               $data = array(
-                                    'tipo' => get_class($pago->pagable),
+                                  'tipo' => get_class($pago->pagable),
                               );
-                              Mail::queue('emails.publicacion_contenido_pago', $data, function($message) {
+                              Mail::queue('emails.publicacion_contenido_pago', $data, function($message)
+                              {
                                     $message->to(Auth::user()->email, Auth::user()->userable->name)->subject('Confirmación de Registro de Sphellar');
                               });
 
@@ -193,7 +197,7 @@ class ClientsPagosController extends \BaseController
             $pago = $this->pago->find($id);
             if (isset($pago))
             {
-                  $aviso_model = array('client'=>Auth::user()->userable);
+                  $aviso_model = array('client' => Auth::user()->userable);
                   $aviso_model = array_add($aviso_model, 'object', $pago->pagable);
                   $aviso = $this->aviso->create($aviso_model);
                   if (isset($aviso))
@@ -206,6 +210,48 @@ class ClientsPagosController extends \BaseController
                   Session::flash('error', 'El pago no corresponde al usuario');
             }
             return Redirect::back();
+      }
+
+      public function pagar($id)
+      {
+
+            //Obtiene el id del pago y obtiene el costo del pago por tipo de elemento
+            $pago = $this->pago->find($id);
+
+            $preference_data = array(
+                "items" => array(
+                    array(
+                        "title" => $pago->nombre,
+                        "quantity" => 1,
+                        "currency_id" => "MEX",
+                        "unit_price" => doubleval($pago->monto)
+                    )
+                ),
+                "payer" => array(
+                    "name" => Auth::user()->userable->nombre,
+                    "email" => Auth::user()->email,
+                ),
+                "back_urls" => array(
+                    "success" => URL::Route("clientes_pagos.index"),
+                    "failure" => URL::Route("clientes_pagos.index"),
+                    "pending" => URL::Route("clientes_pagos.index"),
+                ),
+                "external_reference" => $pago->id,
+            );
+
+
+            $preference = $this->checkout->generar_preferencia($preference_data);
+            if (isset($preference))
+            {
+                  
+                  $link = $preference['response'][Config::get('payment.init_point')];
+                  return Redirect::away($link);
+            }
+            else
+            {
+                  Session::flash('error', 'Ocurrio un error al tratar de generar el pago.');
+                  return Redirect::back();
+            }
       }
 
 }

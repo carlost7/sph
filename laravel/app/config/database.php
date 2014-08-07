@@ -114,7 +114,7 @@ return array(
 		'cluster' => false,
 
 		'default' => array(
-			'host'     => '127.0.0.1',
+			'host'     => 'redis-cache.rahtkx.0001.use1.cache.amazonaws.com',
 			'port'     => 6379,
 			'database' => 0,
 		),

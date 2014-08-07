@@ -58,7 +58,7 @@ class ClientsNegociosController extends \BaseController
                         $pago_model = array(
                             'nombre' => 'Publicación de Negocio',
                             'descripcion' => $negocio->nombre,
-                            'monto' => 100.00,
+                            'monto' => Config::get('costos.negocio'),
                             'client' => Auth::user()->userable,
                         );
                         $pago = $this->pago->create($pago_model);

@@ -35,14 +35,10 @@
                         @else
                         {{ HTML::linkRoute('clientes_pagos_avisar_marketing.get','Activación Manual',$pago->id,array('class'=>'btn btn-sm btn-info')) }}
                         @endif
-                        <a href='#' class='btn btn-sm btn-success' onclick='show_buttons({{$pago->id}})'>Activación Automática</a>
-                  </div>      
-                  <br/>
-                  <div id="{{ $pago->id }}" class="hidden">
                         {{ HTML::linkRoute('clientes_pagos_codigo.get','Usar código',$pago->id,array('class'=>'btn btn-sm btn-success')) }}                   
-                        {{ HTML::linkRoute('clientes_pagos.edit','Mercado Pago',$pago->id,array('class'=>'btn btn-sm btn-success')) }}                  
-
-                  </div>
+                        
+                        {{ HTML::linkRoute('clientes_pagos_pagar.get','Mercado Pago',$pago->id,array('class'=>'btn btn-sm btn-success')) }}                                          
+                  </div>                        
                   @endif
             </div>
       </div>
@@ -64,17 +60,7 @@
 @section('scripts')
 
 <script type="text/javascript">
-              function show_buttons(id) {
-                  var buttons = $("#" + id);
-                  if(buttons.hasClass('hidden')){
-                        buttons.removeClass('hidden');
-                        buttons.addClass('show');
-                  }else{
-                        buttons.removeClass('show');
-                        buttons.addClass('hidden');
-                  }
-                  
-              }
+              
 </script>
 
 @stop

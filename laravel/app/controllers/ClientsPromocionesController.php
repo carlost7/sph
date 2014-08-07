@@ -57,7 +57,7 @@ class ClientsPromocionesController extends \BaseController
                         $pago_model = array(
                             'nombre' => 'Publicación de promoción',
                             'descripcion' => Input::get('nombre'),
-                            'monto' => 100.00,
+                            'monto' => Config::get('costos.promociones'),
                             'client' => Auth::user()->userable,
                         );
                         $pago = $this->pago->create($pago_model);

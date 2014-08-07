@@ -207,6 +207,10 @@ Route::group(array('before' => 'auth'), function()
                 'uses' => 'ClientsNegociosController@activar')
             );
             
+            Route::get('clientes_pagos_pagar/{id}', array('as' => 'clientes_pagos_pagar.get',
+                'uses' => 'ClientsPagosController@pagar')
+            );
+            
             Route::get('clientes_pagos_avisar_marketing/{id}', array('as' => 'clientes_pagos_avisar_marketing.get',
                 'uses' => 'ClientsPagosController@avisar_marketing')
             );

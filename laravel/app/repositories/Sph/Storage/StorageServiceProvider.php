@@ -41,6 +41,9 @@ class StorageServiceProvider extends ServiceProvider
             $this->app->bind(
                     'Sph\Storage\Aviso_cliente\AvisoClienteRepository', 'Sph\Storage\Aviso_cliente\AvisoClienteRepositoryEloquent'
             );
+            $this->app->bind(
+                    'Sph\Storage\Checkout\CheckoutRepository', 'Sph\Storage\Checkout\CheckoutRepositoryMercadoPago'
+            );
       }
 
 }
