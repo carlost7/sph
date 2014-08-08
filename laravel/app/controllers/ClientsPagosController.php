@@ -243,7 +243,7 @@ class ClientsPagosController extends \BaseController
             $preference = $this->checkout->generar_preferencia($preference_data);
             if (isset($preference))
             {
-                  
+
                   $link = $preference['response'][Config::get('payment.init_point')];
                   return Redirect::away($link);
             }
@@ -253,7 +253,64 @@ class ClientsPagosController extends \BaseController
                   return Redirect::back();
             }
       }
-      
-      
+
+      /*
+       * ***********************************
+       * Obtiene todos los pagos que no se han realizado del cliente y los envia a mercado pago
+       * ***********************************
+       */
+
+      public function pagar_todo()
+      {
+            $pagos = Auth::user()->userable->pagos->filter(function($pago)
+            {
+                  return $pago->pagado == false;
+            });            
+            
+            $items = array();
+            $ids = '';
+
+            foreach ($pagos as $pago)
+            {
+                  $item = array(
+                      "title" => $pago->nombre,
+                      "description" => $pago->descripcion,
+                      "quantity" => 1,
+                      "currency_id" => "MEX",
+                      "unit_price" => doubleval($pago->monto)
+                  );
+                  $ids = $ids.$pago->id."-";
+                  array_push($items, $item);
+            }
+
+            $preference_data = array(
+                "items" => $items,
+                "payer" => array(
+                    "name" => Auth::user()->userable->nombre,
+                    "email" => Auth::user()->email,
+                ),
+                "back_urls" => array(
+                    "success" => URL::Route("clientes_pagos.index"),
+                    "failure" => URL::Route("clientes_pagos.index"),
+                    "pending" => URL::Route("clientes_pagos.index"),
+                ),
+                "external_reference" => $ids,
+            );
+
+            
+
+            $preference = $this->checkout->generar_preferencia($preference_data);
+            if (isset($preference))
+            {
+
+                  $link = $preference['response'][Config::get('payment.init_point')];
+                  return Redirect::away($link);
+            }
+            else
+            {
+                  Session::flash('error', 'Ocurrio un error al tratar de generar el pago.');
+                  return Redirect::back();
+            }
+      }
 
 }

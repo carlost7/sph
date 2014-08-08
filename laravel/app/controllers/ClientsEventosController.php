@@ -58,7 +58,7 @@ class ClientsEventosController extends \BaseController
                         $pago_model = array(
                             'nombre' => 'Publicación de Evento',
                             'descripcion' => $evento->nombre,
-                            'monto' => Config::get('costos.eventos'),
+                            'monto' => Config::get('costos.evento'),
                             'client' => Auth::user()->userable,
                         );
                         $pago = $this->pago->create($pago_model);
