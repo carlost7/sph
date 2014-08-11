@@ -20,4 +20,6 @@ interface PagoRepository
       public function usar_codigo($id,$codigo_model);
       
       public function publicar_contenido($pago);
+      
+      public function update_status(array $ids, $status);
 }

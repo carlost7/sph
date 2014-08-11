@@ -115,7 +115,7 @@ Route::get('create_codes', function()
  */
 
 Route::any('pagos/recibir_notificacion_prueba',array('uses'=>'PagosController@recibir_notificacion_prueba','as'=>'recibir_notificacion_prueba'));
-Route::post('pagos/recibir_notificacion',array('uses'=>'PagosController@recibir_notificacion','as'=>'recibir_notificacion'));
+Route::any('pagos/recibir_notificacion',array('uses'=>'PagosController@recibir_notificacion','as'=>'recibir_notificacion'));
 
 /*
  * ***********************

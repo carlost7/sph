@@ -86,28 +86,26 @@ class PagoRepositoryEloquent implements PagoRepository
                   return null;
             }
       }
-      
+
       public function publicar_contenido($pago)
       {
             $pago->pagable->publicar = true;
             $pago->pagable->is_especial = true;
             $pago->pagable->is_activo = true;
             if ($pago->pagable->save())
-            {                  
+            {
                   return true;
             }
       }
-      
-      public function update_status($id,$status){
-            $pago = Pago::find($id);
-            $pago->status = $status;
-            if ($pago->save())
-            {
-                  return $pago;
-            }
-            else
-            {
-                  return null;
+
+      public function update_status(array $ids, $status)
+      {
+            if(Pago::whereIn('id',$ids)->update(array(
+                'status' => $status,'metodo'=>'mercado_pago',
+            ))){
+                  return true;
+            }else{
+                  return false;
             }
       }
 

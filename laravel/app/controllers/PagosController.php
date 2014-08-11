@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Events\Dispatcher;
 use Sph\Storage\Checkout\CheckoutRepository as Checkout;
 use Sph\Storage\Pago\PagoRepository as Pago;
 
@@ -8,11 +9,13 @@ class PagosController extends \BaseController
 
       protected $checkout;
       protected $pago;
+      protected $events;
 
-      public function __construct(Checkout $checkout, Pago $pago)
+      public function __construct(Checkout $checkout, Pago $pago, Dispatcher $events)
       {
             $this->checkout = $checkout;
             $this->pago = $pago;
+            $this->events = $events;
       }
 
       /*
@@ -24,7 +27,7 @@ class PagosController extends \BaseController
       public function recibir_notificacion_prueba()
       {
             $id = Input::get('id');
-            Log::info('PagosController@recibir_notificacion_prueba: '.$id."/n".\Carbon\Carbon::now()->toDateString());
+            Log::info('PagosController@recibir_notificacion_prueba: ' . $id . "/n" . \Carbon\Carbon::now()->toDateString());
             if (isset($id))
             {
                   $response = $this->checkout->recibir_notificacion($id);
@@ -36,14 +39,14 @@ class PagosController extends \BaseController
                   {
                         $mensaje = "no se recibio notificacion";
                   }
-                  Log::info('PagosController@recibir_notificacion_prueba: '.print_r($mensaje,true)."/n".\Carbon\Carbon::now()->toDateString());
+                  Log::info('PagosController@recibir_notificacion_prueba: ' . print_r($mensaje, true) . "/n" . \Carbon\Carbon::now()->toDateString());
             }
             else
             {
                   $mensaje = "no hubo id";
             }
 
-            
+
             $data = array(
                 'mensaje' => $mensaje,
             );
@@ -53,65 +56,60 @@ class PagosController extends \BaseController
             });
       }
 
+      /*
+       * **********************************
+       * Recibe notificaciones desde mercado pago
+       * Realiza el cambio de status y activa los servicios
+       * **********************************
+       */
+
       public function recibir_notificacion()
       {
-            $id = Input::get('id');
-            if (isset($id))
+
+
+            /* $id = Input::get('id');
+              if (isset($id))
+              { */
+            //$response = $this->checkout->recibir_notificacion($id);
+            $response = array ( "external_reference" => "2-3-4-5-6-7","status" => "approved");
+            //$response = array("external_reference" => "1","status" => "approved");
+            if (isset($response))
             {
-                  $response = $this->checkout->recibir_notificacion($id);
-                  if (isset($response))
+
+                  $external_reference = $response['external_reference'];
+                  $status = $response['status'];
+
+                  $ids = explode("-", $external_reference);
+                  
+                  if ($this->pago->update_status($ids, $status))
                   {
-                        $external_reference = $response['collection']['external_reference'];
-                        $status = $response['collection']['status'];
-
-                        $user = $this->Pagos->actualizarStatusPagos($external_reference, $status);
-                        if (isset($user))
+                        switch ($status)
                         {
-
-                              switch ($status)
-                              {
-                                    case 'approved':
-                                          $this->agregarDominio($user);
-                                          break;
-                                    case "pending":
-                                          echo "Pago pendiente";
-                                          break;
-                                    case "in_process":
-                                          echo "pago en proceso";
-                                          break;
-                                    case "rejected":
-                                          echo "Pago rechazado";
-                                          break;
-                                    case "refunded":
-                                          echo "Pago regresado";
-                                          break;
-                                    case "cancelled":
-                                          $this->cancelarUsuario($user);
-                                          break;
-                                    case "in_mediation":
-                                          echo "status en_mediacion";
-                                          break;
-                                    default :
-                                          echo "status incorrecto";
-                                          break;
-                              }
-                        }
-                        else
-                        {
-                              Log::info('PagosController . obtenerIPNMercadoPago No se encuentra ningun usuario con el numero de orden ' . $external_reference);
-                              echo "no se encontro ningun usuario";
+                              case 'approved':
+                                    $this->events->fire('pago_aprobado', array($ids));
+                                    echo "cambios realizados";
+                                    break;
+                              default:
+                                    $this->events->fire('pago_cancelado', $ids);
+                                    echo "status diferente a aprovado";
+                                    break;
                         }
                   }
                   else
                   {
-                        Log::error('PagosController.obtenerIPNMercadoPago No se recibio informacion de pago ID:' . $id);
-                        echo "no recibido";
+                        
                   }
             }
             else
             {
-                  echo "no recibi nada";
+                  Log::error('PagosController.obtenerIPNMercadoPago No se recibio informacion de pago ID:' . $id);
+                  echo "no recibido";
             }
+            /* }
+              else
+              {
+              echo "no recibi nada";
+              } */
       }
-
+      
 }
