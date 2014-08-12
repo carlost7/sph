@@ -212,16 +212,8 @@ Route::group(array('before' => 'auth'), function()
                 'uses' => 'ClientsPagosController@guardar_codigo')
             );
 
-            Route::post('clientes_negocios_activar/{id}', array('as' => 'clientes_negocios_activar.post',
-                'uses' => 'ClientsNegociosController@activar')
-            );
-            
-            Route::get('clientes_pagos_pagar/{id}', array('as' => 'clientes_pagos_pagar.get',
+            Route::get('clientes_pagos_pagar', array('as' => 'clientes_pagos_pagar.get',
                 'uses' => 'ClientsPagosController@pagar')
-            );
-            
-            Route::get('clientes_pagos_pagar_todo', array('as' => 'clientes_pagos_pagar_todo.get',
-                'uses' => 'ClientsPagosController@pagar_todo')
             );
             
             Route::get('clientes_pagos_avisar_marketing/{id}', array('as' => 'clientes_pagos_avisar_marketing.get',

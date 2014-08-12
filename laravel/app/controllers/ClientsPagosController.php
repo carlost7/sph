@@ -29,9 +29,18 @@ class ClientsPagosController extends \BaseController
        */
       public function index()
       {
+            $necesita_pagar = false;
             $pagos = Auth::user()->userable->pagos()->orderBy('created_at', 'desc')->orderBy('pagado', 'asc')->paginate(5);
+            
+            //Check if value is in collection;
+            $value = false;
+            $key = 'pagado';
+            if(in_array($value, $pagos->lists($key))){
+                  $necesita_pagar = true;
+            }
+                        
             //->sortByDesc('created_at')->sortBy('pagado');
-            return View::make('clients.pagos.index')->with("pagos", $pagos);
+            return View::make('clients.pagos.index')->with(array("pagos"=>$pagos,'necesita_pagar'=>$necesita_pagar));
       }
 
       /**
@@ -212,66 +221,20 @@ class ClientsPagosController extends \BaseController
             return Redirect::back();
       }
 
-      public function pagar($id)
-      {
-
-            //Obtiene el id del pago y obtiene el costo del pago por tipo de elemento
-            $pago = $this->pago->find($id);
-
-            $preference_data = array(
-                "items" => array(
-                    array(
-                        "title" => $pago->nombre,
-                        "quantity" => 1,
-                        "currency_id" => "MEX",
-                        "unit_price" => doubleval($pago->monto)
-                    )
-                ),
-                "payer" => array(
-                    "name" => Auth::user()->userable->nombre,
-                    "email" => Auth::user()->email,
-                ),
-                "back_urls" => array(
-                    "success" => URL::Route("clientes_pagos.index"),
-                    "failure" => URL::Route("clientes_pagos.index"),
-                    "pending" => URL::Route("clientes_pagos.index"),
-                ),
-                "external_reference" => $pago->id,
-            );
-
-
-            $preference = $this->checkout->generar_preferencia($preference_data);
-            if (isset($preference))
-            {
-
-                  $link = $preference['response'][Config::get('payment.init_point')];
-                  return Redirect::away($link);
-            }
-            else
-            {
-                  Session::flash('error', 'Ocurrio un error al tratar de generar el pago.');
-                  return Redirect::back();
-            }
-      }
-
       /*
        * ***********************************
        * Obtiene todos los pagos que no se han realizado del cliente y los envia a mercado pago
        * ***********************************
        */
 
-      public function pagar_todo()
+      public function pagar()
       {
-            $pagos = Auth::user()->userable->pagos->filter(function($pago)
-            {
-                  return $pago->pagado == false;
-            });            
-            
+
             $items = array();
             $ids = '';
-
-            foreach ($pagos as $pago)
+            if (Input::get('id'))
             {
+                  $pago = $this->pago->find(Input::get('id'));
                   $item = array(
                       "title" => $pago->nombre,
                       "description" => $pago->descripcion,
@@ -279,9 +242,31 @@ class ClientsPagosController extends \BaseController
                       "currency_id" => "MEX",
                       "unit_price" => doubleval($pago->monto)
                   );
-                  $ids = $ids.$pago->id."-";
+                  $ids = $ids . $pago->id . "-";
                   array_push($items, $item);
             }
+            else
+            {
+                  $pagos = Auth::user()->userable->pagos->filter(function($pago)
+                  {
+                        return $pago->pagado == false;
+                  });
+                  
+                  foreach ($pagos as $pago)
+                  {
+
+                        $item = array(
+                            "title" => $pago->nombre,
+                            "description" => $pago->descripcion,
+                            "quantity" => 1,
+                            "currency_id" => "MEX",
+                            "unit_price" => doubleval($pago->monto)
+                        );
+                        $ids = $ids . $pago->id . "-";
+                        array_push($items, $item);
+                  }
+            }
+            
 
             $preference_data = array(
                 "items" => $items,
@@ -296,8 +281,6 @@ class ClientsPagosController extends \BaseController
                 ),
                 "external_reference" => $ids,
             );
-
-            
 
             $preference = $this->checkout->generar_preferencia($preference_data);
             if (isset($preference))

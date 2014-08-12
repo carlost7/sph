@@ -9,10 +9,12 @@
 {{ $pagos->links() }}
 
 <div class="list-group">
-      {{ HTML::linkRoute('clientes_pagos_pagar_todo.get','Activar todo',null,array('class'=>'btn btn-sm btn-warning')) }}
+      @if($necesita_pagar)
+      {{ HTML::linkRoute('clientes_pagos_pagar.get','Activar todo',null,array('class'=>'btn btn-sm btn-warning')) }}
       <br>
       <br>
-      
+      @endif
+
       @foreach($pagos as $pago)
 
       <div class="list-group-item {{ $pago->pagado || $pago->pagable->publicar ? 'published' : 'not-published' }}">
@@ -40,8 +42,8 @@
                         {{ HTML::linkRoute('clientes_pagos_avisar_marketing.get','Activación Manual',$pago->id,array('class'=>'btn btn-sm btn-info')) }}
                         @endif
                         {{ HTML::linkRoute('clientes_pagos_codigo.get','Usar código',$pago->id,array('class'=>'btn btn-sm btn-success')) }}                   
-                        
-                        {{ HTML::linkRoute('clientes_pagos_pagar.get','Activación automática',$pago->id,array('class'=>'btn btn-sm btn-success')) }}
+
+                        {{ HTML::linkRoute('clientes_pagos_pagar.get','Activación automática',array('id'=>$pago->id),array('class'=>'btn btn-sm btn-success')) }}
                   </div>                        
                   @endif
             </div>
@@ -64,7 +66,7 @@
 @section('scripts')
 
 <script type="text/javascript">
-              
+
 </script>
 
 @stop

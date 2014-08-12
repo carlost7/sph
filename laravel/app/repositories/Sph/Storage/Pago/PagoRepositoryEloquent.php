@@ -98,10 +98,17 @@ class PagoRepositoryEloquent implements PagoRepository
             }
       }
 
+      /*
+       * 
+       */
       public function update_status(array $ids, $status)
       {
+            $pagado = false;
+            if($status=="approved"){
+                  $pagado = true;
+            }
             if(Pago::whereIn('id',$ids)->update(array(
-                'status' => $status,'metodo'=>'mercado_pago',
+                'status' => $status,'metodo'=>'mercado_pago','pagado'=> $pagado
             ))){
                   return true;
             }else{

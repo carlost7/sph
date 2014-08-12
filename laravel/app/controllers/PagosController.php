@@ -90,8 +90,8 @@ class PagosController extends \BaseController
                                     echo "cambios realizados";
                                     break;
                               default:
-                                    $this->events->fire('pago_cancelado', $ids);
-                                    echo "status diferente a aprovado";
+                                    $this->events->fire('pago_cancelado', array($ids));
+                                    echo "status diferente a aprobado";
                                     break;
                         }
                   }
