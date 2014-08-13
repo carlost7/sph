@@ -17,14 +17,20 @@ class CreateNegociosTable extends Migration
             {
                   $table->increments('id');
                   $table->string('nombre');
-                  $table->string('direccion');
                   $table->string('telefono');
+                  $table->string('direccion');
                   $table->text('descripcion');
-                  $table->boolean('publicar');
+                  $table->string('moneda');
+                  $table->string('rango_min');
+                  $table->string('rango_max');
+                  $table->double('likes')->default(0.0);
+                  $table->boolean('publicar');                  
                   $table->boolean('is_especial');
-                  $table->integer('client_id')->unsigned();
+                  $table->boolean('is_activo');
+			$table->date('fecha_nueva_activacion');
+                  $table->integer('cliente_id')->unsigned();                  
+                  $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade')->onUpdate('cascade');
                   $table->timestamps();
-                  $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade')->onUpdate('cascade');
             });
       }
 
@@ -39,3 +45,7 @@ class CreateNegociosTable extends Migration
       }
 
 }
+
+
+
+        

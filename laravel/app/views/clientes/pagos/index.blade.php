@@ -10,7 +10,7 @@
 
 <div class="list-group">
       @if($necesita_pagar)
-      {{ HTML::linkRoute('clientes_pagos_pagar.get','Activar todo',null,array('class'=>'btn btn-sm btn-warning')) }}
+      {{ HTML::linkRoute('pagar_contenido.get','Activar todo',null,array('class'=>'btn btn-sm btn-warning')) }}
       <br>
       <br>
       @endif
@@ -41,9 +41,10 @@
                         @else
                         {{ HTML::linkRoute('clientes_pagos_avisar_marketing.get','Activación Manual',$pago->id,array('class'=>'btn btn-sm btn-info')) }}
                         @endif
+                        
                         {{ HTML::linkRoute('clientes_pagos_codigo.get','Usar código',$pago->id,array('class'=>'btn btn-sm btn-success')) }}                   
 
-                        {{ HTML::linkRoute('clientes_pagos_pagar.get','Activación automática',array('id'=>$pago->id),array('class'=>'btn btn-sm btn-success')) }}
+                        {{ HTML::linkRoute('pagar_contenido.get','Activación automática',array('id'=>$pago->id),array('class'=>'btn btn-sm btn-success')) }}
                   </div>                        
                   @endif
             </div>

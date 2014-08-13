@@ -3,7 +3,7 @@
 use Sph\Storage\Negocio\NegocioRepository as Negocio;
 use Sph\Storage\Pago\PagoRepository as Pago;
 
-class ClientsNegociosController extends \BaseController
+class clientesNegociosController extends \BaseController
 {
 
       protected $negocio;
@@ -23,7 +23,7 @@ class ClientsNegociosController extends \BaseController
       public function index()
       {
             $negocios = Auth::user()->userable->negocios;
-            return View::make('clients.negocios.index')->with("negocios", $negocios);
+            return View::make('clientes.negocios.index')->with("negocios", $negocios);
       }
 
       /**
@@ -33,7 +33,7 @@ class ClientsNegociosController extends \BaseController
        */
       public function create()
       {
-            return View::make('clients.negocios.create');
+            return View::make('clientes.negocios.create');
       }
 
       /**
@@ -88,7 +88,7 @@ class ClientsNegociosController extends \BaseController
       public function show($id)
       {
             $negocio = $this->negocio->find($id);
-            return View::make('clients.negocios.show')->with('negocio', $negocio);
+            return View::make('clientes.negocios.show')->with('negocio', $negocio);
       }
 
       /**
@@ -101,7 +101,7 @@ class ClientsNegociosController extends \BaseController
       {
             $negocio = $this->negocio->find($id);
 
-            return View::make('clients.negocios.edit')->with('negocio', $negocio);
+            return View::make('clientes.negocios.edit')->with('negocio', $negocio);
       }
 
       /**

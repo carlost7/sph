@@ -17,9 +17,9 @@ class CreateCodigosTable extends Migration {
 			$table->increments('id');
 			$table->string('numero');
 			$table->boolean('usado');
-                  $table->integer('client_id')->unsigned()->nullable();                  
+                  $table->integer('cliente_id')->unsigned()->nullable();                  
 			$table->timestamps();
-                  $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade')->onUpdate('cascade');
+                  $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade')->onUpdate('cascade');
 		});
 	}
 

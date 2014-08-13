@@ -15,11 +15,11 @@ class CreateAvisosClientesTable extends Migration {
 		Schema::create('avisos_clientes', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('client_id')->unsigned();
+			$table->integer('cliente_id')->unsigned();
 			$table->string('avisable_type');
 			$table->integer('avisable_id');
 			$table->timestamps();
-                        $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade')->onUpdate('cascade');
+                        $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade')->onUpdate('cascade');
 		});
 	}
 

@@ -37,7 +37,7 @@ class SessionController extends \BaseController
                   if (is_a(Auth::user()->userable, Client::class))
                   {
                         Session::set('is_client', true);
-                        return Redirect::intended('clients');
+                        return Redirect::intended('clientes');
                   }
                   elseif(is_a(Auth::user()->userable, Marketing::class))
                   {

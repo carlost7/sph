@@ -10,8 +10,8 @@
 </div>
 
 
-<h1>Nombre: {{ $cliente->name }}</h1>
-<h2>Teléfono: {{$cliente->telephone}}</h2>
+<h1>Nombre: {{ $cliente->nombre }}</h1>
+<h2>Teléfono: {{$cliente->telefono}}</h2>
 <h2>Correo: {{$cliente->user->email}}</h2>
 
 <div class="panel-group" id="accordion">

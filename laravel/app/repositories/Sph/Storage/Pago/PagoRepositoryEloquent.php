@@ -22,7 +22,7 @@ class PagoRepositoryEloquent implements PagoRepository
       {
 
             $pago = new Pago($pago_model);
-            $pago->client_id = $pago_model['client']->id;
+            $pago->cliente_id = $pago_model['client']->id;
             if ($pago->save())
             {
                   return $pago;
@@ -76,7 +76,7 @@ class PagoRepositoryEloquent implements PagoRepository
       {
             $codigo = Codigo::find($id);
             $codigo->usado = $codigo_model['usado'];
-            $codigo->client_id = $codigo_model['client']->id;
+            $codigo->cliente_id = $codigo_model['client']->id;
             if ($codigo->save())
             {
                   return $codigo;

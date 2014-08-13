@@ -7,12 +7,12 @@ class MarketingsTableSeeder extends Seeder
       {
 
             $marketing1 = new Marketing();            
-            $marketing1->name = 'nombre';
+            $marketing1->nombre = 'nombre';
             $marketing1->is_activo = true;            
             $marketing1->save();
             
             $marketing2 = new Marketing();            
-            $marketing2->name = 'nombre';
+            $marketing2->nombre = 'nombre';
             $marketing2->is_activo = true;            
             $marketing2->save();
             

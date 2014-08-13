@@ -9,7 +9,7 @@ class Promocion extends \Eloquent
 
       public function client()
       {
-            return $this->belongsTo('Client', 'client_id', 'id');
+            return $this->belongsTo('Cliente', 'cliente_id', 'id');
       }
       
       public function especial(){

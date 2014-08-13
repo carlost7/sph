@@ -19,6 +19,85 @@ class PagosController extends \BaseController
       }
 
       /*
+       * ***********************************
+       * Obtiene todos los pagos que no se han realizado del cliente 
+       * y los envia a mercado pago
+       * 
+       * si se envia un id entonces unicamente de ese contenido se genera el pago
+       * ***********************************
+       */
+
+      public function generar_pago()
+      {
+
+            $items = array();
+            $ids = '';
+            if (Input::get('id'))
+            {
+                  $pago = $this->pago->find(Input::get('id'));
+                  $item = array(
+                      "title" => $pago->nombre,
+                      "description" => $pago->descripcion,
+                      "quantity" => 1,
+                      "currency_id" => "MEX",
+                      "unit_price" => doubleval($pago->monto)
+                  );
+                  $ids = $pago->id;
+                  array_push($items, $item);
+            }
+            else
+            {
+                  $pagos = Auth::user()->userable->pagos->filter(function($pago)
+                  {
+                        return $pago->pagado == false;
+                  });
+
+                  foreach ($pagos as $pago)
+                  {
+
+                        $item = array(
+                            "title" => $pago->nombre,
+                            "description" => $pago->descripcion,
+                            "quantity" => 1,
+                            "currency_id" => "MEX",
+                            "unit_price" => doubleval($pago->monto)
+                        );
+                        $ids = $ids . $pago->id . "-";
+                        array_push($items, $item);
+                  }
+            }
+
+            $referer = Request::header('referer');
+            
+            $preference_data = array(
+                "items" => $items,
+                "payer" => array(
+                    "name" => Auth::user()->userable->nombre,
+                    "email" => Auth::user()->email,
+                ),
+                "back_urls" => array(
+                    "success" => $referer,
+                    "failure" => $referer,
+                    "pending" => $referer,
+                ),
+                "external_reference" => $ids,
+            );
+
+            $preference = $this->checkout->generar_preferencia($preference_data);
+            if (isset($preference))
+            {
+
+                  $link = $preference['response'][Config::get('payment.init_point')];
+                  return Redirect::away($link);
+            }
+            else
+            {
+                  Session::flash('error', 'Ocurrio un error al tratar de generar el pago.');
+                  return Redirect::back();
+            }
+      }
+
+      /*
        * ****************************
        * Espera notificaciones de pago desde Mercado pago y la envia por correo a un programador
        * ****************************
@@ -71,7 +150,7 @@ class PagosController extends \BaseController
               if (isset($id))
               { */
             //$response = $this->checkout->recibir_notificacion($id);
-            $response = array ( "external_reference" => "2-3-4-5-6-7","status" => "approved");
+            $response = array("external_reference" => "10", "status" => "approved");
             //$response = array("external_reference" => "1","status" => "approved");
             if (isset($response))
             {
@@ -80,7 +159,7 @@ class PagosController extends \BaseController
                   $status = $response['status'];
 
                   $ids = explode("-", $external_reference);
-                  
+
                   if ($this->pago->update_status($ids, $status))
                   {
                         switch ($status)
@@ -111,5 +190,5 @@ class PagosController extends \BaseController
               echo "no recibi nada";
               } */
       }
-      
+
 }

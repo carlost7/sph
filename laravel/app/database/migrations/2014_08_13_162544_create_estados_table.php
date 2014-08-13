@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddNombreToMarketing extends Migration {
+class CreateEstadosTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,11 @@ class AddNombreToMarketing extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('marketings', function(Blueprint $table)
+		Schema::create('estados', function(Blueprint $table)
 		{
-			$table->string('name');
-                  $table->boolean('is_activo');
+			$table->increments('id');
+			$table->string('estado');
+			$table->timestamps();
 		});
 	}
 
@@ -27,10 +28,7 @@ class AddNombreToMarketing extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('marketings', function(Blueprint $table)
-		{
-			$table->dropColumn('name');
-		});
+		Schema::drop('estados');
 	}
 
 }

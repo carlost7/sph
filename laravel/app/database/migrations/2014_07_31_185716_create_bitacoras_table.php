@@ -15,11 +15,11 @@ class CreateBitacorasTable extends Migration {
 		Schema::create('bitacora_clientes', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('client_id')->unsigned();
+			$table->integer('cliente_id')->unsigned();
                   $table->datetime('fecha');
 			$table->string('mensaje');                  
 			$table->timestamps();
-                  $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade')->onUpdate('cascade');                  
+                  $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade')->onUpdate('cascade');                  
 		});
 	}
 

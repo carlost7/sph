@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateNegociosEspecialesTable extends Migration {
+class CreateMasInfoTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,16 @@ class CreateNegociosEspecialesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('negocios_especiales', function(Blueprint $table)
+		Schema::create('mas_info', function(Blueprint $table)
 		{
-			$table->increments('id');                  
-                  $table->string('email');
-                  $table->string('webpage');                  
-                  $table->string('mapa');
+			$table->increments('id');			
+			$table->boolean('domicilio');
+			$table->boolean('llevar');
+			$table->boolean('efectivo');
+			$table->boolean('TC');
+			$table->boolean('TD');
+			$table->boolean('familiar');
+			$table->boolean('alcohol');
 			$table->timestamps();
                   $table->integer('negocio_id')->unsigned();
                   $table->foreign('negocio_id')->references('id')->on('negocios')->onDelete('cascade')->onUpdate('cascade');
@@ -32,7 +36,7 @@ class CreateNegociosEspecialesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('negocios_especiales');
+		Schema::drop('mas_info');
 	}
 
 }

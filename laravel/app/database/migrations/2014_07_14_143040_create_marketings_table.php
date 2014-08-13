@@ -16,6 +16,8 @@ class CreateMarketingsTable extends Migration
             Schema::create('marketings', function(Blueprint $table)
             {
                   $table->increments('id');
+                  $table->string('name');
+                  $table->boolean('is_activo');
                   $table->timestamps();
             });
       }

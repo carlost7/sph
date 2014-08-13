@@ -3,7 +3,7 @@
 // Composer: "fzaninotto/faker": "v1.4.0"
 use Faker\Factory as Faker;
 
-class ClientsTableSeeder extends Seeder
+class ClientesTableSeeder extends Seeder
 {
 
       public function run()
@@ -12,7 +12,7 @@ class ClientsTableSeeder extends Seeder
 
             foreach (range(1, 10) as $index)
             {
-                  Client::create([
+                  Cliente::create([
                   ]);
             }
       }

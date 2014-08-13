@@ -18,7 +18,7 @@ class StorageServiceProvider extends ServiceProvider
                     'Sph\Storage\User\UserRepository', 'Sph\Storage\User\UserRepositoryEloquent'
             );
             $this->app->bind(
-                    'Sph\Storage\Client\ClientRepository', 'Sph\Storage\Client\ClientRepositoryEloquent'
+                    'Sph\Storage\Cliente\ClienteRepository', 'Sph\Storage\Cliente\ClienteRepositoryEloquent'
             );
             $this->app->bind(
                     'Sph\Storage\Negocio\NegocioRepository', 'Sph\Storage\Negocio\NegocioRepositoryEloquent'

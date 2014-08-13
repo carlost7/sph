@@ -13,7 +13,7 @@ namespace Sph\Services\Validators;
  *
  * @author carlos
  */
-class Client extends Validator
+class Cliente extends Validator
 {
 
       public static $rules = array(

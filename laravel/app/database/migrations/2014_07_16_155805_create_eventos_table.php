@@ -21,11 +21,13 @@ class CreateEventosTable extends Migration
                   $table->text('descripcion');
                   $table->datetime('inicio');
                   $table->datetime('fin');
-                  $table->integer('client_id')->unsigned();
+                  $table->integer('cliente_id')->unsigned();
                   $table->boolean('publicar');
                   $table->boolean('is_especial');
+                  $table->boolean('is_activo');
+			$table->date('fecha_nueva_activacion');
                   $table->timestamps();
-                  $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade')->onUpdate('cascade');
+                  $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade')->onUpdate('cascade');
             });
       }
 

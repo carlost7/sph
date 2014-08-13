@@ -30,7 +30,7 @@ class PagosListener
 
             Mail::queue('emails.publicacion_contenido_pago', array(), function($message) use ($pago)
             {
-                  $message->to($pago->client->user->email, $pago->client->name)->subject('Publicación de contenido en Sphellar');
+                  $message->to($pago->cliente->user->email, $pago->client->nombre)->subject('Publicación de contenido en Sphellar');
             });
       }
 
@@ -42,7 +42,7 @@ class PagosListener
             $pago = $this->pago->find($ids[0]);
             Mail::queue('emails.pago_cancelado', array(), function($message) use ($pago)
             {
-                  $message->to($pago->client->user->email, $pago->client->name)->subject('Pago cancelado');
+                  $message->to($pago->client->user->email, $pago->client->nombre)->subject('Pago cancelado');
             });
       }
 

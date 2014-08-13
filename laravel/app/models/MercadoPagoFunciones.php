@@ -17,7 +17,7 @@ class MercadoPagoFunciones {
 
       public function __construct()
       {
-            $this->mp = new MP(Config::get('payment.client_id'), Config::get('payment.client_socket'));
+            $this->mp = new MP(Config::get('payment.cliente_id'), Config::get('payment.client_socket'));
             $this->mp->sandbox_mode(Config::get('payment.sandbox_mode'));
       }
 

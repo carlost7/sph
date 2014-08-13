@@ -20,7 +20,7 @@ class BitacoraClienteRepositoryEloquent implements BitacoraClienteRepository
       public function create(array $bitacora_model)
       {
             $bitacora = new Bitacora_cliente($bitacora_model);
-            $bitacora->client_id = $bitacora_model['client']->id;
+            $bitacora->cliente_id = $bitacora_model['client']->id;
             
             if ($bitacora->save())
             {
@@ -46,7 +46,7 @@ class BitacoraClienteRepositoryEloquent implements BitacoraClienteRepository
             if (isset($bitacora))
             {
                   $bitacora->fill($bitacora_model);
-                  $bitacora->client_id = $bitacora_model['client']->id;
+                  $bitacora->cliente_id = $bitacora_model['client']->id;
 
                   if ($bitacora->save())
                   {

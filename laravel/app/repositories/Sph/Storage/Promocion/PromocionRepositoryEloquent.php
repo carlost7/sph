@@ -24,7 +24,7 @@ class PromocionRepositoryEloquent implements PromocionRepository
             $promocion = new Promocion($promocion_model);
             $promocion->inicio = new \DateTime($promocion_model['inicio']);
             $promocion->fin = new \DateTime($promocion_model['fin']);
-            $promocion->client_id = $promocion_model['client']->id;
+            $promocion->cliente_id = $promocion_model['client']->id;
 
             if ($promocion->save())
             {

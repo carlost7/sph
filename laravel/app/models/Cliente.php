@@ -1,6 +1,6 @@
 <?php
 
-class Client extends \Eloquent
+class Clientee extends \Eloquent
 {
 
       protected $table = 'clients';
@@ -14,22 +14,22 @@ class Client extends \Eloquent
 
       public function negocios()
       {
-            return $this->hasMany('Negocio', 'client_id', 'id');
+            return $this->hasMany('Negocio', 'cliente_id', 'id');
       }
 
       public function eventos()
       {
-            return $this->hasMany('Evento', 'client_id', 'id');
+            return $this->hasMany('Evento', 'cliente_id', 'id');
       }
 
       public function promociones()
       {
-            return $this->hasMany('Promocion', 'client_id', 'id');
+            return $this->hasMany('Promocion', 'cliente_id', 'id');
       }
       
       public function pagos()
       {
-            return $this->hasMany('Pago', 'client_id', 'id');
+            return $this->hasMany('Pago', 'cliente_id', 'id');
       }
       
       public function marketing(){
@@ -37,11 +37,11 @@ class Client extends \Eloquent
       }
 
       public function bitacoras(){
-            return $this->hasMany('Bitacora_cliente','client_id','id');
+            return $this->hasMany('Bitacora_cliente','cliente_id','id');
       }
       
       public function avisos(){
-            return $this->hasMany('Aviso_cliente','client_id','id');
+            return $this->hasMany('Aviso_cliente','cliente_id','id');
       }
       
 }

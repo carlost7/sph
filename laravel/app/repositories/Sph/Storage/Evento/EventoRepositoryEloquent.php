@@ -24,7 +24,7 @@ class EventoRepositoryEloquent implements EventoRepository
             $evento = new Evento($evento_model);
             $evento->inicio = new \DateTime($evento_model['inicio']);
             $evento->fin = new \DateTime($evento_model['fin']);
-            $evento->client_id = $evento_model['client']->id;
+            $evento->cliente_id = $evento_model['client']->id;
 
             if ($evento->save())
             {

@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddStatusToPagosTable extends Migration {
+class CreateCategoriasTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,9 +12,11 @@ class AddStatusToPagosTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('pagos', function(Blueprint $table)
+		Schema::create('categorias', function(Blueprint $table)
 		{
-			$table->string('status');
+			$table->increments('id');
+			$table->string('categoria');
+			$table->timestamps();
 		});
 	}
 
@@ -26,10 +28,7 @@ class AddStatusToPagosTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('pagos', function(Blueprint $table)
-		{
-			$table->dropColumn('status');
-		});
+		Schema::drop('categorias');
 	}
 
 }

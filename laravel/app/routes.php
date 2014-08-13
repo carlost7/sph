@@ -16,6 +16,7 @@ Route::get('/', function()
       return View::make('hello');
 });
 
+
 /*
  * *******************************
  *            Users Session
@@ -114,8 +115,8 @@ Route::get('create_codes', function()
  * **************************************
  */
 
-Route::any('pagos/recibir_notificacion_prueba',array('uses'=>'PagosController@recibir_notificacion_prueba','as'=>'recibir_notificacion_prueba'));
-Route::any('pagos/recibir_notificacion',array('uses'=>'PagosController@recibir_notificacion','as'=>'recibir_notificacion'));
+Route::any('pagos/recibir_notificacion_prueba', array('uses' => 'PagosController@recibir_notificacion_prueba', 'as' => 'recibir_notificacion_prueba'));
+Route::any('pagos/recibir_notificacion', array('uses' => 'PagosController@recibir_notificacion', 'as' => 'recibir_notificacion'));
 
 /*
  * ***********************
@@ -128,34 +129,34 @@ Route::group(array('before' => 'auth'), function()
 
       /*
        * ***********************
-       *     clients
+       *     clientes
        * ***********************
        */
 
       Route::group(array('before' => 'is_client'), function()
       {
 
-            Route::get('clients', array(
-                'uses' => 'ClientsController@index',
-                'as' => 'clients.index'
+            Route::get('clientes', array(
+                'uses' => 'clientesController@index',
+                'as' => 'clientes.index'
             ));
 
             Route::get('clients_edit', array(
-                'uses' => 'ClientsController@edit',
-                'as' => 'clients.edit'
+                'uses' => 'clientesController@edit',
+                'as' => 'clientes.edit'
             ));
 
             Route::post('clients_update', array(
-                'uses' => 'ClientsController@update',
-                'as' => 'clients.update'
+                'uses' => 'clientesController@update',
+                'as' => 'clientes.update'
             ));
 
             Route::post('clients_delete', array(
-                'uses' => 'ClientsController@destroy',
-                'as' => 'clients.destroy'
+                'uses' => 'clientesController@destroy',
+                'as' => 'clientes.destroy'
             ));
 
-            
+
 
             /*
              * *************************
@@ -163,24 +164,24 @@ Route::group(array('before' => 'auth'), function()
              * *************************
              */
 
-            Route::resource('clientes_negocios', 'ClientsNegociosController');
+            Route::resource('clientes_negocios', 'clientesNegociosController');
 
             Route::get('clientes_negocios_activar/{id}', array('as' => 'clientes_negocios_activar.get',
-                'uses' => 'ClientsNegociosController@activar')
+                'uses' => 'clientesNegociosController@activar')
             );
 
-            
-            
+
+
             /*
              * *************************
              *    Eventos de Cliente
              * *************************
              */
 
-            Route::resource('clientes_eventos', 'ClientsEventosController');
+            Route::resource('clientes_eventos', 'clientesEventosController');
 
             Route::get('clientes_eventos_activar/{id}', array('as' => 'clientes_eventos_activar.post',
-                'uses' => 'ClientsEventosController@activar')
+                'uses' => 'clientesEventosController@activar')
             );
 
             /*
@@ -189,10 +190,10 @@ Route::group(array('before' => 'auth'), function()
              * *************************
              */
 
-            Route::resource('clientes_promociones', 'ClientsPromocionesController');
+            Route::resource('clientes_promociones', 'clientesPromocionesController');
 
             Route::get('clientes_promociones_activar/{id}', array('as' => 'clientes_promociones_activar.get',
-                'uses' => 'ClientsPromocionesController@activar')
+                'uses' => 'clientesPromocionesController@activar')
             );
 
 
@@ -201,23 +202,19 @@ Route::group(array('before' => 'auth'), function()
              *    Promociones de Cliente
              * *************************
              */
-            Route::resource('clientes_pagos', 'ClientsPagosController');
+            Route::resource('clientes_pagos', 'clientesPagosController');
 
 
             Route::get('clientes_pagos_codigo/{id}', array('as' => 'clientes_pagos_codigo.get',
-                'uses' => 'ClientsPagosController@usar_codigo')
+                'uses' => 'clientesPagosController@usar_codigo')
             );
 
             Route::post('clientes_pagos_codigo/{id}', array('as' => 'clientes_pagos_codigo.post',
-                'uses' => 'ClientsPagosController@guardar_codigo')
+                'uses' => 'clientesPagosController@guardar_codigo')
             );
 
-            Route::get('clientes_pagos_pagar', array('as' => 'clientes_pagos_pagar.get',
-                'uses' => 'ClientsPagosController@pagar')
-            );
-            
             Route::get('clientes_pagos_avisar_marketing/{id}', array('as' => 'clientes_pagos_avisar_marketing.get',
-                'uses' => 'ClientsPagosController@avisar_marketing')
+                'uses' => 'clientesPagosController@avisar_marketing')
             );
       });
 
@@ -247,7 +244,7 @@ Route::group(array('before' => 'auth'), function()
                 'uses' => 'MarketingController@destroy',
                 'as' => 'marketing.destroy'
             ));
-            
+
             /*
              * *************************
              *    Publicaciones de cliente
@@ -256,14 +253,22 @@ Route::group(array('before' => 'auth'), function()
 
             Route::resource('marketing_avisos', 'MarketingAvisosController');
             Route::post('marketing_avisos_publicar/{id}', array('as' => 'marketing_avisos_publicar.update', 'uses' => 'MarketingAvisosController@publicar'));
-            
+
             /*
              * ********************************
              *    Clientes y Agenda
              * ********************************
              */
-            Route::resource('marketing_clientes','MarketingClientesController');
-            
+            Route::resource('marketing_clientes', 'MarketingClientesController');
       });
+
+      /*
+       * ********************************
+       * Pagos del usuario
+       * ********************************
+       */
+      Route::get('pagar_contenido', array('as' => 'pagar_contenido.get',
+          'uses' => 'PagosController@generar_pago')
+      );
 });
 

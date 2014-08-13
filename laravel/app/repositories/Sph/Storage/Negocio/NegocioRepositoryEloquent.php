@@ -22,7 +22,7 @@ class NegocioRepositoryEloquent implements NegocioRepository
       {
 
             $negocio = new Negocio($negocio_model);
-            $negocio->client_id = $negocio_model['client']->id;
+            $negocio->cliente_id = $negocio_model['client']->id;
             if ($negocio->save())
             {
                   return $negocio;

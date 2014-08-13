@@ -32,7 +32,7 @@
                                     <span class="icon-bar"></span>
                               </button>
                               @if(Session::get('is_client'))
-                              {{ HTML::linkRoute('clients.index','Sphellar',null,array('class'=>'navbar-brand')) }}
+                              {{ HTML::linkRoute('clientes.index','Sphellar',null,array('class'=>'navbar-brand')) }}
                               @else
                               {{ HTML::link('/','Sphellar',array('class'=>'navbar-brand')) }}
                               @endif                    
@@ -64,7 +64,7 @@
                                                 <li {{ Request::is('clientes_eventos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_eventos.index','Eventos',null) }}</li>
                                                 <li {{ Request::is('clientes_promociones*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_promociones.index','Promociones',null) }}</li>
                                                 <li {{ Request::is('clientes_pagos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_pagos.index','Pagos',null) }}</li>
-                                                <li {{ Request::is('clients*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clients.index','Cuenta',null) }}</li>
+                                                <li {{ Request::is('clientes*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes.index','Cuenta',null) }}</li>
                                           </ul>
                                     </div>
                                     <div class="col-md-3 hidden-xs">
@@ -76,7 +76,7 @@
                                                                                                                   <span class="badge pull-right">{{ Auth::user()->userable->pagos->filter(function($pago){return $pago->pagado == false;})->count() ? Auth::user()->userable->pagos->filter(function($pago){return $pago->pagado == false;})->count() : '' }}</span>
                                                                                                                  </a> 
                                                 </li>
-                                                <li {{ Request::is('clients*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clients.index','Cuenta',null) }}</li>
+                                                <li {{ Request::is('clientes*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes.index','Cuenta',null) }}</li>
                                           </ul>
                                     </div>
                                     <div class="col-xs-12 col-md-9">

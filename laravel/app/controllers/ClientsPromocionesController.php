@@ -4,7 +4,7 @@ use Sph\Storage\Promocion\PromocionRepository as Promocion;
 use Sph\Storage\Pago\PagoRepository as Pago;
 use Carbon\Carbon;
 
-class ClientsPromocionesController extends \BaseController
+class clientesPromocionesController extends \BaseController
 {
 
       protected $promocion;
@@ -24,7 +24,7 @@ class ClientsPromocionesController extends \BaseController
       public function index()
       {
             $promociones = Auth::user()->userable->promociones;
-            return View::make('clients.promociones.index')->with("promociones", $promociones);
+            return View::make('clientes.promociones.index')->with("promociones", $promociones);
       }
 
       /**
@@ -34,7 +34,7 @@ class ClientsPromocionesController extends \BaseController
        */
       public function create()
       {
-            return View::make('clients.promociones.create');
+            return View::make('clientes.promociones.create');
       }
 
       /**
@@ -87,7 +87,7 @@ class ClientsPromocionesController extends \BaseController
       public function show($id)
       {
             $promocion = $this->promocion->find($id);
-            return View::make('clients.promociones.show')->with('promocion', $promocion);
+            return View::make('clientes.promociones.show')->with('promocion', $promocion);
       }
 
       /**
@@ -100,7 +100,7 @@ class ClientsPromocionesController extends \BaseController
       {
             $promocion = $this->promocion->find($id);
 
-            return View::make('clients.promociones.edit')->with('promocion', $promocion);
+            return View::make('clientes.promociones.edit')->with('promocion', $promocion);
       }
 
       /**

@@ -1,28 +1,28 @@
 <?php
 
 use Sph\Storage\User\UserRepository as User;
-use Sph\Storage\Client\ClientRepository as Client;
+use Sph\Storage\Cliente\ClientRepository as Cliente;
 
-class ClientsController extends \BaseController
+class ClientesController extends \BaseController
 {
 
       protected $user;
-      protected $client;
+      protected $cliente;
 
-      public function __construct(User $user, Client $client)
+      public function __construct(User $user, Cliente $cliente)
       {
             $this->user = $user;
-            $this->client = $client;
+            $this->client = $cliente;
       }
 
       /**
-       * Display a listing of clients
+       * Display a listing of clientes
        *
        * @return Response
        */
       public function index()
       {
-            return View::make('clients.index');
+            return View::make('clientes.index');
       }
 
       /**
@@ -33,7 +33,7 @@ class ClientsController extends \BaseController
        */
       public function edit()
       {
-            return View::make('clients.edit');
+            return View::make('clientes.edit');
       }
 
       /**
@@ -45,7 +45,7 @@ class ClientsController extends \BaseController
       public function update()
       {
             $validateUser = new Sph\Services\Validators\User(Input::all(), 'update');
-            $validateClient = new Sph\Services\Validators\Client(Input::all(), 'update');
+            $validateClient = new Sph\Services\Validators\Cliente(Input::all(), 'update');
 
             if ($validateUser->passes() & $validateClient->passes())
             {
@@ -61,26 +61,26 @@ class ClientsController extends \BaseController
                   $user = $this->user->update(Auth::user()->id, $user_model);
                   if (isset($user))
                   {
-                        $client_model = array();
+                        $cliente_model = array();
                         if ("" !== Input::get('nombre'))
                         {
-                              $client_model = array_add($client_model, "name", Input::get('nombre'));
+                              $cliente_model = array_add($cliente_model, "name", Input::get('nombre'));
                         }
                         if ("" !== Input::get('telefono'))
                         {
-                              $client_model = array_add($client_model, "telephone", Input::get('telefono'));
+                              $cliente_model = array_add($cliente_model, "telephone", Input::get('telefono'));
                         }
-                        $client = $this->client->update(Auth::user()->userable->id, $client_model);
-                        if (isset($client))
+                        $cliente = $this->client->update(Auth::user()->userable->id, $cliente_model);
+                        if (isset($cliente))
                         {
                               Session::flash('message', 'Usuario modificado con éxito');
-                              return Redirect::route('clients.index');
+                              return Redirect::route('clientes.index');
                         }
                   }
             }
             $user_messages = ($validateUser->getErrors() != null) ? $validateUser->getErrors()->all() : array();
-            $client_messages = ($validateClient->getErrors() != null) ? $validateClient->getErrors()->all() : array();
-            $validationMessages = array_merge_recursive($user_messages, $client_messages);
+            $cliente_messages = ($validateClient->getErrors() != null) ? $validateClient->getErrors()->all() : array();
+            $validationMessages = array_merge_recursive($user_messages, $cliente_messages);
 
             return Redirect::back()->withInput()->withErrors($validationMessages);
       }
@@ -93,9 +93,9 @@ class ClientsController extends \BaseController
        */
       public function destroy($id)
       {
-            Client::destroy($id);
+            Cliente::destroy($id);
 
-            return Redirect::route('clients.index');
+            return Redirect::route('clientes.index');
       }
 
 }

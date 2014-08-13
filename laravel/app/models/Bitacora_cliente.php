@@ -6,7 +6,7 @@ class Bitacora_cliente extends \Eloquent {
       protected $fillable = ['fecha','mensaje'];
       
       public function cliente(){
-            return $this->belongsTo('Client','client_id','id');
+            return $this->belongsTo('Clientee','cliente_id','id');
       }     
       
       

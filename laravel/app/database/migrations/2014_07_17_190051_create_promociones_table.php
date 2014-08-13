@@ -16,16 +16,16 @@ class CreatePromocionesTable extends Migration
             Schema::create('promociones', function(Blueprint $table)
             {
                   $table->increments('id');
-                  $table->string('nombre');
+                  $table->string('codigo');
                   $table->text('descripcion');
-                  $table->datetime('inicio');
-                  $table->datetime('fin');
-                  $table->string('path');
-                  $table->integer('client_id')->unsigned();
-                  $table->boolean('publicar');
-                  $table->boolean('is_especial');
+                  $table->datetime('vigencia_inicio');
+                  $table->datetime('vigencia_fin');                  
+                  $table->boolean('publicar');                  
+                  $table->boolean('is_activo');
+			$table->date('fecha_nueva_activacion');
                   $table->timestamps();
-                  $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade')->onUpdate('cascade');
+                  $table->integer('negocio_id')->unsigned();
+                  $table->foreign('negocio_id')->references('id')->on('negocios')->onDelete('cascade')->onUpdate('cascade');
             });
       }
 

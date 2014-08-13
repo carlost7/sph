@@ -8,13 +8,13 @@ class RegisterController extends \BaseController
 {
 
       protected $user;
-      protected $client;
+      protected $cliente;
       protected $marketing;
 
-      public function __construct(User $user, Client $client, Marketing $marketing)
+      public function __construct(User $user, Client $cliente, Marketing $marketing)
       {
             $this->user = $user;
-            $this->client = $client;
+            $this->client = $cliente;
             $this->marketing = $marketing;
       }
 
@@ -46,17 +46,17 @@ class RegisterController extends \BaseController
                   if (isset($user))
                   {
                         $token = sha1(time());
-                        $client_model = array('name' => Input::get('nombre'), 'telephone' => Input::get('telefono'), 'is_active' => false, 'token' => $token, 'user' => $user);
-                        $client = $this->client->create($client_model);
-                        if (isset($client))
+                        $cliente_model = array('name' => Input::get('nombre'), 'telephone' => Input::get('telefono'), 'is_active' => false, 'token' => $token, 'user' => $user);
+                        $cliente = $this->client->create($cliente_model);
+                        if (isset($cliente))
                         {
-                              $data = array('nombre' => $client->name,
-                                    'token' => $client->token,
-                                    'id' => $client->id,
+                              $data = array('nombre' => $cliente->nombre,
+                                    'token' => $cliente->token,
+                                    'id' => $cliente->id,
                               );
 
-                              Mail::queue('emails.auth.confirm_new_user', $data, function($message) use ($user, $client) {
-                                    $message->to($user->email, $client->name)->subject('Confirmación de Registro de Sphellar');
+                              Mail::queue('emails.auth.confirm_new_user', $data, function($message) use ($user, $cliente) {
+                                    $message->to($user->email, $cliente->nombre)->subject('Confirmación de Registro de Sphellar');
                               });
                               Session::flash('message', 'Usuario creado con éxito, revisa tu correo para activarlo');
 
@@ -65,8 +65,8 @@ class RegisterController extends \BaseController
                   }
             }
             $user_messages = ($validateUser->getErrors() != null) ? $validateUser->getErrors()->all() : array();
-            $client_messages = ($validateClient->getErrors() != null) ? $validateClient->getErrors()->all() : array();
-            $validationMessages = array_merge_recursive($user_messages, $client_messages);
+            $cliente_messages = ($validateClient->getErrors() != null) ? $validateClient->getErrors()->all() : array();
+            $validationMessages = array_merge_recursive($user_messages, $cliente_messages);
 
             return Redirect::route('register.client')->withInput()->withErrors($validationMessages);
       }
@@ -77,16 +77,16 @@ class RegisterController extends \BaseController
 
       public function activate_client($token, $id)
       {
-            $client = $this->client->find($id);
-            if (isset($client))
+            $cliente = $this->client->find($id);
+            if (isset($cliente))
             {
-                  if ($token == $client->token)
+                  if ($token == $cliente->token)
                   {
-                        $client_model = array('is_active' => true, 'token' => '');
-                        $client = $this->client->update($id, $client_model);
-                        if (isset($client))
+                        $cliente_model = array('is_active' => true, 'token' => '');
+                        $cliente = $this->client->update($id, $cliente_model);
+                        if (isset($cliente))
                         {
-                              $marketing = $this->marketing->asignar_cliente($client);
+                              $marketing = $this->marketing->asignar_cliente($cliente);
 
                               return View::make('register.confirmation')->with('confirmation', true);
                         }

@@ -4,7 +4,7 @@
 
 <div class="col-xs-12">
       <ul class="nav nav-pills">
-            <li>{{ HTML::linkRoute('clients.edit','Editar Cuenta') }}</li>
+            <li>{{ HTML::linkRoute('clientes.edit','Editar Cuenta') }}</li>
       </ul>
 </div>
 

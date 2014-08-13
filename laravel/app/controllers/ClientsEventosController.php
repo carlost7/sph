@@ -4,7 +4,7 @@ use Sph\Storage\Evento\EventoRepository as Evento;
 use Sph\Storage\Pago\PagoRepository as Pago;
 use Carbon\Carbon;
 
-class ClientsEventosController extends \BaseController
+class clientesEventosController extends \BaseController
 {
 
       protected $evento;
@@ -24,7 +24,7 @@ class ClientsEventosController extends \BaseController
       public function index()
       {
             $eventos = Auth::user()->userable->eventos;
-            return View::make('clients.eventos.index')->with("eventos", $eventos);
+            return View::make('clientes.eventos.index')->with("eventos", $eventos);
       }
 
       /**
@@ -34,7 +34,7 @@ class ClientsEventosController extends \BaseController
        */
       public function create()
       {
-            return View::make('clients.eventos.create');
+            return View::make('clientes.eventos.create');
       }
 
       /**
@@ -88,7 +88,7 @@ class ClientsEventosController extends \BaseController
       public function show($id)
       {
             $evento = $this->evento->find($id);
-            return View::make('clients.eventos.show')->with('evento', $evento);
+            return View::make('clientes.eventos.show')->with('evento', $evento);
       }
 
       /**
@@ -100,7 +100,7 @@ class ClientsEventosController extends \BaseController
       public function edit($id)
       {
             $evento = $this->evento->find($id);                        
-            return View::make('clients.eventos.edit')->with(array('evento'=>$evento));
+            return View::make('clientes.eventos.edit')->with(array('evento'=>$evento));
       }
 
       /**

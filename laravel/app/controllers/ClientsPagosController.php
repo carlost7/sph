@@ -6,18 +6,18 @@ use Sph\Storage\Aviso_cliente\AvisoClienteRepository as Aviso;
 use Sph\Storage\Checkout\CheckoutRepository as Checkout;
 use Carbon\Carbon;
 
-class ClientsPagosController extends \BaseController
+class clientesPagosController extends \BaseController
 {
 
       protected $pago;
-      protected $client;
+      protected $cliente;
       protected $aviso;
       protected $checkout;
 
-      public function __construct(Pago $pago, Client $client, Aviso $aviso, Checkout $checkout)
+      public function __construct(Pago $pago, Client $cliente, Aviso $aviso, Checkout $checkout)
       {
             $this->pago = $pago;
-            $this->client = $client;
+            $this->client = $cliente;
             $this->aviso = $aviso;
             $this->checkout = $checkout;
       }
@@ -40,7 +40,7 @@ class ClientsPagosController extends \BaseController
             }
                         
             //->sortByDesc('created_at')->sortBy('pagado');
-            return View::make('clients.pagos.index')->with(array("pagos"=>$pagos,'necesita_pagar'=>$necesita_pagar));
+            return View::make('clientes.pagos.index')->with(array("pagos"=>$pagos,'necesita_pagar'=>$necesita_pagar));
       }
 
       /**
@@ -50,7 +50,7 @@ class ClientsPagosController extends \BaseController
        */
       public function create()
       {
-            return View::make('clients.pagos.create');
+            return View::make('clientes.pagos.create');
       }
 
       /**
@@ -91,7 +91,7 @@ class ClientsPagosController extends \BaseController
       public function show($id)
       {
             $pago = $this->pago->find($id);
-            return View::make('clients.pagos.show')->with('pago', $pago);
+            return View::make('clientes.pagos.show')->with('pago', $pago);
       }
 
       /**
@@ -104,7 +104,7 @@ class ClientsPagosController extends \BaseController
       {
             $pago = $this->pago->find($id);
 
-            return View::make('clients.pagos.edit')->with('pago', $pago);
+            return View::make('clientes.pagos.edit')->with('pago', $pago);
       }
 
       /**
@@ -157,7 +157,7 @@ class ClientsPagosController extends \BaseController
       public function usar_codigo($id)
       {
             $pago = $this->pago->find($id);
-            return View::make('clients.pagos.codigo')->with('pago', $pago);
+            return View::make('clientes.pagos.codigo')->with('pago', $pago);
       }
 
       public function guardar_codigo($id)
@@ -174,15 +174,15 @@ class ClientsPagosController extends \BaseController
                         $pago = $this->pago->update($id, $pago_model);
                         if ($this->pago->publicar_contenido($pago))
                         {
-                              $client_model = array('tiene_aviso' => false);
-                              $this->client->update($pago->client->id, $client_model);
+                              $cliente_model = array('tiene_aviso' => false);
+                              $this->client->update($pago->client->id, $cliente_model);
 
                               $data = array(
                                   'tipo' => get_class($pago->pagable),
                               );
                               Mail::queue('emails.publicacion_contenido_pago', $data, function($message)
                               {
-                                    $message->to(Auth::user()->email, Auth::user()->userable->name)->subject('Confirmación de Registro de Sphellar');
+                                    $message->to(Auth::user()->email, Auth::user()->userable->nombre)->subject('Confirmación de Registro de Sphellar');
                               });
 
                               Session::flash('message', 'Código satisfactorio');
@@ -219,81 +219,6 @@ class ClientsPagosController extends \BaseController
                   Session::flash('error', 'El pago no corresponde al usuario');
             }
             return Redirect::back();
-      }
-
-      /*
-       * ***********************************
-       * Obtiene todos los pagos que no se han realizado del cliente y los envia a mercado pago
-       * ***********************************
-       */
-
-      public function pagar()
-      {
-
-            $items = array();
-            $ids = '';
-            if (Input::get('id'))
-            {
-                  $pago = $this->pago->find(Input::get('id'));
-                  $item = array(
-                      "title" => $pago->nombre,
-                      "description" => $pago->descripcion,
-                      "quantity" => 1,
-                      "currency_id" => "MEX",
-                      "unit_price" => doubleval($pago->monto)
-                  );
-                  $ids = $ids . $pago->id . "-";
-                  array_push($items, $item);
-            }
-            else
-            {
-                  $pagos = Auth::user()->userable->pagos->filter(function($pago)
-                  {
-                        return $pago->pagado == false;
-                  });
-                  
-                  foreach ($pagos as $pago)
-                  {
-
-                        $item = array(
-                            "title" => $pago->nombre,
-                            "description" => $pago->descripcion,
-                            "quantity" => 1,
-                            "currency_id" => "MEX",
-                            "unit_price" => doubleval($pago->monto)
-                        );
-                        $ids = $ids . $pago->id . "-";
-                        array_push($items, $item);
-                  }
-            }
-            
-
-            $preference_data = array(
-                "items" => $items,
-                "payer" => array(
-                    "name" => Auth::user()->userable->nombre,
-                    "email" => Auth::user()->email,
-                ),
-                "back_urls" => array(
-                    "success" => URL::Route("clientes_pagos.index"),
-                    "failure" => URL::Route("clientes_pagos.index"),
-                    "pending" => URL::Route("clientes_pagos.index"),
-                ),
-                "external_reference" => $ids,
-            );
-
-            $preference = $this->checkout->generar_preferencia($preference_data);
-            if (isset($preference))
-            {
-
-                  $link = $preference['response'][Config::get('payment.init_point')];
-                  return Redirect::away($link);
-            }
-            else
-            {
-                  Session::flash('error', 'Ocurrio un error al tratar de generar el pago.');
-                  return Redirect::back();
-            }
       }
 
 }

@@ -5,11 +5,11 @@
 <h2>Editar Cuenta</h2>
 
 
-{{ Form::open(array('route'=>'clients.update')) }}
+{{ Form::open(array('route'=>'clientes.update')) }}
 
 <div class="form-group">
       {{ Form::label('nombre', 'Nombre') }}
-      {{ Form::text('nombre', Auth::user()->userable->name, array('placeholder' => 'nombre', 'class'=>'form-control')) }}
+      {{ Form::text('nombre', Auth::user()->userable->nombre, array('placeholder' => 'nombre', 'class'=>'form-control')) }}
 </div>
 <div class="form-group">
       {{ Form::label('email', 'Correo electrónico') }}
@@ -17,7 +17,7 @@
 </div>        
 <div class="form-group">
       {{ Form::label('telefono', 'Teléfono') }}
-      {{ Form::text('telefono', Auth::user()->userable->telephone, array('placeholder' => 'telefono', 'class'=>'form-control')) }}
+      {{ Form::text('telefono', Auth::user()->userable->telefono, array('placeholder' => 'telefono', 'class'=>'form-control')) }}
 </div>
 <div class="form-group">
       {{ Form::label('password', 'Password') }}

@@ -6,12 +6,12 @@ use Sph\Storage\Client\ClientRepository as Client;
 class MarketingClientesController extends \BaseController
 {
 
-      protected $client;
+      protected $cliente;
       protected $marketing;
 
-      public function __construct(Client $client, Marketing $marketing)
+      public function __construct(Client $cliente, Marketing $marketing)
       {
-            $this->client = $client;
+            $this->client = $cliente;
             $this->marketing = $marketing;
       }
 
@@ -22,9 +22,9 @@ class MarketingClientesController extends \BaseController
        */
       public function index()
       {
-            $clientes = Auth::user()->userable->clientes;
+            $clientees = Auth::user()->userable->clientes;
 
-            return View::make('marketing.clientes.index')->with('clientes', $clientes);
+            return View::make('marketing.clientes.index')->with('clientes', $clientees);
       }
 
       /**
@@ -36,14 +36,14 @@ class MarketingClientesController extends \BaseController
        */
       public function show($id)
       {
-            $cliente = $this->client->find($id);
-            $negocios = $cliente->negocios;
-            $eventos = $cliente->eventos;
-            $promociones = $cliente->promociones;
-            $bitacoras = $cliente->bitacoras;
+            $clientee = $this->client->find($id);
+            $negocios = $clientee->negocios;
+            $eventos = $clientee->eventos;
+            $promociones = $clientee->promociones;
+            $bitacoras = $clientee->bitacoras;
             
             return View::make('marketing.clientes.show')
-                            ->with(array('cliente' => $cliente,
+                            ->with(array('cliente' => $clientee,
                                 'negocios' => $negocios,
                                 'eventos' => $eventos,
                                 'promociones' => $promociones,

@@ -17,8 +17,8 @@
 
                   @foreach($clientes as $cliente)
                   <tr>
-                        <td>{{ HTML::linkRoute('marketing_clientes.show',$cliente->name,$cliente->id)}}</td>
-                        <td>{{$cliente->telephone}}</td>
+                        <td>{{ HTML::linkRoute('marketing_clientes.show',$cliente->nombre,$cliente->id)}}</td>
+                        <td>{{$cliente->telefono}}</td>
                         <td>{{$cliente->user->email}}</td>
                   </tr>
                   @endforeach

@@ -9,7 +9,7 @@
 
 <div class="form-group">
       {{ Form::label('nombre', 'Nombre') }}
-      {{ Form::text('nombre', Auth::user()->userable->name, array('placeholder' => 'nombre', 'class'=>'form-control')) }}
+      {{ Form::text('nombre', Auth::user()->userable->nombre, array('placeholder' => 'nombre', 'class'=>'form-control')) }}
 </div>
 <div class="form-group">
       {{ Form::label('email', 'Correo electrónico') }}

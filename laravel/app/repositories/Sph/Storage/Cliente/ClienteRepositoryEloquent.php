@@ -1,26 +1,26 @@
 <?php
 
-namespace Sph\Storage\Client;
+namespace Sph\Storage\Cliente;
 
 /**
  * Description of UserRepositoryEloquent
  *
  * @author carlos
  */
-use Client;
+use Cliente;
 
-class ClientRepositoryEloquent implements ClientRepository
+class ClienteRepositoryEloquent implements ClienteRepository
 {
 
       public function all()
       {
-            return Client::all();
+            return Cliente::all();
       }
 
       public function create(array $client_model)
       {
 
-            $client = new Client($client_model);
+            $client = new Cliente($client_model);
 
             if ($client->save())
             {
@@ -32,17 +32,17 @@ class ClientRepositoryEloquent implements ClientRepository
 
       public function delete($id)
       {
-            return Client::destroy($id);
+            return Cliente::destroy($id);
       }
 
       public function find($id)
       {
-            return Client::find($id);
+            return Cliente::find($id);
       }
 
       public function update($id, array $client_model)
       {
-            $client = Client::find($id);
+            $client = Cliente::find($id);
 
             if (isset($client))
             {
