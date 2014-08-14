@@ -16,9 +16,11 @@ class CreateEventosEspecialesTable extends Migration
             Schema::create('eventos_especiales', function(Blueprint $table)
             {
                   $table->increments('id');
-                  $table->integer('evento_id')->unsigned();
-                  $table->string('imagenes');
+                  $table->string('mapa');
+                  $table->string('email');
+                  $table->string('web');
                   $table->timestamps();
+                  $table->integer('evento_id')->unsigned();
                   $table->foreign('evento_id')->references('id')->on('eventos')->onDelete('cascade')->onUpdate('cascade');
             });
       }

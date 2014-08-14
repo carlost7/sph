@@ -1,19 +1,28 @@
 <?php
 
+/*
+ * Modelo de DB para agregar las categorias de la guia
+ */
 class Categoria extends \Eloquent
 {
 
       protected $table = 'categorias';
       protected $fillable = ['categorias'];
 
-      protected function negocios()
+      /*
+       * Una categoria tiene muchos negocios
+       */
+      public function negocios()
       {
-            $this->belongsTo('Negocio');
+            $this->hasMany('Negocio');
       }
 
-      protected function eventos()
+      /*
+       * Una categoria tiene muchos eventos
+       */
+      public function eventos()
       {
-            $this->belongsTo('Evento');
+            $this->hasMnay('Evento');
       }
 
 }

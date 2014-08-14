@@ -5,16 +5,11 @@ class Promocion extends \Eloquent
 
       protected $table = "promociones";
       // Don't forget to fill this array
-      protected $fillable = ['nombre', 'descripcion', 'inicio', 'fin', 'path'];
+      protected $fillable = ['nombre', 'codigo', 'descripcion', 'vigencia_inicio', 'vigencia_fin', 'publicar'];
 
       public function client()
       {
             return $this->belongsTo('Cliente', 'cliente_id', 'id');
-      }
-
-      public function especial()
-      {
-            return $this->hasOne('Promocion_especial', 'promocion_id', 'id');
       }
 
       public function pago()
@@ -30,6 +25,11 @@ class Promocion extends \Eloquent
       public function negocio()
       {
             return $this->belongsTo('Negocio');
+      }
+
+      public function imagenes()
+      {
+            return $this->morphMany('Imagen');
       }
 
 }

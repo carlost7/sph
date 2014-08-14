@@ -1,30 +1,103 @@
 <?php
 
+/*
+ * Modelo de Bd que guardará los datos de eventos que el cliente suba
+ */
+
 class Evento extends \Eloquent
 {
 
       protected $table = 'eventos';
-      // Don't forget to fill this array
-      protected $fillable = ['nombre', 'direccion', 'descripcion', 'inicio', 'fin'];
+      protected $fillable = ['nombre', 'fecha_inicio', 'fecha_fin', 'horario', 'lugar', 'direccion', 'descripcion', 'telefono'];
 
-      public function client()
+      /*
+       * Un evento tiene mas informacion
+       */
+
+      public function mas_info()
       {
-            return $this->belongsTo('Cliente', 'cliente_id', 'id');
+            return $this->hasOne('MasInfoEvento');
       }
+
+      /*
+       * Un evento le pertenece a un cliente
+       */
+
+      public function cliente()
+      {
+            return $this->belongsTo('Cliente');
+      }
+
+      /*
+       * Un evento tiene campos especiales
+       */
 
       public function especial()
       {
             return $this->hasOne('Evento_especial', 'evento_id', 'id');
       }
 
+      /*
+       * Un evento genera un pago
+       */
+
       public function pago()
       {
             return $this->morphOne('Pago', 'pagable');
       }
 
+      /*
+       * Un evento genera un aviso
+       */
+
       public function aviso()
       {
             return $this->morphOne('Aviso_cliente', 'avisable');
+      }
+
+      /*
+       * Un evento tiene un estado
+       */
+
+      public function estado()
+      {
+            return $this->belongsTO('Estado');
+      }
+
+      /*
+       * Un evento tiene una zona
+       */
+
+      public function zona()
+      {
+            return $this->belongsTO('Zona');
+      }
+
+      /*
+       * Un evento tiene una categoria
+       */
+
+      public function categoria()
+      {
+            return $this->belongsTO('Categoria');
+      }
+
+      /*
+       * Un evento tiene una subcategoria
+       */
+
+      public function subcategoria()
+      {
+            return $this->belongsTO('Subcategoria');
+      }
+
+      /*
+       * tiene diferentes imagenes
+       */
+
+      public function imagenes()
+      {
+            return $this->morphMany('Imagen', 'imageable');
       }
 
 }

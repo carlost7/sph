@@ -35,14 +35,14 @@ class AddBuscadorToNegocios extends Migration
       {
             Schema::table('negocios', function(Blueprint $table)
             {
-                  $table->dropForeign('eventos_estado_id_foreign');
-                  $table->dropForeign('eventos_zona_id_foreign');
-                  $table->dropForeign('eventos_categoria_id_foreign');
-                  $table->dropForeign('eventos_subcategoria_id_foreign');
-                  $table->dropColumn('estado');
-                  $table->dropColumn('zona');
-                  $table->dropColumn('categoria');
-                  $table->dropColumn('subcategoria');
+                  $table->dropForeign('negocios_estado_id_foreign');
+                  $table->dropForeign('negocios_zona_id_foreign');
+                  $table->dropForeign('negocios_categoria_id_foreign');
+                  $table->dropForeign('negocios_subcategoria_id_foreign');
+                  $table->dropColumn('estado_id');
+                  $table->dropColumn('zona_id');
+                  $table->dropColumn('categoria_id');
+                  $table->dropColumn('subcategoria_id');
             });
       }
 

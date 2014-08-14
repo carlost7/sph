@@ -13,14 +13,15 @@ class CreateMasInfoTable extends Migration
        */
       public function up()
       {
-            Schema::create('mas_info', function(Blueprint $table)
+            Schema::create('mas_info_negocios', function(Blueprint $table)
             {
                   $table->increments('id');
                   $table->boolean('domicilio');
                   $table->boolean('llevar');
+                  $table->boolean('moneda');
                   $table->boolean('efectivo');
-                  $table->boolean('TC');
-                  $table->boolean('TD');
+                  $table->boolean('tc');
+                  $table->boolean('td');
                   $table->boolean('familiar');
                   $table->boolean('alcohol');
                   $table->timestamps();
@@ -36,7 +37,7 @@ class CreateMasInfoTable extends Migration
        */
       public function down()
       {
-            Schema::drop('mas_info');
+            Schema::drop('mas_info_negocios');
       }
 
 }

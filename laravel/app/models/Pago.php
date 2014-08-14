@@ -1,16 +1,26 @@
 <?php
 
+/*
+ * Modelo de Bd en donde se guardaran los datos de pago y los status 
+ */
 class Pago extends \Eloquent
 {
 
-      // Don't forget to fill this array
+      protected $table = 'pagos';
+      
       protected $fillable = ["nombre", "descripcion", "monto", "pagado", "metodo", "status"];
 
+      /*
+       * un Pago pertenece a un cliente
+       */
       public function client()
       {
             return $this->belongsTo('Cliente', 'cliente_id', 'id');
       }
 
+      /*
+       * Un pago es generado por diferntes tablas
+       */
       public function pagable()
       {
             return $this->morphTo();
