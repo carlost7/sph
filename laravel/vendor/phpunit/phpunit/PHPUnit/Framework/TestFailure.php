@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPUnit
  *
@@ -56,124 +57,126 @@
  */
 class PHPUnit_Framework_TestFailure
 {
-    /**
-     * @var    PHPUnit_Framework_Test
-     */
-    protected $failedTest;
 
-    /**
-     * @var    Exception
-     */
-    protected $thrownException;
+      /**
+       * @var    PHPUnit_Framework_Test
+       */
+      protected $failedTest;
 
-    /**
-     * Constructs a TestFailure with the given test and exception.
-     *
-     * @param  PHPUnit_Framework_Test $failedTest
-     * @param  Exception               $thrownException
-     */
-    public function __construct(PHPUnit_Framework_Test $failedTest, Exception $thrownException)
-    {
-        $this->failedTest      = $failedTest;
-        $this->thrownException = $thrownException;
-    }
+      /**
+       * @var    Exception
+       */
+      protected $thrownException;
 
-    /**
-     * Returns a short description of the failure.
-     *
-     * @return string
-     */
-    public function toString()
-    {
-        return sprintf(
-          '%s: %s',
+      /**
+       * Constructs a TestFailure with the given test and exception.
+       *
+       * @param  PHPUnit_Framework_Test $failedTest
+       * @param  Exception               $thrownException
+       */
+      public function __construct(PHPUnit_Framework_Test $failedTest, Exception $thrownException)
+      {
+            $this->failedTest = $failedTest;
+            $this->thrownException = $thrownException;
+      }
 
-          $this->failedTest->toString(),
-          $this->thrownException->getMessage()
-        );
-    }
+      /**
+       * Returns a short description of the failure.
+       *
+       * @return string
+       */
+      public function toString()
+      {
+            return sprintf(
+                    '%s: %s', $this->failedTest->toString(), $this->thrownException->getMessage()
+            );
+      }
 
-    /**
-     * Returns a description for the thrown exception.
-     *
-     * @return string
-     * @since  Method available since Release 3.4.0
-     */
-    public function getExceptionAsString()
-    {
-        return self::exceptionToString($this->thrownException);
-    }
+      /**
+       * Returns a description for the thrown exception.
+       *
+       * @return string
+       * @since  Method available since Release 3.4.0
+       */
+      public function getExceptionAsString()
+      {
+            return self::exceptionToString($this->thrownException);
+      }
 
-    /**
-     * Returns a description for an exception.
-     *
-     * @param  Exception $e
-     * @return string
-     * @since  Method available since Release 3.2.0
-     */
-    public static function exceptionToString(Exception $e)
-    {
-        if ($e instanceof PHPUnit_Framework_SelfDescribing) {
-            $buffer = $e->toString();
+      /**
+       * Returns a description for an exception.
+       *
+       * @param  Exception $e
+       * @return string
+       * @since  Method available since Release 3.2.0
+       */
+      public static function exceptionToString(Exception $e)
+      {
+            if ($e instanceof PHPUnit_Framework_SelfDescribing)
+            {
+                  $buffer = $e->toString();
 
-            if ($e instanceof PHPUnit_Framework_ExpectationFailedException && $e->getComparisonFailure()) {
-                $buffer = $buffer . "\n" . $e->getComparisonFailure()->getDiff();
+                  if ($e instanceof PHPUnit_Framework_ExpectationFailedException && $e->getComparisonFailure())
+                  {
+                        $buffer = $buffer . "\n" . $e->getComparisonFailure()->getDiff();
+                  }
+
+                  if (!empty($buffer))
+                  {
+                        $buffer = trim($buffer) . "\n";
+                  }
+            }
+            else if ($e instanceof PHPUnit_Framework_Error)
+            {
+                  $buffer = $e->getMessage() . "\n";
+            }
+            else
+            {
+                  $buffer = get_class($e) . ': ' . $e->getMessage() . "\n";
             }
 
-            if (!empty($buffer)) {
-                $buffer = trim($buffer) . "\n";
-            }
-        }
+            return $buffer;
+      }
 
-        else if ($e instanceof PHPUnit_Framework_Error) {
-            $buffer = $e->getMessage() . "\n";
-        }
+      /**
+       * Gets the failed test.
+       *
+       * @return Test
+       */
+      public function failedTest()
+      {
+            return $this->failedTest;
+      }
 
-        else {
-            $buffer = get_class($e) . ': ' . $e->getMessage() . "\n";
-        }
+      /**
+       * Gets the thrown exception.
+       *
+       * @return Exception
+       */
+      public function thrownException()
+      {
+            return $this->thrownException;
+      }
 
-        return $buffer;
-    }
+      /**
+       * Returns the exception's message.
+       *
+       * @return string
+       */
+      public function exceptionMessage()
+      {
+            return $this->thrownException()->getMessage();
+      }
 
-    /**
-     * Gets the failed test.
-     *
-     * @return Test
-     */
-    public function failedTest()
-    {
-        return $this->failedTest;
-    }
+      /**
+       * Returns TRUE if the thrown exception
+       * is of type AssertionFailedError.
+       *
+       * @return boolean
+       */
+      public function isFailure()
+      {
+            return ($this->thrownException() instanceof PHPUnit_Framework_AssertionFailedError);
+      }
 
-    /**
-     * Gets the thrown exception.
-     *
-     * @return Exception
-     */
-    public function thrownException()
-    {
-        return $this->thrownException;
-    }
-
-    /**
-     * Returns the exception's message.
-     *
-     * @return string
-     */
-    public function exceptionMessage()
-    {
-        return $this->thrownException()->getMessage();
-    }
-
-    /**
-     * Returns TRUE if the thrown exception
-     * is of type AssertionFailedError.
-     *
-     * @return boolean
-     */
-    public function isFailure()
-    {
-        return ($this->thrownException() instanceof PHPUnit_Framework_AssertionFailedError);
-    }
 }

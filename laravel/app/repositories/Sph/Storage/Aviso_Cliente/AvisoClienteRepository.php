@@ -14,5 +14,4 @@ interface AvisoClienteRepository
       public function update($id, array $aviso_model);
 
       public function delete($id);
-      
 }

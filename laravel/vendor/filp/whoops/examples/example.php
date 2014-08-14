@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
@@ -14,15 +15,19 @@
  */
 
 namespace Whoops\Example;
+
 use Whoops\Run;
 use Whoops\Handler\PrettyPageHandler;
 use Exception as BaseException;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-class Exception extends BaseException {}
+class Exception extends BaseException
+{
+      
+}
 
-$run     = new Run;
+$run = new Run;
 $handler = new PrettyPageHandler;
 
 // Add a custom table to the layout:
@@ -36,28 +41,31 @@ $handler->addDataTable('Ice-cream I like', array(
 $run->pushHandler($handler);
 
 // Example: tag all frames inside a function with their function name
-$run->pushHandler(function($exception, $inspector, $run) {
+$run->pushHandler(function($exception, $inspector, $run)
+{
 
-    $inspector->getFrames()->map(function($frame) {
+      $inspector->getFrames()->map(function($frame)
+      {
 
-        if($function = $frame->getFunction()) {
-            $frame->addComment("This frame is within function '$function'", 'cpt-obvious');
-        }
+            if ($function = $frame->getFunction())
+            {
+                  $frame->addComment("This frame is within function '$function'", 'cpt-obvious');
+            }
 
-        return $frame;
-    });
-
+            return $frame;
+      });
 });
 
 $run->register();
 
-function fooBar() {
-    throw new Exception("Something broke!");
+function fooBar()
+{
+      throw new Exception("Something broke!");
 }
 
 function bar()
 {
-    fooBar();
+      fooBar();
 }
 
 bar();

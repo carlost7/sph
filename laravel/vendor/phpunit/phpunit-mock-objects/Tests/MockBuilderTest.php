@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPUnit
  *
@@ -42,7 +43,6 @@
  * @link       http://github.com/sebastianbergmann/phpunit-mock-objects
  * @since      File available since Release 1.0.0
  */
-
 require_once 'PHPUnit/Framework/TestCase.php';
 
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'Mockable.php';
@@ -58,95 +58,97 @@ require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPA
  */
 class Framework_MockBuilderTest extends PHPUnit_Framework_TestCase
 {
-    public function testMockBuilderRequiresClassName()
-    {
-        $spec = $this->getMockBuilder('Mockable');
-        $mock = $spec->getMock();
-        $this->assertTrue($mock instanceof Mockable);
-    }
 
-    public function testByDefaultMocksAllMethods()
-    {
-        $spec = $this->getMockBuilder('Mockable');
-        $mock = $spec->getMock();
-        $this->assertNull($mock->mockableMethod());
-        $this->assertNull($mock->anotherMockableMethod());
-    }
+      public function testMockBuilderRequiresClassName()
+      {
+            $spec = $this->getMockBuilder('Mockable');
+            $mock = $spec->getMock();
+            $this->assertTrue($mock instanceof Mockable);
+      }
 
-    public function testMethodsToMockCanBeSpecified()
-    {
-        $spec = $this->getMockBuilder('Mockable');
-        $spec->setMethods(array('mockableMethod'));
-        $mock = $spec->getMock();
-        $this->assertNull($mock->mockableMethod());
-        $this->assertTrue($mock->anotherMockableMethod());
-    }
+      public function testByDefaultMocksAllMethods()
+      {
+            $spec = $this->getMockBuilder('Mockable');
+            $mock = $spec->getMock();
+            $this->assertNull($mock->mockableMethod());
+            $this->assertNull($mock->anotherMockableMethod());
+      }
 
-    public function testByDefaultDoesNotPassArgumentsToTheConstructor()
-    {
-        $spec = $this->getMockBuilder('Mockable');
-        $mock = $spec->getMock();
-        $this->assertEquals(array(NULL, NULL), $mock->constructorArgs);
-    }
+      public function testMethodsToMockCanBeSpecified()
+      {
+            $spec = $this->getMockBuilder('Mockable');
+            $spec->setMethods(array('mockableMethod'));
+            $mock = $spec->getMock();
+            $this->assertNull($mock->mockableMethod());
+            $this->assertTrue($mock->anotherMockableMethod());
+      }
 
-    public function testMockClassNameCanBeSpecified()
-    {
-        $spec = $this->getMockBuilder('Mockable');
-        $spec->setMockClassName('ACustomClassName');
-        $mock = $spec->getMock();
-        $this->assertTrue($mock instanceof ACustomClassName);
-    }
+      public function testByDefaultDoesNotPassArgumentsToTheConstructor()
+      {
+            $spec = $this->getMockBuilder('Mockable');
+            $mock = $spec->getMock();
+            $this->assertEquals(array(NULL, NULL), $mock->constructorArgs);
+      }
 
-    public function testConstructorArgumentsCanBeSpecified()
-    {
-        $spec = $this->getMockBuilder('Mockable');
-        $spec->setConstructorArgs($expected = array(23, 42));
-        $mock = $spec->getMock();
-        $this->assertEquals($expected, $mock->constructorArgs);
-    }
+      public function testMockClassNameCanBeSpecified()
+      {
+            $spec = $this->getMockBuilder('Mockable');
+            $spec->setMockClassName('ACustomClassName');
+            $mock = $spec->getMock();
+            $this->assertTrue($mock instanceof ACustomClassName);
+      }
 
-    public function testOriginalConstructorCanBeDisabled()
-    {
-        $spec = $this->getMockBuilder('Mockable');
-        $spec->disableOriginalConstructor();
-        $mock = $spec->getMock();
-        $this->assertNull($mock->constructorArgs);
-    }
+      public function testConstructorArgumentsCanBeSpecified()
+      {
+            $spec = $this->getMockBuilder('Mockable');
+            $spec->setConstructorArgs($expected = array(23, 42));
+            $mock = $spec->getMock();
+            $this->assertEquals($expected, $mock->constructorArgs);
+      }
 
-    public function testByDefaultOriginalCloneIsPreserved()
-    {
-        $spec = $this->getMockBuilder('Mockable');
-        $mock = $spec->getMock();
-        $cloned = clone $mock;
-        $this->assertTrue($cloned->cloned);
-    }
+      public function testOriginalConstructorCanBeDisabled()
+      {
+            $spec = $this->getMockBuilder('Mockable');
+            $spec->disableOriginalConstructor();
+            $mock = $spec->getMock();
+            $this->assertNull($mock->constructorArgs);
+      }
 
-    public function testOriginalCloneCanBeDisabled()
-    {
-        $spec = $this->getMockBuilder('Mockable');
-        $spec->disableOriginalClone();
-        $mock = $spec->getMock();
-        $mock->cloned = FALSE;
-        $cloned = clone $mock;
-        $this->assertFalse($cloned->cloned);
-    }
+      public function testByDefaultOriginalCloneIsPreserved()
+      {
+            $spec = $this->getMockBuilder('Mockable');
+            $mock = $spec->getMock();
+            $cloned = clone $mock;
+            $this->assertTrue($cloned->cloned);
+      }
 
-    public function testCallingAutoloadCanBeDisabled()
-    {
-        // it is not clear to me how to test this nor the difference
-        // between calling it or not
-        $this->markTestIncomplete();
-    }
+      public function testOriginalCloneCanBeDisabled()
+      {
+            $spec = $this->getMockBuilder('Mockable');
+            $spec->disableOriginalClone();
+            $mock = $spec->getMock();
+            $mock->cloned = FALSE;
+            $cloned = clone $mock;
+            $this->assertFalse($cloned->cloned);
+      }
 
-    public function testProvidesAFluentInterface()
-    {
-        $spec = $this->getMockBuilder('Mockable')
-                     ->setMethods(array('mockableMethod'))
-                     ->setConstructorArgs(array())
-                     ->setMockClassName('DummyClassName')
-                     ->disableOriginalConstructor()
-                     ->disableOriginalClone()
-                     ->disableAutoload();
-        $this->assertTrue($spec instanceof PHPUnit_Framework_MockObject_MockBuilder);
-    }
+      public function testCallingAutoloadCanBeDisabled()
+      {
+            // it is not clear to me how to test this nor the difference
+            // between calling it or not
+            $this->markTestIncomplete();
+      }
+
+      public function testProvidesAFluentInterface()
+      {
+            $spec = $this->getMockBuilder('Mockable')
+                    ->setMethods(array('mockableMethod'))
+                    ->setConstructorArgs(array())
+                    ->setMockClassName('DummyClassName')
+                    ->disableOriginalConstructor()
+                    ->disableOriginalClone()
+                    ->disableAutoload();
+            $this->assertTrue($spec instanceof PHPUnit_Framework_MockObject_MockBuilder);
+      }
+
 }

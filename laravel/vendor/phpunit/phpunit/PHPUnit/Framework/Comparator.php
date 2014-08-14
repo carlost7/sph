@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPUnit
  *
@@ -56,42 +57,43 @@
  */
 abstract class PHPUnit_Framework_Comparator
 {
-    /**
-     * @var PHPUnit_Framework_ComparatorFactory
-     */
-    protected $factory;
 
-    /**
-     * @param PHPUnit_Framework_ComparatorFactory $factory
-     */
-    public function setFactory(PHPUnit_Framework_ComparatorFactory $factory)
-    {
-        $this->factory = $factory;
-    }
+      /**
+       * @var PHPUnit_Framework_ComparatorFactory
+       */
+      protected $factory;
 
-    /**
-     * Returns whether the comparator can compare two values.
-     *
-     * @param  mixed $expected The first value to compare
-     * @param  mixed $actual The second value to compare
-     * @return boolean
-     */
-    abstract public function accepts($expected, $actual);
+      /**
+       * @param PHPUnit_Framework_ComparatorFactory $factory
+       */
+      public function setFactory(PHPUnit_Framework_ComparatorFactory $factory)
+      {
+            $this->factory = $factory;
+      }
 
-    /**
-     * Asserts that two values are equal.
-     *
-     * @param  mixed $expected The first value to compare
-     * @param  mixed $actual The second value to compare
-     * @param  float $delta The allowed numerical distance between two values to
-     *                      consider them equal
-     * @param  bool  $canonicalize If set to TRUE, arrays are sorted before
-     *                             comparison
-     * @param  bool  $ignoreCase If set to TRUE, upper- and lowercasing is
-     *                           ignored when comparing string values
-     * @throws PHPUnit_Framework_ComparisonFailure Thrown when the comparison
-     *                           fails. Contains information about the
-     *                           specific errors that lead to the failure.
-     */
-    abstract public function assertEquals($expected, $actual, $delta = 0, $canonicalize = FALSE, $ignoreCase = FALSE);
+      /**
+       * Returns whether the comparator can compare two values.
+       *
+       * @param  mixed $expected The first value to compare
+       * @param  mixed $actual The second value to compare
+       * @return boolean
+       */
+      abstract public function accepts($expected, $actual);
+
+      /**
+       * Asserts that two values are equal.
+       *
+       * @param  mixed $expected The first value to compare
+       * @param  mixed $actual The second value to compare
+       * @param  float $delta The allowed numerical distance between two values to
+       *                      consider them equal
+       * @param  bool  $canonicalize If set to TRUE, arrays are sorted before
+       *                             comparison
+       * @param  bool  $ignoreCase If set to TRUE, upper- and lowercasing is
+       *                           ignored when comparing string values
+       * @throws PHPUnit_Framework_ComparisonFailure Thrown when the comparison
+       *                           fails. Contains information about the
+       *                           specific errors that lead to the failure.
+       */
+      abstract public function assertEquals($expected, $actual, $delta = 0, $canonicalize = FALSE, $ignoreCase = FALSE);
 }

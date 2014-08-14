@@ -4,23 +4,23 @@
          default="all"
 >
 
-  <target name="all" depends="sniff" />
+    <target name="all" depends="sniff" />
 
-  <!-- Code Sniffer -->
-  <target name="sniff" depends="sniff-php-code,sniff-php-tests" />
-  <target name="sniff-php-code">
-    <exec command="vendor/bin/phpcs -s
+    <!-- Code Sniffer -->
+    <target name="sniff" depends="sniff-php-code,sniff-php-tests" />
+    <target name="sniff-php-code">
+        <exec command="vendor/bin/phpcs -s
         --extensions=php
         --standard=build/code-sniffer-ruleset.xml
         phpseclib/"
-      dir=".." checkreturn="true" passthru="true" />
-  </target>
-  <target name="sniff-php-tests">
-    <exec command="vendor/bin/phpcs -s
+          dir=".." checkreturn="true" passthru="true" />
+    </target>
+    <target name="sniff-php-tests">
+        <exec command="vendor/bin/phpcs -s
         --extensions=php
         --standard=build/code-sniffer-ruleset-tests.xml
         tests/"
-      dir=".." checkreturn="true" passthru="true" />
-  </target>
+          dir=".." checkreturn="true" passthru="true" />
+    </target>
 
 </project>

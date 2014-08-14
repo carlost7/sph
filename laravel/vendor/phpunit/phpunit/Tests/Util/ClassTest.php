@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPUnit
  *
@@ -42,7 +43,6 @@
  * @link       http://www.phpunit.de/
  * @since      File available since Release 3.5.6
  */
-
 require_once 'PHPUnit/Framework/TestCase.php';
 
 require_once 'PHPUnit/Util/Class.php';
@@ -60,25 +60,27 @@ require_once 'PHPUnit/Util/Class.php';
  */
 class Util_ClassTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * Test that if a dynamic variable is defined on a class then
-     * the $attribute variable will be NULL, but the variable defined
-     * will be a public one so we are safe to return it
-     *
-     * Currently $attribute is NULL but we try and call isPublic() on it.
-     * This breaks for php 5.2.10
-     *
-     * @covers PHPUnit_Util_Class::getObjectAttribute
-     *
-     * @return void
-     */
-    public function testGetObjectAttributeCanHandleDynamicVariables()
-    {
-        $attributeName = '_variable';
-        $object = new stdClass();
-        $object->$attributeName = 'Test';
 
-        $actual = PHPUnit_Util_Class::getObjectAttribute($object, $attributeName);
-        $this->assertEquals('Test', $actual);
-    }
+      /**
+       * Test that if a dynamic variable is defined on a class then
+       * the $attribute variable will be NULL, but the variable defined
+       * will be a public one so we are safe to return it
+       *
+       * Currently $attribute is NULL but we try and call isPublic() on it.
+       * This breaks for php 5.2.10
+       *
+       * @covers PHPUnit_Util_Class::getObjectAttribute
+       *
+       * @return void
+       */
+      public function testGetObjectAttributeCanHandleDynamicVariables()
+      {
+            $attributeName = '_variable';
+            $object = new stdClass();
+            $object->$attributeName = 'Test';
+
+            $actual = PHPUnit_Util_Class::getObjectAttribute($object, $attributeName);
+            $this->assertEquals('Test', $actual);
+      }
+
 }

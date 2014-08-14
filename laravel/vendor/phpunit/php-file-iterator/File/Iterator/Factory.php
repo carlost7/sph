@@ -1,4 +1,5 @@
 <?php
+
 /**
  * php-file-iterator
  *
@@ -55,66 +56,79 @@
  */
 class File_Iterator_Factory
 {
-    /**
-     * @param  array|string $paths
-     * @param  array|string $suffixes
-     * @param  array|string $prefixes
-     * @param  array        $exclude
-     * @return AppendIterator
-     */
-    public function getFileIterator($paths, $suffixes = '', $prefixes = '', array $exclude = array())
-    {
-        if (is_string($paths)) {
-            $paths = array($paths);
-        }
 
-        $_paths = array();
-
-        foreach ($paths as $path) {
-            if ($locals = glob($path, GLOB_ONLYDIR)) {
-                $_paths = array_merge($_paths, $locals);
-            } else {
-                $_paths[] = $path;
+      /**
+       * @param  array|string $paths
+       * @param  array|string $suffixes
+       * @param  array|string $prefixes
+       * @param  array        $exclude
+       * @return AppendIterator
+       */
+      public function getFileIterator($paths, $suffixes = '', $prefixes = '', array $exclude = array())
+      {
+            if (is_string($paths))
+            {
+                  $paths = array($paths);
             }
-        }
 
-        $paths = $_paths;
-        unset($_paths);
+            $_paths = array();
 
-        if (is_string($prefixes)) {
-            if ($prefixes != '') {
-                $prefixes = array($prefixes);
-            } else {
-                $prefixes = array();
+            foreach ($paths as $path)
+            {
+                  if ($locals = glob($path, GLOB_ONLYDIR))
+                  {
+                        $_paths = array_merge($_paths, $locals);
+                  }
+                  else
+                  {
+                        $_paths[] = $path;
+                  }
             }
-        }
 
-        if (is_string($suffixes)) {
-            if ($suffixes != '') {
-                $suffixes = array($suffixes);
-            } else {
-                $suffixes = array();
+            $paths = $_paths;
+            unset($_paths);
+
+            if (is_string($prefixes))
+            {
+                  if ($prefixes != '')
+                  {
+                        $prefixes = array($prefixes);
+                  }
+                  else
+                  {
+                        $prefixes = array();
+                  }
             }
-        }
 
-        $iterator = new AppendIterator;
-
-        foreach ($paths as $path) {
-            if (is_dir($path)) {
-                $iterator->append(
-                  new File_Iterator(
-                    new RecursiveIteratorIterator(
-                      new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::FOLLOW_SYMLINKS)
-                    ),
-                    $suffixes,
-                    $prefixes,
-                    $exclude,
-                    $path
-                  )
-                );
+            if (is_string($suffixes))
+            {
+                  if ($suffixes != '')
+                  {
+                        $suffixes = array($suffixes);
+                  }
+                  else
+                  {
+                        $suffixes = array();
+                  }
             }
-        }
 
-        return $iterator;
-    }
+            $iterator = new AppendIterator;
+
+            foreach ($paths as $path)
+            {
+                  if (is_dir($path))
+                  {
+                        $iterator->append(
+                                new File_Iterator(
+                                new RecursiveIteratorIterator(
+                                new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::FOLLOW_SYMLINKS)
+                                ), $suffixes, $prefixes, $exclude, $path
+                                )
+                        );
+                  }
+            }
+
+            return $iterator;
+      }
+
 }

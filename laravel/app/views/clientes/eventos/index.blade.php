@@ -33,13 +33,13 @@
             <p class="text-right">
                   {{ HTML::linkRoute('clientes_eventos.edit','editar',$evento->id,array('class'=>'btn btn-sm btn-info')) }}                         
             </p>
-            
-                  
-                  {{ Form::open(array('route' => array('clientes_eventos.destroy',$evento->id))) }}            
-                  {{ Form::hidden('_method', 'DELETE') }}            
-                  <p class="text-right">{{ Form::submit('eliminar', array('class' => 'btn btn-sm btn-danger')) }}</p>
-                  {{ Form::close() }}                        
-             
+
+
+            {{ Form::open(array('route' => array('clientes_eventos.destroy',$evento->id))) }}            
+            {{ Form::hidden('_method', 'DELETE') }}            
+            <p class="text-right">{{ Form::submit('eliminar', array('class' => 'btn btn-sm btn-danger')) }}</p>
+            {{ Form::close() }}                        
+
       </div>
 
       @endforeach

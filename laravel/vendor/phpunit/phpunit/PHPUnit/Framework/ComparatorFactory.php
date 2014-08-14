@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPUnit
  *
@@ -56,101 +57,107 @@
  */
 class PHPUnit_Framework_ComparatorFactory
 {
-    /**
-     * @var array
-     */
-    protected $comparators = array();
 
-    /**
-     * @var PHPUnit_Framework_ComparatorFactory
-     */
-    private static $defaultInstance = NULL;
+      /**
+       * @var array
+       */
+      protected $comparators = array();
 
-    /**
-     * Constructs a new factory.
-     */
-    public function __construct()
-    {
-        $this->register(new PHPUnit_Framework_Comparator_Type);
-        $this->register(new PHPUnit_Framework_Comparator_Scalar);
-        $this->register(new PHPUnit_Framework_Comparator_Numeric);
-        $this->register(new PHPUnit_Framework_Comparator_Double);
-        $this->register(new PHPUnit_Framework_Comparator_Array);
-        $this->register(new PHPUnit_Framework_Comparator_Resource);
-        $this->register(new PHPUnit_Framework_Comparator_Object);
-        $this->register(new PHPUnit_Framework_Comparator_Exception);
-        $this->register(new PHPUnit_Framework_Comparator_SplObjectStorage);
-        $this->register(new PHPUnit_Framework_Comparator_DOMDocument);
-        $this->register(new PHPUnit_Framework_Comparator_MockObject);
-    }
+      /**
+       * @var PHPUnit_Framework_ComparatorFactory
+       */
+      private static $defaultInstance = NULL;
 
-    /**
-     * Returns the default instance.
-     *
-     * @return PHPUnit_Framework_ComparatorFactory
-     */
-    public static function getDefaultInstance()
-    {
-        if (self::$defaultInstance === NULL) {
-            self::$defaultInstance = new PHPUnit_Framework_ComparatorFactory;
-        }
+      /**
+       * Constructs a new factory.
+       */
+      public function __construct()
+      {
+            $this->register(new PHPUnit_Framework_Comparator_Type);
+            $this->register(new PHPUnit_Framework_Comparator_Scalar);
+            $this->register(new PHPUnit_Framework_Comparator_Numeric);
+            $this->register(new PHPUnit_Framework_Comparator_Double);
+            $this->register(new PHPUnit_Framework_Comparator_Array);
+            $this->register(new PHPUnit_Framework_Comparator_Resource);
+            $this->register(new PHPUnit_Framework_Comparator_Object);
+            $this->register(new PHPUnit_Framework_Comparator_Exception);
+            $this->register(new PHPUnit_Framework_Comparator_SplObjectStorage);
+            $this->register(new PHPUnit_Framework_Comparator_DOMDocument);
+            $this->register(new PHPUnit_Framework_Comparator_MockObject);
+      }
 
-        return self::$defaultInstance;
-    }
-
-    /**
-     * Returns the correct comparator for comparing two values.
-     *
-     * @param  mixed $expected The first value to compare
-     * @param  mixed $actual The second value to compare
-     * @return PHPUnit_Framework_Comparator
-     * @throws PHPUnit_Framework_Exception
-     */
-    public function getComparatorFor($expected, $actual)
-    {
-        foreach ($this->comparators as $comparator) {
-            if ($comparator->accepts($expected, $actual)) {
-                return $comparator;
+      /**
+       * Returns the default instance.
+       *
+       * @return PHPUnit_Framework_ComparatorFactory
+       */
+      public static function getDefaultInstance()
+      {
+            if (self::$defaultInstance === NULL)
+            {
+                  self::$defaultInstance = new PHPUnit_Framework_ComparatorFactory;
             }
-        }
 
-        throw new PHPUnit_Framework_Exception(
-          sprintf(
-            'No comparator is registered for comparing the types "%s" and "%s"',
-            gettype($expected), gettype($actual)
-          )
-        );
-    }
+            return self::$defaultInstance;
+      }
 
-    /**
-     * Registers a new comparator.
-     *
-     * This comparator will be returned by getInstance() if its accept() method
-     * returns TRUE for the compared values. It has higher priority than the
-     * existing comparators, meaning that its accept() method will be tested
-     * before those of the other comparators.
-     *
-     * @param  PHPUnit_Framework_Comparator $comparator The registered comparator
-     */
-    public function register(PHPUnit_Framework_Comparator $comparator)
-    {
-        array_unshift($this->comparators, $comparator);
-        $comparator->setFactory($this);
-    }
-
-    /**
-     * Unregisters a comparator.
-     *
-     * This comparator will no longer be returned by getInstance().
-     *
-     * @param  PHPUnit_Framework_Comparator $comparator The unregistered comparator
-     */
-    public function unregister(PHPUnit_Framework_Comparator $comparator)
-    {
-        foreach ($this->comparators as $key => $_comparator) {
-            if ($comparator === $_comparator) {
-                unset($this->comparators[$key]);
+      /**
+       * Returns the correct comparator for comparing two values.
+       *
+       * @param  mixed $expected The first value to compare
+       * @param  mixed $actual The second value to compare
+       * @return PHPUnit_Framework_Comparator
+       * @throws PHPUnit_Framework_Exception
+       */
+      public function getComparatorFor($expected, $actual)
+      {
+            foreach ($this->comparators as $comparator)
+            {
+                  if ($comparator->accepts($expected, $actual))
+                  {
+                        return $comparator;
+                  }
             }
-        }
-    }
+
+            throw new PHPUnit_Framework_Exception(
+            sprintf(
+                    'No comparator is registered for comparing the types "%s" and "%s"', gettype($expected), gettype($actual)
+            )
+            );
+      }
+
+      /**
+       * Registers a new comparator.
+       *
+       * This comparator will be returned by getInstance() if its accept() method
+       * returns TRUE for the compared values. It has higher priority than the
+       * existing comparators, meaning that its accept() method will be tested
+       * before those of the other comparators.
+       *
+       * @param  PHPUnit_Framework_Comparator $comparator The registered comparator
+       */
+      public function register(PHPUnit_Framework_Comparator $comparator)
+      {
+            array_unshift($this->comparators, $comparator);
+            $comparator->setFactory($this);
+      }
+
+      /**
+       * Unregisters a comparator.
+       *
+       * This comparator will no longer be returned by getInstance().
+       *
+       * @param  PHPUnit_Framework_Comparator $comparator The unregistered comparator
+       */
+      public function unregister(PHPUnit_Framework_Comparator $comparator)
+      {
+            foreach ($this->comparators as $key => $_comparator)
+            {
+                  if ($comparator === $_comparator)
+                  {
+                        unset($this->comparators[$key]);
+                  }
+            }
+      }
+
 }

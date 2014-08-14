@@ -11,17 +11,25 @@ class Promocion extends \Eloquent
       {
             return $this->belongsTo('Cliente', 'cliente_id', 'id');
       }
-      
-      public function especial(){
-            return $this->hasOne('Promocion_especial','promocion_id','id');
+
+      public function especial()
+      {
+            return $this->hasOne('Promocion_especial', 'promocion_id', 'id');
       }
-      
-      public function pago(){            
+
+      public function pago()
+      {
             return $this->morphOne('Pago', 'pagable');
       }
-      
-      public function aviso(){            
+
+      public function aviso()
+      {
             return $this->morphOne('Aviso_cliente', 'avisable');
+      }
+
+      public function negocio()
+      {
+            return $this->belongsTo('Negocio');
       }
 
 }

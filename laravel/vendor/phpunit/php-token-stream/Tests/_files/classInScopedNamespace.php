@@ -1,9 +1,12 @@
 <?php
-namespace Foo\BarScoped {
 
-    class TestClass {
+namespace Foo\BarScoped
+{
 
-    }
+      class TestClass
+      {
+            
+      }
 
 }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPUnit
  *
@@ -57,4 +58,5 @@
  */
 interface PHPUnit_Framework_IncompleteTest
 {
+      
 }

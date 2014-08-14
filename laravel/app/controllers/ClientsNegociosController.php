@@ -165,21 +165,27 @@ class clientesNegociosController extends \BaseController
        * Funcion que le permite al usuario activar su negocio nuevamente
        * 
        */
+
       public function activar($id)
       {
             $negocio = $this->negocio->find($id);
-            if($negocio->client->id == Auth::user()->userable->id){
-                  if($this->negocio->activar($id)){
-                        Session::flash('message','Activación correcta');
+            if ($negocio->client->id == Auth::user()->userable->id)
+            {
+                  if ($this->negocio->activar($id))
+                  {
+                        Session::flash('message', 'Activación correcta');
                         return Redirect::route('clientes_negocios.index');
-                  }else{
-                        Session::flash('error','El negocio no pertenece al usuario');
                   }
-            }else{
-                  Session::flash('error','El negocio no pertenece al usuario');
-            }           
+                  else
+                  {
+                        Session::flash('error', 'El negocio no pertenece al usuario');
+                  }
+            }
+            else
+            {
+                  Session::flash('error', 'El negocio no pertenece al usuario');
+            }
             return Redirect::back();
       }
-      
-      
+
 }

@@ -18,16 +18,18 @@ use PredisTestCase;
  */
 class PredisExceptionTest extends PredisTestCase
 {
-    /**
-     * @group disconnected
-     */
-    public function testExceptionMessage()
-    {
-        $message = 'Predis exception message';
-        $exception = $this->getMockForAbstractClass('Predis\PredisException', array($message));
 
-        $this->setExpectedException('Predis\PredisException', $message);
+      /**
+       * @group disconnected
+       */
+      public function testExceptionMessage()
+      {
+            $message = 'Predis exception message';
+            $exception = $this->getMockForAbstractClass('Predis\PredisException', array($message));
 
-        throw $exception;
-    }
+            $this->setExpectedException('Predis\PredisException', $message);
+
+            throw $exception;
+      }
+
 }

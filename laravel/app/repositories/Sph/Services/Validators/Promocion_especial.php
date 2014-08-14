@@ -18,7 +18,7 @@ class Promocion_especial extends Validator
 
       public static $rules = array(
           "update" => array(
-              'imagenes' => '',              
+              'imagenes' => '',
           ),
       );
 

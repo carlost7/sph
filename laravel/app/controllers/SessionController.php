@@ -39,11 +39,13 @@ class SessionController extends \BaseController
                         Session::set('is_client', true);
                         return Redirect::intended('clientes');
                   }
-                  elseif(is_a(Auth::user()->userable, Marketing::class))
+                  elseif (is_a(Auth::user()->userable, Marketing::class))
                   {
                         Session::set('is_marketing', true);
                         return Redirect::intended('marketings');
-                  }else{
+                  }
+                  else
+                  {
                         return Redirect::intended('/');
                   }
             }

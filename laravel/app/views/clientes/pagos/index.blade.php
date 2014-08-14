@@ -41,7 +41,7 @@
                         @else
                         {{ HTML::linkRoute('clientes_pagos_avisar_marketing.get','Activación Manual',$pago->id,array('class'=>'btn btn-sm btn-info')) }}
                         @endif
-                        
+
                         {{ HTML::linkRoute('clientes_pagos_codigo.get','Usar código',$pago->id,array('class'=>'btn btn-sm btn-success')) }}                   
 
                         {{ HTML::linkRoute('pagar_contenido.get','Activación automática',array('id'=>$pago->id),array('class'=>'btn btn-sm btn-success')) }}

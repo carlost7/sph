@@ -25,10 +25,10 @@ Failed asserting that two arrays are equal.
 --- Expected
 +++ Actual
 @@ @@
- Array (
+Array (
 -    0 => 1
 +    0 => 2
- )
+)
 
 %s:%i
 

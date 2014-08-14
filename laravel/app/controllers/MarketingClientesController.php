@@ -41,14 +41,14 @@ class MarketingClientesController extends \BaseController
             $eventos = $clientee->eventos;
             $promociones = $clientee->promociones;
             $bitacoras = $clientee->bitacoras;
-            
+
             return View::make('marketing.clientes.show')
                             ->with(array('cliente' => $clientee,
                                 'negocios' => $negocios,
                                 'eventos' => $eventos,
                                 'promociones' => $promociones,
                                 'bitacoras' => $bitacoras,
-                              ));
+            ));
       }
 
       /**

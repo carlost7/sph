@@ -76,7 +76,9 @@ class MarketingRepositoryEloquent implements MarketingRepository
                   if ($marketing->clientes()->save($client_object))
                   {
                         return $marketing;
-                  }else{
+                  }
+                  else
+                  {
                         return null;
                   }
             }

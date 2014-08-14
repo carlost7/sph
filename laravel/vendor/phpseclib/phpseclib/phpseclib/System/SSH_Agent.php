@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Pure-PHP ssh-agent client wrapper
  *
@@ -35,5 +36,4 @@
  * @link      http://phpseclib.sourceforge.net
  * @internal  See http://api.libssh.org/rfc/PROTOCOL.agent
  */
-
 require_once 'SSH/Agent.php';

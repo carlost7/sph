@@ -1,11 +1,11 @@
 <?php
 
-class Clientee extends \Eloquent
+class Cliente extends \Eloquent
 {
 
-      protected $table = 'clients';
+      protected $table = 'clientes';
       // Don't forget to fill this array
-      protected $fillable = ['name', 'telephone', 'is_active', 'token'];
+      protected $fillable = ['nombre', 'apellido', 'empresa', 'telefoono', 'ext', 'celular', 'token'];
 
       public function user()
       {
@@ -22,26 +22,24 @@ class Clientee extends \Eloquent
             return $this->hasMany('Evento', 'cliente_id', 'id');
       }
 
-      public function promociones()
-      {
-            return $this->hasMany('Promocion', 'cliente_id', 'id');
-      }
-      
       public function pagos()
       {
             return $this->hasMany('Pago', 'cliente_id', 'id');
       }
-      
-      public function marketing(){
-            return $this->belongsTo('Marketing','marketing_id','id');
+
+      public function marketing()
+      {
+            return $this->belongsTo('Marketing', 'marketing_id', 'id');
       }
 
-      public function bitacoras(){
-            return $this->hasMany('Bitacora_cliente','cliente_id','id');
+      public function bitacoras()
+      {
+            return $this->hasMany('Bitacora_cliente', 'cliente_id', 'id');
       }
-      
-      public function avisos(){
-            return $this->hasMany('Aviso_cliente','cliente_id','id');
+
+      public function avisos()
+      {
+            return $this->hasMany('Aviso_cliente', 'cliente_id', 'id');
       }
-      
+
 }

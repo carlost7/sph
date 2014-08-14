@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHP_Timer
  *
@@ -57,92 +58,95 @@
  */
 class PHP_Timer
 {
-    /**
-     * @var array
-     */
-    private static $times = array(
-      'hour'   => 3600000,
-      'minute' => 60000,
-      'second' => 1000
-    );
 
-    /**
-     * @var array
-     */
-    private static $startTimes = array();
+      /**
+       * @var array
+       */
+      private static $times = array(
+          'hour' => 3600000,
+          'minute' => 60000,
+          'second' => 1000
+      );
 
-    /**
-     * @var float
-     */
-    public static $requestTime;
+      /**
+       * @var array
+       */
+      private static $startTimes = array();
 
-    /**
-     * Starts the timer.
-     */
-    public static function start()
-    {
-        array_push(self::$startTimes, microtime(TRUE));
-    }
+      /**
+       * @var float
+       */
+      public static $requestTime;
 
-    /**
-     * Stops the timer and returns the elapsed time.
-     *
-     * @return float
-     */
-    public static function stop()
-    {
-        return microtime(TRUE) - array_pop(self::$startTimes);
-    }
+      /**
+       * Starts the timer.
+       */
+      public static function start()
+      {
+            array_push(self::$startTimes, microtime(TRUE));
+      }
 
-    /**
-     * Formats the elapsed time as a string.
-     *
-     * @param  float $time
-     * @return string
-     */
-    public static function secondsToTimeString($time)
-    {
-        $ms = round($time * 1000);
+      /**
+       * Stops the timer and returns the elapsed time.
+       *
+       * @return float
+       */
+      public static function stop()
+      {
+            return microtime(TRUE) - array_pop(self::$startTimes);
+      }
 
-        foreach (self::$times as $unit => $value) {
-            if ($ms >= $value) {
-                $time = floor($ms / $value * 100.0) / 100.0;
-                return $time . ' ' . ($time == 1 ? $unit : $unit . 's');
+      /**
+       * Formats the elapsed time as a string.
+       *
+       * @param  float $time
+       * @return string
+       */
+      public static function secondsToTimeString($time)
+      {
+            $ms = round($time * 1000);
+
+            foreach (self::$times as $unit => $value)
+            {
+                  if ($ms >= $value)
+                  {
+                        $time = floor($ms / $value * 100.0) / 100.0;
+                        return $time . ' ' . ($time == 1 ? $unit : $unit . 's');
+                  }
             }
-        }
 
-        return $ms . ' ms';
-    }
+            return $ms . ' ms';
+      }
 
-    /**
-     * Formats the elapsed time since the start of the request as a string.
-     *
-     * @return string
-     */
-    public static function timeSinceStartOfRequest()
-    {
-        return self::secondsToTimeString(microtime(TRUE) - self::$requestTime);
-    }
+      /**
+       * Formats the elapsed time since the start of the request as a string.
+       *
+       * @return string
+       */
+      public static function timeSinceStartOfRequest()
+      {
+            return self::secondsToTimeString(microtime(TRUE) - self::$requestTime);
+      }
 
-    /**
-     * Returns the resources (time, memory) of the request as a string.
-     *
-     * @return string
-     */
-    public static function resourceUsage()
-    {
-        return sprintf(
-          'Time: %s, Memory: %4.2fMb',
-          self::timeSinceStartOfRequest(),
-          memory_get_peak_usage(TRUE) / 1048576
-        );
-    }
+      /**
+       * Returns the resources (time, memory) of the request as a string.
+       *
+       * @return string
+       */
+      public static function resourceUsage()
+      {
+            return sprintf(
+                    'Time: %s, Memory: %4.2fMb', self::timeSinceStartOfRequest(), memory_get_peak_usage(TRUE) / 1048576
+            );
+      }
+
 }
 
-if (isset($_SERVER['REQUEST_TIME_FLOAT'])) {
-    PHP_Timer::$requestTime = $_SERVER['REQUEST_TIME_FLOAT'];
+if (isset($_SERVER['REQUEST_TIME_FLOAT']))
+{
+      PHP_Timer::$requestTime = $_SERVER['REQUEST_TIME_FLOAT'];
 }
-
-else {
-    PHP_Timer::$requestTime = microtime(TRUE);
+else
+{
+      PHP_Timer::$requestTime = microtime(TRUE);
 }

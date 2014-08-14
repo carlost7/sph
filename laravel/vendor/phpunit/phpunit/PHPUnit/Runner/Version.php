@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPUnit
  *
@@ -56,47 +57,58 @@
  */
 class PHPUnit_Runner_Version
 {
-    const VERSION = '3.7.37';
-    protected static $version;
 
-    /**
-     * Returns the current version of PHPUnit.
-     *
-     * @return string
-     */
-    public static function id()
-    {
-        if (self::$version === NULL) {
-            self::$version = self::VERSION;
+      const VERSION = '3.7.37';
 
-            if (is_dir(dirname(dirname(__DIR__)) . '/.git')) {
-                $dir = getcwd();
-                chdir(__DIR__);
-                $version = exec('git describe --tags 2>&1', $output, $returnCode);
-                chdir($dir);
+      protected static $version;
 
-                if ($version && $returnCode === 0) {
-                    if (count(explode('.', self::VERSION)) == 3) {
-                        self::$version = $version;
-                    } else {
-                        $version = explode('-', $version);
+      /**
+       * Returns the current version of PHPUnit.
+       *
+       * @return string
+       */
+      public static function id()
+      {
+            if (self::$version === NULL)
+            {
+                  self::$version = self::VERSION;
 
-                        self::$version = self::VERSION . '-' . $version[2];
-                    }
-                } else {
-                    self::$version = self::VERSION . '-dev';
-                }
+                  if (is_dir(dirname(dirname(__DIR__)) . '/.git'))
+                  {
+                        $dir = getcwd();
+                        chdir(__DIR__);
+                        $version = exec('git describe --tags 2>&1', $output, $returnCode);
+                        chdir($dir);
+
+                        if ($version && $returnCode === 0)
+                        {
+                              if (count(explode('.', self::VERSION)) == 3)
+                              {
+                                    self::$version = $version;
+                              }
+                              else
+                              {
+                                    $version = explode('-', $version);
+
+                                    self::$version = self::VERSION . '-' . $version[2];
+                              }
+                        }
+                        else
+                        {
+                              self::$version = self::VERSION . '-dev';
+                        }
+                  }
             }
-        }
 
-        return self::$version;
-    }
+            return self::$version;
+      }
 
-    /**
-     * @return string
-     */
-    public static function getVersionString()
-    {
-        return 'PHPUnit ' . self::id() . ' by Sebastian Bergmann.';
-    }
+      /**
+       * @return string
+       */
+      public static function getVersionString()
+      {
+            return 'PHPUnit ' . self::id() . ' by Sebastian Bergmann.';
+      }
+
 }

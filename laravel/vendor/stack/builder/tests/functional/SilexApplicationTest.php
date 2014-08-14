@@ -9,52 +9,58 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class SilexApplicationTest extends \PHPUnit_Framework_TestCase
 {
-    public function testWithAppendMiddlewares()
-    {
-        $app = new Application();
 
-        $app->get('/foo', function () {
-            return 'bar';
-        });
+      public function testWithAppendMiddlewares()
+      {
+            $app = new Application();
 
-        $finished = false;
+            $app->get('/foo', function ()
+            {
+                  return 'bar';
+            });
 
-        $app->finish(function () use (&$finished) {
-            $finished = true;
-        });
+            $finished = false;
 
-        $stack = new Builder();
-        $stack
-            ->push('functional\Append', '.A')
-            ->push('functional\Append', '.B');
+            $app->finish(function () use (&$finished)
+            {
+                  $finished = true;
+            });
 
-        $app = $stack->resolve($app);
+            $stack = new Builder();
+            $stack
+                    ->push('functional\Append', '.A')
+                    ->push('functional\Append', '.B');
 
-        $request = Request::create('/foo');
-        $response = $app->handle($request);
-        $app->terminate($request, $response);
+            $app = $stack->resolve($app);
 
-        $this->assertSame('bar.B.A', $response->getContent());
-        $this->assertTrue($finished);
-    }
+            $request = Request::create('/foo');
+            $response = $app->handle($request);
+            $app->terminate($request, $response);
+
+            $this->assertSame('bar.B.A', $response->getContent());
+            $this->assertTrue($finished);
+      }
+
 }
 
 class Append implements HttpKernelInterface
 {
-    private $app;
-    private $appendix;
 
-    public function __construct(HttpKernelInterface $app, $appendix)
-    {
-        $this->app = $app;
-        $this->appendix = $appendix;
-    }
+      private $app;
+      private $appendix;
 
-    public function handle(Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true)
-    {
-        $response = clone $this->app->handle($request, $type, $catch);
-        $response->setContent($response->getContent().$this->appendix);
+      public function __construct(HttpKernelInterface $app, $appendix)
+      {
+            $this->app = $app;
+            $this->appendix = $appendix;
+      }
 
-        return $response;
-    }
+      public function handle(Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true)
+      {
+            $response = clone $this->app->handle($request, $type, $catch);
+            $response->setContent($response->getContent() . $this->appendix);
+
+            return $response;
+      }
+
 }

@@ -19,315 +19,316 @@ use Predis\Profile\ServerProfile;
  */
 abstract class PredisConnectionTestCase extends PredisTestCase
 {
-    /**
-     * @group disconnected
-     * @group slow
-     * @expectedException Predis\Connection\ConnectionException
-     */
-    public function testThrowExceptionWhenUnableToConnect()
-    {
-        $parameters = array('host' => '169.254.10.10', 'timeout' => 0.5);
-        $connection = $this->getConnection($profile, false, $parameters);
-        $connection->executeCommand($this->getProfile()->createCommand('ping'));
-    }
 
-    // ******************************************************************** //
-    // ---- INTEGRATION TESTS --------------------------------------------- //
-    // ******************************************************************** //
+      /**
+       * @group disconnected
+       * @group slow
+       * @expectedException Predis\Connection\ConnectionException
+       */
+      public function testThrowExceptionWhenUnableToConnect()
+      {
+            $parameters = array('host' => '169.254.10.10', 'timeout' => 0.5);
+            $connection = $this->getConnection($profile, false, $parameters);
+            $connection->executeCommand($this->getProfile()->createCommand('ping'));
+      }
 
-    /**
-     * @group connected
-     */
-    public function testConnectForcesConnection()
-    {
-        $connection = $this->getConnection();
+      // ******************************************************************** //
+      // ---- INTEGRATION TESTS --------------------------------------------- //
+      // ******************************************************************** //
 
-        $this->assertFalse($connection->isConnected());
-        $connection->connect();
-        $this->assertTrue($connection->isConnected());
-    }
+      /**
+       * @group connected
+       */
+      public function testConnectForcesConnection()
+      {
+            $connection = $this->getConnection();
 
-    /**
-     * @group connected
-     * @expectedException Predis\ClientException
-     * @expectedExceptionMessage Connection already estabilished
-     */
-    public function testThrowsExceptionOnConnectWhenAlreadyConnected()
-    {
-        $connection = $this->getConnection();
+            $this->assertFalse($connection->isConnected());
+            $connection->connect();
+            $this->assertTrue($connection->isConnected());
+      }
 
-        $connection->connect();
-        $connection->connect();
-    }
+      /**
+       * @group connected
+       * @expectedException Predis\ClientException
+       * @expectedExceptionMessage Connection already estabilished
+       */
+      public function testThrowsExceptionOnConnectWhenAlreadyConnected()
+      {
+            $connection = $this->getConnection();
 
-    /**
-     * @group connected
-     */
-    public function testDisconnectForcesDisconnection()
-    {
-        $connection = $this->getConnection();
+            $connection->connect();
+            $connection->connect();
+      }
 
-        $connection->connect();
-        $this->assertTrue($connection->isConnected());
+      /**
+       * @group connected
+       */
+      public function testDisconnectForcesDisconnection()
+      {
+            $connection = $this->getConnection();
 
-        $connection->disconnect();
-        $this->assertFalse($connection->isConnected());
-    }
+            $connection->connect();
+            $this->assertTrue($connection->isConnected());
 
-    /**
-     * @group disconnected
-     */
-    public function testDoesNotThrowExceptionOnDisconnectWhenAlreadyDisconnected()
-    {
-        $connection = $this->getConnection();
+            $connection->disconnect();
+            $this->assertFalse($connection->isConnected());
+      }
 
-        $this->assertFalse($connection->isConnected());
-        $connection->disconnect();
-        $this->assertFalse($connection->isConnected());
-    }
+      /**
+       * @group disconnected
+       */
+      public function testDoesNotThrowExceptionOnDisconnectWhenAlreadyDisconnected()
+      {
+            $connection = $this->getConnection();
 
-    /**
-     * @group connected
-     */
-    public function testGetResourceForcesConnection()
-    {
-        $connection = $this->getConnection();
+            $this->assertFalse($connection->isConnected());
+            $connection->disconnect();
+            $this->assertFalse($connection->isConnected());
+      }
 
-        $this->assertFalse($connection->isConnected());
-        $this->assertInternalType('resource', $connection->getResource());
-        $this->assertTrue($connection->isConnected());
-    }
+      /**
+       * @group connected
+       */
+      public function testGetResourceForcesConnection()
+      {
+            $connection = $this->getConnection();
 
-    /**
-     * @group connected
-     */
-    public function testSendingCommandForcesConnection()
-    {
-        $connection = $this->getConnection($profile);
-        $cmdPing = $profile->createCommand('ping');
+            $this->assertFalse($connection->isConnected());
+            $this->assertInternalType('resource', $connection->getResource());
+            $this->assertTrue($connection->isConnected());
+      }
 
-        $this->assertSame('PONG', $connection->executeCommand($cmdPing));
-        $this->assertTrue($connection->isConnected());
-    }
+      /**
+       * @group connected
+       */
+      public function testSendingCommandForcesConnection()
+      {
+            $connection = $this->getConnection($profile);
+            $cmdPing = $profile->createCommand('ping');
 
-    /**
-     * @group connected
-     */
-    public function testExecutesCommandOnServer()
-    {
-        $connection = $this->getConnection($profile);
+            $this->assertSame('PONG', $connection->executeCommand($cmdPing));
+            $this->assertTrue($connection->isConnected());
+      }
 
-        $cmdPing = $this->getMock($profile->getCommandClass('ping'), array('parseResponse'));
-        $cmdPing->expects($this->never())
-                ->method('parseResponse');
+      /**
+       * @group connected
+       */
+      public function testExecutesCommandOnServer()
+      {
+            $connection = $this->getConnection($profile);
 
-        $this->assertSame('PONG', $connection->executeCommand($cmdPing));
-    }
+            $cmdPing = $this->getMock($profile->getCommandClass('ping'), array('parseResponse'));
+            $cmdPing->expects($this->never())
+                    ->method('parseResponse');
 
-    /**
-     * @group connected
-     */
-    public function testWritesCommandToServer()
-    {
-        $connection = $this->getConnection($profile);
+            $this->assertSame('PONG', $connection->executeCommand($cmdPing));
+      }
 
-        $cmdPing = $this->getMock($profile->getCommandClass('ping'), array('parseResponse'));
-        $cmdPing->expects($this->never())
-                ->method('parseResponse');
+      /**
+       * @group connected
+       */
+      public function testWritesCommandToServer()
+      {
+            $connection = $this->getConnection($profile);
 
-        $connection->writeCommand($cmdPing);
-        $connection->disconnect();
-    }
+            $cmdPing = $this->getMock($profile->getCommandClass('ping'), array('parseResponse'));
+            $cmdPing->expects($this->never())
+                    ->method('parseResponse');
 
-    /**
-     * @group connected
-     */
-    public function testReadsCommandFromServer()
-    {
-        $connection = $this->getConnection($profile);
+            $connection->writeCommand($cmdPing);
+            $connection->disconnect();
+      }
 
-        $cmdPing = $this->getMock($profile->getCommandClass('ping'), array('parseResponse'));
-        $cmdPing->expects($this->never())
-                ->method('parseResponse');
+      /**
+       * @group connected
+       */
+      public function testReadsCommandFromServer()
+      {
+            $connection = $this->getConnection($profile);
 
-        $connection->writeCommand($cmdPing);
-        $this->assertSame('PONG', $connection->readResponse($cmdPing));
-    }
+            $cmdPing = $this->getMock($profile->getCommandClass('ping'), array('parseResponse'));
+            $cmdPing->expects($this->never())
+                    ->method('parseResponse');
 
-    /**
-     * @group connected
-     */
-    public function testIsAbleToWriteMultipleCommandsAndReadThemBackForPipelining()
-    {
-        $connection = $this->getConnection($profile);
+            $connection->writeCommand($cmdPing);
+            $this->assertSame('PONG', $connection->readResponse($cmdPing));
+      }
 
-        $cmdPing = $this->getMock($profile->getCommandClass('ping'), array('parseResponse'));
-        $cmdPing->expects($this->never())
-                ->method('parseResponse');
+      /**
+       * @group connected
+       */
+      public function testIsAbleToWriteMultipleCommandsAndReadThemBackForPipelining()
+      {
+            $connection = $this->getConnection($profile);
 
-        $cmdEcho = $this->getMock($profile->getCommandClass('echo'), array('parseResponse'));
-        $cmdEcho->setArguments(array('ECHOED'));
-        $cmdEcho->expects($this->never())
-                ->method('parseResponse');
+            $cmdPing = $this->getMock($profile->getCommandClass('ping'), array('parseResponse'));
+            $cmdPing->expects($this->never())
+                    ->method('parseResponse');
 
-        $connection = $this->getConnection();
+            $cmdEcho = $this->getMock($profile->getCommandClass('echo'), array('parseResponse'));
+            $cmdEcho->setArguments(array('ECHOED'));
+            $cmdEcho->expects($this->never())
+                    ->method('parseResponse');
 
-        $connection->writeCommand($cmdPing);
-        $connection->writeCommand($cmdEcho);
+            $connection = $this->getConnection();
 
-        $this->assertSame('PONG', $connection->readResponse($cmdPing));
-        $this->assertSame('ECHOED', $connection->readResponse($cmdEcho));
-    }
+            $connection->writeCommand($cmdPing);
+            $connection->writeCommand($cmdEcho);
 
-    /**
-     * @group connected
-     */
-    public function testSendsInitializationCommandsOnConnection()
-    {
-        $connection = $this->getConnection($profile, true);
+            $this->assertSame('PONG', $connection->readResponse($cmdPing));
+            $this->assertSame('ECHOED', $connection->readResponse($cmdEcho));
+      }
 
-        $cmdPing = $this->getMock($profile->getCommandClass('ping'), array('getArguments'));
-        $cmdPing->expects($this->once())
-                ->method('getArguments')
-                ->will($this->returnValue(array()));
+      /**
+       * @group connected
+       */
+      public function testSendsInitializationCommandsOnConnection()
+      {
+            $connection = $this->getConnection($profile, true);
 
-        $cmdEcho = $this->getMock($profile->getCommandClass('echo'), array('getArguments'));
-        $cmdEcho->expects($this->once())
-                ->method('getArguments')
-                ->will($this->returnValue(array('ECHOED')));
+            $cmdPing = $this->getMock($profile->getCommandClass('ping'), array('getArguments'));
+            $cmdPing->expects($this->once())
+                    ->method('getArguments')
+                    ->will($this->returnValue(array()));
 
-        $connection->pushInitCommand($cmdPing);
-        $connection->pushInitCommand($cmdEcho);
+            $cmdEcho = $this->getMock($profile->getCommandClass('echo'), array('getArguments'));
+            $cmdEcho->expects($this->once())
+                    ->method('getArguments')
+                    ->will($this->returnValue(array('ECHOED')));
 
-        $connection->connect();
-    }
+            $connection->pushInitCommand($cmdPing);
+            $connection->pushInitCommand($cmdEcho);
 
-    /**
-     * @group connected
-     */
-    public function testReadsStatusReplies()
-    {
-        $connection = $this->getConnection($profile, true);
+            $connection->connect();
+      }
 
-        $connection->writeCommand($profile->createCommand('set', array('foo', 'bar')));
-        $this->assertTrue($connection->read());
+      /**
+       * @group connected
+       */
+      public function testReadsStatusReplies()
+      {
+            $connection = $this->getConnection($profile, true);
 
-        $connection->writeCommand($profile->createCommand('ping'));
-        $this->assertSame('PONG', $connection->read());
+            $connection->writeCommand($profile->createCommand('set', array('foo', 'bar')));
+            $this->assertTrue($connection->read());
 
-        $connection->writeCommand($profile->createCommand('multi'));
-        $connection->writeCommand($profile->createCommand('ping'));
-        $this->assertTrue($connection->read());
-        $this->assertInstanceOf('Predis\ResponseQueued', $connection->read());
-    }
+            $connection->writeCommand($profile->createCommand('ping'));
+            $this->assertSame('PONG', $connection->read());
 
-    /**
-     * @group connected
-     */
-    public function testReadsBulkReplies()
-    {
-        $connection = $this->getConnection($profile, true);
+            $connection->writeCommand($profile->createCommand('multi'));
+            $connection->writeCommand($profile->createCommand('ping'));
+            $this->assertTrue($connection->read());
+            $this->assertInstanceOf('Predis\ResponseQueued', $connection->read());
+      }
 
-        $connection->executeCommand($profile->createCommand('set', array('foo', 'bar')));
+      /**
+       * @group connected
+       */
+      public function testReadsBulkReplies()
+      {
+            $connection = $this->getConnection($profile, true);
 
-        $connection->writeCommand($profile->createCommand('get', array('foo')));
-        $this->assertSame('bar', $connection->read());
+            $connection->executeCommand($profile->createCommand('set', array('foo', 'bar')));
 
-        $connection->writeCommand($profile->createCommand('get', array('hoge')));
-        $this->assertNull($connection->read());
-    }
+            $connection->writeCommand($profile->createCommand('get', array('foo')));
+            $this->assertSame('bar', $connection->read());
 
-    /**
-     * @group connected
-     */
-    public function testReadsIntegerReplies()
-    {
-        $connection = $this->getConnection($profile, true);
+            $connection->writeCommand($profile->createCommand('get', array('hoge')));
+            $this->assertNull($connection->read());
+      }
 
-        $connection->executeCommand($profile->createCommand('rpush', array('metavars', 'foo', 'hoge', 'lol')));
-        $connection->writeCommand($profile->createCommand('llen', array('metavars')));
+      /**
+       * @group connected
+       */
+      public function testReadsIntegerReplies()
+      {
+            $connection = $this->getConnection($profile, true);
 
-        $this->assertSame(3, $connection->read());
-    }
+            $connection->executeCommand($profile->createCommand('rpush', array('metavars', 'foo', 'hoge', 'lol')));
+            $connection->writeCommand($profile->createCommand('llen', array('metavars')));
 
-    /**
-     * @group connected
-     */
-    public function testReadsErrorRepliesAsResponseErrorObjects()
-    {
-        $connection = $this->getConnection($profile, true);
+            $this->assertSame(3, $connection->read());
+      }
 
-        $connection->executeCommand($profile->createCommand('set', array('foo', 'bar')));
-        $connection->writeCommand($profile->createCommand('rpush', array('foo', 'baz')));
+      /**
+       * @group connected
+       */
+      public function testReadsErrorRepliesAsResponseErrorObjects()
+      {
+            $connection = $this->getConnection($profile, true);
 
-        $this->assertInstanceOf('Predis\ResponseError', $error = $connection->read());
-        $this->assertRegExp('/[ERR|WRONGTYPE] Operation against a key holding the wrong kind of value/', $error->getMessage());
-    }
+            $connection->executeCommand($profile->createCommand('set', array('foo', 'bar')));
+            $connection->writeCommand($profile->createCommand('rpush', array('foo', 'baz')));
 
-    /**
-     * @group connected
-     */
-    public function testReadsMultibulkRepliesAsArrays()
-    {
-        $connection = $this->getConnection($profile, true);
+            $this->assertInstanceOf('Predis\ResponseError', $error = $connection->read());
+            $this->assertRegExp('/[ERR|WRONGTYPE] Operation against a key holding the wrong kind of value/', $error->getMessage());
+      }
 
-        $connection->executeCommand($profile->createCommand('rpush', array('metavars', 'foo', 'hoge', 'lol')));
-        $connection->writeCommand($profile->createCommand('lrange', array('metavars', 0, -1)));
+      /**
+       * @group connected
+       */
+      public function testReadsMultibulkRepliesAsArrays()
+      {
+            $connection = $this->getConnection($profile, true);
 
-        $this->assertSame(array('foo', 'hoge', 'lol'), $connection->read());
-    }
+            $connection->executeCommand($profile->createCommand('rpush', array('metavars', 'foo', 'hoge', 'lol')));
+            $connection->writeCommand($profile->createCommand('lrange', array('metavars', 0, -1)));
 
-    /**
-     * @group connected
-     * @group slow
-     * @expectedException Predis\Connection\ConnectionException
-     */
-    public function testThrowsExceptionOnConnectionTimeout()
-    {
-        $connection = $this->getConnection($_, false, array('host' => '169.254.10.10', 'timeout' => 0.5));
+            $this->assertSame(array('foo', 'hoge', 'lol'), $connection->read());
+      }
 
-        $connection->connect();
-    }
+      /**
+       * @group connected
+       * @group slow
+       * @expectedException Predis\Connection\ConnectionException
+       */
+      public function testThrowsExceptionOnConnectionTimeout()
+      {
+            $connection = $this->getConnection($_, false, array('host' => '169.254.10.10', 'timeout' => 0.5));
 
-    /**
-     * @group connected
-     * @group slow
-     * @expectedException Predis\Connection\ConnectionException
-     */
-    public function testThrowsExceptionOnReadWriteTimeout()
-    {
-        $connection = $this->getConnection($profile, true, array('read_write_timeout' => 0.5));
+            $connection->connect();
+      }
 
-        $connection->executeCommand($profile->createCommand('brpop', array('foo', 3)));
-    }
+      /**
+       * @group connected
+       * @group slow
+       * @expectedException Predis\Connection\ConnectionException
+       */
+      public function testThrowsExceptionOnReadWriteTimeout()
+      {
+            $connection = $this->getConnection($profile, true, array('read_write_timeout' => 0.5));
 
-    // ******************************************************************** //
-    // ---- HELPER METHODS ------------------------------------------------ //
-    // ******************************************************************** //
+            $connection->executeCommand($profile->createCommand('brpop', array('foo', 3)));
+      }
 
-    /**
-     * Returns a named array with the default connection parameters and their values.
-     *
-     * @return Array Default connection parameters.
-     */
-    protected function getDefaultParametersArray()
-    {
-        return array(
-            'scheme' => 'tcp',
-            'host' => REDIS_SERVER_HOST,
-            'port' => REDIS_SERVER_PORT,
-            'database' => REDIS_SERVER_DBNUM,
-            'read_write_timeout' => 2,
-        );
-    }
+      // ******************************************************************** //
+      // ---- HELPER METHODS ------------------------------------------------ //
+      // ******************************************************************** //
 
-    /**
-     * Returns a new instance of a connection instance.
-     *
-     * @param  ServerProfile    $profile    Reference to the server profile instance.
-     * @param  bool             $initialize Push default initialization commands (SELECT and FLUSHDB).
-     * @param  array            $parameters Additional connection parameters.
-     * @return StreamConnection
-     */
-    abstract protected function getConnection(&$profile = null, $initialize = false, Array $parameters = array());
+      /**
+       * Returns a named array with the default connection parameters and their values.
+       *
+       * @return Array Default connection parameters.
+       */
+      protected function getDefaultParametersArray()
+      {
+            return array(
+                'scheme' => 'tcp',
+                'host' => REDIS_SERVER_HOST,
+                'port' => REDIS_SERVER_PORT,
+                'database' => REDIS_SERVER_DBNUM,
+                'read_write_timeout' => 2,
+            );
+      }
+
+      /**
+       * Returns a new instance of a connection instance.
+       *
+       * @param  ServerProfile    $profile    Reference to the server profile instance.
+       * @param  bool             $initialize Push default initialization commands (SELECT and FLUSHDB).
+       * @param  array            $parameters Additional connection parameters.
+       * @return StreamConnection
+       */
+      abstract protected function getConnection(&$profile = null, $initialize = false, Array $parameters = array());
 }

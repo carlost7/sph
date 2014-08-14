@@ -1,4 +1,6 @@
 <?php
-if ($neverHappens) {
-    print '*';
+
+if ($neverHappens)
+{
+      print '*';
 }

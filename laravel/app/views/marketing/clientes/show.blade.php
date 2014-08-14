@@ -39,10 +39,10 @@
                                     <tr>                                          
                                           <td>{{ $negocio->nombre }}</td>
                                           <td>
-                                              {{ $negocio->publicar ? "si" : "no" }}
+                                                {{ $negocio->publicar ? "si" : "no" }}
                                           </td>
                                           <td>
-                                              {{ $negocio->is_especial ? "si" : "no" }}
+                                                {{ $negocio->is_especial ? "si" : "no" }}
                                           </td>                                          
                                     </tr>
 
@@ -81,10 +81,10 @@
                                     <tr>
                                           <td>{{ $evento->nombre }}</td>
                                           <td>
-                                              {{ $negocio->publicar ? "si" : "no" }}
+                                                {{ $negocio->publicar ? "si" : "no" }}
                                           </td>
                                           <td>
-                                              {{ $negocio->is_especial ? "si" : "no" }}
+                                                {{ $negocio->is_especial ? "si" : "no" }}
                                           </td>
                                     </tr>
 
@@ -120,10 +120,10 @@
                                     <tr>
                                           <td>{{ $promocion->nombre }}</td>
                                           <td>
-                                              {{ $negocio->publicar ? "si" : "no" }}
+                                                {{ $negocio->publicar ? "si" : "no" }}
                                           </td>
                                           <td>
-                                              {{ $negocio->is_especial ? "si" : "no" }}
+                                                {{ $negocio->is_especial ? "si" : "no" }}
                                           </td>                                          
                                     </tr>
 
@@ -189,11 +189,11 @@
 
       function show_prompt(form_id) {
             bootbox.prompt("¿Qué dijo el cliente?", function(result) {
-                  if(result == null || result==""){
+                  if (result == null || result == "") {
                         alert("Es necesario llenar el registro de usuario");
-                  }else{
+                  } else {
                         $('#' + form_id).find('[name="mensaje"]').val(result);
-                        $('#' + form_id).submit();                        
+                        $('#' + form_id).submit();
                   }
             });
       }

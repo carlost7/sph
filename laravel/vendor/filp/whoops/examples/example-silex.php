@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
@@ -24,12 +25,14 @@ use Silex\Application;
 $app = new Application;
 $app['debug'] = true;
 
-if($app['debug']) {
-    $app->register(new WhoopsServiceProvider);
+if ($app['debug'])
+{
+      $app->register(new WhoopsServiceProvider);
 }
 
-$app->get('/', function() use($app) {
-    throw new RuntimeException("Oh no!");
+$app->get('/', function() use($app)
+{
+      throw new RuntimeException("Oh no!");
 });
 
 $app->run();

@@ -9,8 +9,8 @@
             <div>
                   <p>Tu {{ $tipo }} se ha publicado en Sphellar</p>
                   <p>Recuerda que cada mes tendras que entrar a la página para activar nuevamente tu negocio</p>
-                  
+
             </div>
-            
+
       </body>
 </html>

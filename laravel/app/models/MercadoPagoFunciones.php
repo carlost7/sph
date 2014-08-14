@@ -11,7 +11,8 @@
  *
  * @author carlos
  */
-class MercadoPagoFunciones {
+class MercadoPagoFunciones
+{
 
       protected $mp;
 
@@ -40,8 +41,6 @@ class MercadoPagoFunciones {
             {
                   return null;
             }
-      }     
-      
+      }
+
 }
-
-

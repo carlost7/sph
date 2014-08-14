@@ -8,55 +8,58 @@
  */
 class IdenticalBinaryConstraint extends \PHPUnit_Framework_Constraint
 {
-    protected $value;
 
-    public function __construct($value)
-    {
-        $this->value = $value;
-    }
+      protected $value;
 
-    /**
-     * Evaluates the constraint for parameter $other. Returns TRUE if the
-     * constraint is met, FALSE otherwise.
-     *
-     * @param mixed $other Value or object to evaluate.
-     * @return bool
-     */
-    public function matches($other)
-    {
-        $aHex = $this->asHexString($this->value);
-        $bHex = $this->asHexString($other);
+      public function __construct($value)
+      {
+            $this->value = $value;
+      }
 
-        return $aHex === $bHex;
-    }
+      /**
+       * Evaluates the constraint for parameter $other. Returns TRUE if the
+       * constraint is met, FALSE otherwise.
+       *
+       * @param mixed $other Value or object to evaluate.
+       * @return bool
+       */
+      public function matches($other)
+      {
+            $aHex = $this->asHexString($this->value);
+            $bHex = $this->asHexString($other);
 
-    /**
-     * Returns a string representation of the constraint.
-     *
-     * @return string
-     */
-    public function toString()
-    {
-        return 'indentical binary';
-    }
+            return $aHex === $bHex;
+      }
 
-    /**
-     * Get the given string of bytes as a stirng of Hexadecimal sequences.
-     *
-     * @param  string $binary
-     *
-     * @return string
-     */
-    private function asHexString($binary)
-    {
-        $hex = '';
+      /**
+       * Returns a string representation of the constraint.
+       *
+       * @return string
+       */
+      public function toString()
+      {
+            return 'indentical binary';
+      }
 
-        $bytes = unpack('H*', $binary);
+      /**
+       * Get the given string of bytes as a stirng of Hexadecimal sequences.
+       *
+       * @param  string $binary
+       *
+       * @return string
+       */
+      private function asHexString($binary)
+      {
+            $hex = '';
 
-        foreach ($bytes as &$byte) {
-            $byte = strtoupper($byte);
-        }
+            $bytes = unpack('H*', $binary);
 
-        return implode('', $bytes);
-    }
+            foreach ($bytes as &$byte)
+            {
+                  $byte = strtoupper($byte);
+            }
+
+            return implode('', $bytes);
+      }
+
 }

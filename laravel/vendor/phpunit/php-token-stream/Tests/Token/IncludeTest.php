@@ -1,4 +1,5 @@
 <?php
+
 /**
  * php-token-stream
  *
@@ -41,13 +42,12 @@
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @since      File available since Release 1.0.2
  */
-
-if (!defined('TEST_FILES_PATH')) {
-    define(
-      'TEST_FILES_PATH',
-      dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR .
-      '_files' . DIRECTORY_SEPARATOR
-    );
+if (!defined('TEST_FILES_PATH'))
+{
+      define(
+              'TEST_FILES_PATH', dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR .
+              '_files' . DIRECTORY_SEPARATOR
+      );
 }
 
 require_once 'PHP/Token/Stream.php';
@@ -67,51 +67,50 @@ require_once 'PHP/Token/Stream.php';
  */
 class PHP_Token_IncludeTest extends PHPUnit_Framework_TestCase
 {
-    protected $ts;
 
-    protected function setUp()
-    {
-        $this->ts = new PHP_Token_Stream(TEST_FILES_PATH . 'source3.php');
-    }
+      protected $ts;
 
-    /**
-     * @covers PHP_Token_Includes::getName
-     * @covers PHP_Token_Includes::getType
-     */
-    public function testGetIncludes()
-    {
-        $this->assertSame(
-          array('test4.php', 'test3.php', 'test2.php', 'test1.php'),
-          $this->ts->getIncludes()
-        );
-    }
+      protected function setUp()
+      {
+            $this->ts = new PHP_Token_Stream(TEST_FILES_PATH . 'source3.php');
+      }
 
-    /**
-     * @covers PHP_Token_Includes::getName
-     * @covers PHP_Token_Includes::getType
-     */
-    public function testGetIncludesCategorized()
-    {
-        $this->assertSame(
-          array(
-            'require_once' => array('test4.php'),
-            'require'      => array('test3.php'),
-            'include_once' => array('test2.php'),
-            'include'      => array('test1.php')
-          ),
-          $this->ts->getIncludes(TRUE)
-        );
-    }
+      /**
+       * @covers PHP_Token_Includes::getName
+       * @covers PHP_Token_Includes::getType
+       */
+      public function testGetIncludes()
+      {
+            $this->assertSame(
+                    array('test4.php', 'test3.php', 'test2.php', 'test1.php'), $this->ts->getIncludes()
+            );
+      }
 
-    /**
-     * @covers PHP_Token_Includes::getName
-     * @covers PHP_Token_Includes::getType
-     */
-    public function testGetIncludesCategory()
-    {
-        $this->assertSame(
-          array('test4.php'),
-          $this->ts->getIncludes(TRUE, 'require_once')
-        );
-    }
+      /**
+       * @covers PHP_Token_Includes::getName
+       * @covers PHP_Token_Includes::getType
+       */
+      public function testGetIncludesCategorized()
+      {
+            $this->assertSame(
+                    array(
+                'require_once' => array('test4.php'),
+                'require' => array('test3.php'),
+                'include_once' => array('test2.php'),
+                'include' => array('test1.php')
+                    ), $this->ts->getIncludes(TRUE)
+            );
+      }
+
+      /**
+       * @covers PHP_Token_Includes::getName
+       * @covers PHP_Token_Includes::getType
+       */
+      public function testGetIncludesCategory()
+      {
+            $this->assertSame(
+                    array('test4.php'), $this->ts->getIncludes(TRUE, 'require_once')
+            );
+      }
+
 }

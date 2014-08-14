@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPUnit
  *
@@ -56,66 +57,68 @@
  */
 class PHPUnit_Framework_SyntheticError extends PHPUnit_Framework_AssertionFailedError
 {
-    /**
-     * The synthetic file.
-     *
-     * @var string
-     */
-    protected $syntheticFile = '';
 
-    /**
-     * The synthetic line number.
-     *
-     * @var integer
-     */
-    protected $syntheticLine = 0;
+      /**
+       * The synthetic file.
+       *
+       * @var string
+       */
+      protected $syntheticFile = '';
 
-    /**
-     * The synthetic trace.
-     *
-     * @var array
-     */
-    protected $syntheticTrace = array();
+      /**
+       * The synthetic line number.
+       *
+       * @var integer
+       */
+      protected $syntheticLine = 0;
 
-    /**
-     * Constructor.
-     *
-     * @param string  $message
-     * @param integer $code
-     * @param string  $file
-     * @param integer $line
-     * @param array   $trace
-     */
-    public function __construct($message, $code, $file, $line, $trace)
-    {
-        parent::__construct($message, $code);
+      /**
+       * The synthetic trace.
+       *
+       * @var array
+       */
+      protected $syntheticTrace = array();
 
-        $this->syntheticFile  = $file;
-        $this->syntheticLine  = $line;
-        $this->syntheticTrace = $trace;
-    }
+      /**
+       * Constructor.
+       *
+       * @param string  $message
+       * @param integer $code
+       * @param string  $file
+       * @param integer $line
+       * @param array   $trace
+       */
+      public function __construct($message, $code, $file, $line, $trace)
+      {
+            parent::__construct($message, $code);
 
-    /**
-     * @return string
-     */
-    public function getSyntheticFile()
-    {
-        return $this->syntheticFile;
-    }
+            $this->syntheticFile = $file;
+            $this->syntheticLine = $line;
+            $this->syntheticTrace = $trace;
+      }
 
-    /**
-     * @return integer
-     */
-    public function getSyntheticLine()
-    {
-        return $this->syntheticLine;
-    }
+      /**
+       * @return string
+       */
+      public function getSyntheticFile()
+      {
+            return $this->syntheticFile;
+      }
 
-    /**
-     * @return array
-     */
-    public function getSyntheticTrace()
-    {
-        return $this->syntheticTrace;
-    }
+      /**
+       * @return integer
+       */
+      public function getSyntheticLine()
+      {
+            return $this->syntheticLine;
+      }
+
+      /**
+       * @return array
+       */
+      public function getSyntheticTrace()
+      {
+            return $this->syntheticTrace;
+      }
+
 }

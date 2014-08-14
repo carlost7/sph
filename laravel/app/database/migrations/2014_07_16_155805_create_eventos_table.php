@@ -25,7 +25,7 @@ class CreateEventosTable extends Migration
                   $table->boolean('publicar');
                   $table->boolean('is_especial');
                   $table->boolean('is_activo');
-			$table->date('fecha_nueva_activacion');
+                  $table->date('fecha_nueva_activacion');
                   $table->timestamps();
                   $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade')->onUpdate('cascade');
             });

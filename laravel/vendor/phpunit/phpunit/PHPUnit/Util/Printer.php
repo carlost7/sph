@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPUnit
  *
@@ -56,153 +57,177 @@
  */
 class PHPUnit_Util_Printer
 {
-    /**
-     * If TRUE, flush output after every write.
-     *
-     * @var boolean
-     */
-    protected $autoFlush = FALSE;
 
-    /**
-     * @var    resource
-     */
-    protected $out;
+      /**
+       * If TRUE, flush output after every write.
+       *
+       * @var boolean
+       */
+      protected $autoFlush = FALSE;
 
-    /**
-     * @var    string
-     */
-    protected $outTarget;
+      /**
+       * @var    resource
+       */
+      protected $out;
 
-    /**
-     * @var    boolean
-     */
-    protected $printsHTML = FALSE;
+      /**
+       * @var    string
+       */
+      protected $outTarget;
 
-    /**
-     * Constructor.
-     *
-     * @param  mixed $out
-     * @throws PHPUnit_Framework_Exception
-     */
-    public function __construct($out = NULL)
-    {
-        if ($out !== NULL) {
-            if (is_string($out)) {
-                if (strpos($out, 'socket://') === 0) {
-                    $out = explode(':', str_replace('socket://', '', $out));
+      /**
+       * @var    boolean
+       */
+      protected $printsHTML = FALSE;
 
-                    if (sizeof($out) != 2) {
-                        throw new PHPUnit_Framework_Exception;
-                    }
+      /**
+       * Constructor.
+       *
+       * @param  mixed $out
+       * @throws PHPUnit_Framework_Exception
+       */
+      public function __construct($out = NULL)
+      {
+            if ($out !== NULL)
+            {
+                  if (is_string($out))
+                  {
+                        if (strpos($out, 'socket://') === 0)
+                        {
+                              $out = explode(':', str_replace('socket://', '', $out));
 
-                    $this->out = fsockopen($out[0], $out[1]);
-                } else {
-                    if (strpos($out, 'php://') === FALSE &&
-                        !is_dir(dirname($out))) {
-                        mkdir(dirname($out), 0777, TRUE);
-                    }
+                              if (sizeof($out) != 2)
+                              {
+                                    throw new PHPUnit_Framework_Exception;
+                              }
 
-                    $this->out = fopen($out, 'wt');
-                }
+                              $this->out = fsockopen($out[0], $out[1]);
+                        }
+                        else
+                        {
+                              if (strpos($out, 'php://') === FALSE &&
+                                      !is_dir(dirname($out)))
+                              {
+                                    mkdir(dirname($out), 0777, TRUE);
+                              }
 
-                $this->outTarget = $out;
-            } else {
-                $this->out = $out;
+                              $this->out = fopen($out, 'wt');
+                        }
+
+                        $this->outTarget = $out;
+                  }
+                  else
+                  {
+                        $this->out = $out;
+                  }
             }
-        }
-    }
+      }
 
-    /**
-     * Flush buffer, optionally tidy up HTML, and close output if it's not to a php stream
-     */
-    public function flush()
-    {
-        if ($this->out && strncmp($this->outTarget, 'php://', 6) !== 0) {
-            fclose($this->out);
-        }
-
-        if ($this->printsHTML === TRUE &&
-            $this->outTarget !== NULL &&
-            strpos($this->outTarget, 'php://') !== 0 &&
-            strpos($this->outTarget, 'socket://') !== 0 &&
-            extension_loaded('tidy')) {
-            file_put_contents(
-              $this->outTarget,
-              tidy_repair_file(
-                $this->outTarget, array('indent' => TRUE, 'wrap' => 0), 'utf8'
-              )
-            );
-        }
-    }
-
-    /**
-     * Performs a safe, incremental flush.
-     *
-     * Do not confuse this function with the flush() function of this class,
-     * since the flush() function may close the file being written to, rendering
-     * the current object no longer usable.
-     *
-     * @since  Method available since Release 3.3.0
-     */
-    public function incrementalFlush()
-    {
-        if ($this->out) {
-            fflush($this->out);
-        } else {
-            flush();
-        }
-    }
-
-    /**
-     * @param  string $buffer
-     */
-    public function write($buffer)
-    {
-        if ($this->out) {
-            fwrite($this->out, $buffer);
-
-            if ($this->autoFlush) {
-                $this->incrementalFlush();
-            }
-        } else {
-            if (PHP_SAPI != 'cli') {
-                $buffer = htmlspecialchars($buffer);
+      /**
+       * Flush buffer, optionally tidy up HTML, and close output if it's not to a php stream
+       */
+      public function flush()
+      {
+            if ($this->out && strncmp($this->outTarget, 'php://', 6) !== 0)
+            {
+                  fclose($this->out);
             }
 
-            print $buffer;
-
-            if ($this->autoFlush) {
-                $this->incrementalFlush();
+            if ($this->printsHTML === TRUE &&
+                    $this->outTarget !== NULL &&
+                    strpos($this->outTarget, 'php://') !== 0 &&
+                    strpos($this->outTarget, 'socket://') !== 0 &&
+                    extension_loaded('tidy'))
+            {
+                  file_put_contents(
+                          $this->outTarget, tidy_repair_file(
+                                  $this->outTarget, array('indent' => TRUE, 'wrap' => 0), 'utf8'
+                          )
+                  );
             }
-        }
-    }
+      }
 
-    /**
-     * Check auto-flush mode.
-     *
-     * @return boolean
-     * @since  Method available since Release 3.3.0
-     */
-    public function getAutoFlush()
-    {
-        return $this->autoFlush;
-    }
+      /**
+       * Performs a safe, incremental flush.
+       *
+       * Do not confuse this function with the flush() function of this class,
+       * since the flush() function may close the file being written to, rendering
+       * the current object no longer usable.
+       *
+       * @since  Method available since Release 3.3.0
+       */
+      public function incrementalFlush()
+      {
+            if ($this->out)
+            {
+                  fflush($this->out);
+            }
+            else
+            {
+                  flush();
+            }
+      }
 
-    /**
-     * Set auto-flushing mode.
-     *
-     * If set, *incremental* flushes will be done after each write. This should
-     * not be confused with the different effects of this class' flush() method.
-     *
-     * @param boolean $autoFlush
-     * @since  Method available since Release 3.3.0
-     */
-    public function setAutoFlush($autoFlush)
-    {
-        if (is_bool($autoFlush)) {
-            $this->autoFlush = $autoFlush;
-        } else {
-            throw PHPUnit_Util_InvalidArgumentHelper::factory(1, 'boolean');
-        }
-    }
+      /**
+       * @param  string $buffer
+       */
+      public function write($buffer)
+      {
+            if ($this->out)
+            {
+                  fwrite($this->out, $buffer);
+
+                  if ($this->autoFlush)
+                  {
+                        $this->incrementalFlush();
+                  }
+            }
+            else
+            {
+                  if (PHP_SAPI != 'cli')
+                  {
+                        $buffer = htmlspecialchars($buffer);
+                  }
+
+                  print $buffer;
+
+                  if ($this->autoFlush)
+                  {
+                        $this->incrementalFlush();
+                  }
+            }
+      }
+
+      /**
+       * Check auto-flush mode.
+       *
+       * @return boolean
+       * @since  Method available since Release 3.3.0
+       */
+      public function getAutoFlush()
+      {
+            return $this->autoFlush;
+      }
+
+      /**
+       * Set auto-flushing mode.
+       *
+       * If set, *incremental* flushes will be done after each write. This should
+       * not be confused with the different effects of this class' flush() method.
+       *
+       * @param boolean $autoFlush
+       * @since  Method available since Release 3.3.0
+       */
+      public function setAutoFlush($autoFlush)
+      {
+            if (is_bool($autoFlush))
+            {
+                  $this->autoFlush = $autoFlush;
+            }
+            else
+            {
+                  throw PHPUnit_Util_InvalidArgumentHelper::factory(1, 'boolean');
+            }
+      }
+
 }

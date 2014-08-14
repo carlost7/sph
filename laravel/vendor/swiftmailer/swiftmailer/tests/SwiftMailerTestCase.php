@@ -8,28 +8,31 @@
  */
 class SwiftMailerTestCase extends \PHPUnit_Framework_TestCase
 {
-    public static function regExp($pattern)
-    {
-        if (!is_string($pattern)) {
-            throw PHPUnit_Util_InvalidArgumentHelper::factory(1, 'string');
-        }
 
-        return new PHPUnit_Framework_Constraint_PCREMatch($pattern);
-    }
+      public static function regExp($pattern)
+      {
+            if (!is_string($pattern))
+            {
+                  throw PHPUnit_Util_InvalidArgumentHelper::factory(1, 'string');
+            }
 
-    public function assertIdenticalBinary($expected, $actual, $message = '')
-    {
-        $constraint = new IdenticalBinaryConstraint($expected);
-        self::assertThat($actual, $constraint, $message);
-    }
+            return new PHPUnit_Framework_Constraint_PCREMatch($pattern);
+      }
 
-    protected function tearDown()
-    {
-        \Mockery::close();
-    }
+      public function assertIdenticalBinary($expected, $actual, $message = '')
+      {
+            $constraint = new IdenticalBinaryConstraint($expected);
+            self::assertThat($actual, $constraint, $message);
+      }
 
-    protected function getMockery($class)
-    {
-        return \Mockery::mock($class);
-    }
+      protected function tearDown()
+      {
+            \Mockery::close();
+      }
+
+      protected function getMockery($class)
+      {
+            return \Mockery::mock($class);
+      }
+
 }

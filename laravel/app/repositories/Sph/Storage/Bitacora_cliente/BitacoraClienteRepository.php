@@ -12,7 +12,6 @@ interface BitacoraClienteRepository
       public function create(array $bitacora_model);
 
       public function update($id, array $bitacora_model);
-      
+
       public function delete($id);
-            
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPUnit
  *
@@ -56,4 +57,5 @@
  */
 interface PHPUnit_Framework_SkippedTest
 {
+      
 }

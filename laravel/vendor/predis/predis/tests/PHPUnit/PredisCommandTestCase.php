@@ -19,109 +19,112 @@ use Predis\Client;
  */
 abstract class PredisCommandTestCase extends PredisTestCase
 {
-    /**
-     * Returns the expected command.
-     *
-     * @return CommandInterface|string Instance or FQN of the expected command.
-     */
-    abstract protected function getExpectedCommand();
 
-    /**
-     * Returns the expected command ID.
-     *
-     * @return string
-     */
-    abstract protected function getExpectedId();
+      /**
+       * Returns the expected command.
+       *
+       * @return CommandInterface|string Instance or FQN of the expected command.
+       */
+      abstract protected function getExpectedCommand();
 
-    /**
-     * Returns a new command instance.
-     *
-     * @return CommandInterface
-     */
-    public function getCommand()
-    {
-        $command = $this->getExpectedCommand();
+      /**
+       * Returns the expected command ID.
+       *
+       * @return string
+       */
+      abstract protected function getExpectedId();
 
-        return $command instanceof CommandInterface ? $command : new $command();
-    }
+      /**
+       * Returns a new command instance.
+       *
+       * @return CommandInterface
+       */
+      public function getCommand()
+      {
+            $command = $this->getExpectedCommand();
 
-    /**
-     * Returns a new client instance.
-     *
-     * @param  bool   $flushdb Flush selected database before returning the client.
-     * @return Client
-     */
-    public function getClient($flushdb = true)
-    {
-        $profile = $this->getProfile();
+            return $command instanceof CommandInterface ? $command : new $command();
+      }
 
-        if (!$profile->supportsCommand($id = $this->getExpectedId())) {
-            $this->markTestSkipped(
-                "The profile {$profile->getVersion()} does not support command {$id}"
-            );
-        }
+      /**
+       * Returns a new client instance.
+       *
+       * @param  bool   $flushdb Flush selected database before returning the client.
+       * @return Client
+       */
+      public function getClient($flushdb = true)
+      {
+            $profile = $this->getProfile();
 
-        $client = $this->createClient(null, null, $flushdb);
+            if (!$profile->supportsCommand($id = $this->getExpectedId()))
+            {
+                  $this->markTestSkipped(
+                          "The profile {$profile->getVersion()} does not support command {$id}"
+                  );
+            }
 
-        return $client;
-    }
+            $client = $this->createClient(null, null, $flushdb);
 
-    /**
-     * Returns wether the command is prefixable or not.
-     *
-     * @return bool
-     */
-    protected function isPrefixable()
-    {
-        return $this->getCommand() instanceof PrefixableCommandInterface;
-    }
+            return $client;
+      }
 
-    /**
-     * Returns a new command instance with the specified arguments.
-     *
-     * @param ... List of arguments for the command.
-     * @return CommandInterface
-     */
-    protected function getCommandWithArguments(/* arguments */)
-    {
-        return $this->getCommandWithArgumentsArray(func_get_args());
-    }
+      /**
+       * Returns wether the command is prefixable or not.
+       *
+       * @return bool
+       */
+      protected function isPrefixable()
+      {
+            return $this->getCommand() instanceof PrefixableCommandInterface;
+      }
 
-    /**
-     * Returns a new command instance with the specified arguments.
-     *
-     * @param  array            $arguments Arguments for the command.
-     * @return CommandInterface
-     */
-    protected function getCommandWithArgumentsArray(Array $arguments)
-    {
-        $command = $this->getCommand();
-        $command->setArguments($arguments);
+      /**
+       * Returns a new command instance with the specified arguments.
+       *
+       * @param ... List of arguments for the command.
+       * @return CommandInterface
+       */
+      protected function getCommandWithArguments(/* arguments */)
+      {
+            return $this->getCommandWithArgumentsArray(func_get_args());
+      }
 
-        return $command;
-    }
+      /**
+       * Returns a new command instance with the specified arguments.
+       *
+       * @param  array            $arguments Arguments for the command.
+       * @return CommandInterface
+       */
+      protected function getCommandWithArgumentsArray(Array $arguments)
+      {
+            $command = $this->getCommand();
+            $command->setArguments($arguments);
 
-    /**
-     * @group disconnected
-     */
-    public function testCommandId()
-    {
-        $command = $this->getCommand();
+            return $command;
+      }
 
-        $this->assertInstanceOf('Predis\Command\CommandInterface', $command);
-        $this->assertEquals($this->getExpectedId(), $command->getId());
-    }
+      /**
+       * @group disconnected
+       */
+      public function testCommandId()
+      {
+            $command = $this->getCommand();
 
-    /**
-     * @group disconnected
-     */
-    public function testRawArguments()
-    {
-        $expected = array('1st', '2nd', '3rd', '4th');
+            $this->assertInstanceOf('Predis\Command\CommandInterface', $command);
+            $this->assertEquals($this->getExpectedId(), $command->getId());
+      }
 
-        $command = $this->getCommand();
-        $command->setRawArguments($expected);
+      /**
+       * @group disconnected
+       */
+      public function testRawArguments()
+      {
+            $expected = array('1st', '2nd', '3rd', '4th');
 
-        $this->assertSame($expected, $command->getArguments());
-    }
+            $command = $this->getCommand();
+            $command->setRawArguments($expected);
+
+            $this->assertSame($expected, $command->getArguments());
+      }
+
 }

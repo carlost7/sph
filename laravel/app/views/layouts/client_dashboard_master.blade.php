@@ -73,8 +73,8 @@
                                                 <li {{ Request::is('clientes_eventos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_eventos.index','Eventos',null) }}</li>
                                                 <li {{ Request::is('clientes_promociones*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_promociones.index','Promociones',null) }}</li>
                                                 <li {{ Request::is('clientes_pagos*') ? "class='active'" : "" }}><a href="{{URL::route('clientes_pagos.index')}}">Pagos 
-                                                                                                                  <span class="badge pull-right">{{ Auth::user()->userable->pagos->filter(function($pago){return $pago->pagado == false;})->count() ? Auth::user()->userable->pagos->filter(function($pago){return $pago->pagado == false;})->count() : '' }}</span>
-                                                                                                                 </a> 
+                                                            <span class="badge pull-right">{{ Auth::user()->userable->pagos->filter(function($pago){return $pago->pagado == false;})->count() ? Auth::user()->userable->pagos->filter(function($pago){return $pago->pagado == false;})->count() : '' }}</span>
+                                                      </a> 
                                                 </li>
                                                 <li {{ Request::is('clientes*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes.index','Cuenta',null) }}</li>
                                           </ul>

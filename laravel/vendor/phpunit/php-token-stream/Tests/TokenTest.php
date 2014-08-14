@@ -1,4 +1,5 @@
 <?php
+
 /**
  * php-token-stream
  *
@@ -41,12 +42,11 @@
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @since      File available since Release 1.0.0
  */
-
-if (!defined('TEST_FILES_PATH')) {
-    define(
-      'TEST_FILES_PATH',
-      dirname(__FILE__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR
-    );
+if (!defined('TEST_FILES_PATH'))
+{
+      define(
+              'TEST_FILES_PATH', dirname(__FILE__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR
+      );
 }
 
 require_once 'PHP/Token/Stream.php';
@@ -65,21 +65,23 @@ require_once 'PHP/Token/Stream.php';
  */
 class PHP_TokenTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers PHP_Token::__construct
-     * @covers PHP_Token::__toString
-     */
-    public function testToString()
-    {
-        $this->markTestIncomplete();
-    }
 
-    /**
-     * @covers PHP_Token::__construct
-     * @covers PHP_Token::getLine
-     */
-    public function testGetLine()
-    {
-        $this->markTestIncomplete();
-    }
+      /**
+       * @covers PHP_Token::__construct
+       * @covers PHP_Token::__toString
+       */
+      public function testToString()
+      {
+            $this->markTestIncomplete();
+      }
+
+      /**
+       * @covers PHP_Token::__construct
+       * @covers PHP_Token::getLine
+       */
+      public function testGetLine()
+      {
+            $this->markTestIncomplete();
+      }
+
 }

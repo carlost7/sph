@@ -13,18 +13,20 @@ use Carbon\Carbon;
 
 class CopyTest extends TestFixture
 {
-   public function testCopy()
-   {
-      $dating = Carbon::now();
-      $dating2 = $dating->copy();
-      $this->assertNotSame($dating, $dating2);
-   }
 
-   public function testCopyEnsureTzIsCopied()
-   {
-      $dating = Carbon::createFromDate(2000, 1, 1, 'Europe/London');
-      $dating2 = $dating->copy();
-      $this->assertSame($dating->tzName, $dating2->tzName);
-      $this->assertSame($dating->offset, $dating2->offset);
-   }
+      public function testCopy()
+      {
+            $dating = Carbon::now();
+            $dating2 = $dating->copy();
+            $this->assertNotSame($dating, $dating2);
+      }
+
+      public function testCopyEnsureTzIsCopied()
+      {
+            $dating = Carbon::createFromDate(2000, 1, 1, 'Europe/London');
+            $dating2 = $dating->copy();
+            $this->assertSame($dating->tzName, $dating2->tzName);
+            $this->assertSame($dating->offset, $dating2->offset);
+      }
+
 }

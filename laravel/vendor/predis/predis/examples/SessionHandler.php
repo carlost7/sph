@@ -12,9 +12,10 @@ require 'SharedConfigurations.php';
 // SessionHandlerInterface (see http://www.php.net/class.sessionhandlerinterface.php)
 // is provided either by you or an external package like `symfony/http-foundation`.
 
-if (!interface_exists('SessionHandlerInterface')) {
-    die("ATTENTION: the session handler implemented by Predis needs PHP >= 5.4.0 or a polyfill ".
-        "for \SessionHandlerInterface either provided by you or an external package.\n");
+if (!interface_exists('SessionHandlerInterface'))
+{
+      die("ATTENTION: the session handler implemented by Predis needs PHP >= 5.4.0 or a polyfill " .
+              "for \SessionHandlerInterface either provided by you or an external package.\n");
 }
 
 // Instantiate a new client just like you would normally do. We'll prefix our session keys here.
@@ -31,9 +32,12 @@ session_id('example_session_id');
 
 session_start();
 
-if (isset($_SESSION['foo'])) {
-    echo "Session has `foo` set to {$_SESSION['foo']}\n";
-} else {
-    $_SESSION['foo'] = $value = mt_rand();
-    echo "Empty session, `foo` has been set with $value\n";
+if (isset($_SESSION['foo']))
+{
+      echo "Session has `foo` set to {$_SESSION['foo']}\n";
+}
+else
+{
+      $_SESSION['foo'] = $value = mt_rand();
+      echo "Empty session, `foo` has been set with $value\n";
 }

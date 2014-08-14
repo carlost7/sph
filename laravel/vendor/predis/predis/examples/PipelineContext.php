@@ -16,14 +16,15 @@ require 'SharedConfigurations.php';
 
 $client = new Predis\Client($single_server);
 
-$replies = $client->pipeline(function ($pipe) {
-    $pipe->ping();
-    $pipe->flushdb();
-    $pipe->incrby('counter', 10);
-    $pipe->incrby('counter', 30);
-    $pipe->exists('counter');
-    $pipe->get('counter');
-    $pipe->mget('does_not_exist', 'counter');
+$replies = $client->pipeline(function ($pipe)
+{
+      $pipe->ping();
+      $pipe->flushdb();
+      $pipe->incrby('counter', 10);
+      $pipe->incrby('counter', 30);
+      $pipe->exists('counter');
+      $pipe->get('counter');
+      $pipe->mget('does_not_exist', 'counter');
 });
 
 print_r($replies);

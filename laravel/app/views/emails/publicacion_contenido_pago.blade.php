@@ -14,6 +14,6 @@
                   @endif
                   <p>Entra a tu panel de control de Sphellar para agregar los datos especiales</p>
             </div>
-            
+
       </body>
 </html>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPUnit
  *
@@ -41,7 +42,6 @@
  * @link       http://www.phpunit.de/
  * @since      File available since Release 2.3.0
  */
-
 require_once 'PHPUnit/Framework/TestCase.php';
 require_once 'BankAccount.php';
 
@@ -57,77 +57,78 @@ require_once 'BankAccount.php';
  */
 class BankAccountTest extends PHPUnit_Framework_TestCase
 {
-    protected $ba;
 
-    protected function setUp()
-    {
-        $this->ba = new BankAccount;
-    }
+      protected $ba;
 
-    /**
-     * @covers BankAccount::getBalance
-     * @group balanceIsInitiallyZero
-     * @group specification
-     */
-    public function testBalanceIsInitiallyZero()
-    {
-        $this->assertEquals(0, $this->ba->getBalance());
-    }
+      protected function setUp()
+      {
+            $this->ba = new BankAccount;
+      }
 
-    /**
-     * @covers BankAccount::withdrawMoney
-     * @group balanceCannotBecomeNegative
-     * @group specification
-     */
-    public function testBalanceCannotBecomeNegative()
-    {
-        try {
-            $this->ba->withdrawMoney(1);
-        }
-
-        catch (BankAccountException $e) {
+      /**
+       * @covers BankAccount::getBalance
+       * @group balanceIsInitiallyZero
+       * @group specification
+       */
+      public function testBalanceIsInitiallyZero()
+      {
             $this->assertEquals(0, $this->ba->getBalance());
+      }
 
-            return;
-        }
+      /**
+       * @covers BankAccount::withdrawMoney
+       * @group balanceCannotBecomeNegative
+       * @group specification
+       */
+      public function testBalanceCannotBecomeNegative()
+      {
+            try
+            {
+                  $this->ba->withdrawMoney(1);
+            } catch (BankAccountException $e)
+            {
+                  $this->assertEquals(0, $this->ba->getBalance());
 
-        $this->fail();
-    }
+                  return;
+            }
 
-    /**
-     * @covers BankAccount::depositMoney
-     * @group balanceCannotBecomeNegative
-     * @group specification
-     */
-    public function testBalanceCannotBecomeNegative2()
-    {
-        try {
-            $this->ba->depositMoney(-1);
-        }
+            $this->fail();
+      }
 
-        catch (BankAccountException $e) {
-            $this->assertEquals(0, $this->ba->getBalance());
+      /**
+       * @covers BankAccount::depositMoney
+       * @group balanceCannotBecomeNegative
+       * @group specification
+       */
+      public function testBalanceCannotBecomeNegative2()
+      {
+            try
+            {
+                  $this->ba->depositMoney(-1);
+            } catch (BankAccountException $e)
+            {
+                  $this->assertEquals(0, $this->ba->getBalance());
 
-            return;
-        }
+                  return;
+            }
 
-        $this->fail();
-    }
+            $this->fail();
+      }
 
-    /**
-     * @covers BankAccount::getBalance
-     * @covers BankAccount::depositMoney
-     * @covers BankAccount::withdrawMoney
-     * @group balanceCannotBecomeNegative
-     */
-    /*
-    public function testDepositingAndWithdrawingMoneyWorks()
-    {
+      /**
+       * @covers BankAccount::getBalance
+       * @covers BankAccount::depositMoney
+       * @covers BankAccount::withdrawMoney
+       * @group balanceCannotBecomeNegative
+       */
+      /*
+        public function testDepositingAndWithdrawingMoneyWorks()
+        {
         $this->assertEquals(0, $this->ba->getBalance());
         $this->ba->depositMoney(1);
         $this->assertEquals(1, $this->ba->getBalance());
         $this->ba->withdrawMoney(1);
         $this->assertEquals(0, $this->ba->getBalance());
-    }
-    */
+        }
+       */
 }

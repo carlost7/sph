@@ -14,15 +14,16 @@ class Evento extends \Eloquent
 
       public function especial()
       {
-            return $this->hasOne('Evento_especial','evento_id','id');
+            return $this->hasOne('Evento_especial', 'evento_id', 'id');
       }
 
       public function pago()
       {
             return $this->morphOne('Pago', 'pagable');
       }
-      
-      public function aviso(){            
+
+      public function aviso()
+      {
             return $this->morphOne('Aviso_cliente', 'avisable');
       }
 

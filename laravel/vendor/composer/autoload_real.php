@@ -4,56 +4,64 @@
 
 class ComposerAutoloaderInit1cd2720cb9a4a05d61533d3ebdfbd37e
 {
-    private static $loader;
 
-    public static function loadClassLoader($class)
-    {
-        if ('Composer\Autoload\ClassLoader' === $class) {
-            require __DIR__ . '/ClassLoader.php';
-        }
-    }
+      private static $loader;
 
-    public static function getLoader()
-    {
-        if (null !== self::$loader) {
-            return self::$loader;
-        }
+      public static function loadClassLoader($class)
+      {
+            if ('Composer\Autoload\ClassLoader' === $class)
+            {
+                  require __DIR__ . '/ClassLoader.php';
+            }
+      }
 
-        spl_autoload_register(array('ComposerAutoloaderInit1cd2720cb9a4a05d61533d3ebdfbd37e', 'loadClassLoader'), true, true);
-        self::$loader = $loader = new \Composer\Autoload\ClassLoader();
-        spl_autoload_unregister(array('ComposerAutoloaderInit1cd2720cb9a4a05d61533d3ebdfbd37e', 'loadClassLoader'));
+      public static function getLoader()
+      {
+            if (null !== self::$loader)
+            {
+                  return self::$loader;
+            }
 
-        $includePaths = require __DIR__ . '/include_paths.php';
-        array_push($includePaths, get_include_path());
-        set_include_path(join(PATH_SEPARATOR, $includePaths));
+            spl_autoload_register(array('ComposerAutoloaderInit1cd2720cb9a4a05d61533d3ebdfbd37e', 'loadClassLoader'), true, true);
+            self::$loader = $loader = new \Composer\Autoload\ClassLoader();
+            spl_autoload_unregister(array('ComposerAutoloaderInit1cd2720cb9a4a05d61533d3ebdfbd37e', 'loadClassLoader'));
 
-        $map = require __DIR__ . '/autoload_namespaces.php';
-        foreach ($map as $namespace => $path) {
-            $loader->set($namespace, $path);
-        }
+            $includePaths = require __DIR__ . '/include_paths.php';
+            array_push($includePaths, get_include_path());
+            set_include_path(join(PATH_SEPARATOR, $includePaths));
 
-        $map = require __DIR__ . '/autoload_psr4.php';
-        foreach ($map as $namespace => $path) {
-            $loader->setPsr4($namespace, $path);
-        }
+            $map = require __DIR__ . '/autoload_namespaces.php';
+            foreach ($map as $namespace => $path)
+            {
+                  $loader->set($namespace, $path);
+            }
 
-        $classMap = require __DIR__ . '/autoload_classmap.php';
-        if ($classMap) {
-            $loader->addClassMap($classMap);
-        }
+            $map = require __DIR__ . '/autoload_psr4.php';
+            foreach ($map as $namespace => $path)
+            {
+                  $loader->setPsr4($namespace, $path);
+            }
 
-        $loader->register(true);
+            $classMap = require __DIR__ . '/autoload_classmap.php';
+            if ($classMap)
+            {
+                  $loader->addClassMap($classMap);
+            }
 
-        $includeFiles = require __DIR__ . '/autoload_files.php';
-        foreach ($includeFiles as $file) {
-            composerRequire1cd2720cb9a4a05d61533d3ebdfbd37e($file);
-        }
+            $loader->register(true);
 
-        return $loader;
-    }
+            $includeFiles = require __DIR__ . '/autoload_files.php';
+            foreach ($includeFiles as $file)
+            {
+                  composerRequire1cd2720cb9a4a05d61533d3ebdfbd37e($file);
+            }
+
+            return $loader;
+      }
+
 }
 
 function composerRequire1cd2720cb9a4a05d61533d3ebdfbd37e($file)
 {
-    require $file;
+      require $file;
 }

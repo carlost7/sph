@@ -9,7 +9,7 @@ $_SERVER['argv'][2] = '--process-isolation';
 $_SERVER['argv'][3] = '--filter';
 $_SERVER['argv'][4] = 'testBalanceIsInitiallyZero';
 $_SERVER['argv'][5] = 'BankAccountTest';
-$_SERVER['argv'][6] = dirname(__FILE__).'/../_files/BankAccountTest.php';
+$_SERVER['argv'][6] = dirname(__FILE__) . '/../_files/BankAccountTest.php';
 
 require_once dirname(dirname(dirname(__FILE__))) . '/PHPUnit/Autoload.php';
 PHPUnit_TextUI_Command::main();

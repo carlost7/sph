@@ -16,48 +16,50 @@ use Predis\Connection\StreamConnection;
 
 class SimpleDebuggableConnection extends StreamConnection
 {
-    private $tstart = 0;
-    private $debugBuffer = array();
 
-    public function connect()
-    {
-        $this->tstart = microtime(true);
+      private $tstart = 0;
+      private $debugBuffer = array();
 
-        parent::connect();
-    }
+      public function connect()
+      {
+            $this->tstart = microtime(true);
 
-    private function storeDebug(CommandInterface $command, $direction)
-    {
-        $firtsArg  = $command->getArgument(0);
-        $timestamp = round(microtime(true) - $this->tstart, 4);
+            parent::connect();
+      }
 
-        $debug  = $command->getId();
-        $debug .= isset($firtsArg) ? " $firtsArg " : ' ';
-        $debug .= "$direction $this";
-        $debug .= " [{$timestamp}s]";
+      private function storeDebug(CommandInterface $command, $direction)
+      {
+            $firtsArg = $command->getArgument(0);
+            $timestamp = round(microtime(true) - $this->tstart, 4);
 
-        $this->debugBuffer[] = $debug;
-    }
+            $debug = $command->getId();
+            $debug .= isset($firtsArg) ? " $firtsArg " : ' ';
+            $debug .= "$direction $this";
+            $debug .= " [{$timestamp}s]";
 
-    public function writeCommand(CommandInterface $command)
-    {
-        parent::writeCommand($command);
+            $this->debugBuffer[] = $debug;
+      }
 
-        $this->storeDebug($command, '->');
-    }
+      public function writeCommand(CommandInterface $command)
+      {
+            parent::writeCommand($command);
 
-    public function readResponse(CommandInterface $command)
-    {
-        $reply = parent::readResponse($command);
-        $this->storeDebug($command, '<-');
+            $this->storeDebug($command, '->');
+      }
 
-        return $reply;
-    }
+      public function readResponse(CommandInterface $command)
+      {
+            $reply = parent::readResponse($command);
+            $this->storeDebug($command, '<-');
 
-    public function getDebugBuffer()
-    {
-        return $this->debugBuffer;
-    }
+            return $reply;
+      }
+
+      public function getDebugBuffer()
+      {
+            return $this->debugBuffer;
+      }
+
 }
 
 $options = array(

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPUnit
  *
@@ -41,7 +42,6 @@
  * @link       http://www.phpunit.de/
  * @since      File available since Release 3.6.0
  */
-
 require_once 'PHPUnit/Framework/TestCase.php';
 
 require_once 'PHPUnit/Util/Type.php';
@@ -58,61 +58,62 @@ require_once 'PHPUnit/Util/Type.php';
  */
 class Util_TypeTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * Removes spaces in front newlines
-     *
-     * @param  string $string
-     * @return string
-     */
-    public static function trimnl($string)
-    {
-        return preg_replace('/[ ]*\n/', "\n", $string);
-    }
 
-    public function exportProvider()
-    {
-        $obj2 = new stdClass;
-        $obj2->foo = 'bar';
+      /**
+       * Removes spaces in front newlines
+       *
+       * @param  string $string
+       * @return string
+       */
+      public static function trimnl($string)
+      {
+            return preg_replace('/[ ]*\n/', "\n", $string);
+      }
 
-        $obj = new stdClass;
-        //@codingStandardsIgnoreStart
-        $obj->null = NULL;
-        //@codingStandardsIgnoreEnd
-        $obj->boolean = TRUE;
-        $obj->integer = 1;
-        $obj->double = 1.2;
-        $obj->string = '1';
-        $obj->text = "this\nis\na\nvery\nvery\nvery\nvery\nvery\nvery\rlong\n\rtext";
-        $obj->object = $obj2;
-        $obj->objectagain = $obj2;
-        $obj->array = array('foo' => 'bar');
-        $obj->self = $obj;
+      public function exportProvider()
+      {
+            $obj2 = new stdClass;
+            $obj2->foo = 'bar';
 
-        $array = array(
-            0 => 0,
-            'null' => NULL,
-            'boolean' => TRUE,
-            'integer' => 1,
-            'double' => 1.2,
-            'string' => '1',
-            'text' => "this\nis\na\nvery\nvery\nvery\nvery\nvery\nvery\rlong\n\rtext",
-            'object' => $obj2,
-            'objectagain' => $obj2,
-            'array' => array('foo' => 'bar'),
-        );
+            $obj = new stdClass;
+            //@codingStandardsIgnoreStart
+            $obj->null = NULL;
+            //@codingStandardsIgnoreEnd
+            $obj->boolean = TRUE;
+            $obj->integer = 1;
+            $obj->double = 1.2;
+            $obj->string = '1';
+            $obj->text = "this\nis\na\nvery\nvery\nvery\nvery\nvery\nvery\rlong\n\rtext";
+            $obj->object = $obj2;
+            $obj->objectagain = $obj2;
+            $obj->array = array('foo' => 'bar');
+            $obj->self = $obj;
 
-        $array['self'] = &$array;
+            $array = array(
+                0 => 0,
+                'null' => NULL,
+                'boolean' => TRUE,
+                'integer' => 1,
+                'double' => 1.2,
+                'string' => '1',
+                'text' => "this\nis\na\nvery\nvery\nvery\nvery\nvery\nvery\rlong\n\rtext",
+                'object' => $obj2,
+                'objectagain' => $obj2,
+                'array' => array('foo' => 'bar'),
+            );
 
-        return array(
-            array(NULL, 'null'),
-            array(TRUE, 'true'),
-            array(1, '1'),
-            array(1.0, '1.0'),
-            array(1.2, '1.2'),
-            array('1', "'1'"),
-            // \n\r and \r is converted to \n
-            array("this\nis\na\nvery\nvery\nvery\nvery\nvery\nvery\rlong\n\rtext",
-<<<EOF
+            $array['self'] = &$array;
+
+            return array(
+                array(NULL, 'null'),
+                array(TRUE, 'true'),
+                array(1, '1'),
+                array(1.0, '1.0'),
+                array(1.2, '1.2'),
+                array('1', "'1'"),
+                // \n\r and \r is converted to \n
+                array("this\nis\na\nvery\nvery\nvery\nvery\nvery\nvery\rlong\n\rtext",
+                    <<<EOF
 'this
 is
 a
@@ -125,10 +126,10 @@ very
 long
 text'
 EOF
-            ),
-            array(new stdClass, 'stdClass Object ()'),
-            array($obj,
-<<<EOF
+                ),
+                array(new stdClass, 'stdClass Object ()'),
+                array($obj,
+                    <<<EOF
 stdClass Object (
     'null' => null
     'boolean' => true
@@ -156,10 +157,10 @@ text'
     'self' => stdClass Object (*RECURSION*)
 )
 EOF
-            ),
-            array(array(), 'Array ()'),
-            array($array,
-<<<EOF
+                ),
+                array(array(), 'Array ()'),
+                array($array,
+                    <<<EOF
 Array (
     0 => 0
     'null' => null
@@ -188,82 +189,82 @@ text'
     'self' => Array (*RECURSION*)
 )
 EOF
-            ),
-            array(
-                chr(0) . chr(1) . chr(2) . chr(3) . chr(4) . chr(5),
-                'Binary String: 0x000102030405'
-            ),
-            array(
-                implode('', array_map('chr', range(0x0e, 0x1f))),
-                'Binary String: 0x0e0f101112131415161718191a1b1c1d1e1f'
-            ),
-            array(
-                chr(0x00) . chr(0x09),
-                'Binary String: 0x0009'
-            ),
-            array(
-                '',
-                "''"
-            ),
-        );
-    }
+                ),
+                array(
+                    chr(0) . chr(1) . chr(2) . chr(3) . chr(4) . chr(5),
+                    'Binary String: 0x000102030405'
+                ),
+                array(
+                    implode('', array_map('chr', range(0x0e, 0x1f))),
+                    'Binary String: 0x0e0f101112131415161718191a1b1c1d1e1f'
+                ),
+                array(
+                    chr(0x00) . chr(0x09),
+                    'Binary String: 0x0009'
+                ),
+                array(
+                    '',
+                    "''"
+                ),
+            );
+      }
 
-    /**
-     * @dataProvider exportProvider
-     */
-    public function testExport($value, $expected)
-    {
-        $this->assertSame($expected, self::trimnl(PHPUnit_Util_Type::export($value)));
-    }
+      /**
+       * @dataProvider exportProvider
+       */
+      public function testExport($value, $expected)
+      {
+            $this->assertSame($expected, self::trimnl(PHPUnit_Util_Type::export($value)));
+      }
 
-    public function shortenedExportProvider()
-    {
-        $obj = new stdClass;
-        $obj->foo = 'bar';
+      public function shortenedExportProvider()
+      {
+            $obj = new stdClass;
+            $obj->foo = 'bar';
 
-        $array = array(
-            'foo' => 'bar',
-        );
+            $array = array(
+                'foo' => 'bar',
+            );
 
-        return array(
-            array(NULL, 'null'),
-            array(TRUE, 'true'),
-            array(1, '1'),
-            array(1.0, '1.0'),
-            array(1.2, '1.2'),
-            array('1', "'1'"),
-            // \n\r and \r is converted to \n
-            array("this\nis\na\nvery\nvery\nvery\nvery\nvery\nvery\rlong\n\rtext", "'this\\nis\\na\\nvery\\nvery\\nvery\\nvery...g\\ntext'"),
-            array(new stdClass, 'stdClass Object ()'),
-            array($obj, 'stdClass Object (...)'),
-            array(array(), 'Array ()'),
-            array($array, 'Array (...)'),
-        );
-    }
+            return array(
+                array(NULL, 'null'),
+                array(TRUE, 'true'),
+                array(1, '1'),
+                array(1.0, '1.0'),
+                array(1.2, '1.2'),
+                array('1', "'1'"),
+                // \n\r and \r is converted to \n
+                array("this\nis\na\nvery\nvery\nvery\nvery\nvery\nvery\rlong\n\rtext", "'this\\nis\\na\\nvery\\nvery\\nvery\\nvery...g\\ntext'"),
+                array(new stdClass, 'stdClass Object ()'),
+                array($obj, 'stdClass Object (...)'),
+                array(array(), 'Array ()'),
+                array($array, 'Array (...)'),
+            );
+      }
 
-    /**
-     * @dataProvider shortenedExportProvider
-     */
-    public function testShortenedExport($value, $expected)
-    {
-        $this->assertSame($expected, self::trimnl(PHPUnit_Util_Type::shortenedExport($value)));
-    }
+      /**
+       * @dataProvider shortenedExportProvider
+       */
+      public function testShortenedExport($value, $expected)
+      {
+            $this->assertSame($expected, self::trimnl(PHPUnit_Util_Type::shortenedExport($value)));
+      }
 
-    public function provideNonBinaryMultibyteStrings()
-    {
-        return array(
-            array(implode('', array_map('chr', range(0x09, 0x0d))), 5),
-            array(implode('', array_map('chr', range(0x20, 0x7f))), 96),
-            array(implode('', array_map('chr', range(0x80, 0xff))), 128),
-        );
-    }
+      public function provideNonBinaryMultibyteStrings()
+      {
+            return array(
+                array(implode('', array_map('chr', range(0x09, 0x0d))), 5),
+                array(implode('', array_map('chr', range(0x20, 0x7f))), 96),
+                array(implode('', array_map('chr', range(0x80, 0xff))), 128),
+            );
+      }
 
+      /**
+       * @dataProvider provideNonBinaryMultibyteStrings
+       */
+      public function testNonBinaryStringExport($value, $expectedLength)
+      {
+            $this->assertRegExp("~'.{{$expectedLength}}'\$~s", PHPUnit_Util_Type::export($value));
+      }
 
-    /**
-     * @dataProvider provideNonBinaryMultibyteStrings
-     */
-    public function testNonBinaryStringExport($value, $expectedLength)
-    {
-        $this->assertRegExp("~'.{{$expectedLength}}'\$~s", PHPUnit_Util_Type::export($value));
-    }
 }

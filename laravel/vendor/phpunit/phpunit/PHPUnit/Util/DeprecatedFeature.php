@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPUnit
  *
@@ -58,45 +59,49 @@
  */
 class PHPUnit_Util_DeprecatedFeature
 {
-    /**
-     * @var array
-     */
-    protected $traceInfo = array();
 
-    /**
-     * @var string
-     */
-    protected $message = NULL;
+      /**
+       * @var array
+       */
+      protected $traceInfo = array();
 
-    /**
-     * @param  string $message
-     * @param  array  $traceInfo
-     */
-    public function __construct($message, array $traceInfo = array())
-    {
-        $this->message   = $message;
-        $this->traceInfo = $traceInfo;
-    }
+      /**
+       * @var string
+       */
+      protected $message = NULL;
 
-    /**
-     * Build a string representation of the deprecated feature that was raised
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        $string = '';
+      /**
+       * @param  string $message
+       * @param  array  $traceInfo
+       */
+      public function __construct($message, array $traceInfo = array())
+      {
+            $this->message = $message;
+            $this->traceInfo = $traceInfo;
+      }
 
-        if (isset($this->traceInfo['file'])) {
-            $string .= $this->traceInfo['file'];
+      /**
+       * Build a string representation of the deprecated feature that was raised
+       *
+       * @return string
+       */
+      public function __toString()
+      {
+            $string = '';
 
-            if (isset($this->traceInfo['line'])) {
-                $string .= ':' . $this->traceInfo['line'] . ' - ';
+            if (isset($this->traceInfo['file']))
+            {
+                  $string .= $this->traceInfo['file'];
+
+                  if (isset($this->traceInfo['line']))
+                  {
+                        $string .= ':' . $this->traceInfo['line'] . ' - ';
+                  }
             }
-        }
 
-        $string .= $this->message;
+            $string .= $this->message;
 
-        return $string;
-    }
+            return $string;
+      }
+
 }

@@ -1,5 +1,7 @@
 <?php
+
 abstract class AbstractMockTestClass
 {
-    abstract public function doSomething();
+
+      abstract public function doSomething();
 }

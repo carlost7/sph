@@ -14,7 +14,9 @@
         "ext-tokenizer": "*"
     },
     "autoload": {
-        "psr-0": { "PHPParser": "lib/" }
+        "psr-0": {
+            "PHPParser": "lib/"
+        }
     },
     "extra": {
         "branch-alias": {

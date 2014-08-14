@@ -14,15 +14,15 @@
 class UserTest extends TestCase
 {
 
-        public function testThatWeCanSaveTheUser()
-        {
-                $user = new User();
-                $user->nombre='Carlos';
-                $user->email='email@mail.com';
-                $user->telefono='56909233';
-                $user->is_activo = true;
-                $user->save();
-                $this->assertTrue(true);
-        }
+      public function testThatWeCanSaveTheUser()
+      {
+            $user = new User();
+            $user->nombre = 'Carlos';
+            $user->email = 'email@mail.com';
+            $user->telefono = '56909233';
+            $user->is_activo = true;
+            $user->save();
+            $this->assertTrue(true);
+      }
 
 }

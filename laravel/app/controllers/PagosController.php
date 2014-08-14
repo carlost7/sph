@@ -68,7 +68,7 @@ class PagosController extends \BaseController
             }
 
             $referer = Request::header('referer');
-            
+
             $preference_data = array(
                 "items" => $items,
                 "payer" => array(

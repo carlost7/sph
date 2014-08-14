@@ -116,7 +116,9 @@ class PromocionRepositoryEloquent implements PromocionRepository
             if ($promocion->save())
             {
                   return true;
-            }else{
+            }
+            else
+            {
                   return false;
             }
       }

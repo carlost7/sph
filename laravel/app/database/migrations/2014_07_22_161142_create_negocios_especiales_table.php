@@ -3,36 +3,36 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateNegociosEspecialesTable extends Migration {
+class CreateNegociosEspecialesTable extends Migration
+{
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('negocios_especiales', function(Blueprint $table)
-		{
-			$table->increments('id');                  
+      /**
+       * Run the migrations.
+       *
+       * @return void
+       */
+      public function up()
+      {
+            Schema::create('negocios_especiales', function(Blueprint $table)
+            {
+                  $table->increments('id');
                   $table->string('email');
-                  $table->string('webpage');                  
+                  $table->string('webpage');
                   $table->string('mapa');
-			$table->timestamps();
+                  $table->timestamps();
                   $table->integer('negocio_id')->unsigned();
                   $table->foreign('negocio_id')->references('id')->on('negocios')->onDelete('cascade')->onUpdate('cascade');
-		});
-	}
+            });
+      }
 
-
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('negocios_especiales');
-	}
+      /**
+       * Reverse the migrations.
+       *
+       * @return void
+       */
+      public function down()
+      {
+            Schema::drop('negocios_especiales');
+      }
 
 }

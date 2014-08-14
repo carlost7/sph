@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPUnit
  *
@@ -56,70 +57,72 @@
  */
 class PHPUnit_Framework_Warning extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @var string
-     */
-    protected $message = '';
 
-    /**
-     * @var boolean
-     */
-    protected $backupGlobals = FALSE;
+      /**
+       * @var string
+       */
+      protected $message = '';
 
-    /**
-     * @var boolean
-     */
-    protected $backupStaticAttributes = FALSE;
+      /**
+       * @var boolean
+       */
+      protected $backupGlobals = FALSE;
 
-    /**
-     * @var boolean
-     */
-    protected $runTestInSeparateProcess = FALSE;
+      /**
+       * @var boolean
+       */
+      protected $backupStaticAttributes = FALSE;
 
-    /**
-     * @var boolean
-     */
-    protected $useErrorHandler = FALSE;
+      /**
+       * @var boolean
+       */
+      protected $runTestInSeparateProcess = FALSE;
 
-    /**
-     * @var boolean
-     */
-    protected $useOutputBuffering = FALSE;
+      /**
+       * @var boolean
+       */
+      protected $useErrorHandler = FALSE;
 
-    /**
-     * @param string $message
-     */
-    public function __construct($message = '')
-    {
-        $this->message = $message;
-        parent::__construct('Warning');
-    }
+      /**
+       * @var boolean
+       */
+      protected $useOutputBuffering = FALSE;
 
-    /**
-     * @throws PHPUnit_Framework_Exception
-     */
-    protected function runTest()
-    {
-        $this->fail($this->message);
-    }
+      /**
+       * @param string $message
+       */
+      public function __construct($message = '')
+      {
+            $this->message = $message;
+            parent::__construct('Warning');
+      }
 
-    /**
-     * @return string
-     * @since  Method available since Release 3.0.0
-     */
-    public function getMessage()
-    {
-        return $this->message;
-    }
+      /**
+       * @throws PHPUnit_Framework_Exception
+       */
+      protected function runTest()
+      {
+            $this->fail($this->message);
+      }
 
-    /**
-     * Returns a string representation of the test case.
-     *
-     * @return string
-     * @since  Method available since Release 3.4.0
-     */
-    public function toString()
-    {
-        return 'Warning';
-    }
+      /**
+       * @return string
+       * @since  Method available since Release 3.0.0
+       */
+      public function getMessage()
+      {
+            return $this->message;
+      }
+
+      /**
+       * Returns a string representation of the test case.
+       *
+       * @return string
+       * @since  Method available since Release 3.4.0
+       */
+      public function toString()
+      {
+            return 'Warning';
+      }
+
 }

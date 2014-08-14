@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPUnit
  *
@@ -56,91 +57,111 @@
  */
 class PHPUnit_Util_Filter
 {
-    /**
-     * Filters stack frames from PHPUnit classes.
-     *
-     * @param  Exception $e
-     * @param  boolean   $asString
-     * @return string
-     */
-    public static function getFilteredStacktrace(Exception $e, $asString = TRUE)
-    {
-        $prefix = FALSE;
-        $script = realpath($GLOBALS['_SERVER']['SCRIPT_NAME']);
 
-        if (defined('__PHPUNIT_PHAR__')) {
-            $prefix = 'phar://' . __PHPUNIT_PHAR__ . '/';
-        }
+      /**
+       * Filters stack frames from PHPUnit classes.
+       *
+       * @param  Exception $e
+       * @param  boolean   $asString
+       * @return string
+       */
+      public static function getFilteredStacktrace(Exception $e, $asString = TRUE)
+      {
+            $prefix = FALSE;
+            $script = realpath($GLOBALS['_SERVER']['SCRIPT_NAME']);
 
-        if (!defined('PHPUNIT_TESTSUITE')) {
-            $blacklist = PHPUnit_Util_GlobalState::phpunitFiles();
-        } else {
-            $blacklist = array();
-        }
-
-        if ($asString === TRUE) {
-            $filteredStacktrace = '';
-        } else {
-            $filteredStacktrace = array();
-        }
-
-        if ($e instanceof PHPUnit_Framework_SyntheticError) {
-            $eTrace = $e->getSyntheticTrace();
-            $eFile  = $e->getSyntheticFile();
-            $eLine  = $e->getSyntheticLine();
-        } else {
-            if ($e->getPrevious()) {
-                $eTrace = $e->getPrevious()->getTrace();
-            } else {
-                $eTrace = $e->getTrace();
+            if (defined('__PHPUNIT_PHAR__'))
+            {
+                  $prefix = 'phar://' . __PHPUNIT_PHAR__ . '/';
             }
-            $eFile  = $e->getFile();
-            $eLine  = $e->getLine();
-        }
 
-        if (!self::frameExists($eTrace, $eFile, $eLine)) {
-            array_unshift(
-              $eTrace, array('file' => $eFile, 'line' => $eLine)
-            );
-        }
-
-        foreach ($eTrace as $frame) {
-            if (isset($frame['file']) && is_file($frame['file']) &&
-                !isset($blacklist[$frame['file']]) &&
-                ($prefix === FALSE || strpos($frame['file'], $prefix) !== 0) &&
-                $frame['file'] !== $script) {
-                if ($asString === TRUE) {
-                    $filteredStacktrace .= sprintf(
-                      "%s:%s\n",
-
-                      $frame['file'],
-                      isset($frame['line']) ? $frame['line'] : '?'
-                    );
-                } else {
-                    $filteredStacktrace[] = $frame;
-                }
+            if (!defined('PHPUNIT_TESTSUITE'))
+            {
+                  $blacklist = PHPUnit_Util_GlobalState::phpunitFiles();
             }
-        }
-
-        return $filteredStacktrace;
-    }
-
-    /**
-     * @param  array  $trace
-     * @param  string $file
-     * @param  int    $line
-     * @return boolean
-     * @since  Method available since Release 3.3.2
-     */
-    public static function frameExists(array $trace, $file, $line)
-    {
-        foreach ($trace as $frame) {
-            if (isset($frame['file']) && $frame['file'] == $file &&
-                isset($frame['line']) && $frame['line'] == $line) {
-                return TRUE;
+            else
+            {
+                  $blacklist = array();
             }
-        }
 
-        return FALSE;
-    }
+            if ($asString === TRUE)
+            {
+                  $filteredStacktrace = '';
+            }
+            else
+            {
+                  $filteredStacktrace = array();
+            }
+
+            if ($e instanceof PHPUnit_Framework_SyntheticError)
+            {
+                  $eTrace = $e->getSyntheticTrace();
+                  $eFile = $e->getSyntheticFile();
+                  $eLine = $e->getSyntheticLine();
+            }
+            else
+            {
+                  if ($e->getPrevious())
+                  {
+                        $eTrace = $e->getPrevious()->getTrace();
+                  }
+                  else
+                  {
+                        $eTrace = $e->getTrace();
+                  }
+                  $eFile = $e->getFile();
+                  $eLine = $e->getLine();
+            }
+
+            if (!self::frameExists($eTrace, $eFile, $eLine))
+            {
+                  array_unshift(
+                          $eTrace, array('file' => $eFile, 'line' => $eLine)
+                  );
+            }
+
+            foreach ($eTrace as $frame)
+            {
+                  if (isset($frame['file']) && is_file($frame['file']) &&
+                          !isset($blacklist[$frame['file']]) &&
+                          ($prefix === FALSE || strpos($frame['file'], $prefix) !== 0) &&
+                          $frame['file'] !== $script)
+                  {
+                        if ($asString === TRUE)
+                        {
+                              $filteredStacktrace .= sprintf(
+                                      "%s:%s\n", $frame['file'], isset($frame['line']) ? $frame['line'] : '?'
+                              );
+                        }
+                        else
+                        {
+                              $filteredStacktrace[] = $frame;
+                        }
+                  }
+            }
+
+            return $filteredStacktrace;
+      }
+
+      /**
+       * @param  array  $trace
+       * @param  string $file
+       * @param  int    $line
+       * @return boolean
+       * @since  Method available since Release 3.3.2
+       */
+      public static function frameExists(array $trace, $file, $line)
+      {
+            foreach ($trace as $frame)
+            {
+                  if (isset($frame['file']) && $frame['file'] == $file &&
+                          isset($frame['line']) && $frame['line'] == $line)
+                  {
+                        return TRUE;
+                  }
+            }
+
+            return FALSE;
+      }
+
 }

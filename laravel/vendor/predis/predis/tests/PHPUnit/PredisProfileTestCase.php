@@ -18,64 +18,66 @@ use PredisTestCase;
  */
 abstract class PredisProfileTestCase extends PredisTestCase
 {
-    /**
-     * Returns a new instance of the tested profile.
-     *
-     * @param  string                 $version Version of Redis.
-     * @return ServerProfileInterface
-     */
-    protected function getProfile($version = null)
-    {
-        $this->markTestIncomplete("Server profile must be defined in ".get_class($this));
-    }
 
-    /**
-     * Returns the expected version string for the tested profile.
-     *
-     * @return string Version string.
-     */
-    abstract protected function getExpectedVersion();
+      /**
+       * Returns a new instance of the tested profile.
+       *
+       * @param  string                 $version Version of Redis.
+       * @return ServerProfileInterface
+       */
+      protected function getProfile($version = null)
+      {
+            $this->markTestIncomplete("Server profile must be defined in " . get_class($this));
+      }
 
-    /**
-     * Returns the expected list of commands supported by the tested profile.
-     *
-     * @return array List of supported commands.
-     */
-    abstract protected function getExpectedCommands();
+      /**
+       * Returns the expected version string for the tested profile.
+       *
+       * @return string Version string.
+       */
+      abstract protected function getExpectedVersion();
 
-    /**
-     * Returns the list of commands supported by the current
-     * server profile.
-     *
-     * @param  ServerProfileInterface $profile Server profile instance.
-     * @return array
-     */
-    protected function getCommands(ServerProfileInterface $profile)
-    {
-        $commands = $profile->getSupportedCommands();
+      /**
+       * Returns the expected list of commands supported by the tested profile.
+       *
+       * @return array List of supported commands.
+       */
+      abstract protected function getExpectedCommands();
 
-        return array_keys($commands);
-    }
+      /**
+       * Returns the list of commands supported by the current
+       * server profile.
+       *
+       * @param  ServerProfileInterface $profile Server profile instance.
+       * @return array
+       */
+      protected function getCommands(ServerProfileInterface $profile)
+      {
+            $commands = $profile->getSupportedCommands();
 
-    /**
-     * @group disconnected
-     */
-    public function testGetVersion()
-    {
-        $profile = $this->getProfile();
+            return array_keys($commands);
+      }
 
-        $this->assertEquals($this->getExpectedVersion(), $profile->getVersion());
-    }
+      /**
+       * @group disconnected
+       */
+      public function testGetVersion()
+      {
+            $profile = $this->getProfile();
 
-    /**
-     * @group disconnected
-     */
-    public function testSupportedCommands()
-    {
-        $profile = $this->getProfile();
-        $expected = $this->getExpectedCommands();
-        $commands = $this->getCommands($profile);
+            $this->assertEquals($this->getExpectedVersion(), $profile->getVersion());
+      }
 
-        $this->assertSame($expected, $commands);
-    }
+      /**
+       * @group disconnected
+       */
+      public function testSupportedCommands()
+      {
+            $profile = $this->getProfile();
+            $expected = $this->getExpectedCommands();
+            $commands = $this->getCommands($profile);
+
+            $this->assertSame($expected, $commands);
+      }
+
 }

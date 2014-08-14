@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPUnit
  *
@@ -41,7 +42,6 @@
  * @link       http://www.phpunit.de/
  * @since      File available since Release 2.0.0
  */
-
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'Success.php';
 
 /**
@@ -56,53 +56,55 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPAR
  */
 class Extensions_RepeatedTestTest extends PHPUnit_Framework_TestCase
 {
-    protected $suite;
 
-    public function __construct()
-    {
-        $this->suite = new PHPUnit_Framework_TestSuite;
+      protected $suite;
 
-        $this->suite->addTest(new Success);
-        $this->suite->addTest(new Success);
-    }
+      public function __construct()
+      {
+            $this->suite = new PHPUnit_Framework_TestSuite;
 
-    public function testRepeatedOnce()
-    {
-        $test = new PHPUnit_Extensions_RepeatedTest($this->suite, 1);
-        $this->assertEquals(2, count($test));
+            $this->suite->addTest(new Success);
+            $this->suite->addTest(new Success);
+      }
 
-        $result = $test->run();
-        $this->assertEquals(2, count($result));
-    }
+      public function testRepeatedOnce()
+      {
+            $test = new PHPUnit_Extensions_RepeatedTest($this->suite, 1);
+            $this->assertEquals(2, count($test));
 
-    public function testRepeatedMoreThanOnce()
-    {
-        $test = new PHPUnit_Extensions_RepeatedTest($this->suite, 3);
-        $this->assertEquals(6, count($test));
+            $result = $test->run();
+            $this->assertEquals(2, count($result));
+      }
 
-        $result = $test->run();
-        $this->assertEquals(6, count($result));
-    }
+      public function testRepeatedMoreThanOnce()
+      {
+            $test = new PHPUnit_Extensions_RepeatedTest($this->suite, 3);
+            $this->assertEquals(6, count($test));
 
-    public function testRepeatedZero()
-    {
-        $test = new PHPUnit_Extensions_RepeatedTest($this->suite, 0);
-        $this->assertEquals(0, count($test));
+            $result = $test->run();
+            $this->assertEquals(6, count($result));
+      }
 
-        $result = $test->run();
-        $this->assertEquals(0, count($result));
-    }
+      public function testRepeatedZero()
+      {
+            $test = new PHPUnit_Extensions_RepeatedTest($this->suite, 0);
+            $this->assertEquals(0, count($test));
 
-    public function testRepeatedNegative()
-    {
-        try {
-            $test = new PHPUnit_Extensions_RepeatedTest($this->suite, -1);
-        }
+            $result = $test->run();
+            $this->assertEquals(0, count($result));
+      }
 
-        catch (Exception $e) {
-            return;
-        }
+      public function testRepeatedNegative()
+      {
+            try
+            {
+                  $test = new PHPUnit_Extensions_RepeatedTest($this->suite, -1);
+            } catch (Exception $e)
+            {
+                  return;
+            }
 
-        $this->fail('Should throw an Exception');
-    }
+            $this->fail('Should throw an Exception');
+      }
+
 }

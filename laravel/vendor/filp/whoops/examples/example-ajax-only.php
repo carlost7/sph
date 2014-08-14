@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Whoops - php errors for cool kids
  * @author Filipe Dobreira <http://github.com/filp>
@@ -14,6 +15,7 @@
  */
 
 namespace Whoops\Example;
+
 use Whoops\Run;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Handler\JsonResponseHandler;
@@ -37,7 +39,6 @@ $jsonHandler->onlyForAjaxRequests(true);
 
 // You can also tell JsonResponseHandler to give you a full stack trace:
 // $jsonHandler->addTraceToOutput(true);
-
 // And push it into the stack:
 $run->pushHandler($jsonHandler);
 

@@ -18,4 +18,5 @@ namespace Predis;
  */
 class ClientException extends PredisException
 {
+      
 }

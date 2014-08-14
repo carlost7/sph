@@ -24,43 +24,44 @@ use Predis\Profile\ServerProfileInterface;
  */
 interface ClientInterface extends BasicClientInterface
 {
-    /**
-     * Returns the server profile used by the client.
-     *
-     * @return ServerProfileInterface
-     */
-    public function getProfile();
 
-    /**
-     * Returns the client options specified upon initialization.
-     *
-     * @return ClientOptionsInterface
-     */
-    public function getOptions();
+      /**
+       * Returns the server profile used by the client.
+       *
+       * @return ServerProfileInterface
+       */
+      public function getProfile();
 
-    /**
-     * Opens the connection to the server.
-     */
-    public function connect();
+      /**
+       * Returns the client options specified upon initialization.
+       *
+       * @return ClientOptionsInterface
+       */
+      public function getOptions();
 
-    /**
-     * Disconnects from the server.
-     */
-    public function disconnect();
+      /**
+       * Opens the connection to the server.
+       */
+      public function connect();
 
-    /**
-     * Returns the underlying connection instance.
-     *
-     * @return ConnectionInterface
-     */
-    public function getConnection();
+      /**
+       * Disconnects from the server.
+       */
+      public function disconnect();
 
-    /**
-     * Creates a new instance of the specified Redis command.
-     *
-     * @param  string                   $method    The name of a Redis command.
-     * @param  array                    $arguments The arguments for the command.
-     * @return Command\CommandInterface
-     */
-    public function createCommand($method, $arguments = array());
+      /**
+       * Returns the underlying connection instance.
+       *
+       * @return ConnectionInterface
+       */
+      public function getConnection();
+
+      /**
+       * Creates a new instance of the specified Redis command.
+       *
+       * @param  string                   $method    The name of a Redis command.
+       * @param  array                    $arguments The arguments for the command.
+       * @return Command\CommandInterface
+       */
+      public function createCommand($method, $arguments = array());
 }

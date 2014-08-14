@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPUnit
  *
@@ -60,23 +61,25 @@
  */
 class PHPUnit_Framework_ExpectationFailedException extends PHPUnit_Framework_AssertionFailedError
 {
-    /**
-     * @var PHPUnit_Framework_ComparisonFailure
-     */
-    protected $comparisonFailure;
 
-    public function __construct($message, PHPUnit_Framework_ComparisonFailure $comparisonFailure = NULL, Exception $previous = NULL)
-    {
-        $this->comparisonFailure = $comparisonFailure;
+      /**
+       * @var PHPUnit_Framework_ComparisonFailure
+       */
+      protected $comparisonFailure;
 
-        parent::__construct($message, 0, $previous);
-    }
+      public function __construct($message, PHPUnit_Framework_ComparisonFailure $comparisonFailure = NULL, Exception $previous = NULL)
+      {
+            $this->comparisonFailure = $comparisonFailure;
 
-    /**
-     * @return PHPUnit_Framework_ComparisonFailure
-     */
-    public function getComparisonFailure()
-    {
-        return $this->comparisonFailure;
-    }
+            parent::__construct($message, 0, $previous);
+      }
+
+      /**
+       * @return PHPUnit_Framework_ComparisonFailure
+       */
+      public function getComparisonFailure()
+      {
+            return $this->comparisonFailure;
+      }
+
 }

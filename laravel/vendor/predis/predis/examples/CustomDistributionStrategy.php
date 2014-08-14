@@ -21,74 +21,80 @@ use Predis\Cluster\Hash\HashGeneratorInterface;
 
 class NaiveDistributionStrategy implements DistributionStrategyInterface, HashGeneratorInterface
 {
-    private $nodes;
-    private $nodesCount;
 
-    public function __construct()
-    {
-        $this->nodes = array();
-        $this->nodesCount = 0;
-    }
+      private $nodes;
+      private $nodesCount;
 
-    public function add($node, $weight = null)
-    {
-        $this->nodes[] = $node;
-        $this->nodesCount++;
-    }
+      public function __construct()
+      {
+            $this->nodes = array();
+            $this->nodesCount = 0;
+      }
 
-    public function remove($node)
-    {
-        $this->nodes = array_filter($this->nodes, function ($n) use ($node) {
-            return $n !== $node;
-        });
+      public function add($node, $weight = null)
+      {
+            $this->nodes[] = $node;
+            $this->nodesCount++;
+      }
 
-        $this->nodesCount = count($this->nodes);
-    }
+      public function remove($node)
+      {
+            $this->nodes = array_filter($this->nodes, function ($n) use ($node)
+            {
+                  return $n !== $node;
+            });
 
-    public function get($key)
-    {
-        if (0 === $count = $this->nodesCount) {
-            throw new RuntimeException('No connections');
-        }
+            $this->nodesCount = count($this->nodes);
+      }
 
-        return $this->nodes[$count > 1 ? abs($key % $count) : 0];
-    }
+      public function get($key)
+      {
+            if (0 === $count = $this->nodesCount)
+            {
+                  throw new RuntimeException('No connections');
+            }
 
-    public function hash($value)
-    {
-        return crc32($value);
-    }
+            return $this->nodes[$count > 1 ? abs($key % $count) : 0];
+      }
 
-    public function getHashGenerator()
-    {
-        return $this;
-    }
+      public function hash($value)
+      {
+            return crc32($value);
+      }
+
+      public function getHashGenerator()
+      {
+            return $this;
+      }
+
 }
 
 $options = array(
-    'cluster' => function () {
-        $distributor = new NaiveDistributionStrategy();
-        $cluster = new PredisCluster($distributor);
+    'cluster' => function ()
+{
+  $distributor = new NaiveDistributionStrategy();
+  $cluster = new PredisCluster($distributor);
 
-        return $cluster;
-    },
+  return $cluster;
+},
 );
 
 $client = new Predis\Client($multiple_servers, $options);
 
-for ($i = 0; $i < 100; $i++) {
-    $client->set("key:$i", str_pad($i, 4, '0', 0));
-    $client->get("key:$i");
+for ($i = 0; $i < 100; $i++)
+{
+      $client->set("key:$i", str_pad($i, 4, '0', 0));
+      $client->get("key:$i");
 }
 
 $server1 = $client->getClientFor('first')->info();
 $server2 = $client->getClientFor('second')->info();
 
-if (isset($server1['Keyspace'], $server2['Keyspace'])) {
-    $server1 = $server1['Keyspace'];
-    $server2 = $server2['Keyspace'];
+if (isset($server1['Keyspace'], $server2['Keyspace']))
+{
+      $server1 = $server1['Keyspace'];
+      $server2 = $server2['Keyspace'];
 }
 
-printf("Server '%s' has %d keys while server '%s' has %d keys.\n",
-    'first', $server1['db15']['keys'], 'second', $server2['db15']['keys']
+printf("Server '%s' has %d keys while server '%s' has %d keys.\n", 'first', $server1['db15']['keys'], 'second', $server2['db15']['keys']
 );

@@ -55,10 +55,11 @@ class EventoRepositoryEloquent implements EventoRepository
 
                   if ($evento->save())
                   {
-                        if(!$evento->is_especial){
+                        if (!$evento->is_especial)
+                        {
                               return $evento;
                         }
-                        
+
                         $evento_especial = $evento->especial;
 
                         if (isset($evento_especial))
@@ -105,15 +106,19 @@ class EventoRepositoryEloquent implements EventoRepository
                   return null;
             }
       }
-      
-      public function activar($id){
+
+      public function activar($id)
+      {
             $evento = Evento::find($id);
             $evento->publicar = true;
             $evento->is_activo = true;
             $evento->fecha_nueva_activacion = \Carbon\Carbon::now()->addMonth();
-            if($evento->save()){
+            if ($evento->save())
+            {
                   return true;
-            }else{
+            }
+            else
+            {
                   return false;
             }
       }

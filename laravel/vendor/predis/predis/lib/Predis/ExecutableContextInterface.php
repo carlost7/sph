@@ -19,11 +19,12 @@ namespace Predis;
  */
 interface ExecutableContextInterface
 {
-    /**
-     * Starts the execution of the context.
-     *
-     * @param  mixed $callable Optional callback for execution.
-     * @return array
-     */
-    public function execute($callable = null);
+
+      /**
+       * Starts the execution of the context.
+       *
+       * @param  mixed $callable Optional callback for execution.
+       * @return array
+       */
+      public function execute($callable = null);
 }

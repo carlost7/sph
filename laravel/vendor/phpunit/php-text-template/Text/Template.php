@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Text_Template
  *
@@ -57,121 +58,127 @@
  */
 class Text_Template
 {
-    /**
-     * @var string
-     */
-    protected $template = '';
 
-    /**
-     * @var string
-     */
-    protected $openDelimiter = '{';
+      /**
+       * @var string
+       */
+      protected $template = '';
 
-    /**
-     * @var string
-     */
-    protected $closeDelimiter = '}';
+      /**
+       * @var string
+       */
+      protected $openDelimiter = '{';
 
-    /**
-     * @var array
-     */
-    protected $values = array();
+      /**
+       * @var string
+       */
+      protected $closeDelimiter = '}';
 
-    /**
-     * Constructor.
-     *
-     * @param  string $file
-     * @throws InvalidArgumentException
-     */
-    public function __construct($file = '', $openDelimiter = '{', $closeDelimiter = '}')
-    {
-        $this->setFile($file);
-        $this->openDelimiter  = $openDelimiter;
-        $this->closeDelimiter = $closeDelimiter;
-    }
+      /**
+       * @var array
+       */
+      protected $values = array();
 
-    /**
-     * Sets the template file.
-     *
-     * @param  string $file
-     * @throws InvalidArgumentException
-     */
-    public function setFile($file)
-    {
-        $distFile = $file . '.dist';
+      /**
+       * Constructor.
+       *
+       * @param  string $file
+       * @throws InvalidArgumentException
+       */
+      public function __construct($file = '', $openDelimiter = '{', $closeDelimiter = '}')
+      {
+            $this->setFile($file);
+            $this->openDelimiter = $openDelimiter;
+            $this->closeDelimiter = $closeDelimiter;
+      }
 
-        if (file_exists($file)) {
-            $this->template = file_get_contents($file);
-        }
+      /**
+       * Sets the template file.
+       *
+       * @param  string $file
+       * @throws InvalidArgumentException
+       */
+      public function setFile($file)
+      {
+            $distFile = $file . '.dist';
 
-        else if (file_exists($distFile)) {
-            $this->template = file_get_contents($distFile);
-        }
+            if (file_exists($file))
+            {
+                  $this->template = file_get_contents($file);
+            }
+            else if (file_exists($distFile))
+            {
+                  $this->template = file_get_contents($distFile);
+            }
+            else
+            {
+                  throw new InvalidArgumentException(
+                  'Template file could not be loaded.'
+                  );
+            }
+      }
 
-        else {
-            throw new InvalidArgumentException(
-              'Template file could not be loaded.'
-            );
-        }
-    }
+      /**
+       * Sets one or more template variables.
+       *
+       * @param  array   $values
+       * @param  boolean $merge
+       */
+      public function setVar(array $values, $merge = TRUE)
+      {
+            if (!$merge || empty($this->values))
+            {
+                  $this->values = $values;
+            }
+            else
+            {
+                  $this->values = array_merge($this->values, $values);
+            }
+      }
 
-    /**
-     * Sets one or more template variables.
-     *
-     * @param  array   $values
-     * @param  boolean $merge
-     */
-    public function setVar(array $values, $merge = TRUE)
-    {
-        if (!$merge || empty($this->values)) {
-            $this->values = $values;
-        } else {
-            $this->values = array_merge($this->values, $values);
-        }
-    }
+      /**
+       * Renders the template and returns the result.
+       *
+       * @return string
+       */
+      public function render()
+      {
+            $keys = array();
 
-    /**
-     * Renders the template and returns the result.
-     *
-     * @return string
-     */
-    public function render()
-    {
-        $keys = array();
+            foreach ($this->values as $key => $value)
+            {
+                  $keys[] = $this->openDelimiter . $key . $this->closeDelimiter;
+            }
 
-        foreach ($this->values as $key => $value) {
-            $keys[] = $this->openDelimiter . $key . $this->closeDelimiter;
-        }
+            return str_replace($keys, $this->values, $this->template);
+      }
 
-        return str_replace($keys, $this->values, $this->template);
-    }
+      /**
+       * Renders the template and writes the result to a file.
+       *
+       * @param string $target
+       */
+      public function renderTo($target)
+      {
+            $fp = @fopen($target, 'wt');
 
-    /**
-     * Renders the template and writes the result to a file.
-     *
-     * @param string $target
-     */
-    public function renderTo($target)
-    {
-        $fp = @fopen($target, 'wt');
+            if ($fp)
+            {
+                  fwrite($fp, $this->render());
+                  fclose($fp);
+            }
+            else
+            {
+                  $error = error_get_last();
 
-        if ($fp) {
-            fwrite($fp, $this->render());
-            fclose($fp);
-        } else {
-            $error = error_get_last();
+                  throw new RuntimeException(
+                  sprintf(
+                          'Could not write to %s: %s', $target, substr(
+                                  $error['message'], strpos($error['message'], ':') + 2
+                          )
+                  )
+                  );
+            }
+      }
 
-            throw new RuntimeException(
-              sprintf(
-                'Could not write to %s: %s',
-                $target,
-                substr(
-                  $error['message'],
-                  strpos($error['message'], ':') + 2
-                )
-              )
-            );
-        }
-    }
 }
-

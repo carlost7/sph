@@ -22,11 +22,11 @@ $client = new Predis\Client($single_server, array('prefix' => 'nrk:'));
 $client->mset(array('foo' => 'bar', 'lol' => 'wut'));
 var_dump($client->mget('foo', 'lol'));
 /*
-array(2) {
+  array(2) {
   [0]=> string(3) "bar"
   [1]=> string(3) "wut"
-}
-*/
+  }
+ */
 
 var_dump($client->keys('*'));
 /*

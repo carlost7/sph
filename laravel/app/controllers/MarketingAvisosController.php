@@ -147,15 +147,15 @@ class MarketingAvisosController extends \BaseController
        */
       public function destroy($id)
       {
-            
-            
+
+
             if ($this->aviso_cliente->delete($id))
             {
-                  Session::flash('message','Aviso eliminado correctamente');
+                  Session::flash('message', 'Aviso eliminado correctamente');
             }
             else
             {
-                  Session::flash('error','Error al eliminar el aviso');
+                  Session::flash('error', 'Error al eliminar el aviso');
             }
             return Redirect::back();
       }

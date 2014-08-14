@@ -63,9 +63,10 @@ class clientesPromocionesController extends \BaseController
                         $pago = $this->pago->create($pago_model);
                         if (isset($pago))
                         {
-                              if($this->promocion->agregar_pago($promocion, $pago)){
+                              if ($this->promocion->agregar_pago($promocion, $pago))
+                              {
                                     Session::flash('message', 'Promoción agregada con éxito');
-                                    return Redirect::route('clientes_promociones.index');                                    
+                                    return Redirect::route('clientes_promociones.index');
                               }
                         }
                         Session::flash('error', 'Error al agregar el pago');
@@ -117,9 +118,9 @@ class clientesPromocionesController extends \BaseController
             if ($validatorPromocion->passes() & $validatorPromocionEspecial->passes())
             {
                   $promocion_model = Input::all();
-                  
-                  $especial = array('imagenes'=>Input::get('imagenes'));
-                  
+
+                  $especial = array('imagenes' => Input::get('imagenes'));
+
                   $promocion_model = array_add($promocion_model, 'especial', $especial);
 
                   $promocion = $this->promocion->update($id, $promocion_model);
@@ -136,7 +137,7 @@ class clientesPromocionesController extends \BaseController
             $promocion_messages = ($validatorPromocion->getErrors() != null) ? $validatorPromocion->getErrors()->all() : array();
             $promocion_especial_messages = ($validatorPromocionEspecial->getErrors() != null) ? $validatorPromocionEspecial->getErrors()->all() : array();
             $validationMessages = array_merge_recursive($promocion_messages, $promocion_especial_messages);
-            
+
             return Redirect::back()->withErrors($validationMessages)->withInput();
       }
 
@@ -162,18 +163,24 @@ class clientesPromocionesController extends \BaseController
       public function activar($id)
       {
             $promocion = $this->promocion->find($id);
-            if($promocion->client->id == Auth::user()->userable->id){
-                  if($this->promocion->activar($id)){
-                        Session::flash('message','Activación correcta');
+            if ($promocion->client->id == Auth::user()->userable->id)
+            {
+                  if ($this->promocion->activar($id))
+                  {
+                        Session::flash('message', 'Activación correcta');
                         return Redirect::route('clientes_promociones.index');
-                  }else{
-                        Session::flash('error','Error en la activación');
                   }
-            }else{
-                  Session::flash('error','La promoción no pertenece al usuario');
-            }            
-            
+                  else
+                  {
+                        Session::flash('error', 'Error en la activación');
+                  }
+            }
+            else
+            {
+                  Session::flash('error', 'La promoción no pertenece al usuario');
+            }
+
             return Redirect::back();
       }
-      
+
 }

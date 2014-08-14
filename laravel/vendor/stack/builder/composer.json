@@ -18,9 +18,13 @@
         "silex/silex": "~1.0"
     },
     "autoload": {
-        "psr-0": { "Stack": "src" }
+        "psr-0": {
+            "Stack": "src"
+        }
     },
     "extra": {
-        "branch-alias": { "dev-master": "1.0-dev" }
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
     }
 }

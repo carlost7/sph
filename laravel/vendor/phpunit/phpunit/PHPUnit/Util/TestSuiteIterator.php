@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPUnit
  *
@@ -56,93 +57,95 @@
  */
 class PHPUnit_Util_TestSuiteIterator implements RecursiveIterator
 {
-    /**
-     * @var    integer
-     */
-    protected $position;
 
-    /**
-     * @var    PHPUnit_Framework_Test[]
-     */
-    protected $tests;
+      /**
+       * @var    integer
+       */
+      protected $position;
 
-    /**
-     * Constructor.
-     *
-     * @param  PHPUnit_Framework_TestSuite $suite
-     */
-    public function __construct(PHPUnit_Framework_TestSuite $testSuite)
-    {
-        $this->tests = $testSuite->tests();
-    }
+      /**
+       * @var    PHPUnit_Framework_Test[]
+       */
+      protected $tests;
 
-    /**
-     * Rewinds the Iterator to the first element.
-     *
-     */
-    public function rewind()
-    {
-        $this->position = 0;
-    }
+      /**
+       * Constructor.
+       *
+       * @param  PHPUnit_Framework_TestSuite $suite
+       */
+      public function __construct(PHPUnit_Framework_TestSuite $testSuite)
+      {
+            $this->tests = $testSuite->tests();
+      }
 
-    /**
-     * Checks if there is a current element after calls to rewind() or next().
-     *
-     * @return boolean
-     */
-    public function valid()
-    {
-        return $this->position < count($this->tests);
-    }
+      /**
+       * Rewinds the Iterator to the first element.
+       *
+       */
+      public function rewind()
+      {
+            $this->position = 0;
+      }
 
-    /**
-     * Returns the key of the current element.
-     *
-     * @return integer
-     */
-    public function key()
-    {
-        return $this->position;
-    }
+      /**
+       * Checks if there is a current element after calls to rewind() or next().
+       *
+       * @return boolean
+       */
+      public function valid()
+      {
+            return $this->position < count($this->tests);
+      }
 
-    /**
-     * Returns the current element.
-     *
-     * @return PHPUnit_Framework_Test
-     */
-    public function current()
-    {
-        return $this->valid() ? $this->tests[$this->position] : NULL;
-    }
+      /**
+       * Returns the key of the current element.
+       *
+       * @return integer
+       */
+      public function key()
+      {
+            return $this->position;
+      }
 
-    /**
-     * Moves forward to next element.
-     *
-     */
-    public function next()
-    {
-        $this->position++;
-    }
+      /**
+       * Returns the current element.
+       *
+       * @return PHPUnit_Framework_Test
+       */
+      public function current()
+      {
+            return $this->valid() ? $this->tests[$this->position] : NULL;
+      }
 
-    /**
-     * Returns the sub iterator for the current element.
-     *
-     * @return PHPUnit_Util_TestSuiteIterator
-     */
-    public function getChildren()
-    {
-        return new PHPUnit_Util_TestSuiteIterator(
-          $this->tests[$this->position]
-        );
-    }
+      /**
+       * Moves forward to next element.
+       *
+       */
+      public function next()
+      {
+            $this->position++;
+      }
 
-    /**
-     * Checks whether the current element has children.
-     *
-     * @return boolean
-     */
-    public function hasChildren()
-    {
-        return $this->tests[$this->position] instanceof PHPUnit_Framework_TestSuite;
-    }
+      /**
+       * Returns the sub iterator for the current element.
+       *
+       * @return PHPUnit_Util_TestSuiteIterator
+       */
+      public function getChildren()
+      {
+            return new PHPUnit_Util_TestSuiteIterator(
+                    $this->tests[$this->position]
+            );
+      }
+
+      /**
+       * Checks whether the current element has children.
+       *
+       * @return boolean
+       */
+      public function hasChildren()
+      {
+            return $this->tests[$this->position] instanceof PHPUnit_Framework_TestSuite;
+      }
+
 }

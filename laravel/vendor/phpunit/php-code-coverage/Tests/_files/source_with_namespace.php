@@ -1,4 +1,5 @@
 <?php
+
 namespace bar\baz;
 
 /**
@@ -6,6 +7,7 @@ namespace bar\baz;
  */
 class Foo
 {
+      
 }
 
 /**
@@ -13,8 +15,11 @@ class Foo
  */
 function &foo($bar)
 {
-    $baz = function() {};
-    $a   = TRUE ? TRUE : FALSE;
-    $b = "{$a}";
-    $c = "${b}";
+      $baz = function()
+      {
+            
+      };
+      $a = TRUE ? TRUE : FALSE;
+      $b = "{$a}";
+      $c = "${b}";
 }

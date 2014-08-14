@@ -7,8 +7,9 @@ class Evento_especial extends \Eloquent
       // Don't forget to fill this array
       protected $fillable = ['imagenes'];
 
-      public function evento(){            
-            return $this->belongsTo('Evento', 'evento_id','id');
+      public function evento()
+      {
+            return $this->belongsTo('Evento', 'evento_id', 'id');
       }
-      
+
 }

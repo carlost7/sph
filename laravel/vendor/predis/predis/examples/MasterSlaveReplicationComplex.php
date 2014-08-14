@@ -23,13 +23,13 @@ use Predis\Connection\MasterSlaveReplication;
 use Predis\Replication\ReplicationStrategy;
 
 // ------------------------------------------------------------------------- //
-
 // Define a new scripted command that returns all the fields
 // of a variable number of hashes with a single roundtrip.
 
 class HashMultipleGetAll extends ScriptedCommand
 {
-    const BODY = <<<EOS
+
+      const BODY = <<<EOS
 local hashes = {}
 for _, key in pairs(KEYS) do
     table.insert(hashes, key)
@@ -38,10 +38,11 @@ end
 return hashes
 EOS;
 
-    public function getScript()
-    {
-        return self::BODY;
-    }
+      public function getScript()
+      {
+            return self::BODY;
+      }
+
 }
 
 // ------------------------------------------------------------------------- //
@@ -52,20 +53,22 @@ $parameters = array(
 );
 
 $options = array(
-    'profile' => function ($options, $option) {
-        $profile = $options->getDefault($option);
-        $profile->defineCommand('hmgetall', 'HashMultipleGetAll');
+    'profile' => function ($options, $option)
+{
+  $profile = $options->getDefault($option);
+  $profile->defineCommand('hmgetall', 'HashMultipleGetAll');
 
-        return $profile;
-    },
-    'replication' => function ($options) {
-        $strategy = new ReplicationStrategy();
-        $strategy->setScriptReadOnly(HashMultipleGetAll::BODY);
+  return $profile;
+},
+    'replication' => function ($options)
+{
+  $strategy = new ReplicationStrategy();
+  $strategy->setScriptReadOnly(HashMultipleGetAll::BODY);
 
-        $replication = new MasterSlaveReplication($strategy);
+  $replication = new MasterSlaveReplication($strategy);
 
-        return $replication;
-    },
+  return $replication;
+},
 );
 
 // ------------------------------------------------------------------------- //

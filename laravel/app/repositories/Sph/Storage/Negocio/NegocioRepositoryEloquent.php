@@ -51,10 +51,11 @@ class NegocioRepositoryEloquent implements NegocioRepository
                   $negocio->fill($negocio_model);
                   if ($negocio->save())
                   {
-                        if(!$negocio->is_especial){
+                        if (!$negocio->is_especial)
+                        {
                               return $negocio;
                         }
-                        
+
                         $negocio_especial = $negocio->especial;
 
                         if (isset($negocio_especial))
@@ -102,17 +103,21 @@ class NegocioRepositoryEloquent implements NegocioRepository
                   return null;
             }
       }
-     
-      public function activar($id){
+
+      public function activar($id)
+      {
             $negocio = Negocio::find($id);
             $negocio->publicar = true;
             $negocio->is_activo = true;
             $negocio->fecha_nueva_activacion = \Carbon\Carbon::now()->addMonth();
-            if($negocio->save()){
+            if ($negocio->save())
+            {
                   return true;
-            }else{
+            }
+            else
+            {
                   return false;
             }
       }
-      
+
 }

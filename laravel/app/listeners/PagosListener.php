@@ -20,6 +20,7 @@ class PagosListener
       /*
        * publica el contenido automaticamente en la aplicacion y envia un correo al usuario con sus datos
        */
+
       public function publicar_contenido(array $ids)
       {
             foreach ($ids as $id)
@@ -37,6 +38,7 @@ class PagosListener
       /*
        * Avisa al usuario que su pago fue cancelado para que lo pueda volver a realizar
        */
+
       public function avisar_cancelacion(array $ids)
       {
             $pago = $this->pago->find($ids[0]);

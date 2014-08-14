@@ -51,11 +51,12 @@ class RegisterController extends \BaseController
                         if (isset($cliente))
                         {
                               $data = array('nombre' => $cliente->nombre,
-                                    'token' => $cliente->token,
-                                    'id' => $cliente->id,
+                                  'token' => $cliente->token,
+                                  'id' => $cliente->id,
                               );
 
-                              Mail::queue('emails.auth.confirm_new_user', $data, function($message) use ($user, $cliente) {
+                              Mail::queue('emails.auth.confirm_new_user', $data, function($message) use ($user, $cliente)
+                              {
                                     $message->to($user->email, $cliente->nombre)->subject('Confirmación de Registro de Sphellar');
                               });
                               Session::flash('message', 'Usuario creado con éxito, revisa tu correo para activarlo');

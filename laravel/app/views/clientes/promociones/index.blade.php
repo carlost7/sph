@@ -30,11 +30,11 @@
                   {{ HTML::linkRoute('clientes_promociones.edit','Agregar datos especiales',$promocion->id,array('class'=>'btn btn-sm btn-success')) }}
             </p>
             @endif
-            
+
             <p class="text-right">
                   {{ HTML::linkRoute('clientes_promociones.edit','editar',$promocion->id,array('class'=>'btn btn-sm btn-info')) }}       
             </p>
-            
+
 
             {{ Form::open(array('route' => array('clientes_promociones.destroy',$promocion->id))) }}            
             {{ Form::hidden('_method', 'DELETE') }}            

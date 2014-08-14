@@ -23,11 +23,11 @@ $preapprovalPayment = $mp->create_preapproval_payment($preapprovalPayment_data);
 
 <!doctype html>
 <html>
-    <head>
-        <title>MercadoPago SDK - Create Preapproval Payment and Show Subscription Example</title>
-    </head>
-    <body>
-       	<a href="<?php echo $preapprovalPayment["response"]["init_point"]; ?>" name="MP-Checkout" class="orange-ar-m-sq-arall">Pay</a>
-        <script type="text/javascript" src="http://mp-tools.mlstatic.com/buttons/render.js"></script>
-    </body>
+      <head>
+            <title>MercadoPago SDK - Create Preapproval Payment and Show Subscription Example</title>
+      </head>
+      <body>
+            <a href="<?php echo $preapprovalPayment["response"]["init_point"]; ?>" name="MP-Checkout" class="orange-ar-m-sq-arall">Pay</a>
+            <script type="text/javascript" src="http://mp-tools.mlstatic.com/buttons/render.js"></script>
+      </body>
 </html>

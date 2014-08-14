@@ -99,8 +99,8 @@ class clientesEventosController extends \BaseController
        */
       public function edit($id)
       {
-            $evento = $this->evento->find($id);                        
-            return View::make('clientes.eventos.edit')->with(array('evento'=>$evento));
+            $evento = $this->evento->find($id);
+            return View::make('clientes.eventos.edit')->with(array('evento' => $evento));
       }
 
       /**
@@ -117,8 +117,8 @@ class clientesEventosController extends \BaseController
             if ($validatorEvento->passes() & $validatorEventoEspecial->passes())
             {
                   $evento_model = Input::all();
-                  $especial = array('imagenes'=>Input::get('imagenes'));
-                  
+                  $especial = array('imagenes' => Input::get('imagenes'));
+
                   $evento_model = array_add($evento_model, 'especial', $especial);
 
                   $evento = $this->evento->update($id, $evento_model);
@@ -132,11 +132,11 @@ class clientesEventosController extends \BaseController
                         Session::flash('error', 'Error al agregar el evento');
                   }
             }
-            
+
             $evento_messages = ($validatorEvento->getErrors() != null) ? $validatorEventoEspecial->getErrors()->all() : array();
             $evento_especial_messages = ($validatorEventoEspecial->getErrors() != null) ? $validatorEventoEspecial->getErrors()->all() : array();
             $validationMessages = array_merge_recursive($evento_messages, $evento_especial_messages);
-            
+
             return Redirect::back()->withErrors($validationMessages)->withInput();
       }
 
@@ -162,17 +162,23 @@ class clientesEventosController extends \BaseController
       public function activar($id)
       {
             $evento = $this->evento->find($id);
-            if($evento->client->id == Auth::user()->userable->id){
-                  if($this->evento->activar($id)){
-                        Session::flash('message','Activación correcta');
+            if ($evento->client->id == Auth::user()->userable->id)
+            {
+                  if ($this->evento->activar($id))
+                  {
+                        Session::flash('message', 'Activación correcta');
                         return Redirect::route('clientes_eventos.index');
-                  }else{
-                        Session::flash('error','Ocurrio un error en la activación');
                   }
-            }else{
-                  Session::flash('error','El evento no pertenece al usuario');
-            }     
+                  else
+                  {
+                        Session::flash('error', 'Ocurrio un error en la activación');
+                  }
+            }
+            else
+            {
+                  Session::flash('error', 'El evento no pertenece al usuario');
+            }
             return Redirect::back();
       }
-      
+
 }

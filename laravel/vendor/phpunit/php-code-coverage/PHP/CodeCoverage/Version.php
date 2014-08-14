@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHP_CodeCoverage
  *
@@ -56,37 +57,46 @@
  */
 class PHP_CodeCoverage_Version
 {
-    const VERSION = '1.2.17';
-    protected static $version;
 
-    /**
-     * Returns the version of PHP_CodeCoverage.
-     *
-     * @return string
-     */
-    public static function id()
-    {
-        if (self::$version === NULL) {
-            self::$version = self::VERSION;
+      const VERSION = '1.2.17';
 
-            if (is_dir(dirname(dirname(__DIR__)) . '/.git')) {
-                $dir = getcwd();
-                chdir(__DIR__);
-                $version = @exec('git describe --tags');
-                chdir($dir);
+      protected static $version;
 
-                if ($version) {
-                    if (count(explode('.', self::VERSION)) == 3) {
-                        self::$version = $version;
-                    } else {
-                        $version = explode('-', $version);
+      /**
+       * Returns the version of PHP_CodeCoverage.
+       *
+       * @return string
+       */
+      public static function id()
+      {
+            if (self::$version === NULL)
+            {
+                  self::$version = self::VERSION;
 
-                        self::$version = self::VERSION . '-' . $version[2];
-                    }
-                }
+                  if (is_dir(dirname(dirname(__DIR__)) . '/.git'))
+                  {
+                        $dir = getcwd();
+                        chdir(__DIR__);
+                        $version = @exec('git describe --tags');
+                        chdir($dir);
+
+                        if ($version)
+                        {
+                              if (count(explode('.', self::VERSION)) == 3)
+                              {
+                                    self::$version = $version;
+                              }
+                              else
+                              {
+                                    $version = explode('-', $version);
+
+                                    self::$version = self::VERSION . '-' . $version[2];
+                              }
+                        }
+                  }
             }
-        }
 
-        return self::$version;
-    }
+            return self::$version;
+      }
+
 }

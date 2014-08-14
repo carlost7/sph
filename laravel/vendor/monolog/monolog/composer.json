@@ -35,7 +35,9 @@
         "rollbar/rollbar": "Allow sending log messages to Rollbar"
     },
     "autoload": {
-        "psr-4": {"Monolog\\": "src/Monolog"}
+        "psr-4": {
+            "Monolog\\": "src/Monolog"
+        }
     },
     "extra": {
         "branch-alias": {
