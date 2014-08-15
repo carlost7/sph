@@ -61,7 +61,11 @@ class UserRepositoryEloquent implements UserRepository
                   if ($user->save())
                   {
                         return $user;
-                  }                  
+                  }
+                  else
+                  {
+                        return null;
+                  }
             }
 
             return null;
