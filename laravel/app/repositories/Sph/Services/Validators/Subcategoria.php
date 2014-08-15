@@ -13,12 +13,17 @@ namespace Sph\Services\Validators;
  *
  * @author carlos
  */
-class Promocion_especial extends Validator
+class Subcategoria extends Validator
 {
 
       public static $rules = array(
+          "save" => array(
+              'subcategoria' => 'required',
+              'categoria' => 'required|exists:categorias,id'
+          ),
           "update" => array(
-              'imagenes' => '',
+              'subcategoria' => 'required',
+              'categoria' => 'required|exists:categorias,id'
           ),
       );
 

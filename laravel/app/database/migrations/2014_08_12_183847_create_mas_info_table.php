@@ -19,6 +19,8 @@ class CreateMasInfoTable extends Migration
                   $table->boolean('domicilio');
                   $table->boolean('llevar');
                   $table->boolean('moneda');
+                  $table->decimal('rango_min');
+                  $table->decimal('rango_max');
                   $table->boolean('efectivo');
                   $table->boolean('tc');
                   $table->boolean('td');

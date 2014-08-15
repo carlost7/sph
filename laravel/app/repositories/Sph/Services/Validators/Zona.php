@@ -13,16 +13,18 @@ namespace Sph\Services\Validators;
  *
  * @author carlos
  */
-class Negocio_especial extends Validator
+use Carbon\Carbon;
+
+class Evento extends Validator
 {
 
-// Add your validation rules here
       public static $rules = array(
+          "save" => array(
+              'zona' => 'required',
+          ),
           "update" => array(
-              'email' => 'mail',
-              'webpage' => 'url',
-              'mapa' => 'alpha_num'               
-          )
+              'zona' => 'required',
+          ),
       );
 
 }

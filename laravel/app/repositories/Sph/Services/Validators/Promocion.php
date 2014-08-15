@@ -19,13 +19,15 @@ class Promocion extends Validator
       public static $rules = array(
           "save" => array(
               'nombre' => 'required',
-              'descripcion' => 'required||min:30',
-              'inicio' => 'required|date',
-              'fin' => 'required|date',
+              'codigo' => 'required|alpha_dash',
+              'descripcion' => 'required|min:20|max:140',
+              'vigencia_inicio' => array('required','after:Carbon\Carbon::now()'),
+              'vigencia_fin' => 'required|date|after:vigencia_inicio',
+              'negocio'=>'required|exists:negocios,id',
           ),
           "update" => array(
               'direccion' => '',
-              'descripcion' => 'min:30',
+              'descripcion' => 'required|min:20|max:140',
               'inicio' => 'date',
               'fin' => 'date',
           ),

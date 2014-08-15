@@ -20,7 +20,11 @@ class Evento_especial extends Validator
 
       public static $rules = array(
           "update" => array(
-              'imagenes' => ''
+              'mapa' => 'alpha_num',
+              'email' => 'mail',
+              'web' => 'url',
+              
+              
           ),
       );
 

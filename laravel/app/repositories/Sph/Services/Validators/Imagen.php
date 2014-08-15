@@ -13,16 +13,20 @@ namespace Sph\Services\Validators;
  *
  * @author carlos
  */
-class Negocio_especial extends Validator
+
+class Imagen extends Validator
 {
 
-// Add your validation rules here
       public static $rules = array(
+          "save" => array(
+              'alt' => '',
+              'imagen' => 'required|image|between:200,600'
+              
+          ),
           "update" => array(
-              'email' => 'mail',
-              'webpage' => 'url',
-              'mapa' => 'alpha_num'               
-          )
+              'alt' => '',
+              'imagen' => 'required|image|between:200,600'
+          ),
       );
 
 }

@@ -19,10 +19,7 @@ class CreateNegociosTable extends Migration
                   $table->string('nombre');
                   $table->string('telefono');
                   $table->string('direccion');
-                  $table->text('descripcion');
-                  $table->string('moneda');
-                  $table->string('rango_min');
-                  $table->string('rango_max');
+                  $table->text('descripcion');                                    
                   $table->double('likes')->default(0.0);
                   $table->boolean('publicar');
                   $table->boolean('is_especial');
