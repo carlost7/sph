@@ -1,31 +1,29 @@
 <?php
 
-namespace Sph\Storage\User;
+namespace Sph\Storage\HorarioNegocio;
 
 /**
- * Description of UserRepositoryEloquent
+ * Description of HorarioNegocioRepositoryEloquent
  *
  * @author carlos
  */
-use User;
+use HorarioNegocio;
 
-class UserRepositoryEloquent implements UserRepository
+class HorarioNegocioRepositoryEloquent implements HorarioNegocioRepository
 {
 
       public function all()
       {
-            return User::all();
+            return HorarioNegocio::all();
       }
 
       public function create(array $user_model)
       {
-            $user = new User();
-            $user->email = $user_model['email'];
-            $user->password = \Hash::make($user_model['password']);
-            if ($user->save())
+            $horarionegocio = new HorarioNegocio();            
+            if ($horarionegocio->save())
             {
 
-                  return $user;
+                  return $horarionegocio;
             }
             else
             {
@@ -35,37 +33,23 @@ class UserRepositoryEloquent implements UserRepository
 
       public function delete($id)
       {
-            return User::destroy($id);
+            return HorarioNegocio::destroy($id);
       }
 
       public function find($id)
       {
-            return User::find($id);
+            return HorarioNegocio::find($id);
       }
 
       public function update($id, array $user_model)
       {
-            $user = User::find($id);
-            if (isset($user))
+            $horarionegocio = HorarioNegocio::find($id);
+            if (isset($horarionegocio))
             {
-                  if (isset($user_model['email']))
+                  if ($horarionegocio->save())
                   {
-                        $user->email = $user_model['email'];
-                  }
-
-                  if (isset($user_model['password']))
-                  {
-                        $user->password = \Hash::make($user_model['password']);
-                  }
-
-                  if ($user->save())
-                  {
-                        return $user;
-                  }
-                  else
-                  {
-                        return null;
-                  }
+                        return $horarionegocio;
+                  }                  
             }
 
             return null;

@@ -27,7 +27,7 @@ class PagosController extends \BaseController
        * ***********************************
        */
 
-      public function generar_pago()
+      public function generar_link_pago()
       {
 
             $items = array();
