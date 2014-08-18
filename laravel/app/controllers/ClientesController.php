@@ -1,7 +1,7 @@
 <?php
 
 use Sph\Storage\User\UserRepository as User;
-use Sph\Storage\Cliente\ClientRepository as Cliente;
+use Sph\Storage\Cliente\ClienteRepository as Cliente;
 
 class ClientesController extends \BaseController
 {

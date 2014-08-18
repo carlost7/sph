@@ -12,6 +12,7 @@
             {{ HTML::style('css/bootstrap.css') }}
             {{ HTML::style('css/bootstrap-theme.css') }}
             {{ HTML::style('css/bootstrap-datetimepicker.min.css') }}
+            {{ HTML::style('css/colors-override.css') }}
             {{ HTML::style('css/main.css') }}
             {{ HTML::script('js/vendor/modernizr-2.6.2-respond-1.1.0.min.js') }}
             <script>
@@ -22,7 +23,7 @@
             <!--[if lt IE 7]>
                 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
             <![endif]-->
-            <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                   <div class="container">
                         <div class="navbar-header">
                               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -54,52 +55,49 @@
 
             <div class="clearfix"></div>
             <div class="container">
-                  <div class="panel panel-info">
-                        <div class="panel-heading">{{ Auth::user()->email }}</div>
-                        <div class="panel-body">
-                              <div class="row">
-                                    <div class="col-xs-12 hidden-sm hidden-md hidden-lg">
-                                          <ul class="nav nav-pills">
-                                                <li {{ Request::is('clientes_negocios*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_negocios.index','Negocios',null) }}</li>
-                                                <li {{ Request::is('clientes_eventos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_eventos.index','Eventos',null) }}</li>
-                                                <li {{ Request::is('clientes_promociones*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_promociones.index','Promociones',null) }}</li>
-                                                <li {{ Request::is('clientes_pagos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_pagos.index','Pagos',null) }}</li>
-                                                <li {{ Request::is('clientes*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes.index','Cuenta',null) }}</li>
-                                          </ul>
-                                    </div>
-                                    <div class="col-md-3 hidden-xs">
-                                          <ul class="nav nav-pills nav-stacked">
-                                                <li {{ Request::is('clientes_negocios*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_negocios.index','Negocios',null) }}</li>
-                                                <li {{ Request::is('clientes_eventos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_eventos.index','Eventos',null) }}</li>
-                                                <li {{ Request::is('clientes_promociones*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_promociones.index','Promociones',null) }}</li>
-                                                <li {{ Request::is('clientes_pagos*') ? "class='active'" : "" }}><a href="{{URL::route('clientes_pagos.index')}}">Pagos 
-                                                            <span class="badge pull-right">{{ Auth::user()->userable->pagos->filter(function($pago){return $pago->pagado == false;})->count() ? Auth::user()->userable->pagos->filter(function($pago){return $pago->pagado == false;})->count() : '' }}</span>
-                                                      </a> 
-                                                </li>
-                                                <li {{ Request::is('clientes*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes.index','Cuenta',null) }}</li>
-                                          </ul>
-                                    </div>
-                                    <div class="col-xs-12 col-md-9">
-                                          @if(Session::has('message'))
-                                          <div class="alert alert-success alert-dismissable">
-                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                                {{ Session::get('message') }}
-                                                {{ Session::forget('message'); }}        
-                                          </div>                        
-                                          @endif
-                                          @if(Session::has('error'))
-                                          <div class="alert alert-danger alert-dismissable">
-                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                                {{ Session::get('error') }}
-                                                {{ Session::forget('error'); }}
-                                          </div>                    
-                                          @endif
-                                          @yield('content')
-                                    </div>
-                              </div>
+                  <div class="row">
+                        <div class="col-xs-12 hidden-sm hidden-md hidden-lg">
+                              <ul class="nav nav-pills">
+                                    <li {{ Request::is('clientes_negocios*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_negocios.index','Negocios',null) }}</li>
+                                    <li {{ Request::is('clientes_eventos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_eventos.index','Eventos',null) }}</li>
+                                    <li {{ Request::is('clientes_promociones*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_promociones.index','Promociones',null) }}</li>
+                                    <li {{ Request::is('clientes_pagos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_pagos.index','Pagos',null) }}</li>
+                                    <li {{ Request::is('clientes*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes.index','Cuenta',null) }}</li>
+                              </ul>
                         </div>
-                  </div>            
+                        <div class="col-md-3 hidden-xs">
+                              <ul class="nav nav-pills nav-stacked">
+                                    <li {{ Request::is('clientes_negocios*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_negocios.index','Negocios',null) }}</li>
+                                    <li {{ Request::is('clientes_eventos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_eventos.index','Eventos',null) }}</li>
+                                    <li {{ Request::is('clientes_promociones*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes_promociones.index','Promociones',null) }}</li>
+                                    <li {{ Request::is('clientes_pagos*') ? "class='active'" : "" }}><a href="{{URL::route('clientes_pagos.index')}}">Pagos 
+                                                <span class="badge pull-right">{{ Auth::user()->userable->pagos->filter(function($pago){return $pago->pagado == false;})->count() ? Auth::user()->userable->pagos->filter(function($pago){return $pago->pagado == false;})->count() : '' }}</span>
+                                          </a> 
+                                    </li>
+                                    <li {{ Request::is('clientes*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes.index','Cuenta',null) }}</li>
+                              </ul>
+                        </div>
+                        <div class="col-xs-12 col-md-9">
+                              @if(Session::has('message'))
+                              <div class="alert alert-success alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    {{ Session::get('message') }}
+                                    {{ Session::forget('message'); }}        
+                              </div>                        
+                              @endif
+                              @if(Session::has('error'))
+                              <div class="alert alert-danger alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    {{ Session::get('error') }}
+                                    {{ Session::forget('error'); }}
+                              </div>                    
+                              @endif
+                              @yield('content')
+                        </div>
+                  </div>
             </div> <!-- /container -->        
+
+
 
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>                
             {{ HTML::script('js/vendor/bootstrap.min.js') }}

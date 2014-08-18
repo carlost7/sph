@@ -14,4 +14,6 @@ interface ClienteRepository
       public function update($id, array $cliente_model);
 
       public function delete($id);
+      
+      public function activar_cliente($id);
 }

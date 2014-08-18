@@ -1,7 +1,7 @@
 <?php
 
 use Sph\Storage\Pago\PagoRepository as Pago;
-use Sph\Storage\Client\ClientRepository as Client;
+use Sph\Storage\Cliente\ClienteRepository as Client;
 use Sph\Storage\Aviso_cliente\AvisoClienteRepository as Aviso;
 use Sph\Storage\Checkout\CheckoutRepository as Checkout;
 use Carbon\Carbon;

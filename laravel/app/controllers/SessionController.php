@@ -33,8 +33,8 @@ class SessionController extends \BaseController
       {
             if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password')), Input::get('rememberme')))
             {
-
-                  if (is_a(Auth::user()->userable, Client::class))
+                  
+                  if (is_a(Auth::user()->userable, Cliente::class))
                   {
                         Session::set('is_client', true);
                         return Redirect::intended('clientes');
@@ -46,6 +46,7 @@ class SessionController extends \BaseController
                   }
                   else
                   {
+                        Session::flash('error','No se reconoce el tipo de usuario');
                         return Redirect::intended('/');
                   }
             }

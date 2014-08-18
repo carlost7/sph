@@ -1,7 +1,7 @@
 <?php
 
 use Sph\Storage\Marketing\MarketingRepository as Marketing;
-use Sph\Storage\Client\ClientRepository as Client;
+use Sph\Storage\Cliente\ClienteRepository as Client;
 use Sph\Storage\Negocio\NegocioRepository as Negocio;
 use Sph\Storage\Evento\EventoRepository as Evento;
 use Sph\Storage\Promocion\PromocionRepository as Promocion;

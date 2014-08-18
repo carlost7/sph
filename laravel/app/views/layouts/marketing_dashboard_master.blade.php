@@ -12,6 +12,7 @@
             {{ HTML::style('css/bootstrap.css') }}
             {{ HTML::style('css/bootstrap-theme.css') }}
             {{ HTML::style('css/bootstrap-datetimepicker.min.css') }}
+            {{ HTML::style('css/colors-override.css') }}
             {{ HTML::style('css/main.css') }}
             {{ HTML::script('js/vendor/modernizr-2.6.2-respond-1.1.0.min.js') }}
             <script>
@@ -22,7 +23,7 @@
             <!--[if lt IE 7]>
                 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
             <![endif]-->
-            <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                   <div class="container">
                         <div class="navbar-header">
                               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">

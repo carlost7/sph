@@ -1,7 +1,7 @@
 <?php
 
 use Sph\Storage\User\UserRepository as User;
-use Sph\Storage\Client\ClientRepository as Client;
+use Sph\Storage\Cliente\ClienteRepository as Cliente;
 use Sph\Storage\Marketing\MarketingRepository as Marketing;
 
 class RegisterController extends \BaseController
@@ -11,10 +11,10 @@ class RegisterController extends \BaseController
       protected $cliente;
       protected $marketing;
 
-      public function __construct(User $user, Client $cliente, Marketing $marketing)
+      public function __construct(User $user, Cliente $cliente, Marketing $marketing)
       {
             $this->user = $user;
-            $this->client = $cliente;
+            $this->cliente = $cliente;
             $this->marketing = $marketing;
       }
 
@@ -37,17 +37,24 @@ class RegisterController extends \BaseController
       public function store_client()
       {
             $validateUser = new Sph\Services\Validators\User(Input::all(), 'save');
-            $validateClient = new Sph\Services\Validators\Client(Input::all(), 'save');
+            $validateClient = new Sph\Services\Validators\Cliente(Input::all(), 'save');
 
+            //Validamos datos del usuario y datos del cliente
             if ($validateUser->passes() & $validateClient->passes())
             {
-                  $user_model = array('password' => Input::get('password'), 'email' => Input::get('email'));
-                  $user = $this->user->create($user_model);
+                  //Creamos un usario
+                  $user = $this->user->create(Input::all());
                   if (isset($user))
                   {
+                        //Creamos un codigo de activación
                         $token = sha1(time());
-                        $cliente_model = array('name' => Input::get('nombre'), 'telephone' => Input::get('telefono'), 'is_active' => false, 'token' => $token, 'user' => $user);
-                        $cliente = $this->client->create($cliente_model);
+                        
+                        //Se crea el objeto de usuario con los datos de entrada y el usuario al que pertenece
+                        $cliente_model = Input::all();
+                        $cliente_model = array_push($cliente_model, array('is_active' => false , 'token' => $token , 'user' => $user));
+                                                
+                        $cliente = $this->cliente->create($cliente_model);
+                        
                         if (isset($cliente))
                         {
                               $data = array('nombre' => $cliente->nombre,
@@ -65,6 +72,8 @@ class RegisterController extends \BaseController
                         }
                   }
             }
+            
+            //Mensaje de error de validaciones
             $user_messages = ($validateUser->getErrors() != null) ? $validateUser->getErrors()->all() : array();
             $cliente_messages = ($validateClient->getErrors() != null) ? $validateClient->getErrors()->all() : array();
             $validationMessages = array_merge_recursive($user_messages, $cliente_messages);
@@ -78,13 +87,13 @@ class RegisterController extends \BaseController
 
       public function activate_client($token, $id)
       {
-            $cliente = $this->client->find($id);
+            $cliente = $this->cliente->find($id);
             if (isset($cliente))
             {
                   if ($token == $cliente->token)
                   {
                         $cliente_model = array('is_active' => true, 'token' => '');
-                        $cliente = $this->client->update($id, $cliente_model);
+                        $cliente = $this->cliente->activar_cliente($id);
                         if (isset($cliente))
                         {
                               $marketing = $this->marketing->asignar_cliente($cliente);
@@ -94,7 +103,7 @@ class RegisterController extends \BaseController
                   }
                   else
                   {
-                        Session::flash('error', 'El token no es el mismo');
+                        Session::flash('error', 'El codigo no coincide con tu usuario');
                         return View::make('register.confirmation')->with('confirmation', false);
                   }
             }
@@ -165,7 +174,7 @@ class RegisterController extends \BaseController
                         $marketing = $this->marketing->create($marketing_model);
                         if (isset($marketing))
                         {
-                              Session::flash('message', 'Usuario creado con éxito, revisa tu correo para activarlo');
+                              Session::flash('message', 'Usuario creado con éxito');
 
                               return Redirect::to('/');
                         }

@@ -137,22 +137,22 @@ Route::group(array('before' => 'auth'), function()
       {
 
             Route::get('clientes', array(
-                'uses' => 'clientesController@index',
+                'uses' => 'ClientesController@index',
                 'as' => 'clientes.index'
             ));
 
             Route::get('clients_edit', array(
-                'uses' => 'clientesController@edit',
+                'uses' => 'ClientesController@edit',
                 'as' => 'clientes.edit'
             ));
 
             Route::post('clients_update', array(
-                'uses' => 'clientesController@update',
+                'uses' => 'ClientesController@update',
                 'as' => 'clientes.update'
             ));
 
             Route::post('clients_delete', array(
-                'uses' => 'clientesController@destroy',
+                'uses' => 'ClientesController@destroy',
                 'as' => 'clientes.destroy'
             ));
 

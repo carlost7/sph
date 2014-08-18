@@ -1,7 +1,7 @@
 <?php
 
 use Sph\Storage\Marketing\MarketingRepository as Marketing;
-use Sph\Storage\Client\ClientRepository as Client;
+use Sph\Storage\Cliente\ClienteRepository as Client;
 
 class MarketingClientesController extends \BaseController
 {
