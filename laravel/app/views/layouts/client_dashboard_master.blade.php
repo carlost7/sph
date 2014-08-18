@@ -74,10 +74,10 @@
                                                 <span class="badge pull-right">{{ Auth::user()->userable->pagos->filter(function($pago){return $pago->pagado == false;})->count() ? Auth::user()->userable->pagos->filter(function($pago){return $pago->pagado == false;})->count() : '' }}</span>
                                           </a> 
                                     </li>
-                                    <li {{ Request::is('clientes*') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes.index','Cuenta',null) }}</li>
+                                    <li {{ Request::is('clientes') ? "class='active'" : "" }}>{{ HTML::linkRoute('clientes.index','Cuenta',null) }}</li>
                               </ul>
                         </div>
-                        <div class="col-xs-12 col-md-9">
+                        <div class="col-xs-12 col-md-8 col-md-push-1">
                               @if(Session::has('message'))
                               <div class="alert alert-success alert-dismissable">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

@@ -33,7 +33,7 @@ class ClientesController extends \BaseController
        */
       public function edit()
       {
-            return View::make('clientes.edit');
+            return View::make('clientes.edit')->with('cliente',Auth::user()->userable);
       }
 
       /**
@@ -61,15 +61,7 @@ class ClientesController extends \BaseController
                   $user = $this->user->update(Auth::user()->id, $user_model);
                   if (isset($user))
                   {
-                        $cliente_model = array();
-                        if ("" !== Input::get('nombre'))
-                        {
-                              $cliente_model = array_add($cliente_model, "name", Input::get('nombre'));
-                        }
-                        if ("" !== Input::get('telefono'))
-                        {
-                              $cliente_model = array_add($cliente_model, "telephone", Input::get('telefono'));
-                        }
+                        $cliente_model = Input::all();
                         $cliente = $this->client->update(Auth::user()->userable->id, $cliente_model);
                         if (isset($cliente))
                         {
