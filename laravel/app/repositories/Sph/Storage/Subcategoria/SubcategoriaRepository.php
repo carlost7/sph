@@ -2,7 +2,7 @@
 
 namespace Sph\Storage\Subcategoria;
 
-interface UserRepository
+interface SubcategoriaRepository
 {
 
       public function all();
@@ -14,4 +14,6 @@ interface UserRepository
       public function update($id, array $subcat_model);
 
       public function delete($id);
+      
+      public function getSubcatByCategoria($categoria_id);
 }

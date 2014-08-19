@@ -1,8 +1,8 @@
 <?php
 
-namespace Sph\Storage\User;
+namespace Sph\Storage\HorarioNegocio;
 
-interface UserRepository
+interface HorarioNegocioRepository
 {
 
       public function all();

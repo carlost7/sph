@@ -3,6 +3,7 @@
 use Sph\Storage\User\UserRepository as User;
 use Sph\Storage\Cliente\ClienteRepository as Cliente;
 use Sph\Storage\Marketing\MarketingRepository as Marketing;
+use Sph\Storage\Administrador\AdministradorRepository as Administrador;
 
 class RegisterController extends \BaseController
 {
@@ -10,12 +11,14 @@ class RegisterController extends \BaseController
       protected $user;
       protected $cliente;
       protected $marketing;
+      protected $administrador;
 
-      public function __construct(User $user, Cliente $cliente, Marketing $marketing)
+      public function __construct(User $user, Cliente $cliente, Marketing $marketing, Administrador $administrador)
       {
             $this->user = $user;
             $this->cliente = $cliente;
             $this->marketing = $marketing;
+            $this->administrador = $administrador;
       }
 
       public function index()
@@ -48,13 +51,13 @@ class RegisterController extends \BaseController
                   {
                         //Creamos un codigo de activación
                         $token = sha1(time());
-                        
+
                         //Se crea el objeto de usuario con los datos de entrada y el usuario al que pertenece
                         $cliente_model = Input::all();
-                        $cliente_model = array_push($cliente_model, array('is_active' => false , 'token' => $token , 'user' => $user));
-                                                
+                        $cliente_model = array_push($cliente_model, array('is_active' => false, 'token' => $token, 'user' => $user));
+
                         $cliente = $this->cliente->create($cliente_model);
-                        
+
                         if (isset($cliente))
                         {
                               $data = array('nombre' => $cliente->nombre,
@@ -72,7 +75,7 @@ class RegisterController extends \BaseController
                         }
                   }
             }
-            
+
             //Mensaje de error de validaciones
             $user_messages = ($validateUser->getErrors() != null) ? $validateUser->getErrors()->all() : array();
             $cliente_messages = ($validateClient->getErrors() != null) ? $validateClient->getErrors()->all() : array();
@@ -183,6 +186,50 @@ class RegisterController extends \BaseController
             $user_messages = ($validateUser->getErrors() != null) ? $validateUser->getErrors()->all() : array();
             $marketing_messages = ($validateMarketing->getErrors() != null) ? $validateMarketing->getErrors()->all() : array();
             $validationMessages = array_merge_recursive($user_messages, $marketing_messages);
+
+            return Redirect::route('register.marketing')->withInput()->withErrors($validationMessages);
+      }
+
+      /*
+       * Display the form for marketing registry
+       */
+
+      public function register_admin()
+      {
+            return View::make('register.admin');
+      }
+
+      /*
+       * Store the new admin user in the database
+       */
+
+      public function store_admin()
+      {
+            
+            $validateUser = new Sph\Services\Validators\User(Input::all(), 'save');
+            $validateAdmin = new Sph\Services\Validators\Administrador(Input::all(), 'save');
+
+            if ($validateUser->passes() & $validateAdmin->passes())
+            {
+                  $user_model = Input::all();
+                  $user = $this->user->create($user_model);
+                  if (isset($user))
+                  {
+                        $admin_model = Input::all();
+                        $admin_model = array_add($admin_model, 'user', $user);
+                        $admin = $this->administrador->create($admin_model);
+                        dd($admin);
+                        if (isset($admin))
+                        {
+                              Session::flash('message', 'Usuario creado con éxito');
+
+                              return Redirect::to('/');
+                        }
+                  }
+            }
+            $user_messages = ($validateUser->getErrors() != null) ? $validateUser->getErrors()->all() : array();
+            $admin_messages = ($validateAdmin->getErrors() != null) ? $validateAdmin->getErrors()->all() : array();
+            $validationMessages = array_merge_recursive($user_messages, $admin_messages);
 
             return Redirect::route('register.marketing')->withInput()->withErrors($validationMessages);
       }

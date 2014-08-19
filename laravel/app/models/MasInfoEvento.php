@@ -1,6 +1,6 @@
 <?php
 
-class MasInfoEventos extends \Eloquent
+class MasInfoEvento extends \Eloquent
 {
 
       protected $table = 'mas_info_eventos';

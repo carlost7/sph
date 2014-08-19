@@ -1,18 +1,53 @@
 <?php
 
 use Sph\Storage\Negocio\NegocioRepository as Negocio;
+use Sph\Storage\Categoria\CategoriaRepository as Categoria;
+use Sph\Storage\Subcategoria\SubcategoriaRepository as Subcategoria;
+use Sph\Storage\Zona\ZonaRepository as Zona;
+use Sph\Storage\Estado\EstadoRepository as Estado;
+use Sph\Storage\MasinfoNegocio\MasinfoNegocioRepository as Masinfo;
+use Sph\Storage\HorarioNegocio\HorarioNegocioRepository as Horario;
+use Sph\Storage\Imagen\ImagenRepository as Imagen;
+use Sph\Storage\Negocio_Especial\NegocioEspecialRepository as Especial;
+
+
 use Sph\Storage\Pago\PagoRepository as Pago;
 
 class clientesNegociosController extends \BaseController
 {
 
+      protected $categoria;
+      protected $estado;
+      protected $horario;
+      protected $imagen;
+      protected $mas_info;
       protected $negocio;
+      protected $especial;
       protected $pago;
+      protected $subcategoria;
+      protected $zona;            
 
-      public function __construct(Negocio $negocio, Pago $pago)
+      public function __construct(Categoria $categoria, 
+                                  Estado $estado, 
+                                  Horario $horario, 
+                                  Imagen $imagen, 
+                                  Masinfo $masinfo, 
+                                  Negocio $negocio, 
+                                  Especial $especial, 
+                                  Pago $pago, 
+                                  Subcategoria $subcategoria, 
+                                  Zona $zona)
       {
+            $this->categoria = $categoria;
+            $this->estado = $estado;
+            $this->horario = $horario;
+            $this->imagen = $imagen;
+            $this->mas_info = $masinfo;
             $this->negocio = $negocio;
+            $this->especial = $especial;
             $this->pago = $pago;
+            $this->subcategoria = $subcategoria;
+            $this->zona = $zona;
       }
 
       /**
@@ -33,7 +68,11 @@ class clientesNegociosController extends \BaseController
        */
       public function create()
       {
-            return View::make('clientes.negocios.create');
+            $categorias = $this->categoria->all();
+            $subcat = $this->subcategoria->all();
+            $zonas = $this->zona->all();
+            $estados = $this->estado->all();                        
+            return View::make('clientes.negocios.create')->with(array('categorias'=>$categorias,'subcategorias'=>$subcat,'estados'=>$estados,'zonas'=>$zonas));
       }
 
       /**
@@ -43,16 +82,20 @@ class clientesNegociosController extends \BaseController
        */
       public function store()
       {
+            
             $validatorNegocio = new Sph\Services\Validators\Negocio(Input::all(), 'save');
+            $validatorHorario = new Sph\Services\Validators\HorarioNegocio(Input::all(), 'save');
+            $validatorMasinfo = new Sph\Services\Validators\MasinfoNegocio(Input::all(), 'save');
+            $validatorBuscador = new Sph\Services\Validators\Buscador(Input::all(), 'save');
+            $input = array('imagen'=>Input::File('imagen'));
+            $validatorImagen = new Sph\Services\Validators\Imagen($input, 'save');
 
-            if ($validatorNegocio->passes())
+            if ($validatorNegocio->passes() & $validatorHorario->passes() & $validatorMasinfo->passes() & $validatorBuscador->passes())
             {
                   $negocio_model = Input::all();
-                  $negocio_model = array_add($negocio_model, 'client', Auth::user()->userable);
-
-                  $negocio_model = array_add($negocio_model, 'publicar', false);
-
+                  $negocio_model = array_push($negocio_model, array('client'=> Auth::user()->userable, 'publicar' => false));                  
                   $negocio = $this->negocio->create($negocio_model);
+                  
                   if (isset($negocio))
                   {
                         $pago_model = array(
@@ -76,7 +119,19 @@ class clientesNegociosController extends \BaseController
                         Session::flash('error', 'Error al agregar el negocio');
                   }
             }
-            return Redirect::back()->withErrors($validatorNegocio->getErrors())->withInput();
+
+            //Mensaje de error de validaciones
+            $negocio_messages = ($validatorNegocio->getErrors() != null) ? $validatorNegocio->getErrors()->all() : array();
+            $horario_messages = ($validatorHorario->getErrors() != null) ? $validatorHorario->getErrors()->all() : array();
+            $masinfo_messages = ($validatorMasinfo->getErrors() != null) ? $validatorMasinfo->getErrors()->all() : array();
+            $buscador_messages = ($validatorBuscador->getErrors() != null) ? $validatorBuscador->getErrors()->all() : array();
+            $imagen_messages = ($validatorImagen->getErrors() != null) ? $validatorImagen->getErrors()->all() : array();
+
+            $validationMessages = array_merge_recursive(
+                    $negocio_messages, $horario_messages, $masinfo_messages, $buscador_messages, $imagen_messages
+            );
+
+            return Redirect::back()->withErrors($validationMessages)->withInput();
       }
 
       /**
@@ -112,22 +167,37 @@ class clientesNegociosController extends \BaseController
        */
       public function update($id)
       {
-            $validatorNegocio = new Sph\Services\Validators\Negocio(Input::all(), 'update');
-            $validatorNegocioEspecial = new Sph\Services\Validators\Negocio_especial(Input::all(), 'update');
+            $validatorNegocio = new Sph\Services\Validators\Negocio(Input::all(), 'save');
+            $validatorHorario = new Sph\Services\Validators\HorarioNegocio(Input::all(), 'save');
+            $validatorMasinfo = new Sph\Services\Validators\MasinfoNegocio(Input::all(), 'save');
+            $validatorBuscador = new Sph\Services\Validators\Buscador(Input::all(), 'save');
+            $validatorImagen = new Sph\Services\Validators\Imagen(File::all(), 'save');
 
-            if ($validatorNegocio->passes() & $validatorNegocioEspecial->passes())
+            if ($validatorNegocio->passes() & $validatorHorario->passes() & $validatorMasinfo->passes() & $validatorBuscador->passes())
             {
-                  $negocio_model = Input::all();
 
-                  $especial = array('horario' => Input::get('horario'));
+                  $negocio_model = array_add($negocio_model, 'client', Auth::user()->userable);
 
-                  $negocio_model = array_add($negocio_model, 'especial', $especial);
+                  $negocio_model = array_add($negocio_model, 'publicar', false);
 
-                  $negocio = $this->negocio->update($id, $negocio_model);
+                  $negocio = $this->negocio->create($negocio_model);
                   if (isset($negocio))
                   {
-                        Session::flash('message', 'Negocio editado con éxito');
-                        return Redirect::route('clientes_negocios.index');
+                        $pago_model = array(
+                            'nombre' => 'Publicación de Negocio',
+                            'descripcion' => $negocio->nombre,
+                            'monto' => Config::get('costos.negocio'),
+                            'client' => Auth::user()->userable,
+                        );
+                        $pago = $this->pago->create($pago_model);
+                        if (isset($pago))
+                        {
+                              if ($this->negocio->agregar_pago($negocio, $pago))
+                              {
+                                    Session::flash('message', 'Negocio agregado con éxito');
+                                    return Redirect::route('clientes_negocios.index');
+                              }
+                        }
                   }
                   else
                   {
@@ -135,9 +205,16 @@ class clientesNegociosController extends \BaseController
                   }
             }
 
+            //Mensaje de error de validaciones
             $negocio_messages = ($validatorNegocio->getErrors() != null) ? $validatorNegocio->getErrors()->all() : array();
-            $negocio_especial_messages = ($validatorNegocioEspecial->getErrors() != null) ? $validatorNegocioEspecial->getErrors()->all() : array();
-            $validationMessages = array_merge_recursive($negocio_messages, $negocio_especial_messages);
+            $horario_messages = ($validatorHorario->getErrors() != null) ? $validatorHorario->getErrors()->all() : array();
+            $masinfo_messages = ($validatorMasinfo->getErrors() != null) ? $validatorMasinfo->getErrors()->all() : array();
+            $buscador_messages = ($validatorBuscador->getErrors() != null) ? $validatorBuscador->getErrors()->all() : array();
+            $imagen_messages = ($validatorImagen->getErrors() != null) ? $validatorImagen->getErrors()->all() : array();
+
+            $validationMessages = array_merge_recursive(
+                    $negocio_messages, $horario_messages, $masinfo_messages, $buscador_messages, $imagen_messages
+            );
 
             return Redirect::back()->withErrors($validationMessages)->withInput();
       }
@@ -189,3 +266,4 @@ class clientesNegociosController extends \BaseController
       }
 
 }
+

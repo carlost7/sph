@@ -14,4 +14,6 @@ interface ZonaRepository
       public function update($id, array $zona_model);
 
       public function delete($id);
+      
+      public function getZonaByEstado($estado_id);
 }

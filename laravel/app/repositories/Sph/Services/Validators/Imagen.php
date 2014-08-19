@@ -19,7 +19,7 @@ class Imagen extends Validator
 
       public static $rules = array(
           "save" => array(
-              'alt' => '',
+              'alt' => 'required',
               'imagen' => 'required|image|between:200,600'
               
           ),

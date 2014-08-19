@@ -82,18 +82,19 @@ Route::post('register_user', array(
 
 /*
  * *************************
- * Registro de marketing
+ * Registro de Administradores
  * *************************
  */
 
-Route::get('register_marketing', array(
-    'uses' => 'RegisterController@register_marketing',
-    'as' => 'register.marketing'
+Route::get('register_admin', array(
+    'uses' => 'RegisterController@register_admin',
+    'as' => 'register.admin'
 ));
-Route::post('register_marketing', array(
-    'uses' => 'RegisterController@store_marketing',
-    'as' => 'register.store_marketing'
+Route::post('register_admin', array(
+    'uses' => 'RegisterController@store_admin',
+    'as' => 'register.store_admin'
 ));
+
 
 
 /* Generación de codigos */
@@ -126,6 +127,17 @@ Route::any('pagos/recibir_notificacion', array('uses' => 'PagosController@recibi
 Route::group(array('before' => 'auth'), function()
 {
 
+      /*
+       * *****************************
+       * Subcategoria y zona
+       * *****************************
+       */
+
+      Route::get('obtener_subcategoria/{categoria_id}', array('as' => 'obtener_subcategoria',
+          'uses' => 'SubcategoriasController@getSubcategorias'));
+
+      Route::get('obtener_zona/{estado_id}', array('as' => 'obtener_zona',
+          'uses' => 'ZonasController@getZonas'));
 
       /*
        * ***********************
@@ -261,6 +273,53 @@ Route::group(array('before' => 'auth'), function()
              */
             Route::resource('marketing_clientes', 'MarketingClientesController');
       });
+
+      /*
+       * ***********************
+       *     Administrador
+       * ***********************
+       */
+      Route::group(array('before' => 'is_admin'), function()
+      {
+            Route::get('administradores', array(
+                'uses' => 'AdministradoresController@index',
+                'as' => 'administradores.index'
+            ));
+
+            Route::get('administradores_edit', array(
+                'uses' => 'AdministradoresController@edit',
+                'as' => 'administradores.edit'
+            ));
+
+            Route::post('administradores_update', array(
+                'uses' => 'AdministradoresController@update',
+                'as' => 'administradores.update'
+            ));
+
+            /*
+             * **********************************
+             * Buscador de los lugares
+             * **********************************
+             */
+            
+            Route::resource('administradores_buscador','AdminBuscadorController');
+
+            /*
+             * *************************
+             * Registro de marketing
+             * *************************
+             */
+
+            Route::get('register_marketing', array(
+                'uses' => 'RegisterController@register_marketing',
+                'as' => 'register.marketing'
+            ));
+            Route::post('register_marketing', array(
+                'uses' => 'RegisterController@store_marketing',
+                'as' => 'register.store_marketing'
+            ));
+      });
+
 
       /*
        * ********************************

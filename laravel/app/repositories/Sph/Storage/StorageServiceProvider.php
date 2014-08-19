@@ -15,13 +15,16 @@ class StorageServiceProvider extends ServiceProvider
       public function register()
       {
             $this->app->bind(
+                    'Sph\Storage\Administrador\AdministradorRepository', 'Sph\Storage\Administrador\AdministradorRepositoryEloquent'
+            );            
+            $this->app->bind(
                     'Sph\Storage\Aviso_cliente\AvisoClienteRepository', 'Sph\Storage\Aviso_cliente\AvisoClienteRepositoryEloquent'
             );
             $this->app->bind(
                     'Sph\Storage\Bitacora_cliente\BitacoraClienteRepository', 'Sph\Storage\Bitacora_cliente\BitacoraClienteRepositoryEloquent'
             );
             $this->app->bind(
-                    'Sph\Storage\Categoria\CategoriaClienteRepository', 'Sph\Storage\Categoria\CategoriaRepositoryEloquent'
+                    'Sph\Storage\Categoria\CategoriaRepository', 'Sph\Storage\Categoria\CategoriaRepositoryEloquent'
             );
             $this->app->bind(
                     'Sph\Storage\Checkout\CheckoutRepository', 'Sph\Storage\Checkout\CheckoutRepositoryMercadoPago'
@@ -36,7 +39,7 @@ class StorageServiceProvider extends ServiceProvider
                     'Sph\Storage\Evento\EventoRepository', 'Sph\Storage\Evento\EventoRepositoryEloquent'
             );
             $this->app->bind(
-                    'Sph\Storage\HorarioNegocio\HorarioNegocioRepository', 'Sph\Storage\Horario\HorarioNegocioRepositoryEloquent'
+                    'Sph\Storage\HorarioNegocio\HorarioNegocioRepository', 'Sph\Storage\HorarioNegocio\HorarioNegocioRepositoryEloquent'
             );
             $this->app->bind(
                     'Sph\Storage\Imagen\ImagenRepository', 'Sph\Storage\Imagen\ImagenRepositoryEloquent'
@@ -52,6 +55,9 @@ class StorageServiceProvider extends ServiceProvider
             );
             $this->app->bind(
                     'Sph\Storage\Negocio\NegocioRepository', 'Sph\Storage\Negocio\NegocioRepositoryEloquent'
+            );
+            $this->app->bind(
+                    'Sph\Storage\Negocio_Especial\NegocioEspecialRepository', 'Sph\Storage\Negocio_Especial\NegocioEspecialRepositoryEloquent'
             );
             $this->app->bind(
                     'Sph\Storage\Pago\PagoRepository', 'Sph\Storage\Pago\PagoRepositoryEloquent'

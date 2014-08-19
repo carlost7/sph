@@ -57,4 +57,9 @@ class SubcategoriaRepositoryEloquent implements SubcategoriaRepository
             return null;
       }
 
+      public function getSubcatByCategoria($categoria_id){
+            return Subcategoria::where('id_categoria', $categoria_id)->get();
+            
+      }
+      
 }

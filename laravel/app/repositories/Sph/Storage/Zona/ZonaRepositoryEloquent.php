@@ -70,5 +70,9 @@ class ZonaRepositoryEloquent implements ZonaRepository
 
             return null;
       }
+      
+      public function getZonaByEstado($estado_id){
+            return Zona::where('estado_id',$estado_id)->get();
+      }
 
 }

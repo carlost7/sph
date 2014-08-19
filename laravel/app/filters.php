@@ -116,3 +116,13 @@ Route::filter('is_marketing', function()
             return Redirect::to('/');
       }
 });
+
+Route::filter('is_admin', function()
+{
+      $is_admin = Session::get('is_admin');
+      if (!$is_admin)
+      {
+            Session::set('error', 'El tipo de usuario no es correcto');
+            return Redirect::to('/');
+      }
+});

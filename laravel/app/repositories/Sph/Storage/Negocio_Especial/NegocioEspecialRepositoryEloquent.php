@@ -1,6 +1,6 @@
 <?php
 
-namespace Sph\Storage\Negocio;
+namespace Sph\Storage\Negocio_Especial;
 
 /**
  * Description of UserRepositoryEloquent
@@ -8,12 +8,9 @@ namespace Sph\Storage\Negocio;
  * @author carlos
  */
 use Negocio;
-use HorarioNegocio;
-use MasInfoNegocio;
 use Negocio_especial;
-use Imagen;
 
-class NegocioRepositoryEloquent implements NegocioRepository
+class NegocioEspecialRepositoryEloquent implements NegocioEspecialRepository
 {
 
       public function all()
@@ -26,10 +23,7 @@ class NegocioRepositoryEloquent implements NegocioRepository
             $negocio = new Negocio($negocio_model);
             $negocio->cliente_id = $negocio_model['client']->id;
             if ($negocio->save())
-            {                  
-                  $negocio->horario()->save($negocio_model);
-                  $negocio->mas_info()->save($negocio_model);
-                  $negocio->imagenes()->save($negocio_model);
+            {
                   return $negocio;
             }
             else
@@ -94,35 +88,6 @@ class NegocioRepositoryEloquent implements NegocioRepository
             }
 
             return null;
-      }
-
-      public function agregar_pago($negocio_model, $pago_model)
-      {
-
-            if ($negocio_model->pago()->save($pago_model))
-            {
-                  return $negocio_model;
-            }
-            else
-            {
-                  return null;
-            }
-      }
-
-      public function activar($id)
-      {
-            $negocio = Negocio::find($id);
-            $negocio->publicar = true;
-            $negocio->is_activo = true;
-            $negocio->fecha_nueva_activacion = \Carbon\Carbon::now()->addMonth();
-            if ($negocio->save())
-            {
-                  return true;
-            }
-            else
-            {
-                  return false;
-            }
       }
 
 }

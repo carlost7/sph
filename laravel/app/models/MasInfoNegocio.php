@@ -3,7 +3,7 @@
 /*
  * Modelo de bd para guardar los datos adicionales de negocio
  */
-class MasInfoNegocios extends \Eloquent
+class MasInfoNegocio extends \Eloquent
 {
 
       protected $table = 'mas_info_negocios';
