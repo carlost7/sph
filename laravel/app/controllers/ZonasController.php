@@ -97,9 +97,10 @@ class ZonasController extends \BaseController
        * 
        */
 
-      public function obtenerZonas($id)
+      public function getZonas($estado_id)
       {
-            
+            $zonas = $this->zona->getZonaByEstado($estado_id);
+            return Response::json($zonas);
       }
 
 }

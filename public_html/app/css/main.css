@@ -37,7 +37,10 @@ body {
     
 }
 
-
+.listas{
+    overflow: auto;
+    max-height: 300px;    
+}
 
 
 

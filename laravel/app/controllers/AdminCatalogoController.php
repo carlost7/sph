@@ -35,9 +35,8 @@ class AdminCatalogoController extends \BaseController
             $zonas = $this->zona->all();
 
             return View::make('administradores.catalogo.index')->with(array('categorias' => $categorias,
-                        'subcategorias' => $subcategorias,
                         'estados' => $estados,
-                        'zonas' => $zonas,));
+            ));
       }
 
       /**
@@ -78,7 +77,7 @@ class AdminCatalogoController extends \BaseController
             {
                   $this->zona->create(Input::all());
             }
-            
+
             return Redirect::back();
       }
 
