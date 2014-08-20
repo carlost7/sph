@@ -7,7 +7,7 @@ class Categoria extends \Eloquent
 {
 
       protected $table = 'categorias';
-      protected $fillable = ['categorias'];
+      protected $fillable = ['categoria'];
 
       /*
        * Una categoria tiene muchos negocios

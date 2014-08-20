@@ -59,14 +59,14 @@
                   <div class="row">
                         <div class="col-xs-12 hidden-sm hidden-md hidden-lg">
                               <ul class="nav nav-pills">                                    
-                                    <li {{ Request::is('administradores_buscador') ? "class='active'" : "" }}>{{ HTML::linkRoute('administradores_buscador.index','Buscador',null) }}</li>
-                                    <li {{ Request::is('administradores') ? "class='active'" : "" }}>{{ HTML::linkRoute('administradores.index','Cuenta',null) }}</li>
+                                    <li {{ Request::is('administrador_catalogo*') ? "class='active'" : "" }}>{{ HTML::linkRoute('administrador_catalogo.index','Catálogo',null) }}</li>
+                                    <li {{ Request::is('administradores*') ? "class='active'" : "" }}>{{ HTML::linkRoute('administradores.index','Cuenta',null) }}</li>
                               </ul>
                         </div>
                         <div class="col-md-3 hidden-xs">
                               <ul class="nav nav-pills nav-stacked">
-                                    <li {{ Request::is('administradores_buscador') ? "class='active'" : "" }}>{{ HTML::linkRoute('administradores_buscador.index','Buscador',null) }}</li>
-                                    <li {{ Request::is('administradores') ? "class='active'" : "" }}>{{ HTML::linkRoute('administradores.index','Cuenta',null) }}</li>
+                                    <li {{ Request::is('administrador_catalogo*') ? "class='active'" : "" }}>{{ HTML::linkRoute('administrador_catalogo.index','Catálogo',null) }}</li>
+                                    <li {{ Request::is('administradores*') ? "class='active'" : "" }}>{{ HTML::linkRoute('administradores.index','Cuenta',null) }}</li>
                               </ul>
                         </div>
                         <div class="col-xs-12 col-md-8 col-md-push-1">

@@ -19,12 +19,10 @@ class ZonaRepositoryEloquent implements ZonaRepository
 
       public function create(array $zona_model)
       {
-            $zona = new Zona();
-            $zona->email = $zona_model['email'];
-            $zona->password = \Hash::make($zona_model['password']);
+            $zona = new Zona($zona_model);
+            $zona->estado_id = $zona_model['estado_id'];
             if ($zona->save())
             {
-
                   return $zona;
             }
             else

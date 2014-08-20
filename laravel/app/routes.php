@@ -298,11 +298,11 @@ Route::group(array('before' => 'auth'), function()
 
             /*
              * **********************************
-             * Buscador de los lugares
+             * Catalogo
              * **********************************
              */
-            
-            Route::resource('administradores_buscador','AdminBuscadorController');
+
+            Route::resource('administrador_catalogo','AdminCatalogoController');
 
             /*
              * *************************

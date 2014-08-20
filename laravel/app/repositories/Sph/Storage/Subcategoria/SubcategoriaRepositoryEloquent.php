@@ -19,10 +19,10 @@ class SubcategoriaRepositoryEloquent implements SubcategoriaRepository
 
       public function create(array $subcat_model)
       {
-            $subcategoria = new Subcategoria($subcat_model);            
+            $subcategoria = new Subcategoria($subcat_model);
+            $subcategoria->categoria_id = $subcat_model['categoria_id'];
             if ($subcategoria->save())
             {
-
                   return $subcategoria;
             }
             else

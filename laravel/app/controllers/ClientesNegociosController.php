@@ -86,7 +86,7 @@ class clientesNegociosController extends \BaseController
             $validatorNegocio = new Sph\Services\Validators\Negocio(Input::all(), 'save');
             $validatorHorario = new Sph\Services\Validators\HorarioNegocio(Input::all(), 'save');
             $validatorMasinfo = new Sph\Services\Validators\MasinfoNegocio(Input::all(), 'save');
-            $validatorBuscador = new Sph\Services\Validators\Buscador(Input::all(), 'save');
+            $validatorCatalogo = new Sph\Services\Validators\Buscador(Input::all(), 'save');
             $input = array('imagen'=>Input::File('imagen'));
             $validatorImagen = new Sph\Services\Validators\Imagen($input, 'save');
 

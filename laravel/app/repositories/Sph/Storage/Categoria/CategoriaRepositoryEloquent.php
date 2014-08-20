@@ -22,7 +22,6 @@ class CategoriaRepositoryEloquent implements CategoriaRepository
             $categoria = new Categoria($categoria_model);
             if ($categoria->save())
             {
-
                   return $categoria;
             }
             else

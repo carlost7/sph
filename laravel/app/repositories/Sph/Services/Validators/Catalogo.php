@@ -8,7 +8,7 @@ namespace Sph\Services\Validators;
  *
  * @author carlos
  */
-class Buscador extends Validator
+class Catalogo extends Validator
 {
       public static $rules = array(
           "save" => array(              
