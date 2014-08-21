@@ -118,85 +118,85 @@
                   </div>
                   <div class="row">
                         <div class="col-sm-6">
-                              {{ Form::label('lun-ini','Lunes inicio') }}
-                              <div class="bfh-timepicker" data-name='lun-ini' data-time='{{ Input::old('lun-ini')}}'>
+                              {{ Form::label('lun_ini','Lunes inicio') }}
+                              <div class="bfh-timepicker" data-name='lun_ini' data-time='{{ Input::old('lun_ini')}}'>
                               </div>                              
                         </div>
                         <div class="col-sm-6">
-                              {{ Form::label('lun-fin','Lunes fin') }}
-                              <div class="bfh-timepicker" data-name='lun-ini' data-align='right' data-time='{{ Input::old('lun-fin')}}'>
-                              </div>                              
-                        </div>
-                  </div>
-                  <div class="row">
-                        <div class="col-sm-6">
-                              {{ Form::label('mar-ini','Martes inicio') }}
-                              <div class="bfh-timepicker" data-name='mar-ini' data-time='{{ Input::old('mar-ini')}}'>
-                              </div>                              
-                        </div>
-                        <div class="col-sm-6">
-                              {{ Form::label('mar-fin','Martes fin') }}
-                              <div class="bfh-timepicker" data-name='mar-fin' data-align='right' data-time='{{ Input::old('mar-fin')}}'>
+                              {{ Form::label('lun_fin','Lunes fin') }}
+                              <div class="bfh-timepicker" data-name='lun_ini' data-align='right' data-time='{{ Input::old('lun_fin')}}'>
                               </div>                              
                         </div>
                   </div>
                   <div class="row">
                         <div class="col-sm-6">
-                              {{ Form::label('mie-ini','Miercoles inicio') }}
-                              <div class="bfh-timepicker" data-name='mie-ini' data-time='{{ Input::old('mie-ini')}}'>
+                              {{ Form::label('mar_ini','Martes inicio') }}
+                              <div class="bfh-timepicker" data-name='mar_ini' data-time='{{ Input::old('mar_ini')}}'>
                               </div>                              
                         </div>
                         <div class="col-sm-6">
-                              {{ Form::label('mie-fin','Miercoles fin') }}
-                              <div class="bfh-timepicker" data-name='mie-fin' data-align='right' data-time='{{ Input::old('mie-fin')}}'>
-                              </div>                              
-                        </div>
-                  </div>
-                  <div class="row">
-                        <div class="col-sm-6">
-                              {{ Form::label('jue-ini','Jueves inicio') }}
-                              <div class="bfh-timepicker" data-name='jue-ini' data-time='{{ Input::old('jue-ini')}}'>
-                              </div>                              
-                        </div>
-                        <div class="col-sm-6">
-                              {{ Form::label('jue-fin','Jueves fin') }}
-                              <div class="bfh-timepicker" data-name='jue-fin' data-align='right' data-time='{{ Input::old('jue-fin')}}'>
+                              {{ Form::label('mar_fin','Martes fin') }}
+                              <div class="bfh-timepicker" data-name='mar_fin' data-align='right' data-time='{{ Input::old('mar_fin')}}'>
                               </div>                              
                         </div>
                   </div>
                   <div class="row">
                         <div class="col-sm-6">
-                              {{ Form::label('vie-ini','Viernes inicio') }}
-                              <div class="bfh-timepicker" data-name='vie-ini' data-time='{{ Input::old('vie-ini')}}'>
+                              {{ Form::label('mie_ini','Miercoles inicio') }}
+                              <div class="bfh-timepicker" data-name='mie_ini' data-time='{{ Input::old('mie_ini')}}'>
                               </div>                              
                         </div>
                         <div class="col-sm-6">
-                              {{ Form::label('vie-fin','Viernes fin') }}
-                              <div class="bfh-timepicker" data-name='vie-fin' data-align='right' data-time='{{ Input::old('vie-fin')}}'>
-                              </div>                              
-                        </div>
-                  </div>
-                  <div class="row">
-                        <div class="col-sm-6">
-                              {{ Form::label('sab-ini','Sabado inicio') }}
-                              <div class="bfh-timepicker" data-name='sab-ini' data-time='{{ Input::old('sab-ini')}}'>
-                              </div>                              
-                        </div>
-                        <div class="col-sm-6">
-                              {{ Form::label('sab-fin','Sabado fin') }}
-                              <div class="bfh-timepicker" data-name='sab-fin' data-align='right' data-time='{{ Input::old('sab-fin')}}'>
+                              {{ Form::label('mie_fin','Miercoles fin') }}
+                              <div class="bfh-timepicker" data-name='mie_fin' data-align='right' data-time='{{ Input::old('mie_fin')}}'>
                               </div>                              
                         </div>
                   </div>
                   <div class="row">
                         <div class="col-sm-6">
-                              {{ Form::label('dom-ini','Domingo inicio') }}
-                              <div class="bfh-timepicker" data-name='dom-ini' data-time='{{ Input::old('dom-ini')}}'>
+                              {{ Form::label('jue_ini','Jueves inicio') }}
+                              <div class="bfh-timepicker" data-name='jue_ini' data-time='{{ Input::old('jue_ini')}}'>
                               </div>                              
                         </div>
                         <div class="col-sm-6">
-                              {{ Form::label('dom-fin','Domingo fin') }}
-                              <div class="bfh-timepicker" data-name='dom-fin' data-align='right' data-time='{{ Input::old('dom-fin')}}'>
+                              {{ Form::label('jue_fin','Jueves fin') }}
+                              <div class="bfh-timepicker" data-name='jue_fin' data-align='right' data-time='{{ Input::old('jue_fin')}}'>
+                              </div>                              
+                        </div>
+                  </div>
+                  <div class="row">
+                        <div class="col-sm-6">
+                              {{ Form::label('vie_ini','Viernes inicio') }}
+                              <div class="bfh-timepicker" data-name='vie_ini' data-time='{{ Input::old('vie_ini')}}'>
+                              </div>                              
+                        </div>
+                        <div class="col-sm-6">
+                              {{ Form::label('vie_fin','Viernes fin') }}
+                              <div class="bfh-timepicker" data-name='vie_fin' data-align='right' data-time='{{ Input::old('vie_fin')}}'>
+                              </div>                              
+                        </div>
+                  </div>
+                  <div class="row">
+                        <div class="col-sm-6">
+                              {{ Form::label('sab_ini','Sabado inicio') }}
+                              <div class="bfh-timepicker" data-name='sab_ini' data-time='{{ Input::old('sab_ini')}}'>
+                              </div>                              
+                        </div>
+                        <div class="col-sm-6">
+                              {{ Form::label('sab_fin','Sabado fin') }}
+                              <div class="bfh-timepicker" data-name='sab_fin' data-align='right' data-time='{{ Input::old('sab_fin')}}'>
+                              </div>                              
+                        </div>
+                  </div>
+                  <div class="row">
+                        <div class="col-sm-6">
+                              {{ Form::label('dom_ini','Domingo inicio') }}
+                              <div class="bfh-timepicker" data-name='dom_ini' data-time='{{ Input::old('dom_ini')}}'>
+                              </div>                              
+                        </div>
+                        <div class="col-sm-6">
+                              {{ Form::label('dom_fin','Domingo fin') }}
+                              <div class="bfh-timepicker" data-name='dom_fin' data-align='right' data-time='{{ Input::old('dom_fin')}}'>
                               </div>                              
                         </div>
                   </div>      
@@ -214,24 +214,24 @@
       <div class="row">
             <div class="col-sm-4">
                   {{ Form::label('estado','Estado') }}
-                  {{ Form::select('estado', array('cats'=> array('leopard'=>'leopard','Guepard'=>'guepard')),null,array('class'=>'form-control')) }}
+                  {{ Form::select('estado', $estados->lists('estado','id'),null,array('class'=>'form-control','id'=>'estados')) }}
             </div>
             <div class="col-sm-4">
                   {{ Form::label('zona','Zona') }}
-                  {{ Form::select('zona', array('cats'=> array('leopard'=>'leopard','Guepard'=>'guepard')),null,array('class'=>'form-control')) }}
+                  {{ Form::select('zona', array(),null,array('class'=>'form-control', 'id'=>'zonas')) }}
             </div>
       </div>
       <div class="row">
             <div class="col-sm-4">
                   {{ Form::label('categoria','Categoria') }}
-                  {{ Form::select('categoria', array('cats'=> array('leopard'=>'leopard','Guepard'=>'guepard')),null,array('class'=>'form-control')) }}
+                  {{ Form::select('categoria', $categorias->lists('categoria','id'),null,array('class'=>'form-control','id'=>'categorias')) }}
             </div>
             <div class="col-sm-4">
                   {{ Form::label('subcategoria','subcategoria') }}
-                  {{ Form::select('subcategoria', array('cats'=> array('leopard'=>'leopard','Guepard'=>'guepard')),null,array('class'=>'form-control')) }}
+                  {{ Form::select('subcategoria', array(),null,array('class'=>'form-control', 'id'=>'subcats')) }}
             </div>
       </div>
-      
+
 </div>
 
 @include('layouts.show_form_errors')
@@ -266,6 +266,37 @@
                         }
                   }
             });
+      });
+
+</script>
+
+<script>
+      $(document).ready(function() {
+            $('#estados').change(function() {
+                  var estado_id = $("#estados").val();
+                  url = base_url + "/obtener_zona/" + estado_id;
+                  $.get(url).done(function(data) {
+                        $("#zonas").empty();
+                        for (i = 0; i < data.length; i++) {
+                              resultado = data[i];
+                              elemento = "<option value=" + resultado.id + ">" + resultado.zona + "</option>";
+                              $("#zonas").append(elemento);
+                        }
+                  });
+            }).trigger('change');
+            
+            $('#categorias').change(function() {
+                  var categoria_id = $("#categorias").val();
+                  url = base_url + "/obtener_subcategoria/" + categoria_id;
+                  $.get(url).done(function(data) {
+                        $("#subcats").empty();
+                        for (i = 0; i < data.length; i++) {
+                              resultado = data[i];
+                              elemento = "<option value=" + resultado.id + ">" + resultado.subcategoria + "</option>";
+                              $("#subcats").append(elemento);
+                        }
+                  });
+            }).trigger('change');
       });
 
 </script>

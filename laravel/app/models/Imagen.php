@@ -6,6 +6,8 @@
 
 class Imagen extends \Eloquent
 {
+      
+      protected $table = 'imagenes';
 
       protected $fillable = ['path', 'nombre', 'alt'];
 
@@ -15,6 +17,13 @@ class Imagen extends \Eloquent
       public function imageable()
       {
             return $this->morphTo();
+      }
+      
+      /*
+       * Una imagen le corresponde a un usuario;
+       */
+      public function cliente(){
+            return $this->hasOne('Cliente');
       }
 
 }

@@ -8,7 +8,7 @@ class Negocio extends \Eloquent
 
       protected $table = 'negocios';
       
-      protected $fillable = ['nombre', 'direccion', 'telefono', 'descripcion', 'moneda', 'rango_min', 'rango_max'];
+      protected $fillable = ['nombre', 'direccion', 'telefono', 'descripcion'];
 
       /*
        * Un negocio tiene mas informacion

@@ -25,11 +25,23 @@ class NegocioRepositoryEloquent implements NegocioRepository
       {
             $negocio = new Negocio($negocio_model);
             $negocio->cliente_id = $negocio_model['client']->id;
+            $negocio->categoria_id = $negocio_model['categoria'];
+            $negocio->subcategoria_id = $negocio_model['subcategoria'];
+            $negocio->estado_id = $negocio_model['estado'];
+            $negocio->zona_id = $negocio_model['zona'];
             if ($negocio->save())
             {                  
-                  $negocio->horario()->save($negocio_model);
-                  $negocio->mas_info()->save($negocio_model);
-                  $negocio->imagenes()->save($negocio_model);
+                  
+                  $horario = new HorarioNegocio($negocio_model);                  
+                  $negocio->horario()->save($horario);
+                  
+                  $mas_info = new MasInfoNegocio($negocio_model);
+                  $negocio->mas_info()->save($mas_info);
+                  
+                  $imagen = new Imagen($negocio_model);
+                  $imagen->nombre = $negocio_model['nombre_imagen'];
+                  $imagen->cliente_id = $negocio->client->id;
+                  $negocio->imagenes()->save($imagen);
                   return $negocio;
             }
             else

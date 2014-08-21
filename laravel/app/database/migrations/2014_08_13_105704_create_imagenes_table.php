@@ -22,6 +22,8 @@ class CreateImagenesTable extends Migration
                   $table->integer('imageable_id');
                   $table->string('alt');
                   $table->timestamps();
+                  $table->integer('cliente_id')->unsigned();
+                  $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade')->onUpdate('cascade');
             });
       }
 

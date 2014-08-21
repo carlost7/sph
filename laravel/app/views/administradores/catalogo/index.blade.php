@@ -81,13 +81,12 @@
               $("#subcats").empty();
                       for (i = 0; i < data.length; i++){
               resultado = data[i];
-                      elemento = "<div class='list-group-item'>" + resultado.subcategoria + "<a href='" + base_url + "/administrador_catalogo/" + resultado.id + "/edit?subcategoria' class='btn btn-sm'>editar</a>"+
-                      '{{ Form::open(array("route" => array("administrador_catalogo.destroy","'+resultado.id+'"))) }}'"'+
-                                    '{{ Form::hidden('_method', 'DELETE') }} '+
-                                    '<p class="text-right">{{ Form::submit("eliminar", array("class" => "btn btn-sm btn-link")) }}</p>'+
-                                    "{{ Form::close() }} </div>";
-                      
-                      $("#subcats").append(elemento);                      
+                      elemento = "<div class='list-group-item'>" + resultado.subcategoria + "<a href='" + base_url + "/administrador_catalogo/" + resultado.id + "/edit?subcategoria' class='btn btn-sm'>editar</a>" +
+                              "<form method='POST' action='"+base_url+"/administrador_catalogo/"+resultado.id+"&subcategoria' accept-charset='UTF-8'>"+
+                              "<input name='_method' type='hidden' value='DELETE'> " +
+                              "<p class='text-right'><input class='btn btn-sm btn-link' type='submit' value='eliminar'></p>" +
+                              "</form></div>";                               
+                      $("#subcats").append(elemento);
               }
               }
 
@@ -103,11 +102,11 @@
               $("#zonas").empty();
                       for (i = 0; i < data.length; i++){
               resultado = data[i];
-                      elemento = "<div class='list-group-item'>" + resultado.zona + "<a href='" + base_url + "/administrador_catalogo/" + resultado.id + "/edit?subcategoria' class='btn btn-sm'>editar</a>"+
-                      '{{ Form::open(array("route" => array("administrador_catalogo.destroy","resultado.id"))) }}'+
-                                    '{{ Form::hidden('_method', 'DELETE') }} '+
-                                    '<p class="text-right">{{ Form::submit("eliminar", array("class" => "btn btn-sm btn-link")) }}</p>'+
-                                    "{{ Form::close() }} </div>";
+                      elemento = "<div class='list-group-item'>" + resultado.zona + "<a href='" + base_url + "/administrador_catalogo/" + resultado.id + "/edit?zona' class='btn btn-sm'>editar</a>" +
+                              "<form method='POST' action='"+base_url+"/administrador_catalogo/"+resultado.id+"&zona' accept-charset='UTF-8'>"+
+                              "<input name='_method' type='hidden' value='DELETE'> " +
+                              "<p class='text-right'><input class='btn btn-sm btn-link' type='submit' value='eliminar'></p>" +
+                              "</form></div>";
                       $("#zonas").append(elemento);
               }
               }

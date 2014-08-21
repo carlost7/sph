@@ -12,16 +12,16 @@ class Catalogo extends Validator
 {
       public static $rules = array(
           "save" => array(              
-              'categoria' => 'required|exists:categoria,id',
-              'subcategoria' => 'required|exists:subcategoria,id',
-              'estado' => 'required|exists:estado,id',
-              'zona' => 'required|exists:zona,id',
+              'categoria' => 'required|exists:categorias,id',
+              'subcategoria' => 'required|exists:subcategorias,id',
+              'estado' => 'required|exists:estados,id',
+              'zona' => 'required|exists:zonas,id',
           ),
           "update" => array(
-              'categoria' => 'required|exists:categoria,id',
-              'subcategoria' => 'required|exists:subcategoria,id',
-              'estado' => 'required|exists:estado,id',
-              'zona' => 'required|exists:zona,id',
+              'categoria' => 'required|exists:categorias,id',
+              'subcategoria' => 'required|exists:subcategorias,id',
+              'estado' => 'required|exists:estados,id',
+              'zona' => 'required|exists:zonas,id',
           ),
       );
 }

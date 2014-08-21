@@ -86,18 +86,31 @@ class clientesNegociosController extends \BaseController
             $validatorNegocio = new Sph\Services\Validators\Negocio(Input::all(), 'save');
             $validatorHorario = new Sph\Services\Validators\HorarioNegocio(Input::all(), 'save');
             $validatorMasinfo = new Sph\Services\Validators\MasinfoNegocio(Input::all(), 'save');
-            $validatorCatalogo = new Sph\Services\Validators\Buscador(Input::all(), 'save');
-            $input = array('imagen'=>Input::File('imagen'));
+            $validatorCatalogo = new Sph\Services\Validators\Catalogo(Input::all(), 'save');
+            $input = Input::File('imagen');
             $validatorImagen = new Sph\Services\Validators\Imagen($input, 'save');
 
-            if ($validatorNegocio->passes() & $validatorHorario->passes() & $validatorMasinfo->passes() & $validatorBuscador->passes())
+            if ($validatorNegocio->passes() & $validatorHorario->passes() & $validatorMasinfo->passes() & $validatorCatalogo->passes())
             {
-                  $negocio_model = Input::all();
-                  $negocio_model = array_push($negocio_model, array('client'=> Auth::user()->userable, 'publicar' => false));                  
+                  $negocio_model = Input::all();                  
+                  $negocio_model = array_add($negocio_model, 'client', Auth::user()->userable);
+                  $negocio_model = array_add($negocio_model, 'publicar', false);
+                  
+                  //Obtener datos de la imagen
+                  $path = strval(Auth::user()->userable->id).'/';
+                  $nombre = strval(Auth::user()->userable->total_images+1).'.'.$input->getClientOriginalExtension();
+                  $negocio_model = array_add($negocio_model, 'path', $path);
+                  $negocio_model = array_add($negocio_model, 'nombre_imagen', $nombre);
+                  
                   $negocio = $this->negocio->create($negocio_model);
                   
                   if (isset($negocio))
                   {
+                        //Guardar la imagen; 
+                        $path = Config::get('params.usrimg').$path;
+                        $input->move($path, $nombre);
+                        
+                        //Crear Pago de servicios
                         $pago_model = array(
                             'nombre' => 'Publicación de Negocio',
                             'descripcion' => $negocio->nombre,
@@ -124,7 +137,7 @@ class clientesNegociosController extends \BaseController
             $negocio_messages = ($validatorNegocio->getErrors() != null) ? $validatorNegocio->getErrors()->all() : array();
             $horario_messages = ($validatorHorario->getErrors() != null) ? $validatorHorario->getErrors()->all() : array();
             $masinfo_messages = ($validatorMasinfo->getErrors() != null) ? $validatorMasinfo->getErrors()->all() : array();
-            $buscador_messages = ($validatorBuscador->getErrors() != null) ? $validatorBuscador->getErrors()->all() : array();
+            $catalogo_messages = ($validatorCatalogo->getErrors() != null) ? $validatorCatalogo->getErrors()->all() : array();
             $imagen_messages = ($validatorImagen->getErrors() != null) ? $validatorImagen->getErrors()->all() : array();
 
             $validationMessages = array_merge_recursive(
