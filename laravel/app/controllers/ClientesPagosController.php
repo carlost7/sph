@@ -31,7 +31,7 @@ class clientesPagosController extends \BaseController
       {
             $necesita_pagar = false;
             $pagos = Auth::user()->userable->pagos()->orderBy('created_at', 'desc')->orderBy('pagado', 'asc')->paginate(5);
-
+            
             //Check if value is in collection;
             $value = false;
             $key = 'pagado';
@@ -39,7 +39,6 @@ class clientesPagosController extends \BaseController
             {
                   $necesita_pagar = true;
             }
-
             //->sortByDesc('created_at')->sortBy('pagado');
             return View::make('clientes.pagos.index')->with(array("pagos" => $pagos, 'necesita_pagar' => $necesita_pagar));
       }

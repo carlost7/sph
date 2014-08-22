@@ -6,5 +6,7 @@ return array(
     
     'usrimg' => 'img/user_images/',
     
+    'path_public_image' => URL::to('/').'/img/user_images/',
+    
     
 );

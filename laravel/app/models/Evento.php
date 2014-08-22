@@ -14,7 +14,7 @@ class Evento extends \Eloquent
        * Un evento tiene mas informacion
        */
 
-      public function mas_info()
+      public function masInfo()
       {
             return $this->hasOne('MasInfoEvento');
       }

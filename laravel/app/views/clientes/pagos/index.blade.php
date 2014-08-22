@@ -14,9 +14,9 @@
       <br>
       <br>
       @endif
-
+      
       @foreach($pagos as $pago)
-
+      
       <div class="list-group-item {{ $pago->pagado || $pago->pagable->publicar ? 'published' : 'not-published' }}">
             <h3 class="text-left">                  
                   {{ $pago->descripcion }}
@@ -31,6 +31,8 @@
                   {{ $pago->created_at }}
             </p>
 
+            
+            
             <div class="text-right">
                   @if($pago->pagado)
                   <p>Pagado: {{ ($pago->pagado) ? 'Si' : 'No' }} - Método:{{$pago->metodo}}</p>
@@ -46,7 +48,7 @@
 
                         {{ HTML::linkRoute('pagar_contenido.get','Activación automática',array('id'=>$pago->id),array('class'=>'btn btn-sm btn-success')) }}
                   </div>                        
-                  @endif
+                  @endif                  
             </div>
       </div>
       @endforeach
@@ -64,10 +66,4 @@
 
 @stop
 
-@section('scripts')
 
-<script type="text/javascript">
-
-</script>
-
-@stop

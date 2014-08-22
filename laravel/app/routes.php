@@ -111,6 +111,21 @@ Route::get('create_codes', function()
 
 
 /*
+ * ********************************
+ * Probar muestra de imagenes
+ * ********************************
+ */
+
+Route::get('prueba_imagen',function(){
+      
+      $imagen = Imagen::first();
+      
+      
+      echo "<img src='".Config::get('params.path_public_image').$imagen->path.$imagen->nombre."' alt='".$imagen->alt."'>";
+      
+});
+
+/*
  * **************************************
  * recibir_notificacion_prueba
  * **************************************

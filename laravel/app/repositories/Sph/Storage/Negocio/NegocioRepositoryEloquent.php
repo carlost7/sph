@@ -30,18 +30,18 @@ class NegocioRepositoryEloquent implements NegocioRepository
             $negocio->estado_id = $negocio_model['estado'];
             $negocio->zona_id = $negocio_model['zona'];
             if ($negocio->save())
-            {                  
-                  
-                  $horario = new HorarioNegocio($negocio_model);                  
+            {
+
+                  $horario = new HorarioNegocio($negocio_model);
                   $negocio->horario()->save($horario);
-                  
+
                   $mas_info = new MasInfoNegocio($negocio_model);
                   $negocio->mas_info()->save($mas_info);
-                  
+
                   $imagen = new Imagen($negocio_model);
                   $imagen->nombre = $negocio_model['nombre_imagen'];
                   $imagen->cliente_id = $negocio->client->id;
-                  $negocio->imagenes()->save($imagen);
+                  $negocio->imagen()->save($imagen);
                   return $negocio;
             }
             else
@@ -66,14 +66,33 @@ class NegocioRepositoryEloquent implements NegocioRepository
             if (isset($negocio))
             {
                   $negocio->fill($negocio_model);
+                  $negocio->categoria_id = $negocio_model['categoria'];
+                  $negocio->subcategoria_id = $negocio_model['subcategoria'];
+                  $negocio->estado_id = $negocio_model['estado'];
+                  $negocio->zona_id = $negocio_model['zona'];
+
                   if ($negocio->save())
                   {
+
+                        //$horario = new HorarioNegocio($negocio_model);
+                        //$negocio->horario()->update($horario);
+                        $negocio->horario()->update($negocio_model);
+
+                        $mas_info = new MasInfoNegocio($negocio_model);
+                        $negocio->masInfo()->update($mas_info);
+
+                        $imagen = new Imagen($negocio_model);
+                        $imagen->nombre = $negocio_model['nombre_imagen'];
+                        $imagen->cliente_id = $negocio->client->id;
+                        $negocio->imagen()->update($imagen);
+                        
+                        
                         if (!$negocio->is_especial)
                         {
                               return $negocio;
                         }
 
-                        $negocio_especial = $negocio->especial;
+                        /*$negocio_especial = $negocio->especial;
 
                         if (isset($negocio_especial))
                         {
@@ -97,7 +116,7 @@ class NegocioRepositoryEloquent implements NegocioRepository
                               {
                                     return null;
                               }
-                        }
+                        }*/
                   }
                   else
                   {

@@ -17,5 +17,11 @@ class Negocio_especial extends \Eloquent
       {
             return $this->belongsTo('Negocio');
       }
+      
+      
+      public function imagenes()
+      {
+            return $this->morphMany('Imagen', 'imageable');
+      }
 
 }

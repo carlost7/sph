@@ -7,6 +7,7 @@ class MasInfoNegocio extends \Eloquent
 {
 
       protected $table = 'mas_info_negocios';
+      
       protected $fillable = ['domicilio', 'llevar', 'moneda', 'rango_min', 'rango_max','efectivo', 'tc', 'td', 'familiar', 'alcohol'];
 
       /*
