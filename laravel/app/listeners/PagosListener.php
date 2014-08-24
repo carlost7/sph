@@ -28,10 +28,10 @@ class PagosListener
                   $pago = $this->pago->find($id);
                   $this->pago->publicar_contenido($pago);
             }
-
+            
             Mail::queue('emails.publicacion_contenido_pago', array(), function($message) use ($pago)
             {
-                  $message->to($pago->cliente->user->email, $pago->client->nombre)->subject('Publicación de contenido en Sphellar');
+                  $message->to($pago->cliente->user->email, $pago->cliente->nombre)->subject('Publicación de contenido en Sphellar');
             });
       }
 

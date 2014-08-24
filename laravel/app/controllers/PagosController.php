@@ -150,7 +150,7 @@ class PagosController extends \BaseController
               if (isset($id))
               { */
             //$response = $this->checkout->recibir_notificacion($id);
-            $response = array("external_reference" => "10", "status" => "approved");
+            $response = array("external_reference" => "3", "status" => "approved");
             //$response = array("external_reference" => "1","status" => "approved");
             if (isset($response))
             {

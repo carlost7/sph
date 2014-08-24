@@ -36,12 +36,15 @@ class NegocioRepositoryEloquent implements NegocioRepository
                   $negocio->horario()->save($horario);
 
                   $mas_info = new MasInfoNegocio($negocio_model);
-                  $negocio->mas_info()->save($mas_info);
+                  $negocio->masInfo()->save($mas_info);
 
-                  $imagen = new Imagen($negocio_model);
-                  $imagen->nombre = $negocio_model['nombre_imagen'];
-                  $imagen->cliente_id = $negocio->client->id;
-                  $negocio->imagen()->save($imagen);
+                  if (isset($negocio_model['nombre_imagen']))
+                  {
+                        $imagen = new Imagen($negocio_model);
+                        $imagen->nombre = $negocio_model['nombre_imagen'];
+                        $imagen->cliente_id = $negocio->client->id;
+                        $negocio->imagen()->save($imagen);
+                  }
                   return $negocio;
             }
             else
@@ -76,47 +79,55 @@ class NegocioRepositoryEloquent implements NegocioRepository
 
                         //$horario = new HorarioNegocio($negocio_model);
                         //$negocio->horario()->update($horario);
-                        $negocio->horario()->update($negocio_model);
+                        $negocio->horario->fill($negocio_model);
+                        $negocio->horario->save();
 
-                        $mas_info = new MasInfoNegocio($negocio_model);
-                        $negocio->masInfo()->update($mas_info);
+                        $negocio->masInfo->fill($negocio_model);
+                        $negocio->masInfo->save();
 
-                        $imagen = new Imagen($negocio_model);
-                        $imagen->nombre = $negocio_model['nombre_imagen'];
-                        $imagen->cliente_id = $negocio->client->id;
-                        $negocio->imagen()->update($imagen);
+                        if (isset($negocio_model['nombre_imagen']))
+                        {
+                              $imagen = new Imagen($negocio_model);
+                              $imagen->nombre = $negocio_model['nombre_imagen'];
+                              $imagen->cliente_id = $negocio->client->id;
+                              $negocio->imagen()->save($imagen);
+                        }else{
+                              $negocio->imagen->fill($negocio_model);
+                              $negocio->imagen->save();
+                        }
                         
-                        
+
+
                         if (!$negocio->is_especial)
                         {
                               return $negocio;
                         }
 
-                        /*$negocio_especial = $negocio->especial;
+                        /* $negocio_especial = $negocio->especial;
 
-                        if (isset($negocio_especial))
-                        {
-                              if ($negocio->especial()->update($negocio_model['especial']))
-                              {
-                                    return $negocio;
-                              }
-                              else
-                              {
-                                    return null;
-                              }
-                        }
-                        else
-                        {
-                              $negocio_especial = new Negocio_especial($negocio_model['especial']);
-                              if ($negocio->especial()->save($negocio_especial))
-                              {
-                                    return $negocio;
-                              }
-                              else
-                              {
-                                    return null;
-                              }
-                        }*/
+                          if (isset($negocio_especial))
+                          {
+                          if ($negocio->especial()->update($negocio_model['especial']))
+                          {
+                          return $negocio;
+                          }
+                          else
+                          {
+                          return null;
+                          }
+                          }
+                          else
+                          {
+                          $negocio_especial = new Negocio_especial($negocio_model['especial']);
+                          if ($negocio->especial()->save($negocio_especial))
+                          {
+                          return $negocio;
+                          }
+                          else
+                          {
+                          return null;
+                          }
+                          } */
                   }
                   else
                   {

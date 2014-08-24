@@ -11,8 +11,7 @@
   |
  */
 
-Route::get('/', function()
-{
+Route::get('/', function() {
       return View::make('hello');
 });
 
@@ -23,16 +22,16 @@ Route::get('/', function()
  * *******************************
  */
 Route::get('login', array(
-    'uses' => 'SessionController@create',
-    'as' => 'session.create'
+      'uses' => 'SessionController@create',
+      'as' => 'session.create'
 ));
 Route::post('login', array(
-    'uses' => 'SessionController@store',
-    'as' => 'session.store'
+      'uses' => 'SessionController@store',
+      'as' => 'session.store'
 ));
 Route::get('logout', array(
-    'uses' => 'SessionController@destroy',
-    'as' => 'session.destroy'
+      'uses' => 'SessionController@destroy',
+      'as' => 'session.destroy'
 ));
 
 //Reminder Controller
@@ -47,22 +46,22 @@ Route::controller('password', 'RemindersController');
  * ****************************
  */
 Route::get('register_index', array(
-    'uses' => 'RegisterController@index',
-    'as' => 'register.index'
+      'uses' => 'RegisterController@index',
+      'as' => 'register.index'
 ));
 
 Route::get('register_client', array(
-    'uses' => 'RegisterController@register_client',
-    'as' => 'register.client'
+      'uses' => 'RegisterController@register_client',
+      'as' => 'register.client'
 ));
 Route::post('register_client', array(
-    'uses' => 'RegisterController@store_client',
-    'as' => 'register.store_client'
+      'uses' => 'RegisterController@store_client',
+      'as' => 'register.store_client'
 ));
 
 Route::get('activate_client/{token?}/{id?}', array(
-    'uses' => 'RegisterController@activate_client',
-    'as' => 'register.activate_client'
+      'uses' => 'RegisterController@activate_client',
+      'as' => 'register.activate_client'
 ));
 
 
@@ -72,12 +71,12 @@ Route::get('activate_client/{token?}/{id?}', array(
  * **************************
  */
 Route::get('register_user', array(
-    'uses' => 'RegisterController@register_user',
-    'as' => 'register.user'
+      'uses' => 'RegisterController@register_user',
+      'as' => 'register.user'
 ));
 Route::post('register_user', array(
-    'uses' => 'RegisterController@store_user',
-    'as' => 'register.store_user'
+      'uses' => 'RegisterController@store_user',
+      'as' => 'register.store_user'
 ));
 
 /*
@@ -87,43 +86,13 @@ Route::post('register_user', array(
  */
 
 Route::get('register_admin', array(
-    'uses' => 'RegisterController@register_admin',
-    'as' => 'register.admin'
+      'uses' => 'RegisterController@register_admin',
+      'as' => 'register.admin'
 ));
 Route::post('register_admin', array(
-    'uses' => 'RegisterController@store_admin',
-    'as' => 'register.store_admin'
+      'uses' => 'RegisterController@store_admin',
+      'as' => 'register.store_admin'
 ));
-
-
-
-/* Generación de codigos */
-
-Route::get('create_codes', function()
-{
-      for ($i = 0; $i < 10; $i++)
-      {
-            $numero = rand(1000, 9999) . "-" . rand(1000, 9999) . "-" . rand(1000, 9999);
-            Codigo::create(array('numero' => $numero));
-            echo $numero . "<br>";
-      }
-});
-
-
-/*
- * ********************************
- * Probar muestra de imagenes
- * ********************************
- */
-
-Route::get('prueba_imagen',function(){
-      
-      $imagen = Imagen::first();
-      
-      
-      echo "<img src='".Config::get('params.path_public_image').$imagen->path.$imagen->nombre."' alt='".$imagen->alt."'>";
-      
-});
 
 /*
  * **************************************
@@ -139,8 +108,7 @@ Route::any('pagos/recibir_notificacion', array('uses' => 'PagosController@recibi
  * Solo para usuarios autenticados
  * ***********************
  */
-Route::group(array('before' => 'auth'), function()
-{
+Route::group(array('before' => 'auth'), function() {
 
       /*
        * *****************************
@@ -149,10 +117,10 @@ Route::group(array('before' => 'auth'), function()
        */
 
       Route::get('obtener_subcategoria/{categoria_id}', array('as' => 'obtener_subcategoria',
-          'uses' => 'SubcategoriasController@getSubcategorias'));
+            'uses' => 'SubcategoriasController@getSubcategorias'));
 
       Route::get('obtener_zona/{estado_id}', array('as' => 'obtener_zona',
-          'uses' => 'ZonasController@getZonas'));
+            'uses' => 'ZonasController@getZonas'));
 
       /*
        * ***********************
@@ -160,27 +128,26 @@ Route::group(array('before' => 'auth'), function()
        * ***********************
        */
 
-      Route::group(array('before' => 'is_client'), function()
-      {
+      Route::group(array('before' => 'is_client'), function() {
 
             Route::get('clientes', array(
-                'uses' => 'ClientesController@index',
-                'as' => 'clientes.index'
+                  'uses' => 'ClientesController@index',
+                  'as' => 'clientes.index'
             ));
 
             Route::get('clients_edit', array(
-                'uses' => 'ClientesController@edit',
-                'as' => 'clientes.edit'
+                  'uses' => 'ClientesController@edit',
+                  'as' => 'clientes.edit'
             ));
 
             Route::post('clients_update', array(
-                'uses' => 'ClientesController@update',
-                'as' => 'clientes.update'
+                  'uses' => 'ClientesController@update',
+                  'as' => 'clientes.update'
             ));
 
             Route::post('clients_delete', array(
-                'uses' => 'ClientesController@destroy',
-                'as' => 'clientes.destroy'
+                  'uses' => 'ClientesController@destroy',
+                  'as' => 'clientes.destroy'
             ));
 
 
@@ -194,7 +161,7 @@ Route::group(array('before' => 'auth'), function()
             Route::resource('clientes_negocios', 'clientesNegociosController');
 
             Route::get('clientes_negocios_activar/{id}', array('as' => 'clientes_negocios_activar.get',
-                'uses' => 'clientesNegociosController@activar')
+                  'uses' => 'clientesNegociosController@activar')
             );
 
 
@@ -208,7 +175,7 @@ Route::group(array('before' => 'auth'), function()
             Route::resource('clientes_eventos', 'clientesEventosController');
 
             Route::get('clientes_eventos_activar/{id}', array('as' => 'clientes_eventos_activar.post',
-                'uses' => 'clientesEventosController@activar')
+                  'uses' => 'clientesEventosController@activar')
             );
 
             /*
@@ -220,7 +187,7 @@ Route::group(array('before' => 'auth'), function()
             Route::resource('clientes_promociones', 'clientesPromocionesController');
 
             Route::get('clientes_promociones_activar/{id}', array('as' => 'clientes_promociones_activar.get',
-                'uses' => 'clientesPromocionesController@activar')
+                  'uses' => 'clientesPromocionesController@activar')
             );
 
 
@@ -233,15 +200,15 @@ Route::group(array('before' => 'auth'), function()
 
 
             Route::get('clientes_pagos_codigo/{id}', array('as' => 'clientes_pagos_codigo.get',
-                'uses' => 'clientesPagosController@usar_codigo')
+                  'uses' => 'clientesPagosController@usar_codigo')
             );
 
             Route::post('clientes_pagos_codigo/{id}', array('as' => 'clientes_pagos_codigo.post',
-                'uses' => 'clientesPagosController@guardar_codigo')
+                  'uses' => 'clientesPagosController@guardar_codigo')
             );
 
             Route::get('clientes_pagos_avisar_marketing/{id}', array('as' => 'clientes_pagos_avisar_marketing.get',
-                'uses' => 'clientesPagosController@avisar_marketing')
+                  'uses' => 'clientesPagosController@avisar_marketing')
             );
       });
 
@@ -250,26 +217,25 @@ Route::group(array('before' => 'auth'), function()
        *     marketing
        * ***********************
        */
-      Route::group(array('before' => 'is_marketing'), function()
-      {
+      Route::group(array('before' => 'is_marketing'), function() {
             Route::get('/marketings', array(
-                'uses' => 'MarketingController@index',
-                'as' => 'marketing.index'
+                  'uses' => 'MarketingController@index',
+                  'as' => 'marketing.index'
             ));
 
             Route::get('/marketings_edit', array(
-                'uses' => 'MarketingController@edit',
-                'as' => 'marketing.edit'
+                  'uses' => 'MarketingController@edit',
+                  'as' => 'marketing.edit'
             ));
 
             Route::post('/marketings_update', array(
-                'uses' => 'MarketingController@update',
-                'as' => 'marketing.update'
+                  'uses' => 'MarketingController@update',
+                  'as' => 'marketing.update'
             ));
 
             Route::post('/marketings_delete', array(
-                'uses' => 'MarketingController@destroy',
-                'as' => 'marketing.destroy'
+                  'uses' => 'MarketingController@destroy',
+                  'as' => 'marketing.destroy'
             ));
 
             /*
@@ -294,21 +260,20 @@ Route::group(array('before' => 'auth'), function()
        *     Administrador
        * ***********************
        */
-      Route::group(array('before' => 'is_admin'), function()
-      {
+      Route::group(array('before' => 'is_admin'), function() {
             Route::get('administradores', array(
-                'uses' => 'AdministradoresController@index',
-                'as' => 'administradores.index'
+                  'uses' => 'AdministradoresController@index',
+                  'as' => 'administradores.index'
             ));
 
             Route::get('administradores_edit', array(
-                'uses' => 'AdministradoresController@edit',
-                'as' => 'administradores.edit'
+                  'uses' => 'AdministradoresController@edit',
+                  'as' => 'administradores.edit'
             ));
 
             Route::post('administradores_update', array(
-                'uses' => 'AdministradoresController@update',
-                'as' => 'administradores.update'
+                  'uses' => 'AdministradoresController@update',
+                  'as' => 'administradores.update'
             ));
 
             /*
@@ -317,7 +282,7 @@ Route::group(array('before' => 'auth'), function()
              * **********************************
              */
 
-            Route::resource('administrador_catalogo','AdminCatalogoController');
+            Route::resource('administrador_catalogo', 'AdminCatalogoController');
 
             /*
              * *************************
@@ -326,13 +291,22 @@ Route::group(array('before' => 'auth'), function()
              */
 
             Route::get('register_marketing', array(
-                'uses' => 'RegisterController@register_marketing',
-                'as' => 'register.marketing'
+                  'uses' => 'RegisterController@register_marketing',
+                  'as' => 'register.marketing'
             ));
             Route::post('register_marketing', array(
-                'uses' => 'RegisterController@store_marketing',
-                'as' => 'register.store_marketing'
+                  'uses' => 'RegisterController@store_marketing',
+                  'as' => 'register.store_marketing'
             ));
+
+            /* Generación de codigos */
+            Route::get('create_codes', function() {
+                  for ($i = 0; $i < 10; $i++) {
+                        $numero = rand(1000, 9999) . "-" . rand(1000, 9999) . "-" . rand(1000, 9999);
+                        Codigo::create(array('numero' => $numero));
+                        echo $numero . "<br>";
+                  }
+            });
       });
 
 
@@ -342,7 +316,7 @@ Route::group(array('before' => 'auth'), function()
        * ********************************
        */
       Route::get('pagar_contenido', array('as' => 'pagar_contenido.get',
-          'uses' => 'PagosController@generar_link_pago')
+            'uses' => 'PagosController@generar_link_pago')
       );
 });
 

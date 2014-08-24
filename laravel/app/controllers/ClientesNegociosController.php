@@ -82,26 +82,31 @@ class clientesNegociosController extends \BaseController
                   $negocio_model = Input::all();
                   $negocio_model = array_add($negocio_model, 'client', Auth::user()->userable);
                   $negocio_model = array_add($negocio_model, 'publicar', false);
-                  //Obtener datos de la imagen
-                  $path = strval(Auth::user()->userable->id) . '/';
-                  $nombre = strval(Auth::user()->userable->total_images + 1) . '.' . $input['imagen']->getClientOriginalExtension();
-                  $negocio_model = array_add($negocio_model, 'path', $path);
-                  $negocio_model = array_add($negocio_model, 'nombre_imagen', $nombre);
+                  if ($input['imagen'])
+                  {
+                        //Obtener datos de la imagen
+                        $path = strval(Auth::user()->userable->id) . '/';
+                        $nombre = strval(Auth::user()->userable->total_images + 1) . '.' . $input['imagen']->getClientOriginalExtension();
+                        $negocio_model = array_add($negocio_model, 'path', $path);
+                        $negocio_model = array_add($negocio_model, 'nombre_imagen', $nombre);
+                  }
 
                   $negocio = $this->negocio->create($negocio_model);
 
                   if (isset($negocio))
                   {
-                        //Guardar la imagen; 
-                        $path = Config::get('params.usrimg') . $path;
-                        $input['imagen']->move($path, $nombre);
-
+                        if ($input['imagen'])
+                        {
+                              //Guardar la imagen; 
+                              $path = Config::get('params.usrimg') . $path;
+                              $input['imagen']->move($path, $nombre);
+                        }
                         //Crear Pago de servicios
                         $pago_model = array(
-                            'nombre' => 'Publicación de Negocio',
-                            'descripcion' => $negocio->nombre,
-                            'monto' => Config::get('costos.negocio'),
-                            'client' => Auth::user()->userable,
+                              'nombre' => 'Publicación de Negocio',
+                              'descripcion' => $negocio->nombre,
+                              'monto' => Config::get('costos.negocio'),
+                              'client' => Auth::user()->userable,
                         );
                         $pago = $this->pago->create($pago_model);
                         if (isset($pago))
@@ -181,22 +186,23 @@ class clientesNegociosController extends \BaseController
                   $negocio_model = Input::all();
                   $negocio_model = array_add($negocio_model, 'client', Auth::user()->userable);
                   $negocio_model = array_add($negocio_model, 'publicar', false);
-
-                  //Obtener datos de la imagen
-
-                  $path = $negocio->imagen->path;
-                  $nombre = $negocio->imagen->nombre;
-
-                  $negocio_model = array_add($negocio_model, 'path', $path);
-                  $negocio_model = array_add($negocio_model, 'nombre_imagen', $nombre);
-
+                  
+                  if ($input['imagen'] && !$negocio->imagen)
+                  {
+                        //Obtener datos de la imagen
+                        $path = strval(Auth::user()->userable->id) . '/';
+                        $nombre = strval(Auth::user()->userable->total_images + 1) . '.' . $input['imagen']->getClientOriginalExtension();
+                        $negocio_model = array_add($negocio_model, 'path', $path);
+                        $negocio_model = array_add($negocio_model, 'nombre_imagen', $nombre);
+                  }
+                  
                   $negocio = $this->negocio->update($id, $negocio_model);
 
                   if (isset($negocio))
                   {
                         if ($input['imagen'])
                         {
-                              $input['imagen']->move($path, $nombre);
+                              $input['imagen']->move(Config::get('params.usrimg').$negocio->imagen->path, $negocio->imagen->nombre);
                         }
                         Session::flash('message', 'Negocio modificado con éxito');
                         return Redirect::route('clientes_negocios.index');

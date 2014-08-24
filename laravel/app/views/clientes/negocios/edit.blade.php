@@ -5,7 +5,7 @@
 @if($negocio)
 <h2>Editar: {{ $negocio->nombre }}</h2>
 
-{{ Form::model($negocio, array('route' => array('clientes_negocios.update', $negocio->id), 'method' => 'PUT')) }}
+{{ Form::model($negocio, array('route' => array('clientes_negocios.update', $negocio->id), 'method' => 'PUT','files'=>true)) }}
 
 <div class="form-group">
       {{ Form::label('direccion', 'Dirección') }}
@@ -119,7 +119,7 @@
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('lun_fin','Lunes fin') }}
-                              <div class="bfh-timepicker" data-name='lun_ini' data-align='right' data-time='{{ date('H:i',strtotime($negocio->horario->lun_fin))}}'>
+                              <div class="bfh-timepicker" data-name='lun_fin' data-align='right' data-time='{{ date('H:i',strtotime($negocio->horario->lun_fin))}}'>
                               </div>                              
                         </div>
                   </div>
@@ -199,7 +199,7 @@
             <div class="col-sm-6">
                   {{ Form::label('imagen','Imágen') }}
                   <input type="file" name="imagen" id='uploadFile' title="Seleccionar" class="file-inputs" data-filename-placement="inside">
-                  @if($negocio->imagen->count())
+                  @if($negocio->imagen)
                   <div id="imagepreview" class="imagepreview" style="background-image: url({{ Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre }})"></div>
                   {{ Form::label('alt','Descripción') }}
                   {{ Form::text('alt',$negocio->imagen->alt,array('placeholder' => 'descripción', 'class'=>'form-control')) }}
@@ -237,6 +237,7 @@
 
 </div>
 
+
 @if($negocio->is_especial)
 <hr />
 <h3>Datos Especiales</h3>
@@ -266,7 +267,7 @@
 
 @section('scripts')
 {{ HTML::script('js/vendor/bootstrap-file-input.js') }}
-{{ HTML::script('js/vendor/ui.timepickr.js') }}
+
 
 <script>
       $('.file-inputs').bootstrapFileInput();
@@ -299,10 +300,16 @@
                         $("#zonas").empty();
                         for (i = 0; i < data.length; i++) {
                               resultado = data[i];
-                              elemento = "<option value=" + resultado.id + ">" + resultado.zona + "</option>";
+                              if(resultado.id == {{$negocio->zona->id}}){
+                                    elemento = "<option value=" + resultado.id + " selected >" + resultado.zona + "</option>";
+                              }else{
+                                    elemento = "<option value=" + resultado.id + ">" + resultado.zona + "</option>";
+                              }
+                              
                               $("#zonas").append(elemento);
-                        }
+                        }                        
                   });
+                  
             }).trigger('change');
 
             $('#categorias').change(function() {
@@ -312,12 +319,16 @@
                         $("#subcats").empty();
                         for (i = 0; i < data.length; i++) {
                               resultado = data[i];
-                              elemento = "<option value=" + resultado.id + ">" + resultado.subcategoria + "</option>";
+                              if(resultado.id == {{$negocio->subcategoria->id}}){
+                                    elemento = "<option value=" + resultado.id + " selected >" + resultado.subcategoria + "</option>";
+                              }else{
+                                    elemento = "<option value=" + resultado.id + ">" + resultado.subcategoria + "</option>";
+                              }
                               $("#subcats").append(elemento);
                         }
                   });
             }).trigger('change');
       });
-
+     
 </script>
 @stop
