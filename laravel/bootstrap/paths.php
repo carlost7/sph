@@ -23,7 +23,7 @@ return array(
       | point for web requests into these applications from the outside.
       |
      */
-    'public' => __DIR__ . '/../public_html/app/',
+    'public' => __DIR__ . '/../public/',
     /*
       |--------------------------------------------------------------------------
       | Base Path

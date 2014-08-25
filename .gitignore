@@ -8,3 +8,5 @@ composer.lock
 Thumbs.db
 /nbproject/private/
 /public_html/app/img/user_images/
+/public/img/user_images/img/
+/public/img/user_images/

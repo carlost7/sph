@@ -19,7 +19,7 @@ class Negocio_especial extends Validator
 // Add your validation rules here
       public static $rules = array(
           "update" => array(
-              'email' => 'mail',
+              'email' => 'email',
               'webpage' => 'url',
               'mapa' => 'alpha_num'               
           )

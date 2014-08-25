@@ -243,8 +243,16 @@
 <h3>Datos Especiales</h3>
 
 <div class="form-group">
-      {{ Form::label('horario', 'Horario') }}            
-      {{ Form::text('horario', ($negocio->especial) ? $negocio->especial->horario : '' ,array('placeholder'=>'horario','class'=>'form-control')) }}
+      {{ Form::label('webpage', 'Página web') }}            
+      {{ Form::text('webpage', ($negocio->especial) ? $negocio->especial->webpage : '' ,array('placeholder'=>'página web','class'=>'form-control')) }}
+</div>        
+<div class="form-group">
+      {{ Form::label('email', 'Correo electrónico') }}            
+      {{ Form::text('email', ($negocio->especial) ? $negocio->especial->email : '' ,array('placeholder'=>'correo electrónico','class'=>'form-control')) }}
+</div>        
+<div class="form-group">
+      {{ Form::label('mapa', 'Mapa') }}            
+      {{ Form::text('horario', ($negocio->especial) ? $negocio->especial->mapa : '' ,array('placeholder'=>'mapa','class'=>'form-control')) }}
 </div>        
 @endif
 

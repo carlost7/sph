@@ -175,11 +175,12 @@ class clientesNegociosController extends \BaseController
             $validatorNegocio = new Sph\Services\Validators\Negocio(Input::all(), 'update');
             $validatorHorario = new Sph\Services\Validators\HorarioNegocio(Input::all(), 'update');
             $validatorMasinfo = new Sph\Services\Validators\MasinfoNegocio(Input::all(), 'update');
+            $validatorEspecial = new Sph\Services\Validators\Negocio_especial(Input::all(), 'update');
             $validatorCatalogo = new Sph\Services\Validators\Catalogo(Input::all(), 'update');
             $input = array('imagen' => Input::File('imagen'));
             $validatorImagen = new Sph\Services\Validators\Imagen($input, 'update');
 
-            if ($validatorNegocio->passes() & $validatorHorario->passes() & $validatorMasinfo->passes() & $validatorCatalogo->passes())
+            if ($validatorNegocio->passes() & $validatorHorario->passes() & $validatorMasinfo->passes() & $validatorCatalogo->passes() & $validatorEspecial->passes())
             {
                   $negocio = $this->negocio->find($id);
 
@@ -217,11 +218,12 @@ class clientesNegociosController extends \BaseController
             $negocio_messages = ($validatorNegocio->getErrors() != null) ? $validatorNegocio->getErrors()->all() : array();
             $horario_messages = ($validatorHorario->getErrors() != null) ? $validatorHorario->getErrors()->all() : array();
             $masinfo_messages = ($validatorMasinfo->getErrors() != null) ? $validatorMasinfo->getErrors()->all() : array();
+            $especial_messages = ($validatorEspecial->getErrors() != null) ? $validatorEspecial->getErrors()->all() : array();
             $catalogo_messages = ($validatorCatalogo->getErrors() != null) ? $validatorCatalogo->getErrors()->all() : array();
             $imagen_messages = ($validatorImagen->getErrors() != null) ? $validatorImagen->getErrors()->all() : array();
 
             $validationMessages = array_merge_recursive(
-                    $negocio_messages, $horario_messages, $masinfo_messages, $catalogo_messages, $imagen_messages
+                    $negocio_messages, $horario_messages, $masinfo_messages, $catalogo_messages, $imagen_messages,$especial_messages
             );
 
             return Redirect::back()->withErrors($validationMessages)->withInput();

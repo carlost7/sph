@@ -108,6 +108,7 @@ return array(
         'Illuminate\Workbench\WorkbenchServiceProvider',
         'Way\Generators\GeneratorsServiceProvider',
         'Sph\Storage\StorageServiceProvider',
+        'Appitventures\Phpgmaps\PhpgmapsServiceProvider',
     ),
     /*
       |--------------------------------------------------------------------------
@@ -169,5 +170,6 @@ return array(
         'URL' => 'Illuminate\Support\Facades\URL',
         'Validator' => 'Illuminate\Support\Facades\Validator',
         'View' => 'Illuminate\Support\Facades\View',
+        'Gmaps' => 'Appitventures\Phpgmaps\Facades\Phpgmaps'
     ),
 );

@@ -10,7 +10,7 @@ namespace Sph\Storage\Evento;
 use Evento;
 use Evento_especial;
 
-class EventoRepositoryEloquent implements EventoRepository
+class EventoEspecialRepositoryEloquent implements EventoEspecialRepository
 {
 
       public function all()
