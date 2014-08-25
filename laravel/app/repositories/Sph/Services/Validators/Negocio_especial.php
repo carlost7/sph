@@ -21,7 +21,7 @@ class Negocio_especial extends Validator
           "update" => array(
               'email' => 'email',
               'webpage' => 'url',
-              'mapa' => 'alpha_num'               
+              'mapa' => ''               
           )
       );
 

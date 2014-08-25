@@ -104,34 +104,6 @@ Route::post('register_admin', array(
 Route::any('pagos/recibir_notificacion_prueba', array('uses' => 'PagosController@recibir_notificacion_prueba', 'as' => 'recibir_notificacion_prueba'));
 Route::any('pagos/recibir_notificacion', array('uses' => 'PagosController@recibir_notificacion', 'as' => 'recibir_notificacion'));
 
-/*
- * *****************************
- * Prueba de mapas
- * *****************************
- */
-
-Route::get('mapas', function()
-{
-      $config = array();
-      $config['center'] = 'auto';
-      $config['onboundschanged'] = 'if (!centreGot) {
-            var mapCentre = map.getCenter();
-            marker_0.setOptions({
-                position: new google.maps.LatLng(mapCentre.lat(), mapCentre.lng())
-            });
-        }
-        centreGot = true;';
-
-      Gmaps::initialize($config);
-
-      // set up the marker ready for positioning
-      // once we know the users location
-      $marker = array();
-      Gmaps::add_marker($marker);
-
-      $map = Gmaps::create_map();
-      echo "<html><head>" . $map['js'] . "</head><body>" . $map['html'] . "</body></html>";
-});
 
 /*
  * ***********************

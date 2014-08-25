@@ -103,10 +103,10 @@ class clientesNegociosController extends \BaseController
                         }
                         //Crear Pago de servicios
                         $pago_model = array(
-                              'nombre' => 'Publicación de Negocio',
-                              'descripcion' => $negocio->nombre,
-                              'monto' => Config::get('costos.negocio'),
-                              'client' => Auth::user()->userable,
+                            'nombre' => 'Publicación de Negocio',
+                            'descripcion' => $negocio->nombre,
+                            'monto' => Config::get('costos.negocio'),
+                            'client' => Auth::user()->userable,
                         );
                         $pago = $this->pago->create($pago_model);
                         if (isset($pago))
@@ -161,7 +161,40 @@ class clientesNegociosController extends \BaseController
             $negocio = $this->negocio->find($id);
             $categorias = $this->categoria->all();
             $estados = $this->estado->all();
-            return View::make('clientes.negocios.edit')->with(array('negocio' => $negocio, 'categorias' => $categorias, 'estados' => $estados));
+            $mapa = null;
+            if ($negocio->especial)
+            {
+                  if ($negocio->especial->mapa)
+                  {
+                        $config = array();
+                        $config['center'] = $negocio->especial->mapa;
+                        $config['zoom'] = '13';                        
+                        Gmaps::initialize($config);
+
+                        $marker = array();
+                        $marker['position'] = $negocio->especial->mapa;
+                        $marker['draggable'] = true;
+                        $marker['ondragend'] = 'save_map(event);';
+                        Gmaps::add_marker($marker);
+
+                        $mapa = Gmaps::create_map();
+                  }
+                  else
+                  {
+                        $config = array();
+                        $config['center'] = '19.417, -99.169';
+                        $config['zoom'] = '13';
+                        $config['onclick'] = 'save_map(event);';
+                        Gmaps::initialize($config);
+
+                        $marker = array();                        
+                        Gmaps::add_marker($marker);
+                        $mapa = Gmaps::create_map();
+                  }
+            }
+
+
+            return View::make('clientes.negocios.edit')->with(array('negocio' => $negocio, 'categorias' => $categorias, 'estados' => $estados,'mapa'=>$mapa));
       }
 
       /**
@@ -187,7 +220,7 @@ class clientesNegociosController extends \BaseController
                   $negocio_model = Input::all();
                   $negocio_model = array_add($negocio_model, 'client', Auth::user()->userable);
                   $negocio_model = array_add($negocio_model, 'publicar', false);
-                  
+
                   if ($input['imagen'] && !$negocio->imagen)
                   {
                         //Obtener datos de la imagen
@@ -196,14 +229,14 @@ class clientesNegociosController extends \BaseController
                         $negocio_model = array_add($negocio_model, 'path', $path);
                         $negocio_model = array_add($negocio_model, 'nombre_imagen', $nombre);
                   }
-                  
+
                   $negocio = $this->negocio->update($id, $negocio_model);
 
                   if (isset($negocio))
                   {
                         if ($input['imagen'])
                         {
-                              $input['imagen']->move(Config::get('params.usrimg').$negocio->imagen->path, $negocio->imagen->nombre);
+                              $input['imagen']->move(Config::get('params.usrimg') . $negocio->imagen->path, $negocio->imagen->nombre);
                         }
                         Session::flash('message', 'Negocio modificado con éxito');
                         return Redirect::route('clientes_negocios.index');
@@ -223,7 +256,7 @@ class clientesNegociosController extends \BaseController
             $imagen_messages = ($validatorImagen->getErrors() != null) ? $validatorImagen->getErrors()->all() : array();
 
             $validationMessages = array_merge_recursive(
-                    $negocio_messages, $horario_messages, $masinfo_messages, $catalogo_messages, $imagen_messages,$especial_messages
+                    $negocio_messages, $horario_messages, $masinfo_messages, $catalogo_messages, $imagen_messages, $especial_messages
             );
 
             return Redirect::back()->withErrors($validationMessages)->withInput();

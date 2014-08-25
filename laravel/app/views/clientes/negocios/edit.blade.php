@@ -252,7 +252,9 @@
 </div>        
 <div class="form-group">
       {{ Form::label('mapa', 'Mapa') }}            
-      {{ Form::text('horario', ($negocio->especial) ? $negocio->especial->mapa : '' ,array('placeholder'=>'mapa','class'=>'form-control')) }}
+      {{ Form::hidden('mapa',($negocio->especial) ? $negocio->especial->mapa : '',array('id'=>'latlng')) }}
+      {{ $mapa['js'] }}
+      {{ $mapa['html'] }}      
 </div>        
 @endif
 
@@ -338,5 +340,11 @@
             }).trigger('change');
       });
      
+</script>
+
+<script>
+      function save_map(event){            
+            $('#latlng').val(event.latLng);            
+      }
 </script>
 @stop
