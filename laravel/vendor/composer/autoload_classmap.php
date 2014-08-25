@@ -1387,10 +1387,7 @@ return array(
     'Sph\\Services\\Validators\\MasinfoNegocio' => $baseDir . '/app/repositories/Sph/Services/Validators/MasInfoNegocio.php',
     'Sph\\Services\\Validators\\Negocio' => $baseDir . '/app/repositories/Sph/Services/Validators/Negocio.php',
     'Sph\\Services\\Validators\\Negocio_especial' => $baseDir . '/app/repositories/Sph/Services/Validators/Negocio_especial.php',
-<<<<<<< HEAD
-=======
     'Sph\\Services\\Validators\\Pago' => $baseDir . '/app/repositories/Sph/Services/Validators/Pago.php',
->>>>>>> 123c13636cebb1da57891d1a6ffe08150f7cafcd
     'Sph\\Services\\Validators\\Promocion' => $baseDir . '/app/repositories/Sph/Services/Validators/Promocion.php',
     'Sph\\Services\\Validators\\Subcategoria' => $baseDir . '/app/repositories/Sph/Services/Validators/Subcategoria.php',
     'Sph\\Services\\Validators\\User' => $baseDir . '/app/repositories/Sph/Services/Validators/User.php',
