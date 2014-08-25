@@ -48,7 +48,7 @@ return array(
         'mysql' => array(
             'driver' => 'mysql',
             'host' => 'sphellar.csy6kwgdyuct.us-east-1.rds.amazonaws.com',
-            'database' => 'sph',
+            'database' => 'sphapp',
             'username' => 'sphellar',
             'password' => 'sphellar123',
             'charset' => 'utf8',

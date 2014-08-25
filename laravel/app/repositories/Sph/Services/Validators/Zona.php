@@ -13,9 +13,8 @@ namespace Sph\Services\Validators;
  *
  * @author carlos
  */
-use Carbon\Carbon;
 
-class Evento extends Validator
+class Zona extends Validator
 {
 
       public static $rules = array(

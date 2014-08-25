@@ -13,7 +13,7 @@ namespace Sph\Services\Validators;
  *
  * @author carlos
  */
-class Promocion extends Validator
+class Pago extends Validator
 {
 
       public static $rules = array(

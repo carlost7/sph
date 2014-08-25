@@ -2191,5 +2191,40 @@
             }
         ],
         "description": "Rapidly generate resources, migrations, models, and much more."
+    },
+    {
+        "name": "appitventures/phpgmaps",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/appitventures/Phpgmaps.git",
+            "reference": "c5f819704a15a43451551ae465986bb1b98a1a67"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/appitventures/Phpgmaps/zipball/c5f819704a15a43451551ae465986bb1b98a1a67",
+            "reference": "c5f819704a15a43451551ae465986bb1b98a1a67",
+            "shasum": ""
+        },
+        "require": {
+            "illuminate/support": "4.2.*",
+            "php": ">=5.4.0"
+        },
+        "time": "2014-06-29 22:02:58",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Appitventures\\Phpgmaps\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "authors": [
+            {
+                "name": "Appit Ventures",
+                "email": "michael@appitventures.com"
+            }
+        ]
     }
 ]

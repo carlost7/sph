@@ -2,7 +2,7 @@
 
 namespace Sph\Storage\Evento;
 
-interface EventoRepository
+interface EventoEspecialRepository
 {
 
       public function all();
