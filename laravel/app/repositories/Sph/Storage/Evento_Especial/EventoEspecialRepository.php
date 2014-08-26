@@ -1,6 +1,6 @@
 <?php
 
-namespace Sph\Storage\Evento;
+namespace Sph\Storage\Evento_Especial;
 
 interface EventoEspecialRepository
 {

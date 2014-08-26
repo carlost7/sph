@@ -9,6 +9,8 @@ namespace Sph\Storage\Evento;
  */
 use Evento;
 use Evento_especial;
+use MasInfoEvento;
+use Imagen;
 
 class EventoRepositoryEloquent implements EventoRepository
 {
@@ -22,25 +24,50 @@ class EventoRepositoryEloquent implements EventoRepository
       {
 
             $evento = new Evento($evento_model);
-            $evento->inicio = new \DateTime($evento_model['inicio']);
-            $evento->fin = new \DateTime($evento_model['fin']);
+            $evento->fecha_inicio = new \DateTime($evento_model['fecha_inicio']);
+            $evento->fecha_fin = new \DateTime($evento_model['fecha_fin']);
+            $evento->hora_inicio = new \DateTime($evento_model['hora_inicio']);
+            $evento->hora_fin = new \DateTime($evento_model['hora_fin']);
             $evento->cliente_id = $evento_model['client']->id;
+            $evento->categoria_id = $evento_model['categoria'];
+            $evento->subcategoria_id = $evento_model['subcategoria'];
+            $evento->estado_id = $evento_model['estado'];
+            $evento->zona_id = $evento_model['zona'];
 
             if ($evento->save())
             {
+                  $mas_info = new MasInfoEvento($evento_model);
+                  $evento->masInfo()->save($mas_info);
+
+                  if (isset($evento_model['nombre_imagen']))
+                  {
+                        $imagen = new Imagen($evento_model);
+                        $imagen->nombre = $evento_model['nombre_imagen'];
+                        $imagen->cliente_id = $evento->cliente->id;
+                        $evento->imagen()->save($imagen);
+                  }
                   return $evento;
             }
             return null;
       }
 
-      public function delete($id)
-      {
-            return Evento::destroy($id);
-      }
-
       public function find($id)
       {
             return Evento::find($id);
+      }
+
+      public function delete($id)
+      {
+            $evento = Evento::find($id);
+            $evento->pago()->delete();
+            $evento->aviso()->delete();
+            $evento->imagen()->delete();
+            
+            if(isset($evento->especial)){
+                  $evento->especial->imagenes()->delete();      
+            }
+            
+            return Evento::destroy($id);
       }
 
       public function update($id, array $evento_model)

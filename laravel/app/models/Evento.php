@@ -8,7 +8,7 @@ class Evento extends \Eloquent
 {
 
       protected $table = 'eventos';
-      protected $fillable = ['nombre', 'fecha_inicio', 'fecha_fin', 'horario', 'lugar', 'direccion', 'descripcion', 'telefono'];
+      protected $fillable = ['nombre', 'fecha_inicio', 'fecha_fin', 'hora_inicio', 'hora_fin', 'lugar', 'direccion', 'descripcion', 'telefono'];
 
       /*
        * Un evento tiene mas informacion
@@ -95,9 +95,9 @@ class Evento extends \Eloquent
        * tiene diferentes imagenes
        */
 
-      public function imagenes()
+      public function imagen()
       {
-            return $this->morphMany('Imagen', 'imageable');
+            return $this->morphOne('Imagen', 'imageable');
       }
 
 }

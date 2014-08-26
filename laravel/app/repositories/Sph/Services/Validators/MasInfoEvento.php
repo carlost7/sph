@@ -21,8 +21,8 @@ class MasinfoEvento extends Validator
           "save" => array(
               'moneda'=>'alpha|size:3',
               'costo'=>'numeric',
-              'min_edad'=>'numeric|max:99',
-              'max_edad'=>'numeric|max:99',
+              'min_edad'=>'numeric|between:1,99',
+              'max_edad'=>'numeric|between:1,99',
               'alcohol'=>'boolean',
               'tc'=>'boolean',
               'td'=>'boolean',

@@ -32,7 +32,7 @@ class Negocio extends \Eloquent
        * Un negocio le pertenece a un cliente
        */
 
-      public function client()
+      public function cliente()
       {
             return $this->belongsTo('Cliente', 'cliente_id', 'id');
       }

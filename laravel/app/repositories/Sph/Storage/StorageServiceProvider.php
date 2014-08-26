@@ -39,6 +39,9 @@ class StorageServiceProvider extends ServiceProvider
                     'Sph\Storage\Evento\EventoRepository', 'Sph\Storage\Evento\EventoRepositoryEloquent'
             );
             $this->app->bind(
+                    'Sph\Storage\Evento_Especial\EventoEspecialRepository', 'Sph\Storage\Evento_Especial\EventoEspecialRepositoryEloquent'
+            );
+            $this->app->bind(
                     'Sph\Storage\HorarioNegocio\HorarioNegocioRepository', 'Sph\Storage\HorarioNegocio\HorarioNegocioRepositoryEloquent'
             );
             $this->app->bind(

@@ -101,6 +101,7 @@ class clientesNegociosController extends \BaseController
                               $path = Config::get('params.usrimg') . $path;
                               $input['imagen']->move($path, $nombre);
                         }
+                        
                         //Crear Pago de servicios
                         $pago_model = array(
                             'nombre' => 'Publicación de Negocio',
@@ -289,7 +290,7 @@ class clientesNegociosController extends \BaseController
       public function activar($id)
       {
             $negocio = $this->negocio->find($id);
-            if ($negocio->client->id == Auth::user()->userable->id)
+            if ($negocio->cliente->id == Auth::user()->userable->id)
             {
                   if ($this->negocio->activar($id))
                   {
