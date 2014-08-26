@@ -19,7 +19,7 @@
             <h3 class="text-left">                  
                   {{ HTML::linkRoute("clientes_eventos.show",$evento->nombre,$evento->id) }}
             </h3>
-            <p>{{ date('d-m-Y',strtotime($evento->inicio)).' - '.date('d-m-Y',strtotime($evento->fin)) }}</p>
+            <p>{{ date('d-m-Y',strtotime($evento->fecha_inicio)).' - '.date('d-m-Y',strtotime($evento->fecha_fin)) }}</p>
             @if(!$evento->is_activo && !$evento->fecha_nueva_activacion)
             <p class="text-right">
                   {{ HTML::linkRoute('clientes_eventos_activar.get','Activar',$evento->id,array('class'=>'btn btn-sm btn-warning')) }}       

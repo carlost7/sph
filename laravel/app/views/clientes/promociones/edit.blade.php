@@ -28,14 +28,14 @@
       {{ Form::label('vigencia_inicio', 'Vigencia inicio') }}      
       <div class='input-group date' id='datetimepicker1' data-date-format="DD-MM-YYYY HH:mm">
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-            <input type='text' class="form-control" name="vigencia_inicio" value="{{ $promocion->vigencia_inicio }}" placeholder="fecha de inicio" />
+            <input type='text' class="form-control" name="vigencia_inicio" value="{{ date('d-m-Y H:i',strtotime($promocion->vigencia_inicio)) }}" placeholder="fecha de inicio" />
       </div>
 </div>        
 <div class="form-group">
       {{ Form::label('vigencia_fin', 'Vigencia fin') }}      
       <div class='input-group date' id='datetimepicker2' data-date-format="DD-MM-YYYY HH:mm">
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-            <input type='text' class="form-control" name="vigencia_fin" value="{{ $promocion->vigencia_fin }}" placeholder="fecha de finalización" />
+            <input type='text' class="form-control" name="vigencia_fin" value="{{ date('d-m-Y H:i',strtotime($promocion->vigencia_fin)) }}" placeholder="fecha de finalización" />
       </div>
 </div>
 <div class="form-group">

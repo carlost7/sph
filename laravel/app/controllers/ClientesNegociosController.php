@@ -80,7 +80,7 @@ class clientesNegociosController extends \BaseController
             if ($validatorNegocio->passes() & $validatorHorario->passes() & $validatorMasinfo->passes() & $validatorCatalogo->passes() & $validatorImagen->passes())
             {
                   $negocio_model = Input::all();
-                  $negocio_model = array_add($negocio_model, 'client', Auth::user()->userable);
+                  $negocio_model = array_add($negocio_model, 'cliente', Auth::user()->userable);
                   $negocio_model = array_add($negocio_model, 'publicar', false);
                   if ($input['imagen'])
                   {
@@ -218,9 +218,7 @@ class clientesNegociosController extends \BaseController
             {
                   $negocio = $this->negocio->find($id);
 
-                  $negocio_model = Input::all();
-                  $negocio_model = array_add($negocio_model, 'client', Auth::user()->userable);
-                  $negocio_model = array_add($negocio_model, 'publicar', false);
+                  $negocio_model = Input::all();                  
 
                   if ($input['imagen'] && !$negocio->imagen)
                   {

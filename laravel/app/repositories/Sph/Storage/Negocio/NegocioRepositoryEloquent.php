@@ -24,7 +24,7 @@ class NegocioRepositoryEloquent implements NegocioRepository
       public function create(array $negocio_model)
       {
             $negocio = new Negocio($negocio_model);
-            $negocio->cliente_id = $negocio_model['client']->id;
+            $negocio->cliente_id = $negocio_model['cliente']->id;
             $negocio->categoria_id = $negocio_model['categoria'];
             $negocio->subcategoria_id = $negocio_model['subcategoria'];
             $negocio->estado_id = $negocio_model['estado'];

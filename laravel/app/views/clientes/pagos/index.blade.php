@@ -17,8 +17,6 @@
 
       @foreach($pagos as $pago)
 
-      {{ dd($pago->pagable) }}
-      
       <div class="list-group-item {{ $pago->pagado || $pago->pagable->publicar ? 'published' : 'not-published' }}">
             <h3 class="text-left">                  
                   {{ $pago->descripcion }}

@@ -31,7 +31,7 @@ class PromocionRepositoryEloquent implements PromocionRepository
                   {
                         $imagen = new Imagen($promocion_model);
                         $imagen->nombre = $promocion_model['nombre_imagen'];
-                        $imagen->cliente_id = $promocion->negocio->client->id;
+                        $imagen->cliente_id = $promocion->negocio->cliente->id;
                         $promocion->imagen()->save($imagen);
                   }
 
@@ -71,7 +71,7 @@ class PromocionRepositoryEloquent implements PromocionRepository
                         {
                               $imagen = new Imagen($promocion_model);
                               $imagen->nombre = $promocion_model['nombre_imagen'];
-                              $imagen->cliente_id = $promocion->negocio->client->id;
+                              $imagen->cliente_id = $promocion->negocio->cliente->id;
                               $promocion->imagen()->save($imagen);
                         }
                         else

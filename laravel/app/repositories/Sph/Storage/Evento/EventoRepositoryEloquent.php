@@ -28,7 +28,7 @@ class EventoRepositoryEloquent implements EventoRepository
             $evento->fecha_fin = new \DateTime($evento_model['fecha_fin']);
             $evento->hora_inicio = new \DateTime($evento_model['hora_inicio']);
             $evento->hora_fin = new \DateTime($evento_model['hora_fin']);
-            $evento->cliente_id = $evento_model['client']->id;
+            $evento->cliente_id = $evento_model['cliente']->id;
             $evento->categoria_id = $evento_model['categoria'];
             $evento->subcategoria_id = $evento_model['subcategoria'];
             $evento->estado_id = $evento_model['estado'];
@@ -62,11 +62,12 @@ class EventoRepositoryEloquent implements EventoRepository
             $evento->pago()->delete();
             $evento->aviso()->delete();
             $evento->imagen()->delete();
-            
-            if(isset($evento->especial)){
-                  $evento->especial->imagenes()->delete();      
+
+            if (isset($evento->especial))
+            {
+                  $evento->especial->imagenes()->delete();
             }
-            
+
             return Evento::destroy($id);
       }
 
@@ -77,40 +78,51 @@ class EventoRepositoryEloquent implements EventoRepository
             if (isset($evento))
             {
                   $evento->fill($evento_model);
-                  $evento->inicio = new \DateTime($evento_model['inicio']);
-                  $evento->fin = new \DateTime($evento_model['fin']);
+                  $evento->fecha_inicio = new \DateTime($evento_model['fecha_inicio']);
+                  $evento->fecha_fin = new \DateTime($evento_model['fecha_fin']);
+                  $evento->hora_inicio = new \DateTime($evento_model['hora_inicio']);
+                  $evento->hora_fin = new \DateTime($evento_model['hora_fin']);                  
+                  $evento->categoria_id = $evento_model['categoria'];
+                  $evento->subcategoria_id = $evento_model['subcategoria'];
+                  $evento->estado_id = $evento_model['estado'];
+                  $evento->zona_id = $evento_model['zona'];
 
                   if ($evento->save())
                   {
+                        $evento->masInfo->fill($evento_model);
+                        $evento->masInfo->save();
+                        
+                        if (isset($evento_model['nombre_imagen']))
+                        {
+                              $imagen = new Imagen($evento_model);
+                              $imagen->nombre = $evento_model['nombre_imagen'];
+                              $imagen->cliente_id = $evento->cliente->id;
+                              $evento->imagen()->save($imagen);
+                        }
+                        else
+                        {
+                              $evento->imagen->alt = $evento_model['alt'];
+                              $evento->imagen->save();
+                        }
+                        
                         if (!$evento->is_especial)
                         {
                               return $evento;
                         }
-
-                        $evento_especial = $evento->especial;
-
-                        if (isset($evento_especial))
-                        {
-                              if ($evento->especial()->update($evento_model['especial']))
-                              {
-                                    return $evento;
-                              }
-                              else
-                              {
-                                    return null;
-                              }
-                        }
                         else
                         {
-                              $evento_especial = new Evento_especial($evento_model['especial']);
-                              if ($evento->especial()->save($evento_especial))
+                              if ($evento->especial)
                               {
-                                    return $evento;
+                                    $evento->especial->fill($evento_model);
+                                    $evento->especial->save();
                               }
                               else
                               {
-                                    return null;
+                                    $evento_especial = new Evento_especial($evento_model);
+                                    $evento->especial()->save($evento_especial);
                               }
+                              
+                              return $evento;
                         }
                   }
                   else
