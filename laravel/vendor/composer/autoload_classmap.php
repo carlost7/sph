@@ -2109,5 +2109,5 @@ return array(
     'clientesEventosController' => $baseDir . '/app/controllers/ClientesEventosController.php',
     'clientesNegociosController' => $baseDir . '/app/controllers/ClientesNegociosController.php',
     'clientesPagosController' => $baseDir . '/app/controllers/ClientesPagosController.php',
-    'clientesPromocionesController' => $baseDir . '/app/controllers/ClientsPromocionesController.php',
+    'clientesPromocionesController' => $baseDir . '/app/controllers/ClientesPromocionesController.php',
 );

@@ -55,6 +55,16 @@ class NegocioRepositoryEloquent implements NegocioRepository
 
       public function delete($id)
       {
+            
+            $negocio = Negocio::find($id);
+            $negocio->pago()->delete();
+            $negocio->aviso()->delete();
+            $negocio->imagen()->delete();
+            
+            if(isset($negocio->especial)){
+                  $negocio->especial->imagenes()->delete();      
+            }            
+            
             return Negocio::destroy($id);
       }
 
@@ -91,7 +101,7 @@ class NegocioRepositoryEloquent implements NegocioRepository
                         }
                         else
                         {
-                              $negocio->imagen->fill($negocio_model);
+                              $negocio->imagen->alt = $negocio_model['alt'];
                               $negocio->imagen->save();
                         }
 

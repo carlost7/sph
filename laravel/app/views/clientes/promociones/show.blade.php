@@ -13,8 +13,8 @@
 
 <div class="list-group">  
       <p class="list-group-item"><span class="label label-default">Descripción:</span> {{ $promocion->descripcion }}</p>      
-      <p class="list-group-item"><span class="label label-default">Inicio:</span> {{ $promocion->inicio }}</p>
-      <p class="list-group-item"><span class="label label-default">Fin:</span> {{ $promocion->fin }}</p>
+      <p class="list-group-item"><span class="label label-default">Inicio:</span> {{ $promocion->vigencia_inicio }}</p>
+      <p class="list-group-item"><span class="label label-default">Fin:</span> {{ $promocion->vigencia_fin }}</p>
       <p class="list-group-item"><span class="label label-default">Imágen:</span> {{ $promocion->path }}</p>
       <p class="list-group-item"><span class="label label-default">Publicado:</span> {{ ($promocion->publicar) ? "Si" : "No" }}</p>
 </div>

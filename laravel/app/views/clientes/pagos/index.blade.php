@@ -14,8 +14,10 @@
       <br>
       <br>
       @endif
-      
+
       @foreach($pagos as $pago)
+
+      {{ dd($pago->pagable) }}
       
       <div class="list-group-item {{ $pago->pagado || $pago->pagable->publicar ? 'published' : 'not-published' }}">
             <h3 class="text-left">                  
@@ -26,31 +28,37 @@
             </h4>
             <p>
                   ${{ $pago->monto }}
-            </p>
+            </p>            
             <p>
                   {{ $pago->created_at }}
-            </p>
+            </p>            
 
-            
-            
             <div class="text-right">
                   @if($pago->pagado)
                   <p>Pagado: {{ ($pago->pagado) ? 'Si' : 'No' }} - Método:{{$pago->metodo}}</p>
                   @else
                   <div class="show">
                         @if($pago->pagable->aviso || $pago->pagable->publicar )
+
                         {{ Form::button('Activación Manual',array('class'=>'btn btn-sm btn-info disabled')) }}
+
                         @else
+
+                        @if(!is_a($pago->pagable, Promocion::class))
+
                         {{ HTML::linkRoute('clientes_pagos_avisar_marketing.get','Activación Manual',$pago->id,array('class'=>'btn btn-sm btn-info')) }}
+
+                        @endif
+                        
                         @endif
 
-                        {{ HTML::linkRoute('clientes_pagos_codigo.get','Usar código',$pago->id,array('class'=>'btn btn-sm btn-success')) }}                   
+                        {{ HTML::linkRoute('clientes_pagos_codigo.get','Usar código',$pago->id,array('class'=>'btn btn-sm btn-success')) }}
 
                         {{ HTML::linkRoute('pagar_contenido.get','Activación automática',array('id'=>$pago->id),array('class'=>'btn btn-sm btn-success')) }}
                   </div>                        
                   @endif                  
             </div>
-      </div>
+      </div>      
       @endforeach
 </div>
 

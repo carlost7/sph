@@ -8,7 +8,7 @@ namespace Sph\Storage\Promocion;
  * @author carlos
  */
 use Promocion;
-use Promocion_especial;
+use Imagen;
 
 class PromocionRepositoryEloquent implements PromocionRepository
 {
@@ -22,12 +22,19 @@ class PromocionRepositoryEloquent implements PromocionRepository
       {
 
             $promocion = new Promocion($promocion_model);
-            $promocion->inicio = new \DateTime($promocion_model['inicio']);
-            $promocion->fin = new \DateTime($promocion_model['fin']);
-            $promocion->cliente_id = $promocion_model['client']->id;
-
+            $promocion->vigencia_inicio = new \DateTime($promocion_model['vigencia_inicio']);
+            $promocion->vigencia_fin = new \DateTime($promocion_model['vigencia_fin']);
+            $promocion->negocio_id = $promocion_model['negocio'];
             if ($promocion->save())
             {
+                  if (isset($promocion_model['nombre_imagen']))
+                  {
+                        $imagen = new Imagen($promocion_model);
+                        $imagen->nombre = $promocion_model['nombre_imagen'];
+                        $imagen->cliente_id = $promocion->negocio->client->id;
+                        $promocion->imagen()->save($imagen);
+                  }
+
                   return $promocion;
             }
             return null;
@@ -35,7 +42,11 @@ class PromocionRepositoryEloquent implements PromocionRepository
 
       public function delete($id)
       {
-            return Promocion::destroy($id);
+            $promocion = Promocion::find($id);
+            $promocion->pago()->delete();
+            $promocion->aviso()->delete();
+            $promocion->imagen()->delete();
+            return Promocion::destroy($id);            
       }
 
       public function find($id)
@@ -50,41 +61,25 @@ class PromocionRepositoryEloquent implements PromocionRepository
             if (isset($promocion))
             {
                   $promocion->fill($promocion_model);
-                  $promocion->inicio = new \DateTime($promocion_model['inicio']);
-                  $promocion->fin = new \DateTime($promocion_model['fin']);
+                  $promocion->vigencia_inicio = new \DateTime($promocion_model['vigencia_inicio']);
+                  $promocion->vigencia_fin = new \DateTime($promocion_model['vigencia_fin']);
 
                   if ($promocion->save())
                   {
-                        if (!$promocion->is_especial)
-                        {
-                              return $promocion;
-                        }
 
-                        $promocion_especial = $promocion->especial;
-
-                        if (isset($promocion_especial))
+                        if (isset($promocion_model['nombre_imagen']))
                         {
-                              if ($promocion->especial()->update($promocion_model['especial']))
-                              {
-                                    return $promocion;
-                              }
-                              else
-                              {
-                                    return null;
-                              }
+                              $imagen = new Imagen($promocion_model);
+                              $imagen->nombre = $promocion_model['nombre_imagen'];
+                              $imagen->cliente_id = $promocion->negocio->client->id;
+                              $promocion->imagen()->save($imagen);
                         }
                         else
                         {
-                              $promocion_especial = new Promocion_especial($promocion_model['especial']);
-                              if ($promocion->especial()->save($promocion_especial))
-                              {
-                                    return $promocion;
-                              }
-                              else
-                              {
-                                    return null;
-                              }
+                              $promocion->imagen->alt = $promocion_model['alt'];
+                              $promocion->imagen->save();
                         }
+                        return $promocion;
                   }
                   else
                   {

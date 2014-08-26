@@ -24,6 +24,7 @@ class clientesPromocionesController extends \BaseController
       public function index()
       {
             $promociones = Auth::user()->userable->promociones;
+
             return View::make('clientes.promociones.index')->with("promociones", $promociones);
       }
 
@@ -34,7 +35,9 @@ class clientesPromocionesController extends \BaseController
        */
       public function create()
       {
-            return View::make('clientes.promociones.create');
+            $negocios = Auth::user()->userable->negocios;
+
+            return View::make('clientes.promociones.create')->with('negocios', $negocios);
       }
 
       /**
@@ -45,15 +48,32 @@ class clientesPromocionesController extends \BaseController
       public function store()
       {
             $validatorPromocion = new Sph\Services\Validators\Promocion(Input::all(), 'save');
+            $input = array('imagen' => Input::File('imagen'));
+            $validatorImagen = new Sph\Services\Validators\Imagen(Input::all(), 'save');
 
-            if ($validatorPromocion->passes())
+            if ($validatorPromocion->passes() & $validatorImagen->passes())
             {
                   $promocion_model = Input::all();
-                  $promocion_model = array_add($promocion_model, 'client', Auth::user()->userable);
                   $promocion_model = array_add($promocion_model, 'publicar', false);
+                  if ($input['imagen'])
+                  {
+                        //Obtener datos de la imagen
+                        $path = strval(Auth::user()->userable->id) . '/';
+                        $nombre = strval(Auth::user()->userable->total_images + 1) . '.' . $input['imagen']->getClientOriginalExtension();
+                        $promocion_model = array_add($promocion_model, 'path', $path);
+                        $promocion_model = array_add($promocion_model, 'nombre_imagen', $nombre);
+                  }
                   $promocion = $this->promocion->create($promocion_model);
                   if (isset($promocion))
                   {
+
+                        if ($input['imagen'])
+                        {
+                              //Guardar la imagen; 
+                              $path = Config::get('params.usrimg') . $path;
+                              $input['imagen']->move($path, $nombre);
+                        }
+
                         $pago_model = array(
                             'nombre' => 'Publicación de promoción',
                             'descripcion' => Input::get('nombre'),
@@ -76,7 +96,15 @@ class clientesPromocionesController extends \BaseController
                         Session::flash('error', 'Error al agregar la promoción');
                   }
             }
-            return Redirect::back()->withErrors($validatorPromocion->getErrors())->withInput();
+
+            $promociones_messages = ($validatorPromocion->getErrors() != null) ? $validatorPromocion->getErrors()->all() : array();
+            $imagen_messages = ($validatorImagen->getErrors() != null) ? $validatorImagen->getErrors()->all() : array();
+
+            $validationMessages = array_merge_recursive(
+                    $promociones_messages, $imagen_messages
+            );
+
+            return Redirect::back()->withErrors($validationMessages)->withInput();
       }
 
       /**
@@ -99,9 +127,10 @@ class clientesPromocionesController extends \BaseController
        */
       public function edit($id)
       {
+            $negocios = Auth::user()->userable->negocios;
             $promocion = $this->promocion->find($id);
 
-            return View::make('clientes.promociones.edit')->with('promocion', $promocion);
+            return View::make('clientes.promociones.edit')->with(array('promocion' => $promocion, 'negocios' => $negocios));
       }
 
       /**
@@ -113,19 +142,36 @@ class clientesPromocionesController extends \BaseController
       public function update($id)
       {
             $validatorPromocion = new Sph\Services\Validators\Promocion(Input::all(), 'update');
-            $validatorPromocionEspecial = new Sph\Services\Validators\Promocion_especial(Input::all(), 'update');
+            $input = array('imagen' => Input::File('imagen'));
+            $validatorImagen = new Sph\Services\Validators\Imagen(Input::all(), 'update');
 
-            if ($validatorPromocion->passes() & $validatorPromocionEspecial->passes())
+            if ($validatorPromocion->passes() & $validatorImagen->passes())
             {
+
+                  $promocion = $this->promocion->find($id);
+
                   $promocion_model = Input::all();
 
-                  $especial = array('imagenes' => Input::get('imagenes'));
-
-                  $promocion_model = array_add($promocion_model, 'especial', $especial);
+                  if ($input['imagen'] && !$promocion->imagen)
+                  {
+                        //Obtener datos de la imagen
+                        $path = strval(Auth::user()->userable->id) . '/';
+                        $nombre = strval(Auth::user()->userable->total_images + 1) . '.' . $input['imagen']->getClientOriginalExtension();
+                        $promocion_model = array_add($promocion_model, 'path', $path);
+                        $promocion_model = array_add($promocion_model, 'nombre_imagen', $nombre);
+                  }
 
                   $promocion = $this->promocion->update($id, $promocion_model);
                   if (isset($promocion))
                   {
+                        if ($input['imagen'])
+                        {
+                              //Guardar la imagen; 
+                              $path = Config::get('params.usrimg') . $promocion->imagen->path;
+                              $nombre = $promocion->imagen->nombre;
+                              $input['imagen']->move($path, $nombre);
+                        }
+
                         Session::flash('message', 'Promoción editada con éxito');
                         return Redirect::route('clientes_promociones.index');
                   }
@@ -135,8 +181,9 @@ class clientesPromocionesController extends \BaseController
                   }
             }
             $promocion_messages = ($validatorPromocion->getErrors() != null) ? $validatorPromocion->getErrors()->all() : array();
-            $promocion_especial_messages = ($validatorPromocionEspecial->getErrors() != null) ? $validatorPromocionEspecial->getErrors()->all() : array();
-            $validationMessages = array_merge_recursive($promocion_messages, $promocion_especial_messages);
+            $imagen_messages = ($validatorImagen->getErrors() != null) ? $validatorImagen->getErrors()->all() : array();
+
+            $validationMessages = array_merge_recursive($promocion_messages, $imagen_messages);
 
             return Redirect::back()->withErrors($validationMessages)->withInput();
       }

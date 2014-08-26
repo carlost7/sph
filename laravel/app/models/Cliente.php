@@ -43,7 +43,7 @@ class Cliente extends \Eloquent
 
       public function promociones()
       {
-            return $this->hasManyThrough('Negocio', 'Promocion');
+            return $this->hasManyThrough('Promocion', 'Negocio');
       }
 
       /*

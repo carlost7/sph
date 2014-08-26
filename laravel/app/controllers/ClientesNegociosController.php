@@ -77,7 +77,7 @@ class clientesNegociosController extends \BaseController
             $input = array('imagen' => Input::File('imagen'));
             $validatorImagen = new Sph\Services\Validators\Imagen($input, 'save');
 
-            if ($validatorNegocio->passes() & $validatorHorario->passes() & $validatorMasinfo->passes() & $validatorCatalogo->passes())
+            if ($validatorNegocio->passes() & $validatorHorario->passes() & $validatorMasinfo->passes() & $validatorCatalogo->passes() & $validatorImagen->passes())
             {
                   $negocio_model = Input::all();
                   $negocio_model = array_add($negocio_model, 'client', Auth::user()->userable);

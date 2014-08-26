@@ -191,7 +191,7 @@ Route::group(array('before' => 'auth'), function()
             Route::resource('clientes_promociones', 'clientesPromocionesController');
 
             Route::get('clientes_promociones_activar/{id}', array('as' => 'clientes_promociones_activar.get',
-                'uses' => 'clientesPromocionesController@activar')
+                'uses' => 'ClientesPromocionesController@activar')
             );
 
 

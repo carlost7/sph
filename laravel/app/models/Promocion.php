@@ -27,9 +27,9 @@ class Promocion extends \Eloquent
             return $this->belongsTo('Negocio');
       }
 
-      public function imagenes()
+      public function imagen()
       {
-            return $this->morphMany('Imagen');
+            return $this->morphOne('Imagen', 'imageable');
       }
 
 }

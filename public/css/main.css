@@ -37,6 +37,11 @@ body {
     
 }
 
+#imagepreview{
+    padding-top: 25%;
+    padding-bottom: 25%;
+}
+
 .listas{
     overflow: auto;
     max-height: 300px;    

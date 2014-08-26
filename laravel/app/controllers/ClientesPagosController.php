@@ -39,7 +39,7 @@ class clientesPagosController extends \BaseController
             {
                   $necesita_pagar = true;
             }
-            //->sortByDesc('created_at')->sortBy('pagado');
+            
             return View::make('clientes.pagos.index')->with(array("pagos" => $pagos, 'necesita_pagar' => $necesita_pagar));
       }
 
