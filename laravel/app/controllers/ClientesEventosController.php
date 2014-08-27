@@ -160,38 +160,38 @@ class clientesEventosController extends \BaseController
             $categorias = $this->categoria->all();
             $estados = $this->estado->all();
             $mapa = null;
-            if ($evento->especial)
+            
+            if ( $evento->especial->count() && isset($evento->especial->mapa) )
             {
-                  if ($evento->especial->mapa)
-                  {
-                        $config = array();
-                        $config['center'] = $evento->especial->mapa;
-                        $config['zoom'] = '13';
-                        Gmaps::initialize($config);
+                  
+                  $config = array();
+                  $config['center'] = $evento->especial->mapa;
+                  $config['zoom'] = '13';
+                  Gmaps::initialize($config);
 
-                        $marker = array();
-                        $marker['position'] = $evento->especial->mapa;
-                        $marker['draggable'] = true;
-                        $marker['ondragend'] = 'save_map(event);';
-                        Gmaps::add_marker($marker);
+                  $marker = array();
+                  $marker['position'] = $evento->especial->mapa;
+                  $marker['draggable'] = true;
+                  $marker['ondragend'] = 'edit_map(event);';
+                  Gmaps::add_marker($marker);
 
-                        $mapa = Gmaps::create_map();
-                  }
-                  else
-                  {
-                        $config = array();
-                        $config['center'] = '19.417, -99.169';
-                        $config['zoom'] = '13';
-                        $config['onclick'] = 'save_map(event);';
-                        Gmaps::initialize($config);
+                  $mapa = Gmaps::create_map();
+            }
+            else
+            {
+                  $config = array();
+                  $config['center'] = '19.417, -99.169';
+                  $config['zoom'] = '13';
+                  $config['onclick'] = 'save_map(event);';
+                  Gmaps::initialize($config);
 
-                        $marker = array();
-                        Gmaps::add_marker($marker);
-                        $mapa = Gmaps::create_map();
-                  }
+                  $marker = array();
+                  Gmaps::add_marker($marker);
+                  $mapa = Gmaps::create_map();
             }
 
-            return View::make('clientes.eventos.edit')->with(array('evento' => $evento, 'categorias' => $categorias, 'estados' => $estados,'mapa'=>$mapa));
+
+            return View::make('clientes.eventos.edit')->with(array('evento' => $evento, 'categorias' => $categorias, 'estados' => $estados, 'mapa' => $mapa));
       }
 
       /**
@@ -202,18 +202,18 @@ class clientesEventosController extends \BaseController
        */
       public function update($id)
       {
-            $validatorEvento = new Sph\Services\Validators\Evento(Input::all(), 'update');            
+            $validatorEvento = new Sph\Services\Validators\Evento(Input::all(), 'update');
             $validatorMasinfo = new Sph\Services\Validators\MasinfoEvento(Input::all(), 'update');
             $validatorEspecial = new Sph\Services\Validators\Evento_especial(Input::all(), 'update');
             $validatorCatalogo = new Sph\Services\Validators\Catalogo(Input::all(), 'update');
             $input = array('imagen' => Input::File('imagen'));
             $validatorImagen = new Sph\Services\Validators\Imagen($input, 'update');
-            
+
             if ($validatorEvento->passes() & $validatorMasinfo->passes() & $validatorCatalogo->passes() & $validatorEspecial->passes())
             {
                   $evento = $this->evento->find($id);
 
-                  $evento_model = Input::all();                  
+                  $evento_model = Input::all();
 
                   if ($input['imagen'] && !$evento->imagen)
                   {
@@ -239,7 +239,6 @@ class clientesEventosController extends \BaseController
                   {
                         Session::flash('error', 'Error al agregar el evento');
                   }
-                  
             }
 
             $evento_messages = ($validatorEvento->getErrors() != null) ? $validatorEventoEspecial->getErrors()->all() : array();

@@ -101,7 +101,7 @@ class clientesNegociosController extends \BaseController
                               $path = Config::get('params.usrimg') . $path;
                               $input['imagen']->move($path, $nombre);
                         }
-                        
+
                         //Crear Pago de servicios
                         $pago_model = array(
                             'nombre' => 'Publicación de Negocio',
@@ -163,39 +163,39 @@ class clientesNegociosController extends \BaseController
             $categorias = $this->categoria->all();
             $estados = $this->estado->all();
             $mapa = null;
-            if ($negocio->especial)
+
+            if ($negocio->especial->count() && isset($negocio->especial->mapa))
             {
-                  if ($negocio->especial->mapa)
-                  {
-                        $config = array();
-                        $config['center'] = $negocio->especial->mapa;
-                        $config['zoom'] = '13';                        
-                        Gmaps::initialize($config);
 
-                        $marker = array();
-                        $marker['position'] = $negocio->especial->mapa;
-                        $marker['draggable'] = true;
-                        $marker['ondragend'] = 'save_map(event);';
-                        Gmaps::add_marker($marker);
+                  $config = array();
+                  $config['center'] = $negocio->especial->mapa;
+                  $config['zoom'] = '13';
+                  Gmaps::initialize($config);
 
-                        $mapa = Gmaps::create_map();
-                  }
-                  else
-                  {
-                        $config = array();
-                        $config['center'] = '19.417, -99.169';
-                        $config['zoom'] = '13';
-                        $config['onclick'] = 'save_map(event);';
-                        Gmaps::initialize($config);
+                  $marker = array();
+                  $marker['position'] = $negocio->especial->mapa;
+                  $marker['draggable'] = true;
+                  $marker['ondragend'] = 'save_map(event);';
+                  Gmaps::add_marker($marker);
 
-                        $marker = array();                        
-                        Gmaps::add_marker($marker);
-                        $mapa = Gmaps::create_map();
-                  }
+                  $mapa = Gmaps::create_map();
+            }
+            else
+            {
+                  $config = array();
+                  $config['center'] = '19.417, -99.169';
+                  $config['zoom'] = '13';
+                  $config['onclick'] = 'save_map(event);';
+                  Gmaps::initialize($config);
+
+                  $marker = array();
+                  Gmaps::add_marker($marker);
+                  $mapa = Gmaps::create_map();
             }
 
 
-            return View::make('clientes.negocios.edit')->with(array('negocio' => $negocio, 'categorias' => $categorias, 'estados' => $estados,'mapa'=>$mapa));
+
+            return View::make('clientes.negocios.edit')->with(array('negocio' => $negocio, 'categorias' => $categorias, 'estados' => $estados, 'mapa' => $mapa));
       }
 
       /**
@@ -218,7 +218,7 @@ class clientesNegociosController extends \BaseController
             {
                   $negocio = $this->negocio->find($id);
 
-                  $negocio_model = Input::all();                  
+                  $negocio_model = Input::all();
 
                   if ($input['imagen'] && !$negocio->imagen)
                   {

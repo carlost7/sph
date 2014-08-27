@@ -172,8 +172,8 @@
 <h3>Datos Especiales</h3>
 
 <div class="form-group">
-      {{ Form::label('webpage', 'Página web') }}            
-      {{ Form::text('webpage', ($evento->especial) ? $evento->especial->webpage : '' ,array('placeholder'=>'página web','class'=>'form-control')) }}
+      {{ Form::label('web', 'Página web') }}            
+      {{ Form::text('web', ($evento->especial) ? $evento->especial->web : '' ,array('placeholder'=>'página web','class'=>'form-control')) }}
 </div>        
 <div class="form-group">
       {{ Form::label('email', 'Correo electrónico') }}            
@@ -294,7 +294,12 @@
 
 
 <script>
-      function save_map(event){            
+      function save_map(event){
+            $('#latlng').val(event.latLng);
+            createMarker_map({ map: map, position:event.latLng });
+      }
+      
+      function edit_map(event){  
             $('#latlng').val(event.latLng);            
       }
 </script>
