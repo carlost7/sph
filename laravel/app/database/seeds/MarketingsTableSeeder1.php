@@ -1,6 +1,6 @@
 <?php
 
-class MarketingsTableSeeder extends Seeder
+class MarketingsTableSeeder1 extends Seeder
 {
 
       public function run()

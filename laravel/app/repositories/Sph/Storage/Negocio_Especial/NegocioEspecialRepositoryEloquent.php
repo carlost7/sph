@@ -9,6 +9,7 @@ namespace Sph\Storage\Negocio_Especial;
  */
 use Negocio;
 use Negocio_especial;
+use Imagen;
 
 class NegocioEspecialRepositoryEloquent implements NegocioEspecialRepository
 {
@@ -18,76 +19,48 @@ class NegocioEspecialRepositoryEloquent implements NegocioEspecialRepository
             return Negocio::all();
       }
 
-      public function create(array $negocio_model)
+      public function create($id_negocio, array $especial_model)
       {
-            $negocio = new Negocio($negocio_model);
-            $negocio->cliente_id = $negocio_model['client']->id;
-            if ($negocio->save())
+            $especial = Negocio::find($id_negocio)->especial;
+            if ($especial)
             {
-                  return $negocio;
+                  if (isset($especial_model['nombre_imagen']))
+                  {
+                        $imagen = new Imagen($especial_model);
+                        $imagen->nombre = $especial_model['nombre_imagen'];
+                        $imagen->cliente_id = $especial->negocio->cliente->id;
+                        $especial->imagenes()->save($imagen);
+                  }
+                  return $especial;
             }
-            else
-            {
-                  return null;
-            }
+            return null;
       }
 
       public function delete($id)
       {
-            return Negocio::destroy($id);
+            return Imagen::destroy($id);
       }
 
       public function find($id)
       {
-            return Negocio::find($id);
+            return Imagen::find($id);
       }
 
-      public function update($id, array $negocio_model)
+      public function update($id, array $especial_model)
       {
-            $negocio = Negocio::find($id);
-            if (isset($negocio))
+            $imagen = Imagen::find($id);
+
+            if (isset($imagen))
             {
-                  $negocio->fill($negocio_model);
-                  if ($negocio->save())
                   {
-                        if (!$negocio->is_especial)
-                        {
-                              return $negocio;
-                        }
-
-                        $negocio_especial = $negocio->especial;
-
-                        if (isset($negocio_especial))
-                        {
-                              if ($negocio->especial()->update($negocio_model['especial']))
-                              {
-                                    return $negocio;
-                              }
-                              else
-                              {
-                                    return null;
-                              }
-                        }
-                        else
-                        {
-                              $negocio_especial = new Negocio_especial($negocio_model['especial']);
-                              if ($negocio->especial()->save($negocio_especial))
-                              {
-                                    return $negocio;
-                              }
-                              else
-                              {
-                                    return null;
-                              }
-                        }
+                        $imagen->alt = $especial_model['alt'];
+                        $imagen->save();
                   }
-                  else
-                  {
-                        return null;
-                  }
+                  
+                  return $imagen;
             }
-
             return null;
       }
+
 
 }

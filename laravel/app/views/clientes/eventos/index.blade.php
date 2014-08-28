@@ -31,7 +31,7 @@
             </p>
             @endif
             <p class="text-right">
-                  {{ HTML::linkRoute('clientes_eventos.edit','editar',$evento->id,array('class'=>'btn btn-sm btn-info')) }}                         
+                  {{ HTML::linkRoute('clientes_eventos.edit','editar',$evento->id,array('class'=>'btn btn-sm btn-info')) }}
             </p>
 
 

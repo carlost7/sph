@@ -11,7 +11,7 @@
  *
  * @author carlos
  */
-class UserTableSeeder extends Seeder
+class UserTableSeeder1 extends Seeder
 {
 
       public function run()

@@ -86,7 +86,7 @@ class clientesNegociosController extends \BaseController
                   {
                         //Obtener datos de la imagen
                         $path = strval(Auth::user()->userable->id) . '/';
-                        $nombre = strval(Auth::user()->userable->total_images + 1) . '.' . $input['imagen']->getClientOriginalExtension();
+                        $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
                         $negocio_model = array_add($negocio_model, 'path', $path);
                         $negocio_model = array_add($negocio_model, 'nombre_imagen', $nombre);
                   }
@@ -164,7 +164,7 @@ class clientesNegociosController extends \BaseController
             $estados = $this->estado->all();
             $mapa = null;
 
-            if ($negocio->especial->count() && isset($negocio->especial->mapa))
+            if (count($negocio->especial) && isset($negocio->especial->mapa))
             {
 
                   $config = array();
@@ -175,7 +175,7 @@ class clientesNegociosController extends \BaseController
                   $marker = array();
                   $marker['position'] = $negocio->especial->mapa;
                   $marker['draggable'] = true;
-                  $marker['ondragend'] = 'save_map(event);';
+                  $marker['ondragend'] = 'edit_map(event);';
                   Gmaps::add_marker($marker);
 
                   $mapa = Gmaps::create_map();
@@ -224,11 +224,11 @@ class clientesNegociosController extends \BaseController
                   {
                         //Obtener datos de la imagen
                         $path = strval(Auth::user()->userable->id) . '/';
-                        $nombre = strval(Auth::user()->userable->total_images + 1) . '.' . $input['imagen']->getClientOriginalExtension();
+                        $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
                         $negocio_model = array_add($negocio_model, 'path', $path);
-                        $negocio_model = array_add($negocio_model, 'nombre_imagen', $nombre);
+                        $negocio_model = array_add($negocio_model, 'nombre_imagen', $nombre);                        
                   }
-
+                  
                   $negocio = $this->negocio->update($id, $negocio_model);
 
                   if (isset($negocio))
@@ -237,8 +237,14 @@ class clientesNegociosController extends \BaseController
                         {
                               $input['imagen']->move(Config::get('params.usrimg') . $negocio->imagen->path, $negocio->imagen->nombre);
                         }
+                        
                         Session::flash('message', 'Negocio modificado con éxito');
-                        return Redirect::route('clientes_negocios.index');
+                        if(Input::get('add_images')){
+                              return Redirect::route('clientes_negocios_especiales_index.get',array('id'=>$negocio->id));
+                        }else{
+                              return Redirect::route('clientes_negocios.index');
+                        }
+                        
                   }
                   else
                   {

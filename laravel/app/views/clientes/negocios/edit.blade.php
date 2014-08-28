@@ -256,6 +256,15 @@
       {{ $mapa['js'] }}
       {{ $mapa['html'] }}      
 </div>        
+<div class="form-group">
+      <div class="checkbox">
+            <label>
+                  {{ Form::checkbox('add_images', true) }}      
+                  agregar o editar imagenes especiales
+            </label>
+      </div>
+</div>
+
 @endif
 
 @include('layouts.show_form_errors')
@@ -263,6 +272,8 @@
 <div class="form-group">
       <button type="submit" class="btn btn-primary">Editar negocio</button>
 </div>        
+
+
 
 {{ Form::close() }}
 
@@ -343,7 +354,12 @@
 </script>
 
 <script>
-      function save_map(event){            
+      function save_map(event){
+            $('#latlng').val(event.latLng);
+            createMarker_map({ map: map, position:event.latLng });
+      }
+      
+      function edit_map(event){  
             $('#latlng').val(event.latLng);            
       }
 </script>

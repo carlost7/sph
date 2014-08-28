@@ -59,7 +59,7 @@ class clientesPromocionesController extends \BaseController
                   {
                         //Obtener datos de la imagen
                         $path = strval(Auth::user()->userable->id) . '/';
-                        $nombre = strval(Auth::user()->userable->total_images + 1) . '.' . $input['imagen']->getClientOriginalExtension();
+                        $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
                         $promocion_model = array_add($promocion_model, 'path', $path);
                         $promocion_model = array_add($promocion_model, 'nombre_imagen', $nombre);
                   }
@@ -156,7 +156,7 @@ class clientesPromocionesController extends \BaseController
                   {
                         //Obtener datos de la imagen
                         $path = strval(Auth::user()->userable->id) . '/';
-                        $nombre = strval(Auth::user()->userable->total_images + 1) . '.' . $input['imagen']->getClientOriginalExtension();
+                        $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
                         $promocion_model = array_add($promocion_model, 'path', $path);
                         $promocion_model = array_add($promocion_model, 'nombre_imagen', $nombre);
                   }

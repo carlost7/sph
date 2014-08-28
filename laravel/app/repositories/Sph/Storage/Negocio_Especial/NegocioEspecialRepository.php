@@ -9,7 +9,7 @@ interface NegocioEspecialRepository
 
       public function find($id);
 
-      public function create(array $negocio_model);
+      public function create($id_negocio, array $negocio_model);
 
       public function update($id, array $negocio_model);
 

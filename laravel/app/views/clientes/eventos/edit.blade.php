@@ -107,7 +107,6 @@
                               Tarjeta de crédito
                         </label>
                   </div>
-
             </div>
             <div class="col-sm-4">
                   <div class="checkbox">
@@ -185,7 +184,14 @@
       {{ $mapa['js'] }}
       {{ $mapa['html'] }}      
 </div>        
-
+<div class="form-group">
+      <div class="checkbox">
+            <label>
+                  {{ Form::checkbox('add_images', true) }}      
+                  agregar o editar imagenes especiales
+            </label>
+      </div>
+</div>
 
 @endif
 
@@ -195,6 +201,7 @@
 <div class="form-group">
       <button type="submit" class="btn btn-primary">Editar evento</button>
 </div>        
+
 
 {{ Form::close() }}
 

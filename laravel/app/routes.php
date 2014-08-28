@@ -167,6 +167,12 @@ Route::group(array('before' => 'auth'), function()
             Route::get('clientes_negocios_activar/{id}', array('as' => 'clientes_negocios_activar.get',
                 'uses' => 'clientesNegociosController@activar')
             );
+            
+            Route::resource('clientes_negocios_especiales', 'clientesNegociosEspecialesController');
+            
+            Route::get('clientes_negocios_especiales_index/{id}', array('as' => 'clientes_negocios_especiales_index.get',
+                'uses' => 'clientesNegociosEspecialesController@index')
+            );
 
 
 
@@ -180,6 +186,12 @@ Route::group(array('before' => 'auth'), function()
 
             Route::get('clientes_eventos_activar/{id}', array('as' => 'clientes_eventos_activar.post',
                 'uses' => 'clientesEventosController@activar')
+            );
+            
+            Route::resource('clientes_eventos_especiales', 'clientesEventosEspecialesController');
+            
+            Route::get('clientes_eventos_especiales_index/{id}', array('as' => 'clientes_eventos_especiales_index.get',
+                'uses' => 'clientesEventosEspecialesController@index')
             );
 
             /*

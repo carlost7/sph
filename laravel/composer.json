@@ -8,7 +8,8 @@
         "way/generators": "dev-master",
         "phpunit/phpunit": "3.7.*",
         "mercadopago/sdk": "dev-master",
-        "appitventures/phpgmaps": "dev-master"
+        "appitventures/phpgmaps": "dev-master",
+        "fzaninotto/faker": "dev-master"
     },
     "autoload": {
         "classmap": [

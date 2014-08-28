@@ -1,28 +1,51 @@
 <?php
 
-class ClientesTableSeeder extends Seeder
+// Composer: "fzaninotto/faker": "v1.4.0"
+use Faker\Factory as Faker;
+
+class UsuariosTableSeeder extends Seeder
 {
 
       public function run()
       {
-            $cliente1 = new Cliente();
-            $cliente1->nombre = 'nombre';
-            $cliente1->apellido = 'apellido';
-            $cliente1->empresa = 'empresa';
-            $cliente1->telefono = '5464645464';
-            $cliente1->ext = '123';
-            $cliente1->celular = '5464645647864';
-            $cliente1->is_active = true;            
-            $cliente1->marketing_id = Marketing::get()->first()->id;
-            $cliente1->save();
+            $faker = Faker::create();
 
-            $user1 = new User();
-            $user1->password = Hash::make('klendactu');
-            $user1->email = 'cliente@sphellar.com';
-            $user1->userable_id = $cliente1->id;
-            $user1->userable_type = get_class($cliente1);
-            $user1->save();
-
+            foreach (range(1, 5) as $index)
+            {
+                  Marketing::create(array(
+                      
+                  ));
+                  
+                  Users::create(array(
+                      'password' => Hash::make($faker->word),
+                      'email' => $faker->email,
+                      'userable_id' => $faker->numberBetween(1,5),
+                      'userable_type' => 'Marketing',
+                  
+                  ));
+            }
+            
+            foreach (range(1, 100) as $index)
+            {
+                  Cliente::create(array(
+                      'nombre' => $faker->name,
+                      'apellido'=> $faker->name,
+                      'empresa'=> $faker->company,
+                      'telefono'=> $faker->phoneNumber,
+                      'ext'=> $faker->numberBetween(100,990),
+                      'celular'=> $faker->phoneNumber,
+                      'is_active'=> $faker->boolean($chanceOfGettingTrue = 50),
+                      'marketing_id'=> $faker->numberBetween(1,5),
+                  ));
+                  
+                  Users::create(array(
+                      'password' => Hash::make($faker->word),
+                      'email' => $faker->email,
+                      'userable_id' => $faker->numberBetween(1,100),
+                      'userable_type' => 'Marketing',
+                  ));
+            }
+            
             
       }
 

@@ -82,7 +82,7 @@ class clientesEventosController extends \BaseController
                   {
                         //Obtener datos de la imagen
                         $path = strval(Auth::user()->userable->id) . '/';
-                        $nombre = strval(Auth::user()->userable->total_images + 1) . '.' . $input['imagen']->getClientOriginalExtension();
+                        $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
                         $evento_model = array_add($evento_model, 'path', $path);
                         $evento_model = array_add($evento_model, 'nombre_imagen', $nombre);
                   }
@@ -91,8 +91,6 @@ class clientesEventosController extends \BaseController
                   $evento = $this->evento->create($evento_model);
                   if (isset($evento))
                   {
-
-
                         if ($input['imagen'])
                         {
                               //Guardar la imagen; 
@@ -161,7 +159,7 @@ class clientesEventosController extends \BaseController
             $estados = $this->estado->all();
             $mapa = null;
             
-            if ( $evento->especial->count() && isset($evento->especial->mapa) )
+            if ( count($evento->especial) && isset($evento->especial->mapa) )
             {
                   
                   $config = array();
@@ -219,7 +217,7 @@ class clientesEventosController extends \BaseController
                   {
                         //Obtener datos de la imagen
                         $path = strval(Auth::user()->userable->id) . '/';
-                        $nombre = strval(Auth::user()->userable->total_images + 1) . '.' . $input['imagen']->getClientOriginalExtension();
+                        $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
                         $evento_model = array_add($evento_model, 'path', $path);
                         $evento_model = array_add($evento_model, 'nombre_imagen', $nombre);
                   }
@@ -233,7 +231,13 @@ class clientesEventosController extends \BaseController
                               $input['imagen']->move(Config::get('params.usrimg') . $evento->imagen->path, $evento->imagen->nombre);
                         }
                         Session::flash('message', 'Evento modificado con éxito');
-                        return Redirect::route('clientes_eventos.index');
+                        
+                        if(Input::get('add_images')){
+                              return Redirect::route('clientes_eventos_especiales_index.get',array('id'=>$evento->id));
+                        }else{
+                              return Redirect::route('clientes_eventos.index');
+                        }
+                        
                   }
                   else
                   {

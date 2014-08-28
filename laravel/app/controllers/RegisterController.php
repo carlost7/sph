@@ -218,7 +218,6 @@ class RegisterController extends \BaseController
                         $admin_model = Input::all();
                         $admin_model = array_add($admin_model, 'user', $user);
                         $admin = $this->administrador->create($admin_model);
-                        dd($admin);
                         if (isset($admin))
                         {
                               Session::flash('message', 'Usuario creado con éxito');

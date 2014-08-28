@@ -25,7 +25,7 @@ $app = new Illuminate\Foundation\Application;
  */
 
 $env = $app->detectEnvironment(array(
-    'local' => array('carlos-OptiPlex-760','lap-carlos'),
+    'local' => array('carlos-OptiPlex-760','lap-carlos','itzel-V5-131'),
         ));
 
 /*
