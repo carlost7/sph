@@ -50,13 +50,21 @@
       <div class="row">
             <div class="col-sm-6">
                   {{ Form::label('hora_inicio','Inicia') }}
-                  <div class="bfh-timepicker" data-name='hora_inicio' data-time='{{ date('H:i',strtotime($evento->hora_inicio))}}'>
-                  </div>                              
+                  <div class="input-group clockpicker" data-autoclose="true">
+                        <input type="text" class="form-control" name="hora_inicio" value="{{ date('H:i',strtotime($evento->hora_inicio))}}">
+                        <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-time"></span>
+                        </span>
+                  </div>                             
             </div>
             <div class="col-sm-6">
                   {{ Form::label('hora_fin','Termina') }}
-                  <div class="bfh-timepicker" data-name='hora_fin' data-time='{{ date('H:i',strtotime($evento->hora_fin))}}'>
-                  </div>                              
+                  <div class="input-group clockpicker" data-autoclose="true">
+                        <input type="text" class="form-control" name="hora_inicio" value="{{ date('H:i',strtotime($evento->hora_fin))}}">
+                        <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-time"></span>
+                        </span>
+                  </div>
             </div>
       </div>
 </div>
@@ -218,8 +226,8 @@
 {{ HTML::script('js/vendor/bootstrap-datepicker.js') }}
 {{ HTML::script('js/vendor/bootstrap-datetimepicker.min.js') }}
 {{ HTML::script('js/vendor/bootstrap-datetimepicker.es.js') }}
-{{ HTML::script('js/vendor/ui.timepickr.js') }}
 {{ HTML::script('js/vendor/bootstrap-file-input.js') }}
+{{ HTML::script('js/vendor/bootstrap-clockpicker.min.js') }}
 
 <script type="text/javascript">
       $(function() {
@@ -311,4 +319,7 @@
       }
 </script>
 
+<script type="text/javascript">
+      $('.clockpicker').clockpicker();
+</script>
 @stop

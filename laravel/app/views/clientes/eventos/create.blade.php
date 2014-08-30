@@ -8,7 +8,7 @@
 
 <div class="form-group">
       {{ Form::label('nombre', 'Nombre') }}
-      {{ Form::text('nombre', Input::old('nombre'), array('placeholder' => 'nombre del negocio', 'class'=>'form-control')) }}
+      {{ Form::text('nombre', Input::old('nombre'), array('placeholder' => 'nombre del evento', 'class'=>'form-control')) }}
 </div>
 <div class="form-group">
       {{ Form::label('fecha_inicio', 'Fecha de inicio') }}      
@@ -49,13 +49,21 @@
       <div class="row">
             <div class="col-sm-6">
                   {{ Form::label('hora_inicio','Inicia') }}
-                  <div class="bfh-timepicker" data-name='hora_inicio' data-time='{{ Input::old('hora_inicio')}}'>
-                  </div>                              
+                  <div class="input-group clockpicker" data-autoclose="true">
+                        <input type="text" class="form-control" name="hora_inicio" value="{{ Input::old('hora_inicio')}}">
+                        <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-time"></span>
+                        </span>
+                  </div> 
             </div>
             <div class="col-sm-6">
                   {{ Form::label('hora_fin','Termina') }}
-                  <div class="bfh-timepicker" data-name='hora_fin' data-time='{{ Input::old('hora_fin')}}'>
-                  </div>                              
+                  <div class="input-group clockpicker" data-autoclose="true">
+                        <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-time"></span>
+                        </span>
+                        <input type="text" class="form-control" name="hora_fin" value="{{ Input::old('hora_ini')}}">
+                  </div> 
             </div>
       </div>
 </div>
@@ -177,8 +185,8 @@
 {{ HTML::script('js/vendor/bootstrap-datepicker.js') }}
 {{ HTML::script('js/vendor/bootstrap-datetimepicker.min.js') }}
 {{ HTML::script('js/vendor/bootstrap-datetimepicker.es.js') }}
-{{ HTML::script('js/vendor/ui.timepickr.js') }}
 {{ HTML::script('js/vendor/bootstrap-file-input.js') }}
+{{ HTML::script('js/vendor/bootstrap-clockpicker.min.js') }}
 
 <script type="text/javascript">
       $(function() {
@@ -246,6 +254,10 @@
             }).trigger('change');
       });
 
+</script>
+
+<script type="text/javascript">
+      $('.clockpicker').clockpicker();
 </script>
 @stop
 

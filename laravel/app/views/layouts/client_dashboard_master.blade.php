@@ -11,8 +11,8 @@
             <meta name="viewport" content="width=device-width, initial-scale=1">
             {{ HTML::style('css/bootstrap.css') }}
             {{ HTML::style('css/bootstrap-theme.css') }}            
-            {{ HTML::style('css/bootstrap-datetimepicker.min.css') }}
-            {{ HTML::style('css/bootstrap-formhelpers.min.css') }}
+            {{ HTML::style('css/bootstrap-datetimepicker.min.css') }}            
+            {{ HTML::style('css/bootstrap-clockpicker.min.css') }}            
             {{ HTML::style('css/colors-override.css') }}            
             {{ HTML::style('css/main.css') }}
             {{ HTML::script('js/vendor/modernizr-2.6.2-respond-1.1.0.min.js') }}
@@ -102,7 +102,6 @@
 
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>                
             {{ HTML::script('js/vendor/bootstrap.min.js') }}
-            {{ HTML::script('js/vendor/bootstrap-formhelpers.min.js') }}
             {{ HTML::script('js/main.js') }}
             @section('scripts')
             @show

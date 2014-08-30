@@ -9,15 +9,15 @@
 
 <div class="form-group">
       {{ Form::label('direccion', 'Dirección') }}
-      {{ Form::text('direccion', Input::old('direccion'), array('placeholder' => 'dirección', 'class'=>'form-control')) }}
+      {{ Form::text('direccion', $negocio->direccion, array('placeholder' => 'dirección', 'class'=>'form-control')) }}
 </div>        
 <div class="form-group">
       {{ Form::label('telefono', 'Teléfono') }}
-      {{ Form::text('telefono', Input::old('telefono'), array('placeholder' => 'telefono', 'class'=>'form-control')) }}
+      {{ Form::text('telefono', $negocio->telefono, array('placeholder' => 'telefono', 'class'=>'form-control')) }}
 </div>
 <div class="form-group">
       {{ Form::label('descripcion', 'Descripción') }}
-      {{ Form::textArea('descripcion', Input::old('descripcion'), array('placeholder' => 'Descripcion', 'class'=>'form-control')) }}
+      {{ Form::textArea('descripcion', $negocio->descripcion, array('placeholder' => 'Descripcion', 'class'=>'form-control')) }}
 </div>
 <div class="form-group">
       {{ Form::label('llevar','Más información') }}
@@ -113,86 +113,142 @@
                   </div>
                   <div class="row">
                         <div class="col-sm-6">
-                              {{ Form::label('lun_ini','Lunes inicio') }}                              
-                              <div class="bfh-timepicker" data-name='lun_ini' data-time='{{ date('H:i',strtotime($negocio->horario->lun_ini))}}'>
-                              </div>                              
+                              {{ Form::label('lun_ini','Lunes inicio') }}
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                    <input type="text" class="form-control" name="lun_ini" value="{{ date('H:i',strtotime($negocio->horario->lun_ini))}}">
+                              </div>
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('lun_fin','Lunes fin') }}
-                              <div class="bfh-timepicker" data-name='lun_fin' data-align='right' data-time='{{ date('H:i',strtotime($negocio->horario->lun_fin))}}'>
-                              </div>                              
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control" name="lun_fin" value="{{ date('H:i',strtotime($negocio->horario->lun_fin))}}">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                              </div>                             
                         </div>
                   </div>
                   <div class="row">
                         <div class="col-sm-6">
                               {{ Form::label('mar_ini','Martes inicio') }}
-                              <div class="bfh-timepicker" data-name='mar_ini' data-time='{{ date('H:i',strtotime($negocio->horario->mar_ini))}}'>
-                              </div>                              
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                    <input type="text" class="form-control" name="mar_ini" value="{{ date('H:i',strtotime($negocio->horario->lun_ini))}}">
+                              </div>                             
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('mar_fin','Martes fin') }}
-                              <div class="bfh-timepicker" data-name='mar_fin' data-align='right' data-time='{{ date('H:i',strtotime($negocio->horario->mar_fin))}}'>
-                              </div>                              
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control" name="mar_fin" value="{{ date('H:i',strtotime($negocio->horario->mar_fin))}}">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                              </div>                             
                         </div>
                   </div>
                   <div class="row">
                         <div class="col-sm-6">
                               {{ Form::label('mie_ini','Miercoles inicio') }}
-                              <div class="bfh-timepicker" data-name='mie_ini' data-time='{{ date('H:i',strtotime($negocio->horario->mie_ini))}}'>
-                              </div>                              
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                    <input type="text" class="form-control" name="mie_ini" value="{{ date('H:i',strtotime($negocio->horario->mie_ini))}}">
+                              </div>                             
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('mie_fin','Miercoles fin') }}
-                              <div class="bfh-timepicker" data-name='mie_fin' data-align='right' data-time='{{ date('H:i',strtotime($negocio->horario->mie_fin))}}'>
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control" name="mie_fin" value="{{ date('H:i',strtotime($negocio->horario->mie_fin))}}">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
                               </div>                              
                         </div>
                   </div>
                   <div class="row">
                         <div class="col-sm-6">
                               {{ Form::label('jue_ini','Jueves inicio') }}
-                              <div class="bfh-timepicker" data-name='jue_ini' data-time='{{ date('H:i',strtotime($negocio->horario->jue_ini))}}'>
-                              </div>                              
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                    <input type="text" class="form-control" name="jue_ini" value="{{ date('H:i',strtotime($negocio->horario->jue_ini))}}">
+                              </div>                             
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('jue_fin','Jueves fin') }}
-                              <div class="bfh-timepicker" data-name='jue_fin' data-align='right' data-time='{{ date('H:i',strtotime($negocio->horario->jue_fin))}}'>
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control" name="jue_fin" value="{{ date('H:i',strtotime($negocio->horario->jue_fin))}}">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
                               </div>                              
                         </div>
                   </div>
                   <div class="row">
                         <div class="col-sm-6">
                               {{ Form::label('vie_ini','Viernes inicio') }}
-                              <div class="bfh-timepicker" data-name='vie_ini' data-time='{{ date('H:i',strtotime($negocio->horario->vie_ini))}}'>
-                              </div>                              
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                    <input type="text" class="form-control" name="vie_ini" value="{{ date('H:i',strtotime($negocio->horario->vie_ini))}}">
+                              </div>                             
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('vie_fin','Viernes fin') }}
-                              <div class="bfh-timepicker" data-name='vie_fin' data-align='right' data-time='{{ date('H:i',strtotime($negocio->horario->vie_fin))}}'>
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control" name="vie_fin" value="{{ date('H:i',strtotime($negocio->horario->vie_fin))}}">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
                               </div>                              
                         </div>
                   </div>
                   <div class="row">
                         <div class="col-sm-6">
                               {{ Form::label('sab_ini','Sabado inicio') }}
-                              <div class="bfh-timepicker" data-name='sab_ini' data-time='{{ date('H:i',strtotime($negocio->horario->sab_ini))}}'>
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                    <input type="text" class="form-control" name="sab_ini" value="{{ date('H:i',strtotime($negocio->horario->sab_ini))}}">
                               </div>                              
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('sab_fin','Sabado fin') }}
-                              <div class="bfh-timepicker" data-name='sab_fin' data-align='right' data-time='{{ date('H:i',strtotime($negocio->horario->sab_fin))}}'>
-                              </div>                              
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control" name="sab_fin" value="{{ date('H:i',strtotime($negocio->horario->sab_fin))}}">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                              </div>                             
                         </div>
                   </div>
                   <div class="row">
                         <div class="col-sm-6">
                               {{ Form::label('dom_ini','Domingo inicio') }}
-                              <div class="bfh-timepicker" data-name='dom_ini' data-time='{{ date('H:i',strtotime($negocio->horario->dom_ini))}}'>
-                              </div>                              
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                    <input type="text" class="form-control" name="dom_ini" value="{{ date('H:i',strtotime($negocio->horario->dom_ini))}}">
+                              </div>                             
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('dom_fin','Domingo fin') }}
-                              <div class="bfh-timepicker" data-name='dom_fin' data-align='right' data-time='{{ date('H:i',strtotime($negocio->horario->dom_fin))}}'>
-                              </div>                              
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control" name="dom_fin" value="{{ date('H:i',strtotime($negocio->horario->dom_fin))}}">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                              </div>                             
                         </div>
                   </div>      
             </div>
@@ -288,6 +344,7 @@
 
 @section('scripts')
 {{ HTML::script('js/vendor/bootstrap-file-input.js') }}
+{{ HTML::script('js/vendor/bootstrap-clockpicker.min.js') }}
 
 
 <script>
@@ -362,5 +419,9 @@
       function edit_map(event){  
             $('#latlng').val(event.latLng);            
       }
+</script>
+
+<script type="text/javascript">
+      $('.clockpicker').clockpicker();
 </script>
 @stop

@@ -119,85 +119,141 @@
                   <div class="row">
                         <div class="col-sm-6">
                               {{ Form::label('lun_ini','Lunes inicio') }}
-                              <div class="bfh-timepicker" data-name='lun_ini' data-time='{{ Input::old('lun_ini')}}'>
-                              </div>                              
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                    <input type="text" class="form-control" name="lun_ini" value="{{ Input::old('lun_ini')}}">
+                              </div>
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('lun_fin','Lunes fin') }}
-                              <div class="bfh-timepicker" data-name='lun_ini' data-align='right' data-time='{{ Input::old('lun_fin')}}'>
-                              </div>                              
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control" name="lun_fin" value="{{ Input::old('lun_ini')}}">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                              </div>                             
                         </div>
                   </div>
                   <div class="row">
                         <div class="col-sm-6">
                               {{ Form::label('mar_ini','Martes inicio') }}
-                              <div class="bfh-timepicker" data-name='mar_ini' data-time='{{ Input::old('mar_ini')}}'>
-                              </div>                              
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                    <input type="text" class="form-control" name="mar_ini" value="{{ Input::old('lun_ini')}}">
+                              </div>                             
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('mar_fin','Martes fin') }}
-                              <div class="bfh-timepicker" data-name='mar_fin' data-align='right' data-time='{{ Input::old('mar_fin')}}'>
-                              </div>                              
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control" name="mar_fin" value="{{ Input::old('lun_ini')}}">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                              </div>                             
                         </div>
                   </div>
                   <div class="row">
                         <div class="col-sm-6">
                               {{ Form::label('mie_ini','Miercoles inicio') }}
-                              <div class="bfh-timepicker" data-name='mie_ini' data-time='{{ Input::old('mie_ini')}}'>
-                              </div>                              
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                    <input type="text" class="form-control" name="mie_ini" value="{{ Input::old('lun_ini')}}">
+                              </div>                             
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('mie_fin','Miercoles fin') }}
-                              <div class="bfh-timepicker" data-name='mie_fin' data-align='right' data-time='{{ Input::old('mie_fin')}}'>
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control" name="mie_fin" value="{{ Input::old('lun_ini')}}">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
                               </div>                              
                         </div>
                   </div>
                   <div class="row">
                         <div class="col-sm-6">
                               {{ Form::label('jue_ini','Jueves inicio') }}
-                              <div class="bfh-timepicker" data-name='jue_ini' data-time='{{ Input::old('jue_ini')}}'>
-                              </div>                              
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                    <input type="text" class="form-control" name="jue_ini" value="{{ Input::old('lun_ini')}}">
+                              </div>                             
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('jue_fin','Jueves fin') }}
-                              <div class="bfh-timepicker" data-name='jue_fin' data-align='right' data-time='{{ Input::old('jue_fin')}}'>
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control" name="jue_fin" value="{{ Input::old('lun_ini')}}">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
                               </div>                              
                         </div>
                   </div>
                   <div class="row">
                         <div class="col-sm-6">
                               {{ Form::label('vie_ini','Viernes inicio') }}
-                              <div class="bfh-timepicker" data-name='vie_ini' data-time='{{ Input::old('vie_ini')}}'>
-                              </div>                              
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                    <input type="text" class="form-control" name="vie_ini" value="{{ Input::old('lun_ini')}}">
+                              </div>                             
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('vie_fin','Viernes fin') }}
-                              <div class="bfh-timepicker" data-name='vie_fin' data-align='right' data-time='{{ Input::old('vie_fin')}}'>
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control" name="vie_fin" value="{{ Input::old('lun_ini')}}">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
                               </div>                              
                         </div>
                   </div>
                   <div class="row">
                         <div class="col-sm-6">
                               {{ Form::label('sab_ini','Sabado inicio') }}
-                              <div class="bfh-timepicker" data-name='sab_ini' data-time='{{ Input::old('sab_ini')}}'>
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                    <input type="text" class="form-control" name="sab_ini" value="{{ Input::old('lun_ini')}}">
                               </div>                              
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('sab_fin','Sabado fin') }}
-                              <div class="bfh-timepicker" data-name='sab_fin' data-align='right' data-time='{{ Input::old('sab_fin')}}'>
-                              </div>                              
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control" name="sab_fin" value="{{ Input::old('lun_ini')}}">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                              </div>                             
                         </div>
                   </div>
                   <div class="row">
                         <div class="col-sm-6">
                               {{ Form::label('dom_ini','Domingo inicio') }}
-                              <div class="bfh-timepicker" data-name='dom_ini' data-time='{{ Input::old('dom_ini')}}'>
-                              </div>                              
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                    <input type="text" class="form-control" name="dom_ini" value="{{ Input::old('lun_ini')}}">
+                              </div>                             
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('dom_fin','Domingo fin') }}
-                              <div class="bfh-timepicker" data-name='dom_fin' data-align='right' data-time='{{ Input::old('dom_fin')}}'>
-                              </div>                              
+                              <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control" name="dom_fin" value="{{ Input::old('lun_ini')}}">
+                                    <span class="input-group-addon">
+                                          <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                              </div>                             
                         </div>
                   </div>      
             </div>
@@ -247,7 +303,7 @@
 
 @section('scripts')
 {{ HTML::script('js/vendor/bootstrap-file-input.js') }}
-{{ HTML::script('js/vendor/ui.timepickr.js') }}
+{{ HTML::script('js/vendor/bootstrap-clockpicker.min.js') }}
 
 <script>
       $('.file-inputs').bootstrapFileInput();
@@ -285,7 +341,7 @@
                         }
                   });
             }).trigger('change');
-            
+
             $('#categorias').change(function() {
                   var categoria_id = $("#categorias").val();
                   url = base_url + "/obtener_subcategoria/" + categoria_id;
@@ -300,5 +356,9 @@
             }).trigger('change');
       });
 
+</script>
+
+<script type="text/javascript">
+      $('.clockpicker').clockpicker();
 </script>
 @stop
