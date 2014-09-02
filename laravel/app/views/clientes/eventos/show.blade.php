@@ -11,9 +11,11 @@
 
 <h2>{{ $evento->nombre }}</h2>
 
+<img src="{{Config::get('params.path_public_image').$evento->imagen->path.$evento->imagen->nombre}}" alt="{{ $evento->imagen->alt }}" />
+
 <div class="list-group">  
-      <p class="list-group-item"><span class="label label-default">Fecha:</span> {{ $evento->fecha_inicio.' - '$evento->fecha_fin }}</p>
-      <p class="list-group-item"><span class="label label-default">Horario:</span> {{ $evento->hora_inicio.' - '$evento->hora_fin }}</p>
+      <p class="list-group-item"><span class="label label-default">Fecha:</span> {{ date('d-m-Y',strtotime($evento->fecha_inicio)).' - '.date('d-m-Y',strtotime($evento->fecha_fin)) }}</p>
+      <p class="list-group-item"><span class="label label-default">Horario:</span> {{ date('H:i',strtotime($evento->hora_inicio)).' - '.date('H:i',strtotime($evento->hora_fin)) }}</p>
       <p class="list-group-item"><span class="label label-default">Lugar:</span> {{ $evento->lugar }}</p>
       <p class="list-group-item"><span class="label label-default">Dirección:</span> {{ $evento->direccion }}</p>
       <p class="list-group-item"><span class="label label-default">Descripción:</span> {{ $evento->descripcion }}</p>
@@ -38,7 +40,7 @@
 @endif
 
 @if($evento->is_especial)
-
+@if($evento->especial)
 <div class="list-group">  
       <p class="list-group-item"><span class="label label-default">Web:</span>    {{ $evento->especial->web }}</p>
       <p class="list-group-item"><span class="label label-default">Email:</span>  {{ $evento->especial->email }}</p>
@@ -49,7 +51,11 @@
       </p>
       <p class="list-group-item"><span class="label label-default">Mapa:</span>   {{ $evento->especial->mapa }}</p>
 </div>
+@foreach($evento->especial->imagenes as $imagen)
+      <img src="{{Config::get('params.path_public_image').$imagen->path.$imagen->nombre}}" alt="{{ $imagen->alt }}" />
+@endforeach
 
+@endif
 @endif
 
 @else

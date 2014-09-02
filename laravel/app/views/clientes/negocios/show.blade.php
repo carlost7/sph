@@ -11,6 +11,8 @@
 
 <h2>{{ $negocio->nombre }}</h2>
 
+<img src="{{Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" />
+
 <div class="list-group">  
       <p class="list-group-item"><span class="label label-default">Teléfono:</span> {{ $negocio->direccion }}</p>
       <p class="list-group-item"><span class="label label-default">Dirección:</span> {{ $negocio->telefono }}</p>
@@ -56,8 +58,12 @@
             @endif
       </p>
       <p class="list-group-item"><span class="label label-default">Mapa:</span>   {{ $negocio->especial->mapa }}</p>
-
 </div>
+
+@foreach($negocio->especial->imagenes as $imagen)
+      <img src="{{Config::get('params.path_public_image').$imagen->path.$imagen->nombre}}" alt="{{ $imagen->alt }}" />
+@endforeach
+
 @endif
 @endif
 

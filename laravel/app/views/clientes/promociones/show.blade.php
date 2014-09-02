@@ -11,11 +11,15 @@
 
 <h2>{{ $promocion->nombre }}</h2>
 
+@if($promocion->imagen->count())
+<img src="{{Config::get('params.path_public_image').$promocion->imagen->path.$promocion->imagen->nombre}}" alt="{{ $promocion->imagen->alt }}" />
+@endif
 <div class="list-group">  
-      <p class="list-group-item"><span class="label label-default">Descripción:</span> {{ $promocion->descripcion }}</p>      
-      <p class="list-group-item"><span class="label label-default">Inicio:</span> {{ $promocion->vigencia_inicio }}</p>
-      <p class="list-group-item"><span class="label label-default">Fin:</span> {{ $promocion->vigencia_fin }}</p>
-      <p class="list-group-item"><span class="label label-default">Imágen:</span> {{ $promocion->path }}</p>
+      <p class="list-group-item"><span class="label label-default">Negocio:</span> {{ $promocion->negocio->nombre }}</p>      
+      <p class="list-group-item"><span class="label label-default">Nombre:</span> {{ $promocion->nombre }}</p>      
+      <p class="list-group-item"><span class="label label-default">Código:</span> {{ $promocion->codigo }}</p>
+      <p class="list-group-item"><span class="label label-default">Descripción:</span> {{ $promocion->descripcion }}</p>
+      <p class="list-group-item"><span class="label label-default">Vigencia:</span> {{ date('d-m-Y H:i',strtotime($promocion->vigencia_inicio)).' - '.date('d-m-Y H:i',strtotime($promocion->vigencia_fin)) }}</p>
       <p class="list-group-item"><span class="label label-default">Publicado:</span> {{ ($promocion->publicar) ? "Si" : "No" }}</p>
 </div>
 
