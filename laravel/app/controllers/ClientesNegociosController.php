@@ -158,9 +158,7 @@ class clientesNegociosController extends \BaseController
                   Gmaps::initialize($config);
 
                   $marker = array();
-                  $marker['position'] = $negocio->especial->mapa;
-                  $marker['draggable'] = true;
-                  $marker['ondragend'] = 'edit_map(event);';
+                  $marker['position'] = $negocio->especial->mapa;                                    
                   Gmaps::add_marker($marker);
 
                   $mapa = Gmaps::create_map();

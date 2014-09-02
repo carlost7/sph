@@ -22,9 +22,9 @@ class MarketingClientesController extends \BaseController
        */
       public function index()
       {
-            $clientees = Auth::user()->userable->clientes;
+            $clientes = Auth::user()->userable->clientes;
 
-            return View::make('marketing.clientes.index')->with('clientes', $clientees);
+            return View::make('marketing.clientes.index')->with('clientes', $clientes);
       }
 
       /**
@@ -36,14 +36,14 @@ class MarketingClientesController extends \BaseController
        */
       public function show($id)
       {
-            $clientee = $this->client->find($id);
-            $negocios = $clientee->negocios;
-            $eventos = $clientee->eventos;
-            $promociones = $clientee->promociones;
-            $bitacoras = $clientee->bitacoras;
+            $cliente = $this->client->find($id);
+            $negocios = $cliente->negocios;
+            $eventos = $cliente->eventos;
+            $promociones = $cliente->promociones;
+            $bitacoras = $cliente->bitacoras;
 
             return View::make('marketing.clientes.show')
-                            ->with(array('cliente' => $clientee,
+                            ->with(array('cliente' => $cliente,
                                 'negocios' => $negocios,
                                 'eventos' => $eventos,
                                 'promociones' => $promociones,

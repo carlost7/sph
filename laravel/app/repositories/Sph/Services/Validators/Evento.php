@@ -17,7 +17,7 @@ class Evento extends Validator
               'lugar' => 'required',
               'direccion' => 'required',
               'descripcion' => 'required|min:20|max:140',
-              'telefono' => 'numeric',              
+              'telefono' => 'required',              
           ),
           "update" => array(
               'fecha_inicio' => array('required','after:Carbon\Carbon::now()'),
@@ -27,7 +27,7 @@ class Evento extends Validator
               'lugar' => 'required',
               'direccion' => 'required',
               'descripcion' => 'required|min:20|max:140',
-              'telefono' => 'numeric',              
+              'telefono' => '',              
           ),
       );
 

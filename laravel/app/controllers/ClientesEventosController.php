@@ -152,9 +152,7 @@ class clientesEventosController extends \BaseController
                   Gmaps::initialize($config);
 
                   $marker = array();
-                  $marker['position'] = $evento->especial->mapa;
-                  $marker['draggable'] = true;
-                  $marker['ondragend'] = 'edit_map(event);';
+                  $marker['position'] = $evento->especial->mapa;                  
                   Gmaps::add_marker($marker);
 
                   $mapa = Gmaps::create_map();

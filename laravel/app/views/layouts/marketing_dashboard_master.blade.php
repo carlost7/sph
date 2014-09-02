@@ -53,44 +53,39 @@
 
             <div class="clearfix"></div>
             <div class="container">
-                  <div class="panel panel-info">
-                        <div class="panel-heading">{{ Auth::user()->email }}</div>
-                        <div class="panel-body">
-                              <div class="row">
-                                    <div class="col-xs-12 col-sm-12 hidden-md hidden-lg">
-                                          <ul class="nav nav-pills">
-                                                <li {{ Request::is('marketing_avisos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing_avisos.index','Avisos',null) }}</li>
-                                                <li {{ Request::is('marketing_clientes*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing_clientes.index','Clientes',null) }}</li>
-                                                <li {{ Request::is('marketings*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing.index','Cuenta',null) }}</li>
-                                          </ul>
-                                    </div>
-                                    <div class="col-sm-3 hidden-xs hidden-sm">
-                                          <ul class="nav nav-pills nav-stacked">
-                                                <li {{ Request::is('marketing_avisos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing_avisos.index','Avisos',null) }}</li>
-                                                <li {{ Request::is('marketing_clientes*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing_clientes.index','Clientes',null) }}</li>
-                                                <li {{ Request::is('marketings*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing.index','Cuenta',null) }}</li>
-                                          </ul>
-                                    </div>
-                                    <div class="col-xs-12 col-md-9">
-                                          @if(Session::has('message'))
-                                          <div class="alert alert-success alert-dismissable">
-                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                                {{ Session::get('message') }}
-                                                {{ Session::forget('message'); }}        
-                                          </div>                        
-                                          @endif
-                                          @if(Session::has('error'))
-                                          <div class="alert alert-danger alert-dismissable">
-                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                                {{ Session::get('error') }}
-                                                {{ Session::forget('error'); }}
-                                          </div>                    
-                                          @endif
-                                          @yield('content')
-                                    </div>
-                              </div>
+                  <div class="row">
+                        <div class="col-xs-12 hidden-sm hidden-md hidden-lg">
+                              <ul class="nav nav-pills">
+                                    <li {{ Request::is('marketing_avisos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing_avisos.index','Avisos',null) }}</li>
+                                    <li {{ Request::is('marketing_clientes*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing_clientes.index','Clientes',null) }}</li>
+                                    <li {{ Request::is('marketings*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing.index','Cuenta',null) }}</li>
+                              </ul>
                         </div>
-                  </div>            
+                        <div class="col-md-3 hidden-xs">
+                              <ul class="nav nav-pills nav-stacked">
+                                    <li {{ Request::is('marketing_avisos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing_avisos.index','Avisos',null) }}</li>
+                                    <li {{ Request::is('marketing_clientes*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing_clientes.index','Clientes',null) }}</li>
+                                    <li {{ Request::is('marketings*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing.index','Cuenta',null) }}</li>
+                              </ul>
+                        </div>
+                        <div class="col-xs-12 col-md-8 col-md-push-1">
+                              @if(Session::has('message'))
+                              <div class="alert alert-success alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    {{ Session::get('message') }}
+                                    {{ Session::forget('message'); }}        
+                              </div>                        
+                              @endif
+                              @if(Session::has('error'))
+                              <div class="alert alert-danger alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    {{ Session::get('error') }}
+                                    {{ Session::forget('error'); }}
+                              </div>                    
+                              @endif
+                              @yield('content')
+                        </div>
+                  </div>
             </div> <!-- /container -->        
 
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>                

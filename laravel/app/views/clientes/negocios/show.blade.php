@@ -10,9 +10,9 @@
 
 
 <h2>{{ $negocio->nombre }}</h2>
-
+@if(count($negocio->imagen))
 <img src="{{Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" />
-
+@endif
 <div class="list-group">  
       <p class="list-group-item"><span class="label label-default">Teléfono:</span> {{ $negocio->direccion }}</p>
       <p class="list-group-item"><span class="label label-default">Dirección:</span> {{ $negocio->telefono }}</p>
@@ -20,7 +20,7 @@
       <p class="list-group-item"><span class="label label-default">Publicado:</span> {{ ($negocio->publicar) ? "Si" : "No" }}</p>
 </div>
 
-@if($negocio->masInfo->count())
+@if(count($negocio->masInfo))
 <div class="list-group">  
       <p class="list-group-item"><span class="label label-default">Entregan a Domicilio:</span>{{ ($negocio->masInfo->domicilio)  ? "Si" : "No" }}</p>
       <p class="list-group-item"><span class="label label-default">Para llevar:</span>{{ ($negocio->masInfo->llevar) ? "Si" : "No" }}</p>
@@ -35,7 +35,7 @@
 </div>
 @endif
 
-@if($negocio->horario->count())
+@if(count($negocio->horario))
 <div class="list-group">  
       <p class="list-group-item"><span class="label label-default">Lunes:</span>    {{ date('H:i',strtotime($negocio->horario->lun_ini)).' - '.date('H:i',strtotime($negocio->horario->lun_fin)) }}</p>
       <p class="list-group-item"><span class="label label-default">Martes:</span>   {{ date('H:i',strtotime($negocio->horario->mar_ini)).' - '.date('H:i',strtotime($negocio->horario->mar_fin)) }}</p>
@@ -48,7 +48,7 @@
 @endif
 
 @if($negocio->is_especial)
-@if($negocio->especial->count())
+@if(count($negocio->especial))
 <div class="list-group">  
       <p class="list-group-item"><span class="label label-default">Web:</span>    {{ $negocio->especial->webpage }}</p>
       <p class="list-group-item"><span class="label label-default">Email:</span>  {{ $negocio->especial->email }}</p>

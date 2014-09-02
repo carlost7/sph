@@ -3,17 +3,18 @@
 // Composer: "fzaninotto/faker": "v1.4.0"
 use Faker\Factory as Faker;
 
-class EventosTableSeeder extends Seeder
+class EstadoTableSeeder extends Seeder
 {
 
       public function run()
       {
             $faker = Faker::create();
 
-            foreach (range(1, 10) as $index)
+            foreach (range(1, 100) as $index)
             {
-                  Evento::create([
-                  ]);
+                  Estado::create(array(
+                      'estado' => $faker->word
+                  ));
             }
       }
 

@@ -8,27 +8,8 @@ class ClientesTableSeeder extends Seeder
 
       public function run()
       {
-            Eloquent::unguard();
             $faker = Faker::create();
 
-            foreach (range(1, 5) as $index)
-            {
-                  Marketing::create(array(
-                      'name' => $faker->name,
-                      'is_activo' => true
-                  ));
-            }
-
-            foreach (range(1, 5) as $index)
-            {
-                  User::create(array(
-                      'password' => Hash::make('klendactu'),
-                      'email' => $faker->email,
-                      'userable_id' => $faker->unique()->numberBetween(1,6),
-                      'userable_type' => 'Marketing',
-                  ));
-            }
-            
             foreach (range(1, 100) as $index)
             {
                   Cliente::create(array(
@@ -38,20 +19,11 @@ class ClientesTableSeeder extends Seeder
                       'telefono' => $faker->phoneNumber,
                       'ext' => $faker->numberBetween(100, 990),
                       'celular' => $faker->phoneNumber,
-                      'is_active' => $faker->boolean($chanceOfGettingTrue = 50),
+                      'is_active' => $faker->boolean(50),
                       'marketing_id' => $faker->numberBetween(1, 5),
                   ));
-            }
+            }           
             
-            foreach (range(1, 101) as $index)
-            {
-                  User::create(array(
-                      'password' => Hash::make('klendactu'),
-                      'email' => $faker->email,
-                      'userable_id' => $faker->unique()->numberBetween(1,110),
-                      'userable_type' => 'Cliente',
-                  ));
-            }            
       }
 
 }

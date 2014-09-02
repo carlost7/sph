@@ -21,7 +21,7 @@ class Negocio extends Validator
           "save" => array(
               'nombre' => 'required',
               'direccion' => 'required',
-              'telefono' => 'required|numeric',
+              'telefono' => 'required',
               'descripcion' => 'required|min:20|max:140',
               'estado' => 'required|exists:estados,id',
               'zona' => 'required|exists:zonas,id',
