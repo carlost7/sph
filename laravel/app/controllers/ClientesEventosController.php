@@ -142,7 +142,25 @@ class clientesEventosController extends \BaseController
       public function show($id)
       {
             $evento = $this->evento->find($id);
-            return View::make('clientes.eventos.show')->with('evento', $evento);
+            $mapa = null;
+            if ( count($evento->especial) && isset($evento->especial->mapa) )
+            {
+                  
+                  $config = array();
+                  $config['center'] = $evento->especial->mapa;
+                  $config['zoom'] = '13';
+                  Gmaps::initialize($config);
+
+                  $marker = array();
+                  $marker['position'] = $evento->especial->mapa;
+                  $marker['draggable'] = true;
+                  $marker['ondragend'] = 'edit_map(event);';
+                  Gmaps::add_marker($marker);
+
+                  $mapa = Gmaps::create_map();
+            }
+            
+            return View::make('clientes.eventos.show')->with(array('evento'=> $evento, 'mapa' => $mapa));
       }
 
       /**

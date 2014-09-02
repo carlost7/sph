@@ -309,8 +309,9 @@
 <div class="form-group">
       {{ Form::label('mapa', 'Mapa') }}            
       {{ Form::hidden('mapa',($negocio->especial) ? $negocio->especial->mapa : '',array('id'=>'latlng')) }}
-      {{ $mapa['js'] }}
+      @if($mapa)
       {{ $mapa['html'] }}      
+      @endif
 </div>        
 <div class="form-group">
       <div class="checkbox">
@@ -346,7 +347,9 @@
 {{ HTML::script('js/vendor/bootstrap-file-input.js') }}
 {{ HTML::script('js/vendor/bootstrap-clockpicker.min.js') }}
 
-
+@if($mapa)
+{{ $mapa['js'] }}
+@endif
 <script>
       $('.file-inputs').bootstrapFileInput();
 
@@ -424,4 +427,6 @@
 <script type="text/javascript">
       $('.clockpicker').clockpicker();
 </script>
+
+
 @stop

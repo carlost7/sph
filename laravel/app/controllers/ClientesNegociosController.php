@@ -148,7 +148,24 @@ class clientesNegociosController extends \BaseController
       public function show($id)
       {
             $negocio = $this->negocio->find($id);
-            return View::make('clientes.negocios.show')->with('negocio', $negocio);
+            $mapa = null;
+            if (count($negocio->especial) && isset($negocio->especial->mapa))
+            {
+
+                  $config = array();
+                  $config['center'] = $negocio->especial->mapa;
+                  $config['zoom'] = '13';
+                  Gmaps::initialize($config);
+
+                  $marker = array();
+                  $marker['position'] = $negocio->especial->mapa;
+                  $marker['draggable'] = true;
+                  $marker['ondragend'] = 'edit_map(event);';
+                  Gmaps::add_marker($marker);
+
+                  $mapa = Gmaps::create_map();
+            }
+            return View::make('clientes.negocios.show')->with(array('negocio' => $negocio,'mapa' => $mapa));
       }
 
       /**
