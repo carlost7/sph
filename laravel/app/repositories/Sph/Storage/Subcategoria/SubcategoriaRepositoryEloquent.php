@@ -48,6 +48,8 @@ class SubcategoriaRepositoryEloquent implements SubcategoriaRepository
             {
                   $subcategoria->fill($subcat_model);
 
+                  $subcategoria->categoria_id=$subcat_model['padre'];
+                  
                   if ($subcategoria->save())
                   {
                         return $subcategoria;

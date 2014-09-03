@@ -46,15 +46,8 @@ class ZonaRepositoryEloquent implements ZonaRepository
             $zona = Zona::find($id);
             if (isset($zona))
             {
-                  if (isset($zona_model['email']))
-                  {
-                        $zona->email = $zona_model['email'];
-                  }
-
-                  if (isset($zona_model['password']))
-                  {
-                        $zona->password = \Hash::make($zona_model['password']);
-                  }
+                  $zona->fill($zona_model);
+                  $zona->estado_id=$zona_model['padre'];
 
                   if ($zona->save())
                   {

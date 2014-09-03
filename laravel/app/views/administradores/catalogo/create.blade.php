@@ -19,7 +19,7 @@
                   <h4>Agregar subcategoría</h4>
                   <div class="form-group">
                         {{ Form::label('categoria_id', 'Categoria') }}
-                        {{ Form::select('categoria_id', $categorias->lists('categoria', 'id')) }}
+                        {{ Form::select('categoria_id', $categorias->lists('categoria', 'id'),null,array('class'=>'form-control')) }}
                   </div>                  
                   <div class="form-group">
                         {{ Form::label('subcategoria', 'Subcategoria') }}
@@ -39,7 +39,7 @@
                   <h4>Agregar Zona</h4>
                   <div class="form-group">
                         {{ Form::label('estado_id', 'Estado') }}
-                        {{ Form::select('estado_id', $estados->lists('estado', 'id')) }}
+                        {{ Form::select('estado_id', $estados->lists('estado', 'id'),null,array('class'=>'form-control')) }}
                   </div>
                   <div class="form-group">
                         {{ Form::label('zona', 'Zona') }}

@@ -17,8 +17,8 @@
                               @foreach($categorias as $categoria)
                               <div class="list-group-item" onclick="show_subs({{$categoria->id}})">
                                     {{ $categoria->categoria }} 
-                                    {{ HTML::linkRoute('administrador_catalogo.edit','editar',array($categoria->id,get_class($categoria)),array('class'=>'btn btn-sm')) }} 
-                                    {{ Form::open(array('route' => array('administrador_catalogo.destroy',$categoria->id))) }}            
+                                    {{ HTML::linkRoute('administrador_catalogo.edit','editar',array('id'=>$categoria->id,'tipo'=>get_class($categoria)),array('class'=>'btn btn-sm')) }} 
+                                    {{ Form::open(array('route' => array('administrador_catalogo.destroy','id'=>$categoria->id,'tipo'=>get_class($categoria)))) }}            
                                     {{ Form::hidden('_method', 'DELETE') }}            
                                     <p class="text-right">{{ Form::submit('eliminar', array('class' => 'btn btn-sm btn-link')) }} </p>
                                     {{ Form::close() }}                        
@@ -44,8 +44,8 @@
                               @foreach($estados as $estado)
                               <div class="list-group-item" onclick="show_zonas({{$estado->id}})">
                                     {{ $estado->estado }}
-                                    {{ HTML::linkRoute('administrador_catalogo.edit','editar',array($estado->id,get_class($estado)),array('class'=>'btn btn-sm')) }}
-                                    {{ Form::open(array('route' => array('administrador_catalogo.destroy',$estado->id))) }}            
+                                    {{ HTML::linkRoute('administrador_catalogo.edit','editar',array('id'=>$estado->id,'tipo'=>get_class($estado)),array('class'=>'btn btn-sm')) }}
+                                    {{ Form::open(array('route' => array('administrador_catalogo.destroy','id'=>$estado->id,'tipo'=>get_class($estado)))) }}            
                                     {{ Form::hidden('_method', 'DELETE') }}            
                                     <p class="text-right">{{ Form::submit('eliminar', array('class' => 'btn btn-sm btn-link')) }} </p>
                                     {{ Form::close() }}                        
@@ -81,8 +81,8 @@
               $("#subcats").empty();
                       for (i = 0; i < data.length; i++){
               resultado = data[i];
-                      elemento = "<div class='list-group-item'>" + resultado.subcategoria + "<a href='" + base_url + "/administrador_catalogo/" + resultado.id + "/edit?subcategoria' class='btn btn-sm'>editar</a>" +
-                              "<form method='POST' action='"+base_url+"/administrador_catalogo/"+resultado.id+"&subcategoria' accept-charset='UTF-8'>"+
+                      elemento = "<div class='list-group-item'>" + resultado.subcategoria + "<a href='" + base_url + "/administrador_catalogo/" + resultado.id + "/edit?tipo=Subcategoria' class='btn btn-sm'>editar</a>" +
+                              "<form method='POST' action='"+base_url+"/administrador_catalogo/"+resultado.id+"?tipo=Subcategoria' accept-charset='UTF-8'>"+
                               "<input name='_method' type='hidden' value='DELETE'> " +
                               "<p class='text-right'><input class='btn btn-sm btn-link' type='submit' value='eliminar'></p>" +
                               "</form></div>";                               
@@ -102,8 +102,8 @@
               $("#zonas").empty();
                       for (i = 0; i < data.length; i++){
               resultado = data[i];
-                      elemento = "<div class='list-group-item'>" + resultado.zona + "<a href='" + base_url + "/administrador_catalogo/" + resultado.id + "/edit?zona' class='btn btn-sm'>editar</a>" +
-                              "<form method='POST' action='"+base_url+"/administrador_catalogo/"+resultado.id+"&zona' accept-charset='UTF-8'>"+
+                      elemento = "<div class='list-group-item'>" + resultado.zona + "<a href='" + base_url + "/administrador_catalogo/" + resultado.id + "/edit?tipo=Zona' class='btn btn-sm'>editar</a>" +
+                              "<form method='POST' action='"+base_url+"/administrador_catalogo/"+resultado.id+"?tipo=Zona' accept-charset='UTF-8'>"+
                               "<input name='_method' type='hidden' value='DELETE'> " +
                               "<p class='text-right'><input class='btn btn-sm btn-link' type='submit' value='eliminar'></p>" +
                               "</form></div>";

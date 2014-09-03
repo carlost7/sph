@@ -78,6 +78,8 @@ class AdminCatalogoController extends \BaseController
                   $this->zona->create(Input::all());
             }
 
+            Session::flash('message','Objeto agregado con éxito');
+            
             return Redirect::back();
       }
 
@@ -102,7 +104,19 @@ class AdminCatalogoController extends \BaseController
        */
       public function edit($id)
       {
-            
+            $tipo = strtolower(Input::get('tipo'));
+
+            if (isset($tipo))
+            {
+                  $categorias = $this->categoria->all();
+                  $estados = $this->estado->all();
+                  $objeto = $this->$tipo->find($id);
+                  return View::make('administradores.catalogo.edit')->with(array('tipo' => $tipo, 'objeto' => $objeto, 'categorias' => $categorias, 'estados' => $estados));
+            }
+            else
+            {
+                  Session::flash('error', 'Elige un elemento para editar');
+            }
       }
 
       /**
@@ -114,7 +128,36 @@ class AdminCatalogoController extends \BaseController
        */
       public function update($id)
       {
-            
+            $tipo = Input::get('tipo');
+            if (isset($tipo))
+            {
+                  $object_model = Input::All();
+
+                  if ($tipo == 'subcategoria')
+                  {
+                        $object_model = array_add($object_model, 'padre', Input::get('categoria_id'));
+                  }
+                  elseif ($tipo == 'zona')
+                  {
+                        $object_model = array_add($object_model, 'padre', Input::get('estado_id'));
+                  }
+
+                  if ($this->$tipo->update($id, $object_model))
+                  {
+                        Session::flash('message', 'Objeto editado con exito');
+                        return Redirect::route('administrador_catalogo.index');
+                  }
+                  else
+                  {
+                        Session::flash('error', 'Error al editar el objeto');
+                  }
+            }
+            else
+            {
+                  Session::flash('error', 'No existe el tipo');
+            }
+
+            return Redirect::back()->withInput();
       }
 
       /**
@@ -126,7 +169,21 @@ class AdminCatalogoController extends \BaseController
        */
       public function destroy($id)
       {
-            
+            $tipo = strtolower(Input::get('tipo'));
+
+            if (isset($tipo))
+            {
+                  if ($this->$tipo->delete($id))
+                  {
+                        Session::flash('message', $tipo . ' eliminado con exito');
+                        return Redirect::back();
+                  }
+                  else
+                  {
+                        Session::flash('error', 'Error al eliminar');
+                        return Redirect::back();
+                  }
+            }
       }
 
 }
