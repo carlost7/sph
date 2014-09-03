@@ -204,7 +204,7 @@ class PagosController extends \BaseController
                         if (isset($response))
                         {
 
-                              Log::info('recibir_notificacion: 'print_r($response,true));
+                              Log::info('recibir_notificacion: '.print_r($response,true));
                               $external_reference = $response['external_reference'];
                               $status = $response['status'];
 
