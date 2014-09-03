@@ -105,7 +105,7 @@ class PagosController extends \BaseController
 
       public function recibir_notificacion_prueba()
       {
-            Log::info('PagosController.recibir_notificacion entrada de datos');
+            Log::info('PagosController.recibir_notificacion_prueba entrada de datos');
             
             if (Request::isMethod('POST'))
             {
@@ -166,8 +166,7 @@ class PagosController extends \BaseController
 
             if (Config::get('params.prueba_pago'))
             {
-                  $id = Input::get('id');
-                  Log::info('PagosController@recibir_notificacion_prueba: ' . $id . "/n" . \Carbon\Carbon::now()->toDateString());
+                  $id = Input::get('id');                  
                   if (isset($id))
                   {
                         $response = $this->checkout->recibir_notificacion($id);
@@ -205,6 +204,7 @@ class PagosController extends \BaseController
                         if (isset($response))
                         {
 
+                              Log::info('recibir_notificacion: 'print_r($response,true));
                               $external_reference = $response['external_reference'];
                               $status = $response['status'];
 
