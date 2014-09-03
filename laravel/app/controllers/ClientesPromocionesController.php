@@ -207,27 +207,4 @@ class clientesPromocionesController extends \BaseController
             return Redirect::route('clientes_promociones.index');
       }
 
-      public function activar($id)
-      {
-            $promocion = $this->promocion->find($id);
-            if ($promocion->client->id == Auth::user()->userable->id)
-            {
-                  if ($this->promocion->activar($id))
-                  {
-                        Session::flash('message', 'Activación correcta');
-                        return Redirect::route('clientes_promociones.index');
-                  }
-                  else
-                  {
-                        Session::flash('error', 'Error en la activación');
-                  }
-            }
-            else
-            {
-                  Session::flash('error', 'La promoción no pertenece al usuario');
-            }
-
-            return Redirect::back();
-      }
-
 }

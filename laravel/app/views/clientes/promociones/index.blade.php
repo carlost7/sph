@@ -17,12 +17,6 @@
                   {{ HTML::linkRoute("clientes_promociones.show",$promocion->nombre,$promocion->id) }}                  
             </h3>
             <p>{{ date('d-m-Y',strtotime($promocion->vigencia_inicio)).' - '.date('d-m-Y',strtotime($promocion->vigencia_fin)) }}</p>
-            @if(!$promocion->is_activo && !$promocion->fecha_nueva_activacion)
-            <p class="text-right">
-                  {{ HTML::linkRoute('clientes_promociones_activar.get','Activar',$promocion->id,array('class'=>'btn btn-sm btn-warning')) }}
-            </p>
-            @endif
-            
             <p class="text-right">
                   {{ HTML::linkRoute('clientes_promociones.edit','editar',$promocion->id,array('class'=>'btn btn-sm btn-info')) }}       
             </p>
