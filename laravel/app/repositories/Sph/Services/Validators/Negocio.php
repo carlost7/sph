@@ -29,7 +29,7 @@ class Negocio extends Validator
               'subcategoria' => 'required|exists:subcategorias,id',
           ),
           "update" => array(
-              'telefono' => 'numeric',
+              'telefono' => 'required',
               'descripcion' => 'required|min:20|max:140',
               'estado' => 'required|exists:estados,id',
               'zona' => 'required|exists:zonas,id',
