@@ -44,15 +44,15 @@
 <div class="list-group">  
       <p class="list-group-item"><span class="label label-default">Web:</span>    {{ $evento->especial->web }}</p>
       <p class="list-group-item"><span class="label label-default">Email:</span>  {{ $evento->especial->email }}</p>
-      <p class="list-group-item"><span class="label label-default">Rank:</span>   {{ $evento->likes }}
+      <p class="list-group-item"><span class="label label-default">Rank:</span>   {{ $evento->likes }}</p>
+      <p class="list-group-item"><span class="label label-default">Mapa:</span>   
             @if($mapa)            
             {{ $mapa['html'] }}                  
             @endif
       </p>
-      <p class="list-group-item"><span class="label label-default">Mapa:</span>   {{ $evento->especial->mapa }}</p>
 </div>
 @foreach($evento->especial->imagenes as $imagen)
-      <img src="{{Config::get('params.path_public_image').$imagen->path.$imagen->nombre}}" alt="{{ $imagen->alt }}" />
+<img src="{{Config::get('params.path_public_image').$imagen->path.$imagen->nombre}}" alt="{{ $imagen->alt }}" />
 @endforeach
 
 @endif
