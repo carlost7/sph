@@ -105,7 +105,8 @@ class PagosController extends \BaseController
 
       public function recibir_notificacion_prueba()
       {
-
+            Log::info('PagosController.recibir_notificacion entrada de datos');
+            
             if (Request::isMethod('POST'))
             {
                   //Recibimos el status por correo y lo ponemos en la url para que crear el pago
@@ -160,6 +161,8 @@ class PagosController extends \BaseController
 
       public function recibir_notificacion()
       {
+            Log::info('PagosController.recibir_notificacion entrada de datos');
+                              
 
             if (Config::get('params.prueba_pago'))
             {
