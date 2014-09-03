@@ -105,34 +105,50 @@ class PagosController extends \BaseController
 
       public function recibir_notificacion_prueba()
       {
-            $id = Input::get('id');
-            Log::info('PagosController@recibir_notificacion_prueba: ' . $id . "/n" . \Carbon\Carbon::now()->toDateString());
-            if (isset($id))
+
+            if (Request::isMethod('POST'))
             {
-                  $response = $this->checkout->recibir_notificacion($id);
+                  //Recibimos el status por correo y lo ponemos en la url para que crear el pago
+                  $exref = Input::get('exref');
+                  $status = Input::get('status');
+
+                  $response = array("external_reference" => $exref, "status" => $status);
                   if (isset($response))
                   {
-                        $mensaje = $response;
+
+                        $external_reference = $response['external_reference'];
+                        $status = $response['status'];
+
+                        $ids = explode("-", $external_reference);
+
+                        if ($this->pago->update_status($ids, $status))
+                        {
+                              switch ($status)
+                              {
+                                    case 'approved':
+                                          $this->events->fire('pago_aprobado', array($ids));
+                                          echo "cambios realizados";
+                                          break;
+                                    default:
+                                          $this->events->fire('pago_cancelado', array($ids));
+                                          echo "status diferente a aprobado";
+                                          break;
+                              }
+                        }
+                        else
+                        {
+                              echo "no existe el id del pago";
+                        }
                   }
                   else
                   {
-                        $mensaje = "no se recibio notificacion";
+                        Log::error('PagosController.obtenerIPNMercadoPago No se recibio informacion de pago ID:' . $id);
+                        echo "no recibido";
                   }
-                  Log::info('PagosController@recibir_notificacion_prueba: ' . print_r($mensaje, true) . "/n" . \Carbon\Carbon::now()->toDateString());
+            }else{
+                  
+                  return View::make('pagos.index');
             }
-            else
-            {
-                  $mensaje = "no hubo id";
-            }
-
-
-            $data = array(
-                'mensaje' => $mensaje,
-            );
-            Mail::queue('emails.notificacion_pago_prueba', $data, function($message)
-            {
-                  $message->to('carlos.juarez@t7marketing.com', 'Carlos Juarez')->subject('Notificación de mercado pago');
-            });
       }
 
       /*
@@ -145,50 +161,82 @@ class PagosController extends \BaseController
       public function recibir_notificacion()
       {
 
-
-            /* $id = Input::get('id');
-              if (isset($id))
-              { */
-            //$response = $this->checkout->recibir_notificacion($id);
-            $response = array("external_reference" => "3", "status" => "approved");
-            //$response = array("external_reference" => "1","status" => "approved");
-            if (isset($response))
+            if (Config::get('params.prueba_pago'))
             {
-
-                  $external_reference = $response['external_reference'];
-                  $status = $response['status'];
-
-                  $ids = explode("-", $external_reference);
-
-                  if ($this->pago->update_status($ids, $status))
+                  $id = Input::get('id');
+                  Log::info('PagosController@recibir_notificacion_prueba: ' . $id . "/n" . \Carbon\Carbon::now()->toDateString());
+                  if (isset($id))
                   {
-                        switch ($status)
+                        $response = $this->checkout->recibir_notificacion($id);
+                        if (isset($response))
                         {
-                              case 'approved':
-                                    $this->events->fire('pago_aprobado', array($ids));
-                                    echo "cambios realizados";
-                                    break;
-                              default:
-                                    $this->events->fire('pago_cancelado', array($ids));
-                                    echo "status diferente a aprobado";
-                                    break;
+                              $mensaje = $response;
+                        }
+                        else
+                        {
+                              $mensaje = "no se recibio notificacion";
+                        }
+                        Log::info('PagosController@recibir_notificacion_prueba: ' . print_r($mensaje, true) . "/n" . \Carbon\Carbon::now()->toDateString());
+                  }
+                  else
+                  {
+                        $mensaje = "no hubo id";
+                  }
+
+
+                  $data = array(
+                      'mensaje' => $mensaje,
+                  );
+                  Mail::queue('emails.notificacion_pago_prueba', $data, function($message)
+                  {
+                        $message->to('carlos.juarez@t7marketing.com', 'Carlos Juarez')->subject('Notificación de mercado pago');
+                  });
+                  echo "Mensaje enviado";
+            }
+            else
+            {
+                  $id = Input::get('id');
+                  if (isset($id))
+                  {
+                        $response = $this->checkout->recibir_notificacion($id);
+                        if (isset($response))
+                        {
+
+                              $external_reference = $response['external_reference'];
+                              $status = $response['status'];
+
+                              $ids = explode("-", $external_reference);
+
+                              if ($this->pago->update_status($ids, $status))
+                              {
+                                    switch ($status)
+                                    {
+                                          case 'approved':
+                                                $this->events->fire('pago_aprobado', array($ids));
+                                                echo "cambios realizados";
+                                                break;
+                                          default:
+                                                $this->events->fire('pago_cancelado', array($ids));
+                                                echo "status diferente a aprobado";
+                                                break;
+                                    }
+                              }
+                              else
+                              {
+                                    
+                              }
+                        }
+                        else
+                        {
+                              Log::error('PagosController.obtenerIPNMercadoPago No se recibio informacion de pago ID:' . $id);
+                              echo "no recibido";
                         }
                   }
                   else
                   {
-                        
+                        echo "no recibi nada";
                   }
             }
-            else
-            {
-                  Log::error('PagosController.obtenerIPNMercadoPago No se recibio informacion de pago ID:' . $id);
-                  echo "no recibido";
-            }
-            /* }
-              else
-              {
-              echo "no recibi nada";
-              } */
       }
 
 }
