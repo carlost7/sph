@@ -89,9 +89,12 @@ class PagoRepositoryEloquent implements PagoRepository
 
       public function publicar_contenido($pago)
       {
-            $pago->pagable->publicar = true;
-            $pago->pagable->is_especial = true;
+            $pago->pagable->publicar = true;            
             $pago->pagable->is_activo = true;
+            if(getClass($pago->pagable)!=getClass(Promocion)){
+                  $pago->pagable->is_especial = true;
+            }            
+            
             if ($pago->pagable->save())
             {
                   return true;
