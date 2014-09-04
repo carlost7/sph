@@ -91,7 +91,7 @@ class PagoRepositoryEloquent implements PagoRepository
       {
             $pago->pagable->publicar = true;            
             $pago->pagable->is_activo = true;
-            if(get_class($pago->pagable)!=get_class(Promocion)){
+            if(get_class($pago->pagable)!=get_class(\Promocion)){
                   $pago->pagable->is_especial = true;
             }            
             
