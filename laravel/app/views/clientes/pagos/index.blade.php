@@ -29,7 +29,10 @@
             </p>            
             <p>
                   {{ $pago->created_at }}
-            </p>            
+            </p>       
+            <p>
+                  {{ $pago->status }}
+            </p>
 
             <div class="text-right">
                   @if($pago->pagado)
