@@ -9,3 +9,5 @@
 Event::listen('pago_aprobado', 'PagosListener@publicar_contenido');
 
 Event::listen('pago_cancelado', 'PagosListener@avisar_cancelacion');
+
+Event::listen('enviar_codigo_correo', '');

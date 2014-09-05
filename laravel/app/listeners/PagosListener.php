@@ -21,7 +21,7 @@ class PagosListener
        * publica el contenido automaticamente en la aplicacion y envia un correo al usuario con sus datos
        */
 
-      public function publicar_contenido(array $ids)
+      public function publicar_contenido(array $ids)              
       {
             foreach ($ids as $id)
             {

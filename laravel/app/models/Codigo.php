@@ -8,7 +8,7 @@ class Codigo extends \Eloquent
 
       protected $table = 'codigos';
       
-      protected $fillable = ['numero', 'usado'];
+      protected $fillable = ['numero', 'usado','cliente_id'];
 
       public function client()
       {

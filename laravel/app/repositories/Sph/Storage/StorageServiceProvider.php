@@ -27,6 +27,9 @@ class StorageServiceProvider extends ServiceProvider
                     'Sph\Storage\Categoria\CategoriaRepository', 'Sph\Storage\Categoria\CategoriaRepositoryEloquent'
             );
             $this->app->bind(
+                    'Sph\Storage\Codigo\CodigoRepository', 'Sph\Storage\Codigo\CodigoRepositoryEloquent'
+            );
+            $this->app->bind(
                     'Sph\Storage\Checkout\CheckoutRepository', 'Sph\Storage\Checkout\CheckoutRepositoryMercadoPago'
             );
             $this->app->bind(

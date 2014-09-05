@@ -8,7 +8,7 @@ return array(
     
     'path_public_image' => URL::to('/').'/img/user_images/',
     
-    'prueba_pago' => true
+    'prueba_pago' => true,
     
     
 );

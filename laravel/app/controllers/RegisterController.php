@@ -4,6 +4,7 @@ use Sph\Storage\User\UserRepository as User;
 use Sph\Storage\Cliente\ClienteRepository as Cliente;
 use Sph\Storage\Marketing\MarketingRepository as Marketing;
 use Sph\Storage\Administrador\AdministradorRepository as Administrador;
+use Sph\Storage\Codigo\CodigoRepository as Codigo;
 
 class RegisterController extends \BaseController
 {
@@ -12,13 +13,15 @@ class RegisterController extends \BaseController
       protected $cliente;
       protected $marketing;
       protected $administrador;
+      protected $codigo;
 
-      public function __construct(User $user, Cliente $cliente, Marketing $marketing, Administrador $administrador)
+      public function __construct(User $user, Cliente $cliente, Marketing $marketing, Administrador $administrador, Codigo $codigo)
       {
             $this->user = $user;
             $this->cliente = $cliente;
             $this->marketing = $marketing;
             $this->administrador = $administrador;
+            $this->codigo = $codigo;
       }
 
       public function index()
@@ -54,7 +57,9 @@ class RegisterController extends \BaseController
 
                         //Se crea el objeto de usuario con los datos de entrada y el usuario al que pertenece
                         $cliente_model = Input::all();
-                        $cliente_model = array_push($cliente_model, array('is_active' => false, 'token' => $token, 'user' => $user));
+                        $cliente_model = array_add($cliente_model, 'is_active', false);
+                        $cliente_model = array_add($cliente_model, 'token', $token);
+                        $cliente_model = array_add($cliente_model, 'user', $user);
 
                         $cliente = $this->cliente->create($cliente_model);
 
@@ -100,6 +105,21 @@ class RegisterController extends \BaseController
                         if (isset($cliente))
                         {
                               $marketing = $this->marketing->asignar_cliente($cliente);
+
+                              if (Config::get('params.enviar_codigo_correo'))
+                              {
+                                    $numero = rand(1000, 9999) . "-" . rand(1000, 9999) . "-" . rand(1000, 9999);
+                                    $codigo_model = array('numero' => $numero, 'cliente_id' => $cliente->id);
+                                    $this->codigo->create($codigo_model);
+
+                                    $data = array('nombre' => $cliente->nombre,
+                                        'codigo' => $numero,
+                                    );
+                                    Mail::queue('emails.send_promotional_code', $data, function($message) use ($cliente)
+                                    {
+                                          $message->to($cliente->user->email, $cliente->nombre)->subject('Código promocional');
+                                    });
+                              }
 
                               return View::make('register.confirmation')->with('confirmation', true);
                         }
@@ -205,7 +225,7 @@ class RegisterController extends \BaseController
 
       public function store_admin()
       {
-            
+
             $validateUser = new Sph\Services\Validators\User(Input::all(), 'save');
             $validateAdmin = new Sph\Services\Validators\Administrador(Input::all(), 'save');
 

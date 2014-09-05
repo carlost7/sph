@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Events\Dispatcher;
 use Sph\Storage\Pago\PagoRepository as Pago;
 use Sph\Storage\Cliente\ClienteRepository as Client;
 use Sph\Storage\Aviso_cliente\AvisoClienteRepository as Aviso;
@@ -13,13 +14,15 @@ class clientesPagosController extends \BaseController
       protected $cliente;
       protected $aviso;
       protected $checkout;
+      protected $events;
 
-      public function __construct(Pago $pago, Client $cliente, Aviso $aviso, Checkout $checkout)
+      public function __construct(Pago $pago, Client $cliente, Aviso $aviso, Checkout $checkout, Dispatcher $events)
       {
             $this->pago = $pago;
             $this->client = $cliente;
             $this->aviso = $aviso;
             $this->checkout = $checkout;
+            $this->events = $events;
       }
 
       /**
@@ -31,7 +34,7 @@ class clientesPagosController extends \BaseController
       {
             $necesita_pagar = false;
             $pagos = Auth::user()->userable->pagos()->orderBy('created_at', 'desc')->orderBy('pagado', 'asc')->paginate(5);
-            
+
             //Check if value is in collection;
             $value = false;
             $key = 'pagado';
@@ -39,7 +42,7 @@ class clientesPagosController extends \BaseController
             {
                   $necesita_pagar = true;
             }
-            
+
             return View::make('clientes.pagos.index')->with(array("pagos" => $pagos, 'necesita_pagar' => $necesita_pagar));
       }
 
@@ -166,32 +169,17 @@ class clientesPagosController extends \BaseController
             $codigo = $this->pago->checar_codigo($numero);
             if (isset($codigo))
             {
-                  $codigo_model = array('usado' => true, 'client' => Auth::user()->userable);
+                  $codigo_model = array('usado' => false, 'client' => Auth::user()->userable);
                   $codigo = $this->pago->usar_codigo($codigo->id, $codigo_model);
                   if (isset($codigo))
                   {
                         $pago_model = array('pagado' => true, 'metodo' => 'Codigo Promocional');
                         $pago = $this->pago->update($id, $pago_model);
-                        if ($this->pago->publicar_contenido($pago))
-                        {
-                              $cliente_model = array('tiene_aviso' => false);
-                              $this->client->update($pago->client->id, $cliente_model);
+                        
+                        $this->events->fire('pago_aprobado', array(array($pago->id)));
 
-                              $data = array(
-                                  'tipo' => get_class($pago->pagable),
-                              );
-                              Mail::queue('emails.publicacion_contenido_pago', $data, function($message)
-                              {
-                                    $message->to(Auth::user()->email, Auth::user()->userable->nombre)->subject('Confirmación de Registro de Sphellar');
-                              });
-
-                              Session::flash('message', 'Código satisfactorio');
-                              return Redirect::route('clientes_pagos.index');
-                        }
-                        else
-                        {
-                              Session::flash('message', 'Código satisfactorio');
-                        }
+                        Session::flash('message', 'Código satisfactorio');
+                        return Redirect::route('clientes_pagos.index');
                   }
             }
             else
