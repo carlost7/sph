@@ -20,7 +20,7 @@ class Cliente extends Validator
           "save" => array(
               'nombre' => 'required',
               'apellido' => 'required|alpha',
-              'empresa' => 'alpha',
+              'empresa' => 'required',
               'ext' => 'numeric',
               'telefono' => 'required|numeric',
               'celular' => 'required|numeric'
@@ -28,7 +28,7 @@ class Cliente extends Validator
           "update" => array(
               'nombre' => 'required',
               'apellido' => 'required|alpha',
-              'empresa' => 'alpha',
+              'empresa' => 'required',
               'telefono' => 'numeric',
               'ext' => 'numeric',
               'celular' => 'required|numeric'
