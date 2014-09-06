@@ -13,5 +13,5 @@ return array(
      */
 
     'debug' => true,
-    'images_path' => 'img/',
+    
 );
