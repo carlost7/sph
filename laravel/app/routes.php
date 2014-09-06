@@ -15,17 +15,6 @@ Route::get('/', function() {
       return View::make('hello');
 });
 
-Route::get('prueba', function() {
-      $data = array('nombre' => 'carlos',
-            'token' => 'token',
-            'id' => 5,
-            'link' => HTML::linkRoute('register.activate_client','Confirmar registro',array('token','id'))
-      );
-
-      Mail::queue('emails.auth.confirm_new_users', $data, function($message) {
-            $message->to('juvcarl@gmail.com', 'Carlos Juarez')->subject('Confirmación de Registro de Sphellar');
-      });
-});
 /*
  * *******************************
  *            Users Session

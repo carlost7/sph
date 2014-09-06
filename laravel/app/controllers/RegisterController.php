@@ -70,7 +70,7 @@ class RegisterController extends \BaseController
                                   'id' => $cliente->id,
                               );
 
-                              Mail::queue('emails.auth.confirm_new_user', $data, function($message) use ($user, $cliente)
+                              Mail::send('emails.auth.confirm_new_user', $data, function($message) use ($user, $cliente)
                               {
                                     $message->to($user->email, $cliente->nombre)->subject('Confirmación de Registro de Sphellar');
                               });
