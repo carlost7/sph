@@ -5,9 +5,7 @@
       </head>
       <body>
 
-            {{ HTML::linkRoute('register.activate_client','Confirmar registro',array($token,$id))}}<br/>                        
-
-            {{ URL::to('/') }}
+            {{ $link }}
             
             
 
