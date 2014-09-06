@@ -14,4 +14,5 @@ return array(
 
     'debug' => true,
     
+      'url' => 'http://www.sphellar.com/mx/sphellar/',
 );
