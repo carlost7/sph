@@ -21,7 +21,7 @@ Route::get('prueba', function() {
             'id' => 5,
       );
 
-      Mail::queue('emails.auth.confirm_new_user', $data, function($message) {
+      Mail::queue('emails.auth.confirm_new_users', $data, function($message) {
             $message->to('juvcarl@gmail.com', 'Carlos Juarez')->subject('Confirmación de Registro de Sphellar');
       });
 });
