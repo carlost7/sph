@@ -16,7 +16,9 @@ Route::get('/', function()
       return View::make('hello');
 });
 
-
+Route::get('prueba',function(){
+      echo HTML::linkRoute('register.activate_client');
+});
 /*
  * *******************************
  *            Users Session
