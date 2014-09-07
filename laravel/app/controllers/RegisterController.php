@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Events\Dispatcher;
 use Sph\Storage\User\UserRepository as User;
 use Sph\Storage\Cliente\ClienteRepository as Cliente;
 use Sph\Storage\Marketing\MarketingRepository as Marketing;
@@ -13,15 +14,15 @@ class RegisterController extends \BaseController
       protected $cliente;
       protected $marketing;
       protected $administrador;
-      protected $codigo;
+      protected $events;
 
-      public function __construct(User $user, Cliente $cliente, Marketing $marketing, Administrador $administrador, Codigo $codigo)
+      public function __construct(User $user, Cliente $cliente, Marketing $marketing, Administrador $administrador, Dispatcher $events)
       {
             $this->user = $user;
             $this->cliente = $cliente;
             $this->marketing = $marketing;
             $this->administrador = $administrador;
-            $this->codigo = $codigo;
+            $this->events = $events;
       }
 
       public function index()
@@ -105,22 +106,9 @@ class RegisterController extends \BaseController
                         if (isset($cliente))
                         {
                               $marketing = $this->marketing->asignar_cliente($cliente);
-
-                              if (Config::get('params.enviar_codigo_correo'))
-                              {
-                                    $numero = rand(1000, 9999) . "-" . rand(1000, 9999) . "-" . rand(1000, 9999);
-                                    $codigo_model = array('numero' => $numero, 'cliente_id' => $cliente->id);
-                                    $this->codigo->create($codigo_model);
-
-                                    $data = array('nombre' => $cliente->nombre,
-                                        'codigo' => $numero,
-                                    );
-                                    Mail::queue('emails.send_promotional_code', $data, function($message) use ($cliente)
-                                    {
-                                          $message->to($cliente->user->email, $cliente->nombre)->subject('Código promocional');
-                                    });
-                              }
-
+                              
+                              $this->events->fire('enviar_codigo', array($cliente));
+                              
                               return View::make('register.confirmation')->with('confirmation', true);
                         }
                   }

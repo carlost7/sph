@@ -48,6 +48,7 @@ return array(
     'ClientesTableSeeder' => $baseDir . '/app/database/seeds/ClientesTableSeeder.php',
     'Codigo' => $baseDir . '/app/models/Codigo.php',
     'CodigosController' => $baseDir . '/app/controllers/CodigosController.php',
+    'CodigosListener' => $baseDir . '/app/listeners/CodigosListener.php',
     'CreateAdministradoresTable' => $baseDir . '/app/database/migrations/2014_08_19_165158_create_administradores_table.php',
     'CreateAvisosClientesTable' => $baseDir . '/app/database/migrations/2014_08_03_011448_create_avisos_clientes_table.php',
     'CreateBitacorasTable' => $baseDir . '/app/database/migrations/2014_07_31_185716_create_bitacoras_table.php',
