@@ -31,15 +31,27 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                               </button>
+                              @section('menu_links')
                               {{ HTML::Link('/','Sphellar',array('class'=>'navbar-brand')) }}                    
+                              @show
                         </div>
                         <div class="navbar-collapse collapse">
                               <ul class="nav navbar-nav navbar-right">
-                                    <li><a href="#">Contacto</a></li>                        
+                                    @section('user_menu')
+                                    <li>{{ HTML::linkRoute('session.create','Entrar')}}</li>
+                                    <li class="dropdown">                                          
+                                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Registrate <span class="caret"></span></a>
+                                          <ul class="dropdown-menu" role="menu">
+                                                <li>{{ HTML::linkRoute('register.user','Usuario') }}</li>
+                                                <li>{{ HTML::linkRoute('register.client','Cliente') }}</li>
+                                          </ul>
+                                    </li>
+                                    @show
                               </ul>
                         </div><!--/.navbar-collapse -->
                   </div>
             </div>
+            <div class="clearfix"></div>
             @if(Session::has('message'))
             <div class="alert alert-success alert-dismissable">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -54,14 +66,13 @@
                   {{ Session::forget('error'); }}
             </div>                    
             @endif
-            <div class="clearfix"></div>
-            <div class="container">
-                  @yield('content')        
-            </div>        
+           
+            @yield('wrapper')
 
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>                
             {{ HTML::script('js/vendor/bootstrap.min.js') }}
             {{ HTML::script('js/main.js') }}
-            @section('scripts')@show
+            @section('scripts')
+            @show
       </body>
 </html>

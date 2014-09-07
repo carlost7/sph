@@ -97,7 +97,7 @@ Route::filter('is_client', function()
       {
             if (!Auth::user()->userable->is_active)
             {
-                  return View::make('register.user_not_active');
+                  return View::make('register.client_not_active');
             }
       }
       else

@@ -1,6 +1,6 @@
 @extends('layouts.webpage_master')
 
-@section('content')
+@section('wrapper')
 <div class="row">
       <div class="col-xs-6">
             <h1><span class="glyphicon glyphicon-star"></span></h1>
