@@ -3,6 +3,7 @@
 /*
  * Modelo de DB para agregar las categorias de la guia
  */
+
 class Categoria extends \Eloquent
 {
 
@@ -12,17 +13,24 @@ class Categoria extends \Eloquent
       /*
        * Una categoria tiene muchos negocios
        */
+
       public function negocios()
       {
-            $this->hasMany('Negocio');
+            return $this->hasMany('Negocio');
       }
 
       /*
        * Una categoria tiene muchos eventos
        */
+
       public function eventos()
       {
-            $this->hasMnay('Evento');
+            return $this->hasMany('Evento');
+      }
+
+      public function subcategorias()
+      {
+            return $this->hasMany('Subcategoria');
       }
 
 }

@@ -8,23 +8,29 @@ class Estado extends \Eloquent
 {
 
       protected $table = 'estados';
-      
       protected $fillable = ['estado'];
 
       /*
        * Un estado tiene muchos negocios
        */
+
       public function negocios()
       {
-            $this->hasMany('Negocio');
+            return $this->hasMany('Negocio');
       }
 
       /*
        * Un estado tiene mucohs eventos
        */
+
       public function eventos()
       {
-            $this->hasMany('Evento');
+            return $this->hasMany('Evento');
+      }
+
+      public function zonas()
+      {
+            return $this->hasMany('Zona');
       }
 
 }

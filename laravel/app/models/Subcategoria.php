@@ -17,12 +17,14 @@ class Subcategoria extends \Eloquent
       {
             return $this->belongsTo('Categoria');
       }
-      
-      public function negocios(){
+
+      public function negocios()
+      {
             return $this->hasMany('Negocio');
       }
-      
-      public function eventos(){
+
+      public function eventos()
+      {
             return $this->hasMany('Evento');
       }
 
