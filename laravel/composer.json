@@ -9,7 +9,8 @@
         "phpunit/phpunit": "3.7.*",
         "mercadopago/sdk": "dev-master",
         "appitventures/phpgmaps": "dev-master",
-        "fzaninotto/faker": "dev-master"
+        "fzaninotto/faker": "dev-master",
+        "doctrine/dbal":"dev-master"
     },
     "autoload": {
         "classmap": [
