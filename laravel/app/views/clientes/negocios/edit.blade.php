@@ -57,7 +57,7 @@
       <div class="row">
             <div class="col-sm-4">
                   {{ Form::label('moneda','Moneda') }}
-                  {{ Form::select('moneda', array('MEX' => 'Pesos', 'USD' => 'Dolares'),$negocio->mas_info->moneda,array('class'=>'form-control')) }}
+                  {{ Form::select('moneda', array('MEX' => 'Pesos', 'USD' => 'Dólares'),$negocio->mas_info->moneda,array('class'=>'form-control')) }}
             </div>
             <div class="col-sm-4">
                   {{ Form::label('rango_min','Rango de precios mínimo') }}
