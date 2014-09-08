@@ -16,6 +16,22 @@ Route::get('/', array(
       'as' => 'home'
 ));
 
+
+/*
+ * -----------------------------------
+ * Mostrar Negocios
+ * -----------------------------------
+ */
+Route::get('negocios',array(
+    'uses' => 'NegociosController@index',
+    'as' => 'negocios'
+));
+
+Route::get('negocios',array(
+    'uses' => 'NegociosController@index',
+    'as' => 'negocios'
+));
+
 /*
  * *******************************
  *            Users Session

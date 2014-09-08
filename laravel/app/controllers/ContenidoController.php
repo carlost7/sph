@@ -25,7 +25,7 @@ class ContenidoController extends \BaseController
       public function index()
       {
 
-            $negocios = \Negocio::where('publicar', true)->where('is_activo', true)->orderBy('likes', 'desc')->orderBy('is_especial', 'desc')->paginate(20);
+            $negocios = \Negocio::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc')->paginate(20);
 
             return View::make('contenido.index')->with(array('negocios' => $negocios));
       }
