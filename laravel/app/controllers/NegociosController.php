@@ -1,17 +1,86 @@
 <?php
 
-/**
- * Description of NegociosController
- *
- * @author carlos
- */
+class NegociosController extends \BaseController {
 
-use Sph\Storage\Negocio\NegocioRepository as Negocio;
-use Sph\Storage\Negocio_Especial\NegocioEspecialRepository as Especial;
+	/**
+	 * Display a listing of the resource.
+	 * GET /negocios
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		//
+	}
 
+	/**
+	 * Show the form for creating a new resource.
+	 * GET /negocios/create
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+		//
+	}
 
+	/**
+	 * Store a newly created resource in storage.
+	 * POST /negocios
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
+		//
+	}
 
-class NegociosController
-{
-      
+	/**
+	 * Display the specified resource.
+	 * GET /negocios/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 * GET /negocios/{id}/edit
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		//
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 * PUT /negocios/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
+	{
+		//
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 * DELETE /negocios/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
+		//
+	}
+
 }

@@ -72,7 +72,7 @@
       <div class="row">
             <div class="col-sm-6">
                   {{ Form::label('moneda','Moneda') }}
-                  {{ Form::select('moneda', array('MEX' => 'Pesos', 'USD' => 'Dolares'),null,array('class'=>'form-control')) }}
+                  {{ Form::select('moneda', array('MEX' => 'Pesos', 'USD' => 'Dólares'),null,array('class'=>'form-control')) }}
             </div>
             <div class="col-sm-6">
                   {{ Form::label('costo','Costo') }}
