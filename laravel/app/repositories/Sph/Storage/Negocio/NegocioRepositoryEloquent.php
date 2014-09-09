@@ -38,6 +38,9 @@ class NegocioRepositoryEloquent implements NegocioRepository
                   $mas_info = new MasInfoNegocio($negocio_model);
                   $negocio->masInfo()->save($mas_info);
 
+                  $negocio_especial = new Negocio_especial($negocio_model);
+                  $negocio->especial()->save($negocio_especial);
+
                   if (isset($negocio_model['nombre_imagen']))
                   {
                         $imagen = new Imagen($negocio_model);
@@ -55,16 +58,17 @@ class NegocioRepositoryEloquent implements NegocioRepository
 
       public function delete($id)
       {
-            
+
             $negocio = Negocio::find($id);
             $negocio->pago()->delete();
             $negocio->aviso()->delete();
             $negocio->imagen()->delete();
-            
-            if(isset($negocio->especial)){
-                  $negocio->especial->imagenes()->delete();      
-            }            
-            
+
+            if (isset($negocio->especial))
+            {
+                  $negocio->especial->imagenes()->delete();
+            }
+
             return Negocio::destroy($id);
       }
 
@@ -106,26 +110,12 @@ class NegocioRepositoryEloquent implements NegocioRepository
                         }
 
 
-                        if (!$negocio->is_especial)
-                        {
-                              return $negocio;
-                        }
-                        else
-                        {
-                              if ($negocio->especial)
-                              {
-                                    $negocio->especial->fill($negocio_model);
-                                    $negocio->especial->save();
-                              }
-                              else
-                              {
-                                    $negocio_especial = new Negocio_especial($negocio_model);
-                                    $negocio->especial()->save($negocio_especial);
-                              }
-                              
-                              return $negocio;
-                        }
-                        
+
+                        $negocio->especial->fill($negocio_model);
+                        $negocio->especial->save();
+
+
+                        return $negocio;
                   }
                   else
                   {
