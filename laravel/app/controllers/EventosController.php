@@ -21,7 +21,8 @@ class EventosController extends \BaseController
        */
       public function index()
       {
-            //
+            $eventos = \Evento::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc')->paginate(10);
+            return View::make('contenido.eventos_index')->with(array('eventos' => $eventos));
       }
 
       /**

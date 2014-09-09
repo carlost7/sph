@@ -21,7 +21,8 @@ class NegociosController extends \BaseController
        */
       public function index()
       {
-            //
+            $negocios = \Negocio::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc')->paginate(20);
+            return View::make('contenido.negocios_index')->with(array('negocios' => $negocios));
       }
 
       /**
