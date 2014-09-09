@@ -46,6 +46,10 @@ class EventoRepositoryEloquent implements EventoRepository
                         $imagen->cliente_id = $evento->cliente->id;
                         $evento->imagen()->save($imagen);
                   }
+
+                  $evento_especial = new Evento_especial($evento_model);
+                  $evento->especial()->save($evento_especial);
+
                   return $evento;
             }
             return null;
@@ -81,7 +85,7 @@ class EventoRepositoryEloquent implements EventoRepository
                   $evento->fecha_inicio = new \DateTime($evento_model['fecha_inicio']);
                   $evento->fecha_fin = new \DateTime($evento_model['fecha_fin']);
                   $evento->hora_inicio = new \DateTime($evento_model['hora_inicio']);
-                  $evento->hora_fin = new \DateTime($evento_model['hora_fin']);                  
+                  $evento->hora_fin = new \DateTime($evento_model['hora_fin']);
                   $evento->categoria_id = $evento_model['categoria'];
                   $evento->subcategoria_id = $evento_model['subcategoria'];
                   $evento->estado_id = $evento_model['estado'];
@@ -91,7 +95,7 @@ class EventoRepositoryEloquent implements EventoRepository
                   {
                         $evento->masInfo->fill($evento_model);
                         $evento->masInfo->save();
-                        
+
                         if (isset($evento_model['nombre_imagen']))
                         {
                               $imagen = new Imagen($evento_model);
@@ -104,62 +108,54 @@ class EventoRepositoryEloquent implements EventoRepository
                               $evento->imagen->alt = $evento_model['alt'];
                               $evento->imagen->save();
                         }
-                        
-                        if (!$evento->is_especial)
-                        {
-                              return $evento;
-                        }
-                        else
-                        {
-                              if ($evento->especial)
-                              {
-                                    $evento->especial->fill($evento_model);
-                                    $evento->especial->save();
-                              }
-                              else
-                              {
-                                    $evento_especial = new Evento_especial($evento_model);
-                                    $evento->especial()->save($evento_especial);
-                              }
-                              
-                              return $evento;
-                        }
-                  }
-                  else
-                  {
-                        return null;
+
+                        $evento->especial->fill($evento_model);
+                        $evento->especial->save();
+
+                        return $evento;
                   }
             }
+
             return null;
+      
+            
+            
       }
 
-      public function agregar_pago($evento_model, $pago_model)
+      public function
+
+      agregar_pago($evento_model, $pago_model)
       {
 
-            if ($evento_model->pago()->save($pago_model))
-            {
-                  return $evento_model;
-            }
-            else
-            {
-                  return null;
-            }
+      if($evento_model-> pago()->save($pago_model))
+                              {
+      return $evento_model;
       }
-
-      public function activar($id)
+            
+      else
       {
-            $evento = Evento::find($id);
-            $evento->publicar = true;
-            $evento->is_activo = true;
-            $evento->fecha_nueva_activacion = \Carbon\Carbon::now()->addMonth();
-            if ($evento->save())
-            {
-                  return true;
-            }
-            else
-            {
-                  return false;
-            }
+      return null;
       }
+      
+}
 
+public function
+
+activar($id)
+{
+$evento = Evento::find($id);
+                $evento->publicar = true;
+$evento->is_activo = true;
+$evento->fecha_nueva_activacion = \Carbon\Carbon::now()->addMonth();
+        if($evento->save())
+        {
+return true;
+}
+            
+else
+{
+return false;
+}
+      
+}
 }

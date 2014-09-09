@@ -173,11 +173,6 @@
             </div>      
       </div>
 </div>
-
-@if($evento->is_especial)
-<hr />
-<h3>Datos Especiales</h3>
-
 <div class="form-group">
       {{ Form::label('web', 'Página web') }}            
       {{ Form::text('web', ($evento->especial) ? $evento->especial->web : '' ,array('placeholder'=>'página web','class'=>'form-control')) }}
@@ -200,8 +195,6 @@
             </label>
       </div>
 </div>
-
-@endif
 
 
 @include('layouts.show_form_errors')

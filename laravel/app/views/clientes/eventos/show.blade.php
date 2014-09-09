@@ -39,8 +39,6 @@
 
 @endif
 
-@if($evento->is_especial)
-@if($evento->especial)
 <div class="list-group">  
       <p class="list-group-item"><span class="label label-default">Web:</span>    {{ $evento->especial->web }}</p>
       <p class="list-group-item"><span class="label label-default">Email:</span>  {{ $evento->especial->email }}</p>
@@ -55,14 +53,16 @@
 <img src="{{Config::get('params.path_public_image').$imagen->path.$imagen->nombre}}" alt="{{ $imagen->alt }}" />
 @endforeach
 
-@endif
-@endif
-
 @else
 
 <h2>No seleccionó ningún negocio</h2>
 
 @endif
 
+@stop
 
+@section('scripts')
+@if($mapa)
+{{ $mapa['js'] }}
+@endif
 @stop

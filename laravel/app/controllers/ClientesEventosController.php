@@ -56,7 +56,18 @@ class clientesEventosController extends \BaseController
       {
             $categorias = $this->categoria->all();
             $estados = $this->estado->all();
-            return View::make('clientes.eventos.create')->with(array('categorias' => $categorias, 'estados' => $estados));
+            $mapa = null;
+            $config = array();
+            $config['center'] = '19.417, -99.169';
+            $config['zoom'] = '13';
+            $config['onclick'] = 'save_map(event);';
+            Gmaps::initialize($config);
+
+            $marker = array();
+            Gmaps::add_marker($marker);
+            $mapa = Gmaps::create_map();
+
+            return View::make('clientes.eventos.create')->with(array('categorias' => $categorias, 'estados' => $estados, 'mapa' => $mapa));
       }
 
       /**
@@ -69,10 +80,11 @@ class clientesEventosController extends \BaseController
             $validatorEvento = new Sph\Services\Validators\Evento(Input::all(), 'save');
             $validatorMasinfo = new Sph\Services\Validators\MasinfoEvento(Input::all(), 'save');
             $validatorCatalogo = new Sph\Services\Validators\Catalogo(Input::all(), 'save');
+            $validatorEspecial = new Sph\Services\Validators\Evento_especial(Input::all(), 'update');
             $input = array('imagen' => Input::File('imagen'));
             $validatorImagen = new Sph\Services\Validators\Imagen($input, 'save');
 
-            if ($validatorEvento->passes() & $validatorMasinfo->passes() & $validatorCatalogo->passes() & $validatorImagen->passes())
+            if ($validatorEvento->passes() & $validatorMasinfo->passes() & $validatorCatalogo->passes() & $validatorImagen->passes() & $validatorEspecial->passes())
             {
                   $evento_model = Input::all();
                   $evento_model = array_add($evento_model, 'cliente', Auth::user()->userable);
@@ -100,10 +112,10 @@ class clientesEventosController extends \BaseController
 
                         //Crear Pago de servicios
                         $pago_model = array(
-                            'nombre' => 'Publicación de Evento',
-                            'descripcion' => $evento->nombre,
-                            'monto' => Config::get('costos.evento'),
-                            'client' => Auth::user()->userable,
+                              'nombre' => 'Publicación de Evento',
+                              'descripcion' => $evento->nombre,
+                              'monto' => Config::get('costos.evento'),
+                              'client' => Auth::user()->userable,
                         );
                         $pago = $this->pago->create($pago_model);
                         if (isset($pago))
@@ -111,6 +123,13 @@ class clientesEventosController extends \BaseController
                               if ($this->evento->agregar_pago($evento, $pago))
                               {
                                     Session::flash('message', 'Evento agregado con éxito');
+                              }
+                              if (Input::get('add_images'))
+                              {
+                                    return Redirect::route('clientes_eventos_especiales_index.get', array('id' => $evento->id));
+                              }
+                              else
+                              {
                                     return Redirect::route('clientes_eventos.index');
                               }
                         }
@@ -123,11 +142,12 @@ class clientesEventosController extends \BaseController
             //Mensaje de error de validaciones
             $evento_messages = ($validatorEvento->getErrors() != null) ? $validatorEvento->getErrors()->all() : array();
             $masinfo_messages = ($validatorMasinfo->getErrors() != null) ? $validatorMasinfo->getErrors()->all() : array();
+            $especial_messages = ($validatorEspecial->getErrors() != null) ? $validatorEspecial->getErrors()->all() : array();
             $catalogo_messages = ($validatorCatalogo->getErrors() != null) ? $validatorCatalogo->getErrors()->all() : array();
             $imagen_messages = ($validatorImagen->getErrors() != null) ? $validatorImagen->getErrors()->all() : array();
 
             $validationMessages = array_merge_recursive(
-                    $evento_messages, $masinfo_messages, $catalogo_messages, $imagen_messages
+                    $evento_messages, $masinfo_messages, $catalogo_messages, $imagen_messages, $especial_messages
             );
 
             return Redirect::back()->withErrors($validationMessages)->withInput();
@@ -143,22 +163,22 @@ class clientesEventosController extends \BaseController
       {
             $evento = $this->evento->find($id);
             $mapa = null;
-            if ( count($evento->especial) && isset($evento->especial->mapa) )
+            if (count($evento->especial) && isset($evento->especial->mapa))
             {
-                  
+
                   $config = array();
                   $config['center'] = $evento->especial->mapa;
                   $config['zoom'] = '13';
                   Gmaps::initialize($config);
 
                   $marker = array();
-                  $marker['position'] = $evento->especial->mapa;                  
+                  $marker['position'] = $evento->especial->mapa;
                   Gmaps::add_marker($marker);
 
                   $mapa = Gmaps::create_map();
             }
-            
-            return View::make('clientes.eventos.show')->with(array('evento'=> $evento, 'mapa' => $mapa));
+
+            return View::make('clientes.eventos.show')->with(array('evento' => $evento, 'mapa' => $mapa));
       }
 
       /**
@@ -173,36 +193,20 @@ class clientesEventosController extends \BaseController
 
             $categorias = $this->categoria->all();
             $estados = $this->estado->all();
-            $mapa = null;
-            
-            if ( count($evento->especial) && isset($evento->especial->mapa) )
-            {
-                  
-                  $config = array();
-                  $config['center'] = $evento->especial->mapa;
-                  $config['zoom'] = '13';
-                  Gmaps::initialize($config);
 
-                  $marker = array();
-                  $marker['position'] = $evento->especial->mapa;
-                  $marker['draggable'] = true;
-                  $marker['ondragend'] = 'edit_map(event);';
-                  Gmaps::add_marker($marker);
 
-                  $mapa = Gmaps::create_map();
-            }
-            else
-            {
-                  $config = array();
-                  $config['center'] = '19.417, -99.169';
-                  $config['zoom'] = '13';
-                  $config['onclick'] = 'save_map(event);';
-                  Gmaps::initialize($config);
+            $config = array();
+            $config['center'] = $evento->especial->mapa;
+            $config['zoom'] = '13';
+            Gmaps::initialize($config);
 
-                  $marker = array();
-                  Gmaps::add_marker($marker);
-                  $mapa = Gmaps::create_map();
-            }
+            $marker = array();
+            $marker['position'] = $evento->especial->mapa;
+            $marker['draggable'] = true;
+            $marker['ondragend'] = 'edit_map(event);';
+            Gmaps::add_marker($marker);
+
+            $mapa = Gmaps::create_map();
 
 
             return View::make('clientes.eventos.edit')->with(array('evento' => $evento, 'categorias' => $categorias, 'estados' => $estados, 'mapa' => $mapa));
@@ -247,13 +251,15 @@ class clientesEventosController extends \BaseController
                               $input['imagen']->move(Config::get('params.usrimg') . $evento->imagen->path, $evento->imagen->nombre);
                         }
                         Session::flash('message', 'Evento modificado con éxito');
-                        
-                        if(Input::get('add_images')){
-                              return Redirect::route('clientes_eventos_especiales_index.get',array('id'=>$evento->id));
-                        }else{
+
+                        if (Input::get('add_images'))
+                        {
+                              return Redirect::route('clientes_eventos_especiales_index.get', array('id' => $evento->id));
+                        }
+                        else
+                        {
                               return Redirect::route('clientes_eventos.index');
                         }
-                        
                   }
                   else
                   {
