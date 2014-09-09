@@ -16,7 +16,7 @@ class EspecialEventoTableSeeder extends Seeder
                       "email" => $faker->email,
                       "web" => $faker->url,
                       "mapa" => $faker->address,
-                      "negocio_id" => $faker->unique()->numberBetween(1, 100),
+                      "evento_id" => $faker->unique()->numberBetween(1, 500),
                   ));
             }
       }

@@ -23,7 +23,7 @@ class MasinfoEventoTableSeeder extends Seeder
                       "td" => $faker->boolean(80),
                       "efectivo" => $faker->boolean(80),
                       "otra" => '',
-                      "evento_id" => $faker->unique()->numberBetween(1, 1000),
+                      "evento_id" => $faker->numberBetween(1, 1000),
                   ));
             }
       }
