@@ -17,7 +17,29 @@
 <div class="form-group">
       {{ Form::label('direccion', 'Dirección') }}
       {{ Form::text('direccion', Input::old('direccion'), array('placeholder' => 'dirección', 'class'=>'form-control')) }}
-</div>        
+</div>   
+<div class="form-group">
+      <div class="row">
+            <div class="col-sm-6">
+                  {{ Form::label('estado','Estado') }}
+                  {{ Form::select('estado', $estados->lists('estado','id'),null,array('class'=>'form-control','id'=>'estados')) }}
+            </div>
+            <div class="col-sm-6">
+                  {{ Form::label('zona','Zona') }}
+                  {{ Form::select('zona', array(),null,array('class'=>'form-control', 'id'=>'zonas')) }}
+            </div>
+      </div>
+      <div class="row">
+            <div class="col-sm-6">
+                  {{ Form::label('categoria','Categoria') }}
+                  {{ Form::select('categoria', $categorias->lists('categoria','id'),null,array('class'=>'form-control','id'=>'categorias')) }}
+            </div>
+            <div class="col-sm-6">
+                  {{ Form::label('subcategoria','subcategoria') }}
+                  {{ Form::select('subcategoria', array(),null,array('class'=>'form-control', 'id'=>'subcats')) }}
+            </div>
+      </div>
+</div>
 <div class="form-group">
       {{ Form::label('descripcion', 'Descripción') }}
       {{ Form::textArea('descripcion', Input::old('descripcion'), array('placeholder' => 'descripcion', 'class'=>'form-control')) }}
@@ -266,30 +288,31 @@
             </div>
       </div>
 </div>
+
+
 <div class="form-group">
-      <div class="row">
-            <div class="col-sm-6">
-                  {{ Form::label('estado','Estado') }}
-                  {{ Form::select('estado', $estados->lists('estado','id'),null,array('class'=>'form-control','id'=>'estados')) }}
-            </div>
-            <div class="col-sm-6">
-                  {{ Form::label('zona','Zona') }}
-                  {{ Form::select('zona', array(),null,array('class'=>'form-control', 'id'=>'zonas')) }}
-            </div>
-      </div>
-      <div class="row">
-            <div class="col-sm-6">
-                  {{ Form::label('categoria','Categoria') }}
-                  {{ Form::select('categoria', $categorias->lists('categoria','id'),null,array('class'=>'form-control','id'=>'categorias')) }}
-            </div>
-            <div class="col-sm-6">
-                  {{ Form::label('subcategoria','subcategoria') }}
-                  {{ Form::select('subcategoria', array(),null,array('class'=>'form-control', 'id'=>'subcats')) }}
-            </div>
+      {{ Form::label('webpage', 'Página web') }}            
+      {{ Form::text('webpage', Input::old('webpage') ,array('placeholder'=>'página web','class'=>'form-control')) }}
+</div>        
+<div class="form-group">
+      {{ Form::label('email', 'Correo electrónico') }}            
+      {{ Form::text('email', Input::old('email') ,array('placeholder'=>'correo electrónico','class'=>'form-control')) }}
+</div>        
+<div class="form-group">
+      {{ Form::label('mapa', 'Mapa') }}            
+      {{ Form::hidden('mapa',Input::old('mapa'),array('id'=>'latlng')) }}
+      @if($mapa)
+      {{ $mapa['html'] }}      
+      @endif
+</div>        
+<div class="form-group">
+      <div class="checkbox">
+            <label>
+                  {{ Form::checkbox('add_images', true) }}      
+                  agregar o editar imagenes extra
+            </label>
       </div>
 </div>
-
-
 
 @include('layouts.show_form_errors')
 
@@ -304,6 +327,10 @@
 @section('scripts')
 {{ HTML::script('js/vendor/bootstrap-file-input.js') }}
 {{ HTML::script('js/vendor/bootstrap-clockpicker.min.js') }}
+
+@if($mapa)
+{{ $mapa['js'] }}
+@endif
 
 <script>
       $('.file-inputs').bootstrapFileInput();
@@ -356,6 +383,13 @@
             }).trigger('change');
       });
 
+</script>
+
+<script>
+      function save_map(event) {
+            $('#latlng').val(event.latLng);
+            createMarker_map({map: map, position: event.latLng});
+      }
 </script>
 
 <script type="text/javascript">

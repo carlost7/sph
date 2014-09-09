@@ -169,6 +169,28 @@
             </div>      
       </div>
 </div>
+<div class="form-group">
+      {{ Form::label('web', 'Página web') }}            
+      {{ Form::text('web', Input::old('web') ,array('placeholder'=>'página web','class'=>'form-control')) }}
+</div>        
+<div class="form-group">
+      {{ Form::label('email', 'Correo electrónico') }}            
+      {{ Form::text('email', Input::old('email') ,array('placeholder'=>'correo electrónico','class'=>'form-control')) }}
+</div>        
+<div class="form-group">
+      {{ Form::label('mapa', 'Mapa') }}            
+      {{ Form::hidden('mapa',Input::old('mapa'),array('id'=>'latlng')) }}
+
+      {{ $mapa['html'] }}      
+</div>        
+<div class="form-group">
+      <div class="checkbox">
+            <label>
+                  {{ Form::checkbox('add_images', true) }}      
+                  agregar o editar imagenes extra
+            </label>
+      </div>
+</div>
 
 @include('layouts.show_form_errors')
 
@@ -182,12 +204,12 @@
 
 @section('scripts')
 {{ HTML::script('js/vendor/moment.js') }}
-{{ HTML::script('js/vendor/bootstrap-datepicker.js') }}
 {{ HTML::script('js/vendor/bootstrap-datetimepicker.min.js') }}
 {{ HTML::script('js/vendor/bootstrap-datetimepicker.es.js') }}
 {{ HTML::script('js/vendor/bootstrap-file-input.js') }}
 {{ HTML::script('js/vendor/bootstrap-clockpicker.min.js') }}
 
+{{ $mapa['js'] }}
 <script type="text/javascript">
       $(function() {
             $('#datetimepicker1').datetimepicker({
@@ -254,6 +276,13 @@
             }).trigger('change');
       });
 
+</script>
+
+<script>
+      function save_map(event) {
+            $('#latlng').val(event.latLng);
+            createMarker_map({map: map, position: event.latLng});
+      }
 </script>
 
 <script type="text/javascript">

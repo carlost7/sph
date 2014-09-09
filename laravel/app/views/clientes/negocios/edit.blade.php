@@ -292,12 +292,6 @@
       </div>
 
 </div>
-
-
-@if($negocio->is_especial)
-<hr />
-<h3>Datos Especiales</h3>
-
 <div class="form-group">
       {{ Form::label('webpage', 'Página web') }}            
       {{ Form::text('webpage', ($negocio->especial) ? $negocio->especial->webpage : '' ,array('placeholder'=>'página web','class'=>'form-control')) }}
@@ -321,8 +315,6 @@
             </label>
       </div>
 </div>
-
-@endif
 
 @include('layouts.show_form_errors')
 

@@ -24,11 +24,6 @@
                   {{ HTML::linkRoute('clientes_negocios_activar.get','Activar',$negocio->id,array('class'=>'btn btn-sm btn-warning')) }}       
             </p>
             @endif
-            @if($negocio->is_especial && !$negocio->especial)
-            <p class="text-right">
-                  {{ HTML::linkRoute('clientes_negocios.edit','Agregar datos especiales',$negocio->id,array('class'=>'btn btn-sm btn-success')) }}       
-            </p>
-            @endif
             <p class="text-right">
                   {{ HTML::linkRoute('clientes_negocios.edit','editar',$negocio->id,array('class'=>'btn btn-sm btn-info')) }}       
             </p>

@@ -1,21 +1,21 @@
 <?php
 
-Use Sph\Storage\Negocio\NegocioRepository as Negocio;
+Use Sph\Storage\Evento\EventoRepository as Evento;
 
-class NegociosController extends \BaseController
+class EventosController extends \BaseController
 {
 
-      protected $negocio;
+      protected $evento;
 
-      public function __construct(Negocio $negocio)
+      public function __construct(Evento $evento)
       {
             parent::setupCatalog();
-            $this->negocio = $negocio;
+            $this->evento = $evento;
       }
-
+      
       /**
        * Display a listing of the resource.
-       * GET /negocios
+       * GET /eventos
        *
        * @return Response
        */
@@ -26,7 +26,7 @@ class NegociosController extends \BaseController
 
       /**
        * Show the form for creating a new resource.
-       * GET /negocios/create
+       * GET /eventos/create
        *
        * @return Response
        */
@@ -37,7 +37,7 @@ class NegociosController extends \BaseController
 
       /**
        * Store a newly created resource in storage.
-       * POST /negocios
+       * POST /eventos
        *
        * @return Response
        */
@@ -48,37 +48,37 @@ class NegociosController extends \BaseController
 
       /**
        * Display the specified resource.
-       * GET /negocios/{id}
+       * GET /eventos/{id}
        *
        * @param  int  $id
        * @return Response
        */
       public function show($id)
       {
-            $negocio = $this->negocio->find($id);
+            $evento = $this->evento->find($id);
             $mapa = null;
 
 
-            if ($negocio->is_especial && count($negocio->especial))
+            if ($evento->is_especial && count($evento->especial))
             {
                   $config = array();
-                  $config['center'] = $negocio->especial->mapa;
+                  $config['center'] = $evento->especial->mapa;
                   $config['zoom'] = '13';
                   Gmaps::initialize($config);
 
                   $marker = array();
-                  $marker['position'] = $negocio->especial->mapa;
+                  $marker['position'] = $evento->especial->mapa;
                   Gmaps::add_marker($marker);
 
                   $mapa = Gmaps::create_map();
             }
 
-            return View::make('contenido.show_negocio')->with(array('negocio' => $negocio, 'mapa' => $mapa));
+            return View::make('contenido.show_evento')->with(array('evento' => $evento, 'mapa' => $mapa));
       }
 
       /**
        * Show the form for editing the specified resource.
-       * GET /negocios/{id}/edit
+       * GET /eventos/{id}/edit
        *
        * @param  int  $id
        * @return Response
@@ -90,7 +90,7 @@ class NegociosController extends \BaseController
 
       /**
        * Update the specified resource in storage.
-       * PUT /negocios/{id}
+       * PUT /eventos/{id}
        *
        * @param  int  $id
        * @return Response
@@ -102,7 +102,7 @@ class NegociosController extends \BaseController
 
       /**
        * Remove the specified resource from storage.
-       * DELETE /negocios/{id}
+       * DELETE /eventos/{id}
        *
        * @param  int  $id
        * @return Response

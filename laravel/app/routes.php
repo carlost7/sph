@@ -22,14 +22,19 @@ Route::get('/', array(
  * Mostrar Negocios
  * -----------------------------------
  */
-Route::get('negocios',array(
-    'uses' => 'NegociosController@index',
-    'as' => 'negocios'
+Route::get('negocios/{id}',array(
+    'uses' => 'NegociosController@show',
+    'as' => 'negocios.show'
 ));
 
-Route::get('negocios',array(
-    'uses' => 'NegociosController@index',
-    'as' => 'negocios'
+/*
+ * -----------------------------------
+ * Mostrar Eventos
+ * -----------------------------------
+ */
+Route::get('eventos/{id}',array(
+    'uses' => 'EventosController@show',
+    'as' => 'eventos.show'
 ));
 
 /*
