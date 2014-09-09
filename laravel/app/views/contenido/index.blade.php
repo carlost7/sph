@@ -6,8 +6,9 @@
 
       <div class="row">
             <div class="col-sm-8">
+                  <h1>{{HTML::linkRoute('negocios.index','Negocios')}}</h1>
                   @foreach($negocios as $negocio)
-                  <div class="col-sm-4">
+                  <div class="col-sm-6">
                         @if(count($negocio->imagen))
                         <img src="{{Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" />
                         @endif
@@ -28,8 +29,9 @@
 
             </div>
             <div class="col-sm-4">
+                  <h1>{{HTML::linkRoute('eventos.index','Eventos')}}</h1>
                   @foreach($eventos as $evento)
-                  <div class="col-sm-4">
+                  <div class="col-sm-12">
                         @if(count($evento->imagen))
                         <img src="{{Config::get('params.path_public_image').$evento->imagen->path.$evento->imagen->nombre}}" alt="{{ $evento->imagen->alt }}" />
                         @endif
@@ -39,7 +41,7 @@
                         <hr />                  
                         <p>Zona: {{ $evento->zona->zona }}</p>
                         <p>Dirección: {{ $evento->direccion }}</p>
-                        @if(count($negocio->especial))
+                        @if(count($evento->especial))
                         <p>Web: <a href="{{$evento->especial->web}}">{{$evento->nombre}}</a></p>
                         @endif
 

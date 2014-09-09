@@ -22,6 +22,11 @@ Route::get('/', array(
  * Mostrar Negocios
  * -----------------------------------
  */
+Route::get('negocios',array(
+    'uses' => 'NegociosController@index',
+    'as' => 'negocios.index'
+));
+
 Route::get('negocios/{id}',array(
     'uses' => 'NegociosController@show',
     'as' => 'negocios.show'
@@ -32,6 +37,11 @@ Route::get('negocios/{id}',array(
  * Mostrar Eventos
  * -----------------------------------
  */
+Route::get('eventos',array(
+    'uses' => 'EventosController@index',
+    'as' => 'eventos.index'
+));
+
 Route::get('eventos/{id}',array(
     'uses' => 'EventosController@show',
     'as' => 'eventos.show'
@@ -71,16 +81,16 @@ Route::get('register_index', array(
       'as' => 'register.index'
 ));
 
-Route::get('register_client', array(
+Route::get('registrar_cliente', array(
       'uses' => 'RegisterController@register_client',
       'as' => 'register.client'
 ));
-Route::post('register_client', array(
+Route::post('registar_cliente', array(
       'uses' => 'RegisterController@store_client',
       'as' => 'register.store_client'
 ));
 
-Route::get('activate_client/{token?}/{id?}', array(
+Route::get('activar_cliente/{token?}/{id?}', array(
       'uses' => 'RegisterController@activate_client',
       'as' => 'register.activate_client'
 ));
@@ -91,11 +101,11 @@ Route::get('activate_client/{token?}/{id?}', array(
  * Registro de usuario
  * **************************
  */
-Route::get('register_user', array(
+Route::get('registrar_usuario', array(
       'uses' => 'RegisterController@register_user',
       'as' => 'register.user'
 ));
-Route::post('register_user', array(
+Route::post('registrar-usuario', array(
       'uses' => 'RegisterController@store_user',
       'as' => 'register.store_user'
 ));
@@ -106,11 +116,11 @@ Route::post('register_user', array(
  * *************************
  */
 
-Route::get('register_admin', array(
+Route::get('registrar-administrador', array(
       'uses' => 'RegisterController@register_admin',
       'as' => 'register.admin'
 ));
-Route::post('register_admin', array(
+Route::post('registrar_administrador', array(
       'uses' => 'RegisterController@store_admin',
       'as' => 'register.store_admin'
 ));

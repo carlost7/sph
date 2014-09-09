@@ -8,8 +8,11 @@
       
       <h2>{{ $evento->nombre }}</h2>
 
+      @if(count($evento->imagen))
       <img src="{{Config::get('params.path_public_image').$evento->imagen->path.$evento->imagen->nombre}}" alt="{{ $evento->imagen->alt }}" />
-
+      @endif
+      
+      
       <div class="list-group">  
             <p class="list-group-item"><span class="label label-default">Fecha:</span> {{ date('d-m-Y',strtotime($evento->fecha_inicio)).' - '.date('d-m-Y',strtotime($evento->fecha_fin)) }}</p>
             <p class="list-group-item"><span class="label label-default">Horario:</span> {{ date('H:i',strtotime($evento->hora_inicio)).' - '.date('H:i',strtotime($evento->hora_fin)) }}</p>
@@ -20,7 +23,7 @@
             <p class="list-group-item"><span class="label label-default">Publicado:</span> {{ ($evento->publicar) ? 'Si' : 'No' }}</p>
       </div>
 
-      @if($evento->masInfo->count())
+      @if(count($evento->masInfo))
 
       <div class="list-group">  
             <p class="list-group-item"><span class="label label-default">Moneda:</span> {{ $evento->moneda }}</p>
