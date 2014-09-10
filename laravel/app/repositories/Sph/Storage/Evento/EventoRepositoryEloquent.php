@@ -109,17 +109,23 @@ class EventoRepositoryEloquent implements EventoRepository
                               $evento->imagen->save();
                         }
 
-                        $evento->especial->fill($evento_model);
-                        $evento->especial->save();
+                        if (count($evento->especial))
+                        {
+
+                              $evento->especial->fill($evento_model);
+                              $evento->especial->save();
+                        }
+                        else
+                        {
+                              $evento_especial = new Evento_especial($evento_model);
+                              $evento->especial()->save($evento_especial);
+                        }
 
                         return $evento;
                   }
             }
 
             return null;
-      
-            
-            
       }
 
       public function
@@ -127,35 +133,32 @@ class EventoRepositoryEloquent implements EventoRepository
       agregar_pago($evento_model, $pago_model)
       {
 
-      if($evento_model-> pago()->save($pago_model))
-                              {
-      return $evento_model;
+            if ($evento_model->pago()->save($pago_model))
+            {
+                  return $evento_model;
+            }
+            else
+            {
+                  return null;
+            }
       }
-            
-      else
+
+      public function
+
+      activar($id)
       {
-      return null;
+            $evento = Evento::find($id);
+            $evento->publicar = true;
+            $evento->is_activo = true;
+            $evento->fecha_nueva_activacion = \Carbon\Carbon::now()->addMonth();
+            if ($evento->save())
+            {
+                  return true;
+            }
+            else
+            {
+                  return false;
+            }
       }
-      
-}
 
-public function
-
-activar($id)
-{
-$evento = Evento::find($id);
-                $evento->publicar = true;
-$evento->is_activo = true;
-$evento->fecha_nueva_activacion = \Carbon\Carbon::now()->addMonth();
-        if($evento->save())
-        {
-return true;
-}
-            
-else
-{
-return false;
-}
-      
-}
 }

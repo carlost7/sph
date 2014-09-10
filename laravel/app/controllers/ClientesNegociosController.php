@@ -37,7 +37,7 @@ class clientesNegociosController extends \BaseController
             $this->pago = $pago;
             $this->subcategoria = $subcategoria;
             $this->zona = $zona;
-            View::share('section','Negocio');
+            View::share('section', 'Negocio');
       }
 
       /**
@@ -118,10 +118,10 @@ class clientesNegociosController extends \BaseController
 
                         //Crear Pago de servicios
                         $pago_model = array(
-                              'nombre' => 'Publicación de Negocio',
-                              'descripcion' => $negocio->nombre,
-                              'monto' => Config::get('costos.negocio'),
-                              'client' => Auth::user()->userable,
+                            'nombre' => 'Publicación de Negocio',
+                            'descripcion' => $negocio->nombre,
+                            'monto' => Config::get('costos.negocio'),
+                            'client' => Auth::user()->userable,
                         );
                         $pago = $this->pago->create($pago_model);
                         if (isset($pago))
@@ -172,17 +172,18 @@ class clientesNegociosController extends \BaseController
             $negocio = $this->negocio->find($id);
             $mapa = null;
 
+            if ($negocio->is_especial && count($negocios->especial))
+            {
+                  $config = array();
+                  $config['center'] = $negocio->especial->mapa;
+                  $config['zoom'] = '13';
+                  Gmaps::initialize($config);
 
-            $config = array();
-            $config['center'] = $negocio->especial->mapa;
-            $config['zoom'] = '13';
-            Gmaps::initialize($config);
-
-            $marker = array();
-            $marker['position'] = $negocio->especial->mapa;
-            Gmaps::add_marker($marker);
-
-            $mapa = Gmaps::create_map();
+                  $marker = array();
+                  $marker['position'] = $negocio->especial->mapa;
+                  Gmaps::add_marker($marker);
+                  $mapa = Gmaps::create_map();
+            }
 
             return View::make('clientes.negocios.show')->with(array('negocio' => $negocio, 'mapa' => $mapa));
       }
