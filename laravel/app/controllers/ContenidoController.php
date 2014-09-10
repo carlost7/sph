@@ -24,10 +24,32 @@ class ContenidoController extends \BaseController
        */
       public function index()
       {
-
-            $negocios = \Negocio::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc')->paginate(20);
+            $subcategoria = Input::get('sc');
+            
+            $zona = Input::get('z');
+            
+            $queryNegocios = \Negocio::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc');
+            
+            if($subcategoria){
+                  $queryNegocios = $queryNegocios->where('subcategoria_id','like',"%$subcategoria%");
+            }            
+            if($zona){
+                  $queryNegocios = $queryNegocios->where('zona_id','like',"%$zona%");
+            }            
+            $negocios = $queryNegocios->paginate(20);
+            
+            
             //$eventos = \Evento::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc')->paginate(20);
-            $eventos = \Evento::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc')->paginate(10);
+            $queryEventos = \Evento::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc');
+            
+            if($subcategoria){
+                  $queryEventos = $queryEventos->where('subcategoria_id','like',"%$subcategoria%");
+            }            
+            if($zona){
+                  $queryEventos = $queryEventos->where('zona_id','like',"%$zona%");
+            }            
+            
+            $eventos= $queryEventos->paginate(10);
             
             return View::make('contenido.index')->with(array('negocios' => $negocios,'eventos' => $eventos));
       }

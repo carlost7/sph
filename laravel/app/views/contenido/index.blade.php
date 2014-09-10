@@ -10,7 +10,9 @@
                   @foreach($negocios as $negocio)
                   <div class="col-sm-6">
                         @if(count($negocio->imagen))
-                        <img src="{{Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" />
+                        <a href="{{ route('negocios.show',$negocio->id) }}"><img src="{{Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" /></a>
+                        @else
+                        <a href="{{ route('negocios.show',$negocio->id) }}">{{HTML::image('img/default.png')}}</a>
                         @endif
                         <h2>{{ HTML::linkRoute('negocios.show',$negocio->nombre,$negocio->id) }}</h2>
                         <hr />
@@ -33,7 +35,9 @@
                   @foreach($eventos as $evento)
                   <div class="col-sm-12">
                         @if(count($evento->imagen))
-                        <img src="{{Config::get('params.path_public_image').$evento->imagen->path.$evento->imagen->nombre}}" alt="{{ $evento->imagen->alt }}" />
+                        <a href="{{ route('eventos.show',$evento->id) }}"><img src="{{Config::get('params.path_public_image').$evento->imagen->path.$evento->imagen->nombre}}" alt="{{ $evento->imagen->alt }}" /></a>
+                        @else
+                        <a href="{{ route('eventos.show',$evento->id) }}">{{HTML::image('img/default.png')}}</a>
                         @endif
                         <h2>{{HTML::linkRoute('eventos.show',$evento->nombre,$evento->id) }}</h2>
                         <hr />
