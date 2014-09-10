@@ -23,6 +23,7 @@ class clientesPagosController extends \BaseController
             $this->aviso = $aviso;
             $this->checkout = $checkout;
             $this->events = $events;
+            View::share('section','Pago');
       }
 
       /**

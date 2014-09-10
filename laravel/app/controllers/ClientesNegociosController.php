@@ -37,6 +37,7 @@ class clientesNegociosController extends \BaseController
             $this->pago = $pago;
             $this->subcategoria = $subcategoria;
             $this->zona = $zona;
+            View::share('section','Negocio');
       }
 
       /**

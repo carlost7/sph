@@ -23,16 +23,16 @@
       <div class="row">
             <div class="col-xs-12 hidden-sm hidden-md hidden-lg">
                   <ul class="nav nav-pills">
-                        <li {{ Request::is('marketing_avisos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing_avisos.index','Avisos',null) }}</li>
-                        <li {{ Request::is('marketing_clientes*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing_clientes.index','Clientes',null) }}</li>
-                        <li {{ Request::is('marketings*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing.index','Cuenta',null) }}</li>
+                        <li @if($section === 'Aviso') class='active' @endif>{{ HTML::linkRoute('marketing_avisos.index','Avisos',null) }}</li>
+                        <li @if($section === 'Clientes') class='active' @endif>{{ HTML::linkRoute('marketing_clientes.index','Clientes',null) }}</li>
+                        <li @if($section === 'Marketing') class='active' @endif>{{ HTML::linkRoute('marketing.index','Cuenta',null) }}</li>
                   </ul>
             </div>
             <div class="col-md-3 hidden-xs">
                   <ul class="nav nav-pills nav-stacked">
-                        <li {{ Request::is('marketing_avisos*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing_avisos.index','Avisos',null) }}</li>
-                        <li {{ Request::is('marketing_clientes*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing_clientes.index','Clientes',null) }}</li>
-                        <li {{ Request::is('marketings*') ? "class='active'" : "" }}>{{ HTML::linkRoute('marketing.index','Cuenta',null) }}</li>
+                        <li @if($section === 'Aviso') class='active' @endif>{{ HTML::linkRoute('marketing_avisos.index','Avisos',null) }}</li>
+                        <li @if($section === 'Clientes') class='active' @endif>{{ HTML::linkRoute('marketing_clientes.index','Clientes',null) }}</li>
+                        <li @if($section === 'Marketing') class='active' @endif>{{ HTML::linkRoute('marketing.index','Cuenta',null) }}</li>
                   </ul>
             </div>
             <div class="col-xs-12 col-md-8 col-md-push-1">

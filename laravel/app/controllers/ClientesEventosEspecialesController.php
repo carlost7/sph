@@ -16,6 +16,7 @@ class clientesEventosEspecialesController extends \BaseController
             $this->evento = $evento;
             $this->especial = $especial;
             $this->imagen = $imagen;
+            View::share('section','Evento');
       }
 
       /**
