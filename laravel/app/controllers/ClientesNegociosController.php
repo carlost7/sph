@@ -172,7 +172,7 @@ class clientesNegociosController extends \BaseController
             $negocio = $this->negocio->find($id);
             $mapa = null;
 
-            if ($negocio->is_especial && count($negocios->especial))
+            if ($negocio->is_especial && count($negocio->especial))
             {
                   $config = array();
                   $config['center'] = $negocio->especial->mapa;
