@@ -15,6 +15,7 @@ class clientesNegociosEspecialesController extends \BaseController {
             $this->negocio = $negocio;
             $this->especial = $especial;
             $this->imagen = $imagen;
+            View::share('section','Negocio');
       }
 
       /**

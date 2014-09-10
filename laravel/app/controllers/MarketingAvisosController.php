@@ -28,6 +28,7 @@ class MarketingAvisosController extends \BaseController
             $this->promocion = $promocion;
             $this->bitacora_cliente = $bitacora_cliente;
             $this->aviso_cliente = $aviso_cliente;
+            View::share('section','Aviso');
       }
 
       /**

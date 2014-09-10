@@ -37,17 +37,17 @@ class SessionController extends \BaseController
                   if (is_a(Auth::user()->userable, Cliente::class))
                   {
                         Session::set('is_client', true);
-                        return Redirect::intended('clientes');
+                        return Redirect::intended(route('clientes.index'));
                   }
                   elseif (is_a(Auth::user()->userable, Marketing::class))
                   {
                         Session::set('is_marketing', true);
-                        return Redirect::intended('marketings');
+                        return Redirect::intended(route('marketings.index'));
                   }
                   elseif (is_a(Auth::user()->userable, Administrador::class))
                   {
                         Session::set('is_admin', true);
-                        return Redirect::intended('administradores');
+                        return Redirect::intended(route('administradores.index'));
                   }
                   else
                   {

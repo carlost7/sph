@@ -13,6 +13,7 @@ class MarketingController extends \BaseController
       {
             $this->user = $user;
             $this->marketing = $marketing;
+            View::share('section','Marketing');
       }
 
       /**

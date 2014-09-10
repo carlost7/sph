@@ -14,6 +14,7 @@ class clientesPromocionesController extends \BaseController
       {
             $this->promocion = $promocion;
             $this->pago = $pago;
+            View::share('section','Promocion');
       }
 
       /**

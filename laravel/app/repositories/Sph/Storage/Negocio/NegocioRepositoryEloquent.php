@@ -110,9 +110,16 @@ class NegocioRepositoryEloquent implements NegocioRepository
                         }
 
 
-
-                        $negocio->especial->fill($negocio_model);
-                        $negocio->especial->save();
+                        if (count($negocio->especial))
+                        {
+                              $negocio->especial->fill($negocio_model);
+                              $negocio->especial->save();
+                        }
+                        else
+                        {
+                              $negocio_especial = new Negocio_especial($negocio_model);
+                              $negocio->especial()->save($negocio_especial);
+                        }
 
 
                         return $negocio;

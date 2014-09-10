@@ -13,6 +13,7 @@ class ClientesController extends \BaseController
       {
             $this->user = $user;
             $this->client = $cliente;
+            View::share('section','Cliente');
       }
 
       /**
