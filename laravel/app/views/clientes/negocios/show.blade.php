@@ -47,6 +47,7 @@
 </div>
 @endif
 
+@if(count($negocio->especial))
 <div class="list-group">  
       <p class="list-group-item"><span class="label label-default">Web:</span>    {{ $negocio->especial->webpage }}</p>
       <p class="list-group-item"><span class="label label-default">Email:</span>  {{ $negocio->especial->email }}</p>
@@ -62,6 +63,7 @@
 <img src="{{Config::get('params.path_public_image').$imagen->path.$imagen->nombre}}" alt="{{ $imagen->alt }}" />
 @endforeach
 
+@endif
 
 @else
 
