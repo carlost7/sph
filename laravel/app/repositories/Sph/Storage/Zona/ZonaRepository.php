@@ -16,4 +16,6 @@ interface ZonaRepository
       public function delete($id);
       
       public function getZonaByEstado($estado_id);
+      
+      public function getZonaLike($word);
 }

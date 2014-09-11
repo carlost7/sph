@@ -14,4 +14,6 @@ interface CategoriaRepository
       public function update($id, array $categoria_model);
 
       public function delete($id);
+
+      public function getCategoriaLike($word);
 }

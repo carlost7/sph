@@ -73,6 +73,7 @@
 
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>                
             {{ HTML::script('js/vendor/bootstrap.min.js') }}
+            {{ HTML::script('js/vendor/jquery.autocomplete.js') }}
             {{ HTML::script('js/main.js') }}
             @section('scripts')
             @show

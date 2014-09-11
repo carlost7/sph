@@ -134,6 +134,12 @@ Route::get('obtener_subcategoria/{categoria_id}', array('as' => 'obtener_subcate
 Route::get('obtener_zona/{estado_id}', array('as' => 'obtener_zona',
     'uses' => 'ZonasController@getZonas'));
 
+Route::get('catalogo_zonas',array('as'=>'catalogo_zonas',
+    'uses'=>'ContenidoController@getCatalogoZonas'));
+
+Route::get('catalogo_categorias',array('as'=>'catalogo_categorias',
+    'uses'=>'ContenidoController@getCatalogoCategorias'));
+
 /*
  * ***********************
  * Solo para usuarios autenticados

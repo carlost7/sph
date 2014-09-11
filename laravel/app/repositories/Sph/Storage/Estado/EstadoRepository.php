@@ -14,4 +14,6 @@ interface EstadoRepository
       public function update($id, array $estado_model);
 
       public function delete($id);
+      
+      public function getEstadoLike($word);
 }

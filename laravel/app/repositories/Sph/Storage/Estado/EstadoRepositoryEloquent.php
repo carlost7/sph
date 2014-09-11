@@ -19,7 +19,7 @@ class EstadoRepositoryEloquent implements EstadoRepository
 
       public function create(array $estado_model)
       {
-            $estado = new Estado($estado_model);            
+            $estado = new Estado($estado_model);
             if ($estado->save())
             {
 
@@ -47,13 +47,18 @@ class EstadoRepositoryEloquent implements EstadoRepository
             if (isset($estado))
             {
                   $estado->fill($estado_model);
-                  
+
                   if ($estado->save())
                   {
                         return $estado;
-                  }                  
+                  }
             }
             return null;
+      }
+
+      public function getEstadoLike($word)
+      {
+            return Estado::where('estado','LIKE',"%$word%")->take(2)->get();
       }
 
 }

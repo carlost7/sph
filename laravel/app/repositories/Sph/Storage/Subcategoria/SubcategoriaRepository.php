@@ -14,6 +14,8 @@ interface SubcategoriaRepository
       public function update($id, array $subcat_model);
 
       public function delete($id);
-      
+
       public function getSubcatByCategoria($categoria_id);
+
+      public function getSubcategoriaLike($word);
 }

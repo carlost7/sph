@@ -53,5 +53,11 @@ class CategoriaRepositoryEloquent implements CategoriaRepository
 
             return null;
       }
+      
+      public function getCategoriaLike($word)
+      {
+            return Categoria::where('categoria','LIKE',"%$word%")->take(2)->get();
+      }
+
 
 }
