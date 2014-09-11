@@ -123,6 +123,18 @@ Route::any('pagos/recibir_notificacion', array('uses' => 'PagosController@recibi
 
 
 /*
+ * *****************************
+ * Subcategoria y zona
+ * *****************************
+ */
+
+Route::get('obtener_subcategoria/{categoria_id}', array('as' => 'obtener_subcategoria',
+    'uses' => 'SubcategoriasController@getSubcategorias'));
+
+Route::get('obtener_zona/{estado_id}', array('as' => 'obtener_zona',
+    'uses' => 'ZonasController@getZonas'));
+
+/*
  * ***********************
  * Solo para usuarios autenticados
  * ***********************
@@ -130,17 +142,6 @@ Route::any('pagos/recibir_notificacion', array('uses' => 'PagosController@recibi
 Route::group(array('before' => 'auth'), function()
 {
 
-      /*
-       * *****************************
-       * Subcategoria y zona
-       * *****************************
-       */
-
-      Route::get('obtener_subcategoria/{categoria_id}', array('as' => 'obtener_subcategoria',
-          'uses' => 'SubcategoriasController@getSubcategorias'));
-
-      Route::get('obtener_zona/{estado_id}', array('as' => 'obtener_zona',
-          'uses' => 'ZonasController@getZonas'));
 
       /*
        * ***********************
@@ -148,7 +149,7 @@ Route::group(array('before' => 'auth'), function()
        * ***********************
        */
 
-      Route::group(array('prefix'=>'publicar','before' => 'is_client'), function()
+      Route::group(array('prefix' => 'publicar', 'before' => 'is_client'), function()
       {
 
             Route::get('cliente', array(
@@ -186,24 +187,22 @@ Route::group(array('before' => 'auth'), function()
             Route::get('clientes_negocios_especiales_index/{id}', array('as' => 'clientes_negocios_especiales_index.get',
                 'uses' => 'clientesNegociosEspecialesController@index')
             );
-            
-            Route::resource('clientes_negocios_especiales', 'clientesNegociosEspecialesController',
-                    array('names' => array('index'  => 'clientes_negocios_especiales.index',
-                                           'create' => 'clientes_negocios_especiales.create',
-                                           'store'  => 'clientes_negocios_especiales.store',
-                                           'show'   => 'clientes_negocios_especiales.show',
-                                           'edit'   => 'clientes_negocios_especiales.edit',
-                                           'update' => 'clientes_negocios_especiales.update',
-                                           'destroy'=> 'clientes_negocios_especiales.destroy' )));
 
-            Route::resource('publicar/cliente_negocios', 'clientesNegociosController',
-                    array('names' => array('index'  => 'clientes_negocios.index',
-                                           'create' => 'clientes_negocios.create',
-                                           'store'  => 'clientes_negocios.store',
-                                           'show'   => 'clientes_negocios.show',
-                                           'edit'   => 'clientes_negocios.edit',
-                                           'update' => 'clientes_negocios.update',
-                                           'destroy'=> 'clientes_negocios.destroy' )));
+            Route::resource('clientes_negocios_especiales', 'clientesNegociosEspecialesController', array('names' => array('index' => 'clientes_negocios_especiales.index',
+                    'create' => 'clientes_negocios_especiales.create',
+                    'store' => 'clientes_negocios_especiales.store',
+                    'show' => 'clientes_negocios_especiales.show',
+                    'edit' => 'clientes_negocios_especiales.edit',
+                    'update' => 'clientes_negocios_especiales.update',
+                    'destroy' => 'clientes_negocios_especiales.destroy')));
+
+            Route::resource('publicar/cliente_negocios', 'clientesNegociosController', array('names' => array('index' => 'clientes_negocios.index',
+                    'create' => 'clientes_negocios.create',
+                    'store' => 'clientes_negocios.store',
+                    'show' => 'clientes_negocios.show',
+                    'edit' => 'clientes_negocios.edit',
+                    'update' => 'clientes_negocios.update',
+                    'destroy' => 'clientes_negocios.destroy')));
 
 
 
@@ -217,27 +216,25 @@ Route::group(array('before' => 'auth'), function()
             Route::get('clientes_eventos_activar/{id}', array('as' => 'clientes_eventos_activar.post',
                 'uses' => 'clientesEventosController@activar')
             );
-            Route::resource('clientes_eventos', 'clientesEventosController',
-                    array('names' => array('index'  => 'clientes_eventos.index',
-                                           'create' => 'clientes_eventos.create',
-                                           'store'  => 'clientes_eventos.store',
-                                           'show'   => 'clientes_eventos.show',
-                                           'edit'   => 'clientes_eventos.edit',
-                                           'update' => 'clientes_eventos.update',
-                                           'destroy'=> 'clientes_eventos.destroy' )));
+            Route::resource('clientes_eventos', 'clientesEventosController', array('names' => array('index' => 'clientes_eventos.index',
+                    'create' => 'clientes_eventos.create',
+                    'store' => 'clientes_eventos.store',
+                    'show' => 'clientes_eventos.show',
+                    'edit' => 'clientes_eventos.edit',
+                    'update' => 'clientes_eventos.update',
+                    'destroy' => 'clientes_eventos.destroy')));
 
 
             Route::get('clientes_eventos_especiales_index/{id}', array('as' => 'clientes_eventos_especiales_index.get',
                 'uses' => 'clientesEventosEspecialesController@index')
             );
-            Route::resource('clientes_eventos_especiales', 'clientesEventosEspecialesController',
-                    array('names' => array('index'  => 'clientes_eventos_especiales.index',
-                                           'create' => 'clientes_eventos_especiales.create',
-                                           'store'  => 'clientes_eventos_especiales.store',
-                                           'show'   => 'clientes_eventos_especiales.show',
-                                           'edit'   => 'clientes_eventos_especiales.edit',
-                                           'update' => 'clientes_eventos_especiales.update',
-                                           'destroy'=> 'clientes_eventos_especiales.destroy' )));
+            Route::resource('clientes_eventos_especiales', 'clientesEventosEspecialesController', array('names' => array('index' => 'clientes_eventos_especiales.index',
+                    'create' => 'clientes_eventos_especiales.create',
+                    'store' => 'clientes_eventos_especiales.store',
+                    'show' => 'clientes_eventos_especiales.show',
+                    'edit' => 'clientes_eventos_especiales.edit',
+                    'update' => 'clientes_eventos_especiales.update',
+                    'destroy' => 'clientes_eventos_especiales.destroy')));
 
 
             /*
@@ -249,14 +246,13 @@ Route::group(array('before' => 'auth'), function()
             Route::get('clientes_promociones_activar/{id}', array('as' => 'clientes_promociones_activar.get',
                 'uses' => 'ClientesPromocionesController@activar')
             );
-            Route::resource('clientes_promociones', 'clientesPromocionesController',
-                    array('names' => array('index'  => 'clientes_promociones.index',
-                                           'create' => 'clientes_promociones.create',
-                                           'store'  => 'clientes_promociones.store',
-                                           'show'   => 'clientes_promociones.show',
-                                           'edit'   => 'clientes_promociones.edit',
-                                           'update' => 'clientes_promociones.update',
-                                           'destroy'=> 'clientes_promociones.destroy' )));
+            Route::resource('clientes_promociones', 'clientesPromocionesController', array('names' => array('index' => 'clientes_promociones.index',
+                    'create' => 'clientes_promociones.create',
+                    'store' => 'clientes_promociones.store',
+                    'show' => 'clientes_promociones.show',
+                    'edit' => 'clientes_promociones.edit',
+                    'update' => 'clientes_promociones.update',
+                    'destroy' => 'clientes_promociones.destroy')));
 
 
 
@@ -276,16 +272,13 @@ Route::group(array('before' => 'auth'), function()
             Route::get('clientes_pagos_avisar_marketing/{id}', array('as' => 'clientes_pagos_avisar_marketing.get',
                 'uses' => 'clientesPagosController@avisar_marketing')
             );
-            Route::resource('clientes_pagos', 'clientesPagosController',
-                    array('names' => array('index'  => 'clientes_pagos.index',
-                                           'create' => 'clientes_pagos.create',
-                                           'store'  => 'clientes_pagos.store',
-                                           'show'   => 'clientes_pagos.show',
-                                           'edit'   => 'clientes_pagos.edit',
-                                           'update' => 'clientes_pagos.update',
-                                           'destroy'=> 'clientes_pagos.destroy' )));
-
-
+            Route::resource('clientes_pagos', 'clientesPagosController', array('names' => array('index' => 'clientes_pagos.index',
+                    'create' => 'clientes_pagos.create',
+                    'store' => 'clientes_pagos.store',
+                    'show' => 'clientes_pagos.show',
+                    'edit' => 'clientes_pagos.edit',
+                    'update' => 'clientes_pagos.update',
+                    'destroy' => 'clientes_pagos.destroy')));
       });
 
       /*
