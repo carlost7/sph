@@ -26,10 +26,10 @@ class EventoTableSeeder extends Seeder
                       "cliente_id" => $faker->numberBetween(1, 100),
                       "hora_inicio" => $faker->dateTime,
                       "hora_fin" => $faker->dateTime,
-                      "estado_id" => $faker->numberBetween(1, 100),
-                      "zona_id" => $faker->numberBetween(1, 500),
-                      "categoria_id" => $faker->numberBetween(1, 100),
-                      "subcategoria_id" => $faker->numberBetween(1, 500)
+                      "estado_id" => $faker->numberBetween(1, 32),
+                      "zona_id" => $faker->numberBetween(1, 200),
+                      "categoria_id" => $faker->numberBetween(1, 19),
+                      "subcategoria_id" => $faker->numberBetween(1, 200)
                   ));
             }
       }

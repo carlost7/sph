@@ -9,7 +9,6 @@ class NegociosController extends \BaseController
 
       public function __construct(Negocio $negocio)
       {
-            parent::setupCatalog();
             $this->negocio = $negocio;
       }
 
@@ -22,7 +21,7 @@ class NegociosController extends \BaseController
       public function index()
       {
             $negocios = \Negocio::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc')->paginate(20);
-            return View::make('contenido.negocios_index')->with(array('negocios' => $negocios));
+            return View::make('contenido.negocios_index')->with(array('negocios' => $negocios));            
       }
 
       /**
@@ -72,7 +71,7 @@ class NegociosController extends \BaseController
 
                   $mapa = Gmaps::create_map();
             }
-
+            
             return View::make('contenido.show_negocio')->with(array('negocio' => $negocio, 'mapa' => $mapa));
       }
 

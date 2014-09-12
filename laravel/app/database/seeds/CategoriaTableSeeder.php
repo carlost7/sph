@@ -8,16 +8,44 @@ class CategoriaTableSeeder extends Seeder
 
       public function run()
       {
-            $faker = Faker::create();
-
-            
-            foreach (range(1, 100) as $index)
-            {
-                  Categoria::create(array(
-                      'categoria' => $faker->word
-                  ));
-            }            
-
+            Categoria::create(array(
+                'categoria' => 'Antros'));
+            Categoria::create(array(
+                'categoria' => 'Automotriz'));
+            Categoria::create(array(
+                'categoria' => 'Bares'));
+            Categoria::create(array(
+                'categoria' => 'Belleza y Spas'));
+            Categoria::create(array(
+                'categoria' => 'Cafeterías'));
+            Categoria::create(array(
+                'categoria' => 'Centros Comerciales'));
+            Categoria::create(array(
+                'categoria' => 'Hospedaje'));
+            Categoria::create(array(
+                'categoria' => 'Inmobiliarias'));
+            Categoria::create(array(
+                'categoria' => 'Mascotas'));
+            Categoria::create(array(
+                'categoria' => 'Medicina'));
+            Categoria::create(array(
+                'categoria' => 'Museos'));
+            Categoria::create(array(
+                'categoria' => 'Puestos Callejeros'));
+            Categoria::create(array(
+                'categoria' => 'Restaurantes'));
+            Categoria::create(array(
+                'categoria' => 'Salud'));
+            Categoria::create(array(
+                'categoria' => 'Servicios'));
+            Categoria::create(array(
+                'categoria' => 'Teatros'));
+            Categoria::create(array(
+                'categoria' => 'Tiendas'));
+            Categoria::create(array(
+                'categoria' => 'Arte'));
+            Categoria::create(array(
+                'categoria' => 'Casinos'));
       }
 
 }

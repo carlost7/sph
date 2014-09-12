@@ -2,8 +2,9 @@
 
 @section('wrapper')
 <div class="container">
-      @include('layouts.show_catalog')
-
+      
+      @include('layouts.show_catalog')      
+      
       @if($evento)
       
       <h2>{{ $evento->nombre }}</h2>

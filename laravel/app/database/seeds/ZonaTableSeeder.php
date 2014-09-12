@@ -10,11 +10,11 @@ class ZonaTableSeeder extends Seeder
       {
             $faker = Faker::create();
 
-            foreach (range(1,500) as $index)
+            foreach (range(1,200) as $index)
             {
                   Zona::create(array(
                       'zona' => $faker->word,
-                      'estado_id' => $faker->numberBetween(1,100),                          
+                      'estado_id' => $faker->numberBetween(1,32),                          
                   ));
             }            
             

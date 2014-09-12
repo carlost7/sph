@@ -10,11 +10,11 @@ class SubcategoriaTableSeeder extends Seeder
       {
             $faker = Faker::create();
 
-            foreach (range(1, 500) as $index)
+            foreach (range(1, 200) as $index)
             {
                   Subcategoria::create(array(
                       'subcategoria' => $faker->word,
-                      'categoria_id' => $faker->numberBetween(1,100),
+                      'categoria_id' => $faker->numberBetween(1,19),
                   ));
             }
       }

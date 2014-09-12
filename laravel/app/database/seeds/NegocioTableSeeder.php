@@ -23,10 +23,10 @@ class NegocioTableSeeder extends Seeder
                       "is_activo" => $faker->boolean(60),
                       "fecha_nueva_activacion" => $faker->dateTime,
                       "cliente_id" => $faker->numberBetween(1, 100),
-                      "estado_id" => $faker->numberBetween(1, 100),
-                      "zona_id" => $faker->numberBetween(1, 500),
-                      "categoria_id" => $faker->numberBetween(1, 100),
-                      "subcategoria_id" => $faker->numberBetween(1, 500)
+                      "estado_id" => $faker->numberBetween(1, 32),
+                      "zona_id" => $faker->numberBetween(1, 200),
+                      "categoria_id" => $faker->numberBetween(1, 19),
+                      "subcategoria_id" => $faker->numberBetween(1, 200)
                   ));                  
             }
       }

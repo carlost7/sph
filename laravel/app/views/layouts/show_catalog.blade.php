@@ -3,14 +3,14 @@
       <div class="col-sm-6">
             <div class="form-group">
                   {{ Form::label('estado', 'Estado') }}
-                  {{ Form::text('estado',null,array('class'=>'form-control big-input','id'=>'local')) }}
+                  {{ Form::text('estado',Session::get('tipolocal'),array('class'=>'form-control big-input','id'=>'local')) }}
                   <input type="hidden" value="" name="tipolocal" id='tipolocal'>                  
             </div>                  
       </div>
       <div class="col-sm-6">
             <div class="form-group">
                   {{ Form::label('categoria', 'Categoria') }}
-                  {{ Form::text('categoria',null,array('class'=>'form-control','id'=>'cat')) }}
+                  {{ Form::text('categoria',Session::get('tipocat'),array('class'=>'form-control','id'=>'cat')) }}
                   <input type="hidden" value="" name="tipocat" id='tipocat'>                  
             </div>         
       </div>

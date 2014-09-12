@@ -9,7 +9,6 @@ class EventosController extends \BaseController
 
       public function __construct(Evento $evento)
       {
-            parent::setupCatalog();
             $this->evento = $evento;
       }
       
@@ -21,6 +20,9 @@ class EventosController extends \BaseController
        */
       public function index()
       {
+            View::share('tipocat',Input::get('categoria'));
+            View::share('tipolocal',Input::get('estado'));
+            
             $eventos = \Evento::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc')->paginate(10);
             return View::make('contenido.eventos_index')->with(array('eventos' => $eventos));
       }

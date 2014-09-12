@@ -19,7 +19,6 @@ class ContenidoController extends \BaseController
 
       public function __construct(Evento $evento, Negocio $negocio, Zona $zona, Estado $estado, Categoria $categoria, Subcategoria $subcategoria)
       {
-            parent::setupCatalog();
             $this->evento = $evento;
             $this->negocio = $negocio;
             $this->zona = $zona;
@@ -43,37 +42,45 @@ class ContenidoController extends \BaseController
 
             $queryNegocios = \Negocio::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc');
             $queryEventos = \Evento::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc');
-            if ($tipocat)
+            if (isset($tipocat))
             {
-                  if (strpos($tipocat, 'c') !== false)
+                  $tipocat = explode("-", $tipocat);
+
+                  if (count($tipocat) > 1)
                   {
-                        $queryNegocios = $queryNegocios->where('categoria_id', 'like', "%$tipocat%");
-                        $queryEventos = $queryEventos->where('categoria_id', 'like', "%$tipocat%");
+                        $queryNegocios = $queryNegocios->where('subcategoria_id', $tipocat[1]);
+                        $queryEventos = $queryEventos->where('subcategoria_id', $tipocat[1]);
                   }
-                  else
-                  {
-                        $queryNegocios = $queryNegocios->where('subcategoria_id', 'like', "%$tipocat%");
-                        $queryEventos = $queryEventos->where('subcategoria_id', 'like', "%$tipocat%");
-                  }
+                  $queryNegocios = $queryNegocios->where('categoria_id', $tipocat[0]);
+                  $queryEventos = $queryEventos->where('categoria_id', $tipocat[0]);
             }
 
             if ($tipolocal)
             {
-                  if (strpos($tipolocal, 'e') !== false)
+
+                  $tipolocal = explode("-", $tipolocal);
+
+
+                  if (count($tipolocal) > 1)
                   {
-                        $queryNegocios = $queryNegocios->where('estado_id', 'like', "%$tipolocal%");
-                        $queryEventos = $queryEventos->where('estado_id', 'like', "%$tipolocal%");
+                        $queryNegocios = $queryNegocios->where('zona_id', $tipolocal[1]);
+                        $queryEventos = $queryEventos->where('zona_id', $tipolocal[1]);
                   }
-                  else
-                  {
-                        $queryNegocios = $queryNegocios->where('zona_id', 'like', "%$tipolocal%");
-                        $queryEventos = $queryEventos->where('zona_id', 'like', "%$tipolocal%");
-                  }
+
+
+                  $queryNegocios = $queryNegocios->where('estado_id', $tipolocal[0]);
+                  $queryEventos = $queryEventos->where('estado_id', $tipolocal[0]);
             }
 
             $negocios = $queryNegocios->paginate(20);
-            $eventos = $queryEventos->paginate(10);
-
+            $eventos = $queryEventos->take(10)->get();
+            /*$querys = DB::getQueryLog();
+            $lastQuery = end($querys);
+            //dd($lastQuery);*/
+            
+            Session::set('tipolocal',Input::get('estado'));
+            Session::set('tipocat',Input::get('categoria'));
+            
             return View::make('contenido.index')->with(array('negocios' => $negocios, 'eventos' => $eventos));
       }
 
@@ -98,12 +105,12 @@ class ContenidoController extends \BaseController
 
             foreach ($estados as $estado)
             {
-                  array_push($suggestions, array('value' => $estado->estado, 'data' => 'e' . $estado->id));
+                  array_push($suggestions, array('value' => $estado->estado, 'data' => $estado->id));
             }
 
             foreach ($zonas as $zona)
             {
-                  array_push($suggestions, array('value' => $zona->estado->estado . " - " . $zona->zona, 'data' => $zona->id));
+                  array_push($suggestions, array('value' => $zona->estado->estado . " - " . $zona->zona, 'data' => $zona->estado->id . '-' . $zona->id));
             }
 
             $result = array("suggestions" => $suggestions);
@@ -120,12 +127,12 @@ class ContenidoController extends \BaseController
 
             foreach ($categorias as $categoria)
             {
-                  array_push($suggestions, array('value' => $categoria->categoria, 'data' => 'c' . $categoria->id));
+                  array_push($suggestions, array('value' => $categoria->categoria, 'data' => $categoria->id));
             }
 
             foreach ($subcategorias as $subcategoria)
             {
-                  array_push($suggestions, array('value' => $subcategoria->categoria->categoria . " - " . $subcategoria->subcategoria, 'data' => $subcategoria->id));
+                  array_push($suggestions, array('value' => $subcategoria->categoria->categoria . " - " . $subcategoria->subcategoria, 'data' => $subcategoria->categoria->id . '-' . $subcategoria->id));
             }
 
             $result = array("suggestions" => $suggestions);

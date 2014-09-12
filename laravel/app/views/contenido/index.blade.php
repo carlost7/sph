@@ -2,10 +2,11 @@
 
 @section('wrapper')
 <div class="container">
+      
       @include('layouts.show_catalog')
       <div class="row">
             <div class="col-sm-8">
-                  <h1>{{HTML::linkRoute('negocios.index','Negocios')}}</h1>
+                  <h2>Negocios</h2>
                   @foreach($negocios as $negocio)
                   <div class="col-sm-6">
                         @if(count($negocio->imagen))
@@ -13,11 +14,14 @@
                         @else
                         <a href="{{ route('negocios.show',$negocio->id) }}">{{HTML::image('img/default.png')}}</a>
                         @endif
-                        <h2>{{ HTML::linkRoute('negocios.show',$negocio->nombre,$negocio->id) }}</h2>
+                        <h3><strong>{{ HTML::linkRoute('negocios.show',$negocio->nombre,$negocio->id) }}</strong></h3>
                         <hr />
+                        <p>Categoria: {{ $negocio->categoria->categoria }}</p>
                         <p>Subcategoria: {{ $negocio->subcategoria->subcategoria }}</p>
                         <hr />                  
+                        <p>Estado: {{ $negocio->estado->estado }}</p>
                         <p>Zona: {{ $negocio->zona->zona }}</p>
+                        <hr />                  
                         <p>Dirección: {{ $negocio->direccion }}</p>
                         <p>Teléfono: {{ $negocio->telefono }}</p>
                         @if(count($negocio->especial))
@@ -30,7 +34,7 @@
 
             </div>
             <div class="col-sm-4">
-                  <h1>{{HTML::linkRoute('eventos.index','Eventos')}}</h1>
+                  <h2>Eventos</h2>
                   @foreach($eventos as $evento)
                   <div class="col-sm-12">
                         @if(count($evento->imagen))
@@ -38,10 +42,12 @@
                         @else
                         <a href="{{ route('eventos.show',$evento->id) }}">{{HTML::image('img/default.png')}}</a>
                         @endif
-                        <h2>{{HTML::linkRoute('eventos.show',$evento->nombre,$evento->id) }}</h2>
+                        <h3><strong>{{HTML::linkRoute('eventos.show',$evento->nombre,$evento->id) }}</strong></h3>
                         <hr />
+                        <p>Categoria: {{ $evento->categoria->categoria }}</p>
                         <p>Subcategoria: {{ $evento->subcategoria->subcategoria }}</p>
                         <hr />                  
+                        <p>Estado: {{ $evento->estado->estado }}</p>
                         <p>Zona: {{ $evento->zona->zona }}</p>
                         <p>Dirección: {{ $evento->direccion }}</p>
                         @if(count($evento->especial))
@@ -59,12 +65,6 @@
                         {{ $negocios->links()}}      
                   </div>                  
             </div>    
-
-            <div class="col-sm-4">
-                  <div class="text-center">
-                        {{ $eventos->links()}}      
-                  </div>                  
-            </div>            
 
       </div>
 
