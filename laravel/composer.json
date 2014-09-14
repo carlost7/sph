@@ -10,7 +10,9 @@
         "mercadopago/sdk": "dev-master",
         "appitventures/phpgmaps": "dev-master",
         "fzaninotto/faker": "dev-master",
-        "doctrine/dbal":"dev-master"
+        "doctrine/dbal":"dev-master",
+        "league/oauth1-client": "~1.0",
+        "league/oauth2-client": "~0.3"
     },
     "autoload": {
         "classmap": [

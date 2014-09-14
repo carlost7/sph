@@ -60,6 +60,9 @@ class StorageServiceProvider extends ServiceProvider
                     'Sph\Storage\MasinfoNegocio\MasinfoNegocioRepository', 'Sph\Storage\MasinfoNegocio\MasinfoNegocioRepositoryEloquent'
             );
             $this->app->bind(
+                    'Sph\Storage\Miembro\MiembroRepository', 'Sph\Storage\Miembro\MiembroRepositoryEloquent'
+            );
+            $this->app->bind(
                     'Sph\Storage\Negocio\NegocioRepository', 'Sph\Storage\Negocio\NegocioRepositoryEloquent'
             );
             $this->app->bind(

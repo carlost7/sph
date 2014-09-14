@@ -7,4 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
+    'League\\OAuth2\\Client\\' => array($vendorDir . '/league/oauth2-client/src'),
+    'League\\OAuth1\\' => array($vendorDir . '/league/oauth1-client/src'),
+    'LeagueTest\\OAuth2\\Client\\' => array($vendorDir . '/league/oauth2-client/test/src'),
 );

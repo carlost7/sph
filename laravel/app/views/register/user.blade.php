@@ -6,6 +6,10 @@
             <h2>Registrar nuevo usuario</h2>
             {{ Form::open(array('route' => 'register.store_user')) }}
             <div class="form-group">
+                  {{ Form::label('username', 'Nombre de usuario') }}
+                  {{ Form::text('username', Input::old('username'), array('placeholder' => 'nombre de usuario', 'class'=>'form-control')) }}
+            </div>
+            <div class="form-group">
                   {{ Form::label('email', 'Correo electrónico') }}
                   {{ Form::text('email', Input::old('correo'), array('placeholder' => 'ejemplo@correo.com', 'class'=>'form-control')) }}
             </div>                        

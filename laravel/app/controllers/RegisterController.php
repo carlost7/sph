@@ -4,6 +4,7 @@ use Illuminate\Events\Dispatcher;
 use Sph\Storage\User\UserRepository as User;
 use Sph\Storage\Cliente\ClienteRepository as Cliente;
 use Sph\Storage\Marketing\MarketingRepository as Marketing;
+use Sph\Storage\Miembro\MiembroRepository as Miembro;
 use Sph\Storage\Administrador\AdministradorRepository as Administrador;
 use Sph\Storage\Codigo\CodigoRepository as Codigo;
 
@@ -15,14 +16,16 @@ class RegisterController extends \BaseController
       protected $marketing;
       protected $administrador;
       protected $events;
+      protected $miembro;
 
-      public function __construct(User $user, Cliente $cliente, Marketing $marketing, Administrador $administrador, Dispatcher $events)
+      public function __construct(User $user, Cliente $cliente, Marketing $marketing, Administrador $administrador, Dispatcher $events, Miembro $miembro)
       {
             $this->user = $user;
             $this->cliente = $cliente;
             $this->marketing = $marketing;
             $this->administrador = $administrador;
             $this->events = $events;
+            $this->miembro = $miembro;
       }
 
       public function index()
@@ -142,18 +145,28 @@ class RegisterController extends \BaseController
       {
 
             $validateUser = new Sph\Services\Validators\User(Input::all(), 'save');
-            if ($validateUser->passes())
+            $validateMiembro = new Sph\Services\Validators\Miembro(Input::all(), 'save');
+            if ($validateUser->passes() & $validateMiembro->passes())
             {
-                  $user_model = array('password' => Input::get('password'), 'email' => Input::get('email'), 'userable' => null);
-                  $user = $this->user->create($user_model);
+                  $user = $this->user->create(Input::all());
                   if (isset($user))
                   {
-                        Session::flash('message', 'El usuario se creo');
+                        $miembro_model = Input::all();
+                        $miembro_model = array_add($miembro_model, 'user', $user);
+                        $miembro = $this->miembro->create($miembro_model);
+                        
+                        $this->events->fire('nuevo_usuario_correo', array($miembro));
+                        
+                        Session::flash('message', 'Usuario creado con exito, Bienvenido');
                         return Redirect::to('/');
                   }
             }
 
-            return Redirect::route('register.user')->withInput()->withErrors($validateUser->getErrors());
+            $user_messages = ($validateUser->getErrors() != null) ? $validateUser->getErrors()->all() : array();
+            $member_messages = ($validateMiembro->getErrors() != null) ? $validateMiembro->getErrors()->all() : array();
+            $validationMessages = array_merge_recursive($user_messages, $member_messages);
+
+            return Redirect::route('register.user')->withInput()->withErrors($validationMessages);
       }
 
       /*

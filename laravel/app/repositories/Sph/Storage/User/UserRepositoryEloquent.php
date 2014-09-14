@@ -19,18 +19,13 @@ class UserRepositoryEloquent implements UserRepository
 
       public function create(array $user_model)
       {
-            $user = new User();
-            $user->email = $user_model['email'];
-            $user->password = \Hash::make($user_model['password']);
-            if ($user->save())
+            $user = new User($user_model);
+            if ($user_model['password'])
             {
-
-                  return $user;
+                  $user->password = \Hash::make($user_model['password']);
             }
-            else
-            {
-                  return null;
-            }
+            $user->save();
+            return $user;
       }
 
       public function delete($id)
@@ -48,20 +43,12 @@ class UserRepositoryEloquent implements UserRepository
             $user = User::find($id);
             if (isset($user))
             {
-                  if (isset($user_model['email']))
-                  {
-                        $user->email = $user_model['email'];
-                  }
-
-                  if (isset($user_model['password']))
+                  $user->fill($user_model);
+                  if ($user_model['password'])
                   {
                         $user->password = \Hash::make($user_model['password']);
                   }
-
-                  if ($user->save())
-                  {
-                        return $user;
-                  }                  
+                  $user->save();
             }
 
             return null;
