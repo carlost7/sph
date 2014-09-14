@@ -68,7 +68,12 @@ Route::get('logout', array(
 //Reminder Controller
 Route::controller('password', 'RemindersController');
 
-
+/*
+ * Twitter callback
+ */
+Route::get('twitter/callback',function(){
+   echo "Pagina completa";   
+});
 
 
 /*
