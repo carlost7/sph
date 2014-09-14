@@ -71,7 +71,7 @@ Route::controller('password', 'RemindersController');
 /*
  * Twitter callback
  */
-Route::get('twitter/callback',function(){
+Route::get('auth/twitter/callback',function(){
    echo "Pagina completa";   
 });
 
