@@ -30,4 +30,12 @@
             {{ Form::close() }}
       </div>
 </div>
+<div class="row">
+      <div class="col-sm-6 col-sm-push-3">
+            <div class="form-group">
+                  {{ HTML::LinkRoute('authenticate.authorise','Registrate con Twitter','twitter',array('class'=>'btn btn-info')) }}
+            </div>
+      </div>
+      
+</div>
 @stop
