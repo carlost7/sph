@@ -14,8 +14,10 @@ class DatabaseSeeder extends Seeder
             
             
             $this->call('AdministradoresTableSeeder');
-            
-            $this->call('UserTableSeeder');
+            $this->call('CategoriaTableSeeder');
+            $this->call('EstadoTableSeeder');
+            $this->call('MarketingsTableSeeder');
+            /*$this->call('UserTableSeeder');
             $this->call('MarketingsTableSeeder');
             $this->call('ClientesTableSeeder');            
             
@@ -32,7 +34,7 @@ class DatabaseSeeder extends Seeder
             $this->call('EventoTableSeeder');
             $this->call('MasinfoEventoTableSeeder');            
             $this->call('EspecialEventoTableSeeder');
-            
+            */
             
       }
 

@@ -9,43 +9,55 @@ class CategoriaTableSeeder extends Seeder
       public function run()
       {
             Categoria::create(array(
-                'categoria' => 'Antros'));
+                  'categoria' => 'Antros'));
             Categoria::create(array(
-                'categoria' => 'Automotriz'));
+                  'categoria' => 'Arte'));
             Categoria::create(array(
-                'categoria' => 'Bares'));
+                  'categoria' => 'Automotriz'));
             Categoria::create(array(
-                'categoria' => 'Belleza y Spas'));
+                  'categoria' => 'Bares'));
             Categoria::create(array(
-                'categoria' => 'Cafeterías'));
+                  'categoria' => 'Belleza'));
             Categoria::create(array(
-                'categoria' => 'Centros Comerciales'));
+                  'categoria' => 'Cafeterías'));
             Categoria::create(array(
-                'categoria' => 'Hospedaje'));
+                  'categoria' => 'Casinos'));
             Categoria::create(array(
-                'categoria' => 'Inmobiliarias'));
+                  'categoria' => 'Centros Comerciales'));
             Categoria::create(array(
-                'categoria' => 'Mascotas'));
+                  'categoria' => 'Clubes'));
             Categoria::create(array(
-                'categoria' => 'Medicina'));
+                  'categoria' => 'Hospedaje'));
             Categoria::create(array(
-                'categoria' => 'Museos'));
+                  'categoria' => 'Inmobiliarias'));
             Categoria::create(array(
-                'categoria' => 'Puestos Callejeros'));
+                  'categoria' => 'Librerías'));
             Categoria::create(array(
-                'categoria' => 'Restaurantes'));
+                  'categoria' => 'Mascotas'));
             Categoria::create(array(
-                'categoria' => 'Salud'));
+                  'categoria' => 'Medicina'));
             Categoria::create(array(
-                'categoria' => 'Servicios'));
+                  'categoria' => 'Museos'));
             Categoria::create(array(
-                'categoria' => 'Teatros'));
+                  'categoria' => 'Postres'));
             Categoria::create(array(
-                'categoria' => 'Tiendas'));
+                  'categoria' => 'Puestos Callejeros'));
             Categoria::create(array(
-                'categoria' => 'Arte'));
+                  'categoria' => 'Restaurantes'));
             Categoria::create(array(
-                'categoria' => 'Casinos'));
+                  'categoria' => 'Salud'));
+            Categoria::create(array(
+                  'categoria' => 'Servicios'));
+            Categoria::create(array(
+                  'categoria' => 'Teatros'));
+            Categoria::create(array(
+                  'categoria' => 'Tiendas'));
+            Categoria::create(array(
+                  'categoria' => 'Viajes'));
+            Categoria::create(array(
+                  'categoria' => 'Electrónicos'));
+            Categoria::create(array(
+                  'categoria' => 'Casa y Jardín'));
       }
 
 }

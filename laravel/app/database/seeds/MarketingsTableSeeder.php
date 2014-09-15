@@ -8,16 +8,26 @@ class MarketingsTableSeeder extends Seeder
 
       public function run()
       {
-            $faker = Faker::create();
+            /* $faker = Faker::create();
 
-            foreach (range(1, 5) as $index)
-            {
-                  Marketing::create(array(
-                      'name' => $faker->name,
-                      'is_activo' => true,                      
-                  ));
-            }            
-            
+              foreach (range(1, 5) as $index)
+              {
+              Marketing::create(array(
+              'name' => $faker->name,
+              'is_activo' => true,
+              ));
+              } */
+
+            $marketing = Marketing::create(array(
+                  'name' => 'marketing',
+                  'is_activo' => true,
+            ));
+            User::create(array(
+                  'password' => Hash::make('klendactu'),
+                  'email' => 'markting001@sphellar.com',
+                  'userable_type' => 'Marketing',
+                  'userable_id' => $marketing->id,
+            ));
       }
 
 }
