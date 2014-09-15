@@ -1,15 +1,18 @@
 <?php
 
 use Sph\Storage\User\UserRepository as User;
+use Sph\Authenticators\Manager;
 
 class SessionController extends \BaseController
 {
 
       protected $user;
+      protected $manager;
 
-      public function __construct(User $user)
+      public function __construct(User $user, Manager $manager)
       {
             $this->user = $user;
+            $this->manager = $manager;
       }
 
       /**
@@ -51,13 +54,31 @@ class SessionController extends \BaseController
                   }
                   else
                   {
-                        Session::flash('error', 'No se reconoce el tipo de usuario');
                         return Redirect::intended('/');
                   }
             }
             return Redirect::route('session.create')
                             ->withInput()
                             ->with('login_errors', true);
+      }
+
+      public function authorise($provider)
+      {
+            try
+            {
+                  $provider = $this->manager->get($provider);
+
+                  $credentials = $provider->getTemporaryCredentials();
+
+                  Session::put('credentials', $credentials);
+                  Session::save();
+
+                  return $provider->authorize($credentials);
+            }
+            catch (Exception $e)
+            {
+                  return App::abort(404);
+            }
       }
 
       /**
@@ -70,7 +91,7 @@ class SessionController extends \BaseController
       public function destroy()
       {
             Auth::logout();
-            return View::make('session.destroy');
+            return Redirect('/');
       }
 
 }

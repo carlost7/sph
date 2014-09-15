@@ -14,4 +14,6 @@ interface UserRepository
       public function update($id, array $user_model);
 
       public function delete($id);
+      
+      public function findByUid($uid);
 }

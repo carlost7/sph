@@ -16,6 +16,8 @@ class AddUsersTableAddOauthColumns extends Migration {
 		{
 			$table->string('oauth_token')->nullable();
 			$table->string('oauth_token_secret')->nullable();
+                        $table->string('uid')->nullable();
+                        
 		});
 	}
 
@@ -31,6 +33,7 @@ class AddUsersTableAddOauthColumns extends Migration {
 		{
 			$table->dropColumn('oauth_token');
 			$table->dropColumn('oauth_token_secret');
+                        $table->dropColumn('uid');
 		});
 	}
 

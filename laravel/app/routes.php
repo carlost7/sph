@@ -56,6 +56,11 @@ Route::get('login', array(
       'uses' => 'SessionController@create',
       'as' => 'session.create'
 ));
+Route::get('login/{provider}', array(
+      'uses' => 'SessionController@authorise',
+      'as' => 'session.authorise'
+));
+
 Route::post('login', array(
       'uses' => 'SessionController@store',
       'as' => 'session.store'
@@ -68,27 +73,30 @@ Route::get('logout', array(
 //Reminder Controller
 Route::controller('password', 'RemindersController');
 
-/*
- * Twitter callback
- */
-Route::get('auth/twitter/callback', function() {
-      echo "Pagina completa";
-});
-
-
 /**
  * Social Authentication
  *
  * Authenticate via a social provider
  */
-Route::get('auth/{provider}', [
+Route::get('auth/register', array(
+      'uses' => 'AuthenticateController@register',
+      'as' => 'authenticate.register'
+));
+
+Route::get('auth/{provider}', array(
       'uses' => 'AuthenticateController@authorise',
       'as' => 'authenticate.authorise'
-]);
-Route::get('auth/{provider}/callback', [
+));
+Route::get('auth/{provider}/callback', array(
       'uses' => 'AuthenticateController@callback',
       'as' => 'authenticate.callback'
-]);
+));
+
+Route::post('auth', array(
+      'uses' => 'AuthenticateController@store',
+      'as' => 'authenticate.store'
+));
+
 
 /*
  * ****************************

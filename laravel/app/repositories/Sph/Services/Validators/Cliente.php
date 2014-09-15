@@ -19,19 +19,19 @@ class Cliente extends Validator
       public static $rules = array(
           "save" => array(
               'nombre' => 'required',
-              'apellido' => 'required|alpha',
+              'apellido' => 'required',
               'empresa' => 'required',
               'ext' => 'numeric',
-              'telefono' => 'required|numeric',
-              'celular' => 'required|numeric'
+              'telefono' => 'required',
+              'celular' => 'required'
           ),
           "update" => array(
               'nombre' => 'required',
-              'apellido' => 'required|alpha',
+              'apellido' => 'required',
               'empresa' => 'required',
               'telefono' => 'numeric',
               'ext' => 'numeric',
-              'celular' => 'required|numeric'
+              'celular' => 'required'
           ),
       );
 

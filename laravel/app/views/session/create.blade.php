@@ -5,6 +5,21 @@
       <div class="col-sm-6 col-sm-push-3">
             <h2>Entrar</h2>
 
+            @if(Session::has('message'))
+            <div class="alert alert-success alert-dismissable">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  {{ Session::get('message') }}
+                  {{ Session::forget('message'); }}        
+            </div>                        
+            @endif
+            @if(Session::has('error'))
+            <div class="alert alert-danger alert-dismissable">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  {{ Session::get('error') }}
+                  {{ Session::forget('error'); }}
+            </div>                    
+            @endif
+
             {{ Form::open(array('url' => 'login')) }}        
             <div class="form-group">
                   {{ Form::label('email', 'Correo Electrónico') }}
@@ -32,5 +47,14 @@
             {{ Form::close() }}
 
       </div>
+</div>
+<div class="row">
+      <div class="col-sm-6 col-sm-push-3">
+            <div class="form-group">
+                  <h2>Accede con nuestras redes sociales</h2>
+                  {{ HTML::LinkRoute('session.authorise','Acceder','twitter',array('class'=>'btn btn-info')) }}
+            </div>
+      </div>
+      
 </div>
 @stop

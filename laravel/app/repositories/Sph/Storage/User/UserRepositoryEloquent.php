@@ -20,7 +20,7 @@ class UserRepositoryEloquent implements UserRepository
       public function create(array $user_model)
       {
             $user = new User($user_model);
-            if ($user_model['password'])
+            if (isset($user_model['password']))
             {
                   $user->password = \Hash::make($user_model['password']);
             }
@@ -44,7 +44,7 @@ class UserRepositoryEloquent implements UserRepository
             if (isset($user))
             {
                   $user->fill($user_model);
-                  if ($user_model['password'])
+                  if (isset($user_model['password']))
                   {
                         $user->password = \Hash::make($user_model['password']);
                   }
@@ -52,6 +52,16 @@ class UserRepositoryEloquent implements UserRepository
             }
 
             return null;
+      }
+
+      public function findByUid($uid)
+      {
+            $user = User::where('uid',$uid)->first();
+            if($user){
+                  return $user;
+            }else{
+                  return null;
+            }
       }
 
 }

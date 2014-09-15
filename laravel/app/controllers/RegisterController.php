@@ -70,12 +70,11 @@ class RegisterController extends \BaseController
                         if (isset($cliente))
                         {
                               $data = array('nombre' => $cliente->nombre,
-                                  'token' => $cliente->token,
-                                  'id' => $cliente->id,
+                                    'token' => $cliente->token,
+                                    'id' => $cliente->id,
                               );
 
-                              Mail::send('emails.auth.confirm_new_user', $data, function($message) use ($user, $cliente)
-                              {
+                              Mail::send('emails.auth.confirm_new_user', $data, function($message) use ($user, $cliente) {
                                     $message->to($user->email, $cliente->nombre)->subject('Confirmación de Registro de Sphellar');
                               });
                               Session::flash('message', 'Usuario creado con éxito, revisa tu correo para activarlo');
@@ -109,10 +108,13 @@ class RegisterController extends \BaseController
                         if (isset($cliente))
                         {
                               $marketing = $this->marketing->asignar_cliente($cliente);
-                              
+
                               $this->events->fire('enviar_codigo', array($cliente));
-                              
-                              return View::make('register.confirmation')->with('confirmation', true);
+
+                              Session::flash("message", 'Activación exitosa');
+
+                              Session::set('is_client', true);
+                              return Redirect::route('clientes.index');
                         }
                   }
                   else
@@ -124,7 +126,7 @@ class RegisterController extends \BaseController
             else
             {
                   Session::flash('error', 'No existe el id');
-                  return View::make('regoster.confirmation')->with('confirmation', false);
+                  return View::make('register.confirmation')->with('confirmation', false);
             }
       }
 
@@ -154,9 +156,9 @@ class RegisterController extends \BaseController
                         $miembro_model = Input::all();
                         $miembro_model = array_add($miembro_model, 'user', $user);
                         $miembro = $this->miembro->create($miembro_model);
-                        
+
                         $this->events->fire('nuevo_usuario_correo', array($miembro));
-                        
+
                         Session::flash('message', 'Usuario creado con exito, Bienvenido');
                         return Redirect::to('/');
                   }
