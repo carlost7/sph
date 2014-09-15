@@ -66,7 +66,7 @@ class SubcategoriaRepositoryEloquent implements SubcategoriaRepository
       
       public function getSubcategoriaLike($word)
       {
-            return Subcategoria::with('categoria')->where('subcategoria','LIKE',"%$word%")->take(5)->get();
+            return Subcategoria::with('categoria')->where('subcategoria','LIKE',"%$word%")->take(10)->get();
       }
 
       

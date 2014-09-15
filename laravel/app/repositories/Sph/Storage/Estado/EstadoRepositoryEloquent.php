@@ -58,7 +58,7 @@ class EstadoRepositoryEloquent implements EstadoRepository
 
       public function getEstadoLike($word)
       {
-            return Estado::where('estado','LIKE',"%$word%")->take(2)->get();
+            return Estado::where('estado','LIKE',"%$word%")->take(4)->get();
       }
 
 }

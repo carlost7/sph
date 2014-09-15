@@ -56,7 +56,7 @@ class CategoriaRepositoryEloquent implements CategoriaRepository
       
       public function getCategoriaLike($word)
       {
-            return Categoria::where('categoria','LIKE',"%$word%")->take(2)->get();
+            return Categoria::where('categoria','LIKE',"%$word%")->take(10)->get();
       }
 
 

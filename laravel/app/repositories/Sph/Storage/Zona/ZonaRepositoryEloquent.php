@@ -67,7 +67,7 @@ class ZonaRepositoryEloquent implements ZonaRepository
       }
 
       public function getZonaLike($word){
-            return Zona::with('estado')->where('zona','LIKE',"%$word%")->take(15)->get();            
+            return Zona::with('estado')->where('zona','LIKE',"%$word%")->take(25)->get();            
       }
       
 }
