@@ -145,13 +145,13 @@
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
-                                    <input type="text" class="form-control" name="lun_ini" value="{{ Input::old('lun_ini')}}">
+                                    <input type="text" class="form-control" name="lun_ini" id="ini" value="{{ Input::old('lun_ini')}}">
                               </div>
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('lun_fin','Lunes fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control" name="lun_fin" value="{{ Input::old('lun_ini')}}">
+                                    <input type="text" class="form-control" name="lun_fin" id="fin" value="{{ Input::old('lun_ini')}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -165,13 +165,13 @@
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
-                                    <input type="text" class="form-control" name="mar_ini" value="{{ Input::old('lun_ini')}}">
+                                    <input type="text" class="form-control timeini" name="mar_ini" value="{{ Input::old('lun_ini')}}">
                               </div>                             
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('mar_fin','Martes fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control" name="mar_fin" value="{{ Input::old('lun_ini')}}">
+                                    <input type="text" class="form-control timefin" name="mar_fin" value="{{ Input::old('lun_ini')}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -185,13 +185,13 @@
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
-                                    <input type="text" class="form-control" name="mie_ini" value="{{ Input::old('lun_ini')}}">
+                                    <input type="text" class="form-control timeini" name="mie_ini" value="{{ Input::old('lun_ini')}}">
                               </div>                             
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('mie_fin','Miercoles fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control" name="mie_fin" value="{{ Input::old('lun_ini')}}">
+                                    <input type="text" class="form-control timefin" name="mie_fin" value="{{ Input::old('lun_ini')}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -205,13 +205,13 @@
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
-                                    <input type="text" class="form-control" name="jue_ini" value="{{ Input::old('lun_ini')}}">
+                                    <input type="text" class="form-control timeini" name="jue_ini" value="{{ Input::old('lun_ini')}}">
                               </div>                             
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('jue_fin','Jueves fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control" name="jue_fin" value="{{ Input::old('lun_ini')}}">
+                                    <input type="text" class="form-control timefin" name="jue_fin" value="{{ Input::old('lun_ini')}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -225,13 +225,13 @@
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
-                                    <input type="text" class="form-control" name="vie_ini" value="{{ Input::old('lun_ini')}}">
+                                    <input type="text" class="form-control timeini" name="vie_ini" value="{{ Input::old('lun_ini')}}">
                               </div>                             
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('vie_fin','Viernes fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control" name="vie_fin" value="{{ Input::old('lun_ini')}}">
+                                    <input type="text" class="form-control timefin" name="vie_fin" value="{{ Input::old('lun_ini')}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -245,13 +245,13 @@
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
-                                    <input type="text" class="form-control" name="sab_ini" value="{{ Input::old('lun_ini')}}">
+                                    <input type="text" class="form-control timeini" name="sab_ini" value="{{ Input::old('lun_ini')}}">
                               </div>                              
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('sab_fin','Sabado fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control" name="sab_fin" value="{{ Input::old('lun_ini')}}">
+                                    <input type="text" class="form-control timefin" name="sab_fin" value="{{ Input::old('lun_ini')}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -265,13 +265,13 @@
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
-                                    <input type="text" class="form-control" name="dom_ini" value="{{ Input::old('lun_ini')}}">
+                                    <input type="text" class="form-control timeini" name="dom_ini" value="{{ Input::old('lun_ini')}}">
                               </div>                             
                         </div>
                         <div class="col-sm-6">
                               {{ Form::label('dom_fin','Domingo fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control" name="dom_fin" value="{{ Input::old('lun_ini')}}">
+                                    <input type="text" class="form-control timefin" name="dom_fin" value="{{ Input::old('lun_ini')}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -394,5 +394,18 @@
 
 <script type="text/javascript">
       $('.clockpicker').clockpicker();
+</script>
+
+<script>
+      $('#ini').focusout(function(){
+            valor = $('#ini').val();
+            
+            $(".timeini").val(valor);
+      });
+      $('#fin').focusout(function(){
+            valor = $('#fin').val();
+            
+            $(".timefin").val(valor);
+      });
 </script>
 @stop
