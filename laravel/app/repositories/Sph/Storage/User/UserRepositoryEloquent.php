@@ -48,7 +48,9 @@ class UserRepositoryEloquent implements UserRepository
                   {
                         $user->password = \Hash::make($user_model['password']);
                   }
-                  $user->save();
+                  if($user->save()){
+                        return $user;
+                  }
             }
 
             return null;

@@ -4,7 +4,6 @@
 
 <h2>Editar Cuenta</h2>
 
-
 {{ Form::model($administrador, array('route'=>'administradores.update')) }}
 
 

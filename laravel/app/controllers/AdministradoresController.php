@@ -75,7 +75,7 @@ class AdministradoresController extends \BaseController
             $user_messages = ($validateUser->getErrors() != null) ? $validateUser->getErrors()->all() : array();
             $admin_messages = ($validateAdmin->getErrors() != null) ? $validateAdmin->getErrors()->all() : array();
             $validationMessages = array_merge_recursive($user_messages, $admin_messages);
-
+            
             return Redirect::back()->withInput()->withErrors($validationMessages);
       }
 
