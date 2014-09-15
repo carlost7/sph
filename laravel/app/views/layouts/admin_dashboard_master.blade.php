@@ -1,13 +1,5 @@
 @extends('layouts.webpage_master')
 
-@section('menu_links')
-@if(Session::get('is_admin'))
-{{ HTML::linkRoute('administradores.index','Sphellar',null,array('class'=>'navbar-brand')) }}
-@else
-{{ HTML::link('/','Sphellar',array('class'=>'navbar-brand')) }}
-@endif
-@stop
-
 @section('user_menu')
 <li>{{ HTML::linkRoute('administradores.index','Administradores') }}</li> 
 @stop

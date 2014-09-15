@@ -1,12 +1,5 @@
 @extends('layouts.webpage_master')
 
-@section('menu_links')
-@if(Session::get('is_marketing'))
-{{ HTML::linkRoute('clientes.index','Sphellar',null,array('class'=>'navbar-brand')) }}
-@else
-{{ HTML::link('/','Sphellar',array('class'=>'navbar-brand')) }}
-@endif
-@stop
 
 @section('wrapper')
 <div class="container">

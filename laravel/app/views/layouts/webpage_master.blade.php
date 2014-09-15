@@ -33,9 +33,9 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                               </button>
-                              @section('menu_links')
+                              
                               {{ HTML::Link('/','Sphellar',array('class'=>'navbar-brand')) }}                    
-                              @show
+                              
                         </div>
                         <div class="navbar-collapse collapse">
                               <ul class="nav navbar-nav navbar-right">
