@@ -11,6 +11,7 @@ class MarketingController extends \BaseController
 
       public function __construct(User $user, Marketing $marketing)
       {
+            parent::__construct();
             $this->user = $user;
             $this->marketing = $marketing;
             View::share('section','Marketing');

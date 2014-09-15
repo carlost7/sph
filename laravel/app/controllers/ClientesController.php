@@ -11,6 +11,7 @@ class ClientesController extends \BaseController
 
       public function __construct(User $user, Cliente $cliente)
       {
+            parent::__construct();
             $this->user = $user;
             $this->client = $cliente;
             View::share('section','Cliente');

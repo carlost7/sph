@@ -13,6 +13,7 @@ class clientesEventosEspecialesController extends \BaseController
 
       public function __construct(Evento $evento, Especial $especial, Imagen $imagen)
       {
+            parent::__construct();
             $this->evento = $evento;
             $this->especial = $especial;
             $this->imagen = $imagen;

@@ -18,6 +18,7 @@ class clientesPagosController extends \BaseController
 
       public function __construct(Pago $pago, Client $cliente, Aviso $aviso, Checkout $checkout, Dispatcher $events)
       {
+            parent::__construct();
             $this->pago = $pago;
             $this->client = $cliente;
             $this->aviso = $aviso;

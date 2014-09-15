@@ -8,6 +8,7 @@ class SubcategoriasController extends \BaseController {
       
       public function __construct(Subcat $subcat)
       {
+            parent::__construct();
             $this->subcat = $subcat;
       }
       

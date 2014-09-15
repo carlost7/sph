@@ -19,12 +19,13 @@ class ContenidoController extends \BaseController
 
       public function __construct(Evento $evento, Negocio $negocio, Zona $zona, Estado $estado, Categoria $categoria, Subcategoria $subcategoria)
       {
+            parent::__construct();
             $this->evento = $evento;
             $this->negocio = $negocio;
             $this->zona = $zona;
             $this->estado = $estado;
             $this->categoria = $categoria;
-            $this->subcategoria = $subcategoria;
+            $this->subcategoria = $subcategoria;            
       }
 
       /**
@@ -36,6 +37,8 @@ class ContenidoController extends \BaseController
       public function index()
       {
 
+            View::share('name','Sphellar');
+            
             $tipocat = Input::get('tipocat');
             $tipolocal = Input::get('tipolocal');
 

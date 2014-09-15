@@ -21,6 +21,7 @@ class MarketingAvisosController extends \BaseController
 
       public function __construct(Client $cliente, Marketing $marketing, Negocio $negocio, Evento $evento, Promocion $promocion, Bitacora_cliente $bitacora_cliente, Aviso_cliente $aviso_cliente)
       {
+            parent::__construct();
             $this->client = $cliente;
             $this->marketing = $marketing;
             $this->negocio = $negocio;

@@ -12,6 +12,7 @@ class clientesNegociosEspecialesController extends \BaseController {
 
       public function __construct(Negocio $negocio, Especial $especial, Imagen $imagen)
       {
+            parent::__construct();
             $this->negocio = $negocio;
             $this->especial = $especial;
             $this->imagen = $imagen;

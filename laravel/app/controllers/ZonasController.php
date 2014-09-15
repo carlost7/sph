@@ -9,6 +9,7 @@ class ZonasController extends \BaseController
       
       public function __construct(Zona $zona)
       {
+            parent::__construct();
             $this->zona = $zona;
       }
 

@@ -9,6 +9,7 @@ class EventosController extends \BaseController
 
       public function __construct(Evento $evento)
       {
+            parent::__construct();
             $this->evento = $evento;
       }
       

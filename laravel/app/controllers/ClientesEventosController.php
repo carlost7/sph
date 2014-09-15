@@ -25,6 +25,7 @@ class clientesEventosController extends \BaseController
 
       public function __construct(Categoria $categoria, Estado $estado, Imagen $imagen, Masinfo $masinfo, Evento $evento, Especial $especial, Pago $pago, Subcategoria $subcategoria, Zona $zona)
       {
+            parent::__construct();
             $this->categoria = $categoria;
             $this->estado = $estado;
             $this->imagen = $imagen;

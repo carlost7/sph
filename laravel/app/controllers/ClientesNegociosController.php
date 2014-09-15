@@ -27,6 +27,7 @@ class clientesNegociosController extends \BaseController
 
       public function __construct(Categoria $categoria, Estado $estado, Horario $horario, Imagen $imagen, Masinfo $masinfo, Negocio $negocio, Especial $especial, Pago $pago, Subcategoria $subcategoria, Zona $zona)
       {
+            parent::__construct();
             $this->categoria = $categoria;
             $this->estado = $estado;
             $this->horario = $horario;

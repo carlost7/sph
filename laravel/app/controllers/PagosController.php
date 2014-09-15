@@ -13,6 +13,7 @@ class PagosController extends \BaseController
 
       public function __construct(Checkout $checkout, Pago $pago, Dispatcher $events)
       {
+            parent::__construct();
             $this->checkout = $checkout;
             $this->pago = $pago;
             $this->events = $events;

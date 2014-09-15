@@ -20,6 +20,7 @@ class RegisterController extends \BaseController
 
       public function __construct(User $user, Cliente $cliente, Marketing $marketing, Administrador $administrador, Dispatcher $events, Miembro $miembro)
       {
+            parent::__construct();
             $this->user = $user;
             $this->cliente = $cliente;
             $this->marketing = $marketing;

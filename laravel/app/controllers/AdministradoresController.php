@@ -11,8 +11,9 @@ class AdministradoresController extends \BaseController
 
       public function __construct(User $user, Administrador $admin)
       {
+            parent::__construct();
             $this->user = $user;
-            $this->admin = $admin;
+            $this->admin = $admin;            
       }
 
       /**

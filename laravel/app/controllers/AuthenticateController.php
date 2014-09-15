@@ -15,10 +15,11 @@ class AuthenticateController extends \BaseController
 
       public function __construct(Manager $manager, User $user, Miembro $miembro, Dispatcher $events)
       {
+            parent::__construct();
             $this->manager = $manager;
             $this->user = $user;
             $this->miembro = $miembro;
-            $this->events = $events;
+            $this->events = $events;            
       }
 
       /**

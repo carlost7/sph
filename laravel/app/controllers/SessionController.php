@@ -11,6 +11,7 @@ class SessionController extends \BaseController
 
       public function __construct(User $user, Manager $manager)
       {
+            parent::__construct();
             $this->user = $user;
             $this->manager = $manager;
       }

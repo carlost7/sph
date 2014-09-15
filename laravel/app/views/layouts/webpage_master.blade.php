@@ -6,8 +6,12 @@
       <head>
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-            <title>Sphellar</title>
-            <meta name="description" content="">
+            <title>
+                  @section('title')
+                  {{ (isset($titulo))?$titulo:'Sphellar'}}
+                  @show
+            </title>
+            <meta name="description" content="">            
             <meta name="viewport" content="width=device-width, initial-scale=1">
             {{ HTML::script('js/vendor/modernizr-2.6.2-respond-1.1.0.min.js') }}
             {{ HTML::style('css/bootstrap.css') }}
@@ -15,6 +19,7 @@
             {{ HTML::style('css/colors-override.css') }}
             {{ HTML::style('css/bootstrap-clockpicker.min.css') }}
             {{ HTML::style('css/bootstrap-datetimepicker.min.css') }}
+            {{ HTML::style('css/autocomplete.css') }}
             {{ HTML::style('css/main.css') }}            
             <script>
                   var base_url = '{{ URL::to("/") }}';

@@ -9,6 +9,7 @@ class NegociosController extends \BaseController
 
       public function __construct(Negocio $negocio)
       {
+            parent::__construct();
             $this->negocio = $negocio;
       }
 

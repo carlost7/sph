@@ -11,6 +11,7 @@ class MarketingClientesController extends \BaseController
 
       public function __construct(Client $cliente, Marketing $marketing)
       {
+            parent::__construct();
             $this->client = $cliente;
             $this->marketing = $marketing;
             View::share('section','Clientes');

@@ -15,10 +15,11 @@ class AdminCatalogoController extends \BaseController
 
       public function __construct(Categoria $categoria, Subcategoria $subcat, Estado $estado, Zona $zona)
       {
+            parent::__construct();
             $this->categoria = $categoria;
             $this->subcategoria = $subcat;
             $this->estado = $estado;
-            $this->zona = $zona;
+            $this->zona = $zona;            
       }
 
       /**

@@ -12,6 +12,7 @@ class clientesPromocionesController extends \BaseController
 
       public function __construct(Promocion $promocion, Pago $pago)
       {
+            parent::__construct();
             $this->promocion = $promocion;
             $this->pago = $pago;
             View::share('section','Promocion');
