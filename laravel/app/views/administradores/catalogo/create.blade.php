@@ -23,7 +23,7 @@
                   </div>                  
                   <div class="form-group">
                         {{ Form::label('subcategoria', 'Subcategoria') }}
-                        {{ Form::text('subcategoria', Input::old('subcategoria'), array('placeholder' => 'categoria', 'class'=>'form-control')) }}
+                        {{ Form::text('subcategoria', null, array('placeholder' => 'categoria', 'class'=>'form-control')) }}
                   </div>
             </div>
       </div>
@@ -43,7 +43,7 @@
                   </div>
                   <div class="form-group">
                         {{ Form::label('zona', 'Zona') }}
-                        {{ Form::text('zona', Input::old('zona'), array('placeholder' => 'categoria', 'class'=>'form-control')) }}
+                        {{ Form::text('zona', null, array('placeholder' => 'categoria', 'class'=>'form-control')) }}
                   </div>
             </div>
       </div>
