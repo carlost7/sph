@@ -12,14 +12,14 @@
 </div>
 <div class="form-group">
       {{ Form::label('fecha_inicio', 'Fecha de inicio') }}      
-      <div class='input-group date' id='datetimepicker1' data-date-format="DD-MM-YYYY HH:mm">
+      <div class='input-group date' id='datetimepicker1' data-date-format="DD-MM-YYYY">
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             <input type='text' class="form-control" name="fecha_inicio" value="{{ Input::old('fecha_inicio') }}" placeholder="fecha de inicio" />
       </div>
 </div>        
 <div class="form-group">
       {{ Form::label('fecha_fin', 'Fecha de finalización') }}      
-      <div class='input-group date' id='datetimepicker2' data-date-format="DD-MM-YYYY HH:mm">
+      <div class='input-group date' id='datetimepicker2' data-date-format="DD-MM-YYYY">
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             <input type='text' class="form-control" name="fecha_fin" value="{{ Input::old('fecha_fin') }}" placeholder="fecha de finalización" />
       </div>
@@ -214,14 +214,14 @@
       $(function() {
             $('#datetimepicker1').datetimepicker({
                   language: 'es',
-                  pick12HourFormat: false
+                  pickTime: false,
 
             });
       });
       $(function() {
             $('#datetimepicker2').datetimepicker({
                   language: 'es',
-                  pick12HourFormat: false
+                  pickTime: false,
             });
       });
 </script>

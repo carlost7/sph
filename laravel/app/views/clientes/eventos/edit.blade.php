@@ -226,14 +226,14 @@
       $(function() {
             $('#datetimepicker1').datetimepicker({
                   language: 'es',
-                  pick12HourFormat: false
+                  pickTime: false,                  
 
             });
       });
       $(function() {
             $('#datetimepicker2').datetimepicker({
                   language: 'es',
-                  pick12HourFormat: false
+                  pickTime: false,                  
             });
       });
 </script>
