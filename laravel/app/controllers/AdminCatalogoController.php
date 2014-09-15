@@ -80,7 +80,7 @@ class AdminCatalogoController extends \BaseController
 
             Session::flash('message','Objeto agregado con éxito');
             
-            return Redirect::back();
+            return Redirect::back()->withInput();
       }
 
       /**

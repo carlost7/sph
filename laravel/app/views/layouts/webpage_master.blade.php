@@ -47,9 +47,9 @@
                                                 @if(Session::get('is_cliente'))
                                                 <li>{{ HTML::linkRoute('clientes.index','Publicar') }}</li> 
                                                 @elseif(Session::get('is_admin'))
-                                                <li>{{ HTML::linkRoute('administradores.index','Publicar') }}</li> 
+                                                <li>{{ HTML::linkRoute('administradores.index','Administradores') }}</li> 
                                                 @elseif(Session::get('is_marketing'))
-                                                <li>{{ HTML::linkRoute('marketing.index','Publicar') }}</li> 
+                                                <li>{{ HTML::linkRoute('marketing.index','Marketing') }}</li> 
                                                 @endif
                                                 <li>{{ HTML::linkRoute('session.destroy','Salir') }}</li>
                                           </ul>
