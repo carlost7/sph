@@ -181,7 +181,7 @@ Route::group(array('before' => 'auth'), function() {
        * ***********************
        */
 
-      Route::group(array('prefix' => 'publicar', 'before' => 'is_client'), function() {
+      Route::group(array('prefix' => 'publicar', 'before' => 'is_cliente'), function() {
 
             Route::get('cliente', array(
                   'uses' => 'ClientesController@index',

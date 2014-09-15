@@ -52,7 +52,7 @@
       <div class="col-sm-6 col-sm-push-3">
             <div class="form-group">
                   <h2>Accede con nuestras redes sociales</h2>
-                  {{ HTML::LinkRoute('session.authorise','Acceder','twitter',array('class'=>'btn btn-info')) }}
+                  {{ HTML::LinkRoute('session.authorise','Twitter','twitter',array('class'=>'btn btn-info')) }}
             </div>
       </div>
       

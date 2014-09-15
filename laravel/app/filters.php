@@ -90,9 +90,9 @@ Route::filter('csrf', function()
       }
 });
 
-Route::filter('is_client', function()
+Route::filter('is_cliente', function()
 {
-      $is_client = Session::get('is_client');
+      $is_client = Session::get('is_cliente');
       if ($is_client)
       {
             if (!Auth::user()->userable->is_active)

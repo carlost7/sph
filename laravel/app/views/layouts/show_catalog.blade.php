@@ -9,7 +9,7 @@
       </div>
       <div class="col-sm-6">
             <div class="form-group">
-                  {{ Form::label('categoria', 'Categoria') }}
+                  {{ Form::label('categoria', 'Categoría') }}
                   {{ Form::text('categoria',Session::get('tipocat'),array('class'=>'form-control','id'=>'cat')) }}
                   <input type="hidden" value="" name="tipocat" id='tipocat'>                  
             </div>         

@@ -39,7 +39,7 @@ class SessionController extends \BaseController
 
                   if (is_a(Auth::user()->userable, Cliente::class))
                   {
-                        Session::set('is_client', true);
+                        Session::set('is_cliente', true);
                         return Redirect::intended(route('clientes.index'));
                   }
                   elseif (is_a(Auth::user()->userable, Marketing::class))
@@ -91,7 +91,8 @@ class SessionController extends \BaseController
       public function destroy()
       {
             Auth::logout();
-            return Redirect('/');
+            Session::flash('message','Vuelve pronto');
+            return Redirect::to('/');
       }
 
 }

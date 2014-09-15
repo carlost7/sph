@@ -1,6 +1,6 @@
 @extends('layouts.webpage_master')
 
-@section('content')
+@section('wrapper')
 <div class="col-sm-6 col-sm-push-3">
       <h2>Recuperar Password</h2>
 

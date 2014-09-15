@@ -39,7 +39,22 @@
                         </div>
                         <div class="navbar-collapse collapse">
                               <ul class="nav navbar-nav navbar-right">
-                                    @section('user_menu')
+                                    
+                                    @if(Auth::check())
+                                    <li class="dropdown">                                          
+                                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuario <span class="caret"></span></a>
+                                          <ul class="dropdown-menu" role="menu">
+                                                @if(Session::get('is_cliente'))
+                                                <li>{{ HTML::linkRoute('clientes.index','Publicar') }}</li> 
+                                                @elseif(Session::get('is_admin'))
+                                                <li>{{ HTML::linkRoute('administradores.index','Publicar') }}</li> 
+                                                @elseif(Session::get('is_marketing'))
+                                                <li>{{ HTML::linkRoute('marketing.index','Publicar') }}</li> 
+                                                @endif
+                                                <li>{{ HTML::linkRoute('session.destroy','Salir') }}</li>
+                                          </ul>
+                                    </li>
+                                    @else
                                     <li>{{ HTML::linkRoute('session.create','Entrar')}}</li>
                                     <li class="dropdown">                                          
                                           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Registrate <span class="caret"></span></a>
@@ -48,7 +63,7 @@
                                                 <li>{{ HTML::linkRoute('register.client','Cliente') }}</li>
                                           </ul>
                                     </li>
-                                    @show
+                                    @endif
                               </ul>
                         </div><!--/.navbar-collapse -->
                   </div>
@@ -68,7 +83,7 @@
                   {{ Session::forget('error'); }}
             </div>                    
             @endif
-           
+
             @yield('wrapper')
 
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>                
