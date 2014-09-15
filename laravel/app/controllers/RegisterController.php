@@ -113,7 +113,6 @@ class RegisterController extends \BaseController
 
                               Session::flash("message", 'Activación exitosa');
 
-                              Session::set('is_client', true);
                               return Redirect::route('clientes.index');
                         }
                   }
@@ -158,8 +157,10 @@ class RegisterController extends \BaseController
                         $miembro = $this->miembro->create($miembro_model);
 
                         $this->events->fire('nuevo_usuario_correo', array($miembro));
-
-                        Session::flash('message', 'Usuario creado con exito, Bienvenido');
+                        
+                        Auth::login($user);
+                        
+                        Session::flash('message', 'Bienvenido a Sphellar');
                         return Redirect::to('/');
                   }
             }

@@ -36,25 +36,20 @@ class SessionController extends \BaseController
       {
             if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password')), Input::get('rememberme')))
             {
-
-                  if (is_a(Auth::user()->userable, Cliente::class))
+                  switch (Auth::user()->userable_type)
                   {
-                        Session::set('is_cliente', true);
-                        return Redirect::intended(route('clientes.index'));
-                  }
-                  elseif (is_a(Auth::user()->userable, Marketing::class))
-                  {
-                        Session::set('is_marketing', true);
-                        return Redirect::intended(route('marketings.index'));
-                  }
-                  elseif (is_a(Auth::user()->userable, Administrador::class))
-                  {
-                        Session::set('is_admin', true);
-                        return Redirect::intended(route('administradores.index'));
-                  }
-                  else
-                  {
-                        return Redirect::intended('/');
+                        case 'Cliente':
+                              return Redirect::intended(route('clientes.index'));
+                              break;
+                        case 'Marketing':
+                              return Redirect::intended(route('marketings.index'));
+                              break;
+                        case 'Administrador':
+                              return Redirect::intended(route('administradores.index'));
+                              break;
+                        case 'Miembro':
+                              return Redirect::intended('/');
+                              break;
                   }
             }
             return Redirect::route('session.create')
@@ -91,7 +86,7 @@ class SessionController extends \BaseController
       public function destroy()
       {
             Auth::logout();
-            Session::flash('message','Vuelve pronto');
+            Session::flash('message', 'Vuelve pronto');
             return Redirect::to('/');
       }
 

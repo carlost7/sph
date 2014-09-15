@@ -44,11 +44,11 @@
                                     <li class="dropdown">                                          
                                           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuario <span class="caret"></span></a>
                                           <ul class="dropdown-menu" role="menu">
-                                                @if(Session::get('is_cliente'))
+                                                @if(Auth::user()->userable_type === 'Cliente')
                                                 <li>{{ HTML::linkRoute('clientes.index','Publicar') }}</li> 
-                                                @elseif(Session::get('is_admin'))
+                                                @elseif(Auth::user()->userable_type === 'Administrador')
                                                 <li>{{ HTML::linkRoute('administradores.index','Administradores') }}</li> 
-                                                @elseif(Session::get('is_marketing'))
+                                                @elseif(Auth::user()->userable_type === 'Marketing')
                                                 <li>{{ HTML::linkRoute('marketing.index','Marketing') }}</li> 
                                                 @endif
                                                 <li>{{ HTML::linkRoute('session.destroy','Salir') }}</li>

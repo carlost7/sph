@@ -137,7 +137,7 @@ class AuthenticateController extends \BaseController
             $member_messages = ($validateMember->getErrors() != null) ? $validateMember->getErrors()->all() : array();
             $validationMessages = array_merge_recursive($auth_messages, $member_messages);
 
-            return Redirect::route('register.authenticate.user')->withInput()->withErrors($validationMessages);
+            return Redirect::back()->withErrors($validationMessages)->withInput();
       }
 
 }

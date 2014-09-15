@@ -92,7 +92,7 @@ Route::filter('csrf', function()
 
 Route::filter('is_cliente', function()
 {
-      $is_client = Session::get('is_cliente');
+      $is_client = Auth::user()->userable_type === 'Cliente';
       if ($is_client)
       {
             if (!Auth::user()->userable->is_active)
@@ -109,7 +109,7 @@ Route::filter('is_cliente', function()
 
 Route::filter('is_marketing', function()
 {
-      $is_marketing = Session::get('is_marketing');
+      $is_marketing = Auth::user()->userable_type === 'Marketing';
       if (!$is_marketing)
       {
             Session::set('error', 'El tipo de usuario no es correcto');
@@ -119,7 +119,7 @@ Route::filter('is_marketing', function()
 
 Route::filter('is_admin', function()
 {
-      $is_admin = Session::get('is_admin');
+      $is_admin = Auth::user()->userable_type === 'Administrador';
       if (!$is_admin)
       {
             Session::set('error', 'El tipo de usuario no es correcto');
