@@ -9,6 +9,15 @@ jQuery("#local").autocomplete({
     }
 });
 
+jQuery("#local").focus(function() {
+    alert("prueba");
+});
+
+jQuery("#cat").focus(function() {
+    alert("prueba");
+});
+
+
 jQuery("#cat").autocomplete({
     serviceUrl: base_url + "/catalogo_categorias",
     onSelect: function(suggestion) {
