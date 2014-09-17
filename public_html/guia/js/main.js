@@ -5,13 +5,13 @@
 $("#local").autocomplete({
     serviceUrl: base_url + "/catalogo_zonas",
     onSelect: function(suggestion) {
-        $("#tipolocal").val(suggestion.data);
+        jQuery("#tipolocal").val(suggestion.data);
     }
 });
 
 $("#cat").autocomplete({
     serviceUrl: base_url + "/catalogo_categorias",
     onSelect: function(suggestion) {
-        $("#tipocat").val(suggestion.data);
+        jQuery("#tipocat").val(suggestion.data);
     }
 });
