@@ -17,7 +17,7 @@ class clientesEventosEspecialesController extends \BaseController
             $this->evento = $evento;
             $this->especial = $especial;
             $this->imagen = $imagen;
-            View::share('section','Evento');
+            View::share('section', 'Evento');
       }
 
       /**
@@ -70,7 +70,7 @@ class clientesEventosEspecialesController extends \BaseController
                               if ($input['imagen'])
                               {
                                     //Obtener datos de la imagen
-                                    $path = strval(Auth::user()->userable->id) . '/';
+                                    $path = strval(Auth::user()->id) . '/';
                                     $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
                                     $especial_model = array_add($especial_model, 'path', $path);
                                     $especial_model = array_add($especial_model, 'nombre_imagen', $nombre);
@@ -82,7 +82,13 @@ class clientesEventosEspecialesController extends \BaseController
                                     {
                                           //Guardar la imagen; 
                                           $path = Config::get('params.usrimg') . $path;
-                                          $input['imagen']->move($path, $nombre);
+                                          try
+                                          {
+                                                $input['imagen']->move($path, $nombre);
+                                          } catch (Exception $e)
+                                          {
+                                                Log::error('MiembrosController.edit: ' . $e . get_message());
+                                          }
                                     }
 
                                     Session::flash('message', 'Imagen guardada');
@@ -159,7 +165,14 @@ class clientesEventosEspecialesController extends \BaseController
                               {
                                     //Guardar la imagen; 
                                     $path = Config::get('params.usrimg') . $especial->path;
-                                    $input['imagen']->move($path, $especial->nombre);
+                                    try
+                                    {
+
+                                          $input['imagen']->move($path, $especial->nombre);
+                                    } catch (Exception $e)
+                                    {
+                                          Log::error('MiembrosController.edit: ' . $e . get_message());
+                                    }
                               }
 
                               Session::flash('message', 'Imagen guardada');
@@ -194,7 +207,6 @@ class clientesEventosEspecialesController extends \BaseController
                   Session::flash('error', 'No se pudo eliminar la imagen');
             }
             return Redirect::route('clientes_eventos_especiales_index.get', array('id' => Input::get('evento_id')));
-            
       }
 
 }

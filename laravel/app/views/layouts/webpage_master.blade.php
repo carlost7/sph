@@ -70,6 +70,8 @@
                                                 <li>{{ HTML::linkRoute('administradores.index','Administradores') }}</li> 
                                                 @elseif(Auth::user()->userable_type === 'Marketing')
                                                 <li>{{ HTML::linkRoute('marketing.index','Marketing') }}</li> 
+                                                @elseif(Auth::user()->userable_type === 'Miembro')
+                                                <li>{{ HTML::linkRoute('miembros.show','Usuario',Auth::user()->userable->id) }}</li> 
                                                 @endif
                                                 <li>{{ HTML::linkRoute('session.destroy','Salir') }}</li>
                                           </ul>

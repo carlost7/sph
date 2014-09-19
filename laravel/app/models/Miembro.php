@@ -10,5 +10,10 @@ class Miembro extends \Eloquent
       {
             return $this->morphOne('User', 'userable');
       }
-      
+
+      public function imagen()
+      {
+            return $this->morphOne('Imagen', 'imageable');
+      }
+
 }

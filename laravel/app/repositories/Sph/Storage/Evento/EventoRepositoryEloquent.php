@@ -43,7 +43,7 @@ class EventoRepositoryEloquent implements EventoRepository
                   {
                         $imagen = new Imagen($evento_model);
                         $imagen->nombre = $evento_model['nombre_imagen'];
-                        $imagen->cliente_id = $evento->cliente->id;
+                        $imagen->user_id = $evento->cliente->user->id;
                         $evento->imagen()->save($imagen);
                   }
 
@@ -100,7 +100,7 @@ class EventoRepositoryEloquent implements EventoRepository
                         {
                               $imagen = new Imagen($evento_model);
                               $imagen->nombre = $evento_model['nombre_imagen'];
-                              $imagen->cliente_id = $evento->cliente->id;
+                              $imagen->user_id = $evento->cliente->user->id;
                               $evento->imagen()->save($imagen);
                         }
                         else

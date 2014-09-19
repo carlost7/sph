@@ -425,6 +425,17 @@ Route::group(array('before' => 'auth'), function() {
             });
       });
 
+      /*
+       * ********************************
+       * Miembro
+       * ********************************
+       */
+      Route::group(array('before' => 'is_miembro'), function() {
+            
+            Route::resource('miembros', 'MiembrosController');
+            
+      });
+      
 
       /*
        * ********************************

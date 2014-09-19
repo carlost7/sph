@@ -126,3 +126,13 @@ Route::filter('is_admin', function()
             return Redirect::to('/');
       }
 });
+
+Route::filter('is_miembro', function()
+{
+      $is_miembro = Auth::user()->userable_type === 'Miembro';
+      if (!$is_miembro)
+      {
+            Session::set('error', 'El tipo de usuario no es correcto');
+            return Redirect::to('/');
+      }
+});

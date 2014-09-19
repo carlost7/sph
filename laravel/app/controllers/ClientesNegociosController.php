@@ -100,7 +100,7 @@ class clientesNegociosController extends \BaseController
                   if ($input['imagen'])
                   {
                         //Obtener datos de la imagen
-                        $path = strval(Auth::user()->userable->id) . '/';
+                        $path = strval(Auth::user()->id) . '/';
                         $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
                         $negocio_model = array_add($negocio_model, 'path', $path);
                         $negocio_model = array_add($negocio_model, 'nombre_imagen', $nombre);
@@ -114,7 +114,14 @@ class clientesNegociosController extends \BaseController
                         {
                               //Guardar la imagen; 
                               $path = Config::get('params.usrimg') . $path;
-                              $input['imagen']->move($path, $nombre);
+                              try
+                              {
+
+                                    $input['imagen']->move($path, $nombre);
+                              } catch (Exception $e)
+                              {
+                                    Log::error('MiembrosController.edit: ' . $e . get_message());
+                              }
                         }
 
                         //Crear Pago de servicios
@@ -261,7 +268,7 @@ class clientesNegociosController extends \BaseController
                   if ($input['imagen'] && !$negocio->imagen)
                   {
                         //Obtener datos de la imagen
-                        $path = strval(Auth::user()->userable->id) . '/';
+                        $path = strval(Auth::user()->id) . '/';
                         $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
                         $negocio_model = array_add($negocio_model, 'path', $path);
                         $negocio_model = array_add($negocio_model, 'nombre_imagen', $nombre);
@@ -273,7 +280,14 @@ class clientesNegociosController extends \BaseController
                   {
                         if ($input['imagen'])
                         {
-                              $input['imagen']->move(Config::get('params.usrimg') . $negocio->imagen->path, $negocio->imagen->nombre);
+                              try
+                              {
+
+                                    $input['imagen']->move(Config::get('params.usrimg') . $negocio->imagen->path, $negocio->imagen->nombre);
+                              } catch (Exception $e)
+                              {
+                                    Log::error('MiembrosController.edit: ' . $e . get_message());
+                              }
                         }
 
                         Session::flash('message', 'Negocio modificado con éxito');

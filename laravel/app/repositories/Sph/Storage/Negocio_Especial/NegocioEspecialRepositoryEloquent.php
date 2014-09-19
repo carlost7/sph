@@ -28,7 +28,7 @@ class NegocioEspecialRepositoryEloquent implements NegocioEspecialRepository
                   {
                         $imagen = new Imagen($especial_model);
                         $imagen->nombre = $especial_model['nombre_imagen'];
-                        $imagen->cliente_id = $especial->negocio->cliente->id;
+                        $imagen->user_id = $especial->negocio->cliente->user->id;
                         $especial->imagenes()->save($imagen);
                   }
                   return $especial;

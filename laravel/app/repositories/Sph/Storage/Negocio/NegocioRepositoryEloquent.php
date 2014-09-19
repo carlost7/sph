@@ -45,7 +45,7 @@ class NegocioRepositoryEloquent implements NegocioRepository
                   {
                         $imagen = new Imagen($negocio_model);
                         $imagen->nombre = $negocio_model['nombre_imagen'];
-                        $imagen->cliente_id = $negocio->cliente->id;
+                        $imagen->user_id = $negocio->cliente->user->id;
                         $negocio->imagen()->save($imagen);
                   }
                   return $negocio;
@@ -100,7 +100,7 @@ class NegocioRepositoryEloquent implements NegocioRepository
                         {
                               $imagen = new Imagen($negocio_model);
                               $imagen->nombre = $negocio_model['nombre_imagen'];
-                              $imagen->cliente_id = $negocio->cliente->id;
+                              $imagen->user_id = $negocio->cliente->user->id;
                               $negocio->imagen()->save($imagen);
                         }
                         else

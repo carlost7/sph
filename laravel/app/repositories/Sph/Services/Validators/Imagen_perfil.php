@@ -13,15 +13,19 @@ namespace Sph\Services\Validators;
  *
  * @author carlos
  */
-class Miembro extends Validator
+
+class Imagen_perfil extends Validator
 {
 
       public static $rules = array(
           "save" => array(
-              'username' => 'required|unique:miembros,username',
+              'alt' => '',
+              'imagen' => 'image|max:600'
+              
           ),
           "update" => array(
-              'username' => 'unique:miembros,username',
+              'alt' => '',
+              'imagen' => 'image|max:600'
           ),
       );
 

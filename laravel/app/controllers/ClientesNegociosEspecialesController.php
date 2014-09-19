@@ -4,9 +4,10 @@ use Sph\Storage\Negocio\NegocioRepository as Negocio;
 use Sph\Storage\Negocio_Especial\NegocioEspecialRepository as Especial;
 use Sph\Storage\Imagen\ImagenRepository as Imagen;
 
-class clientesNegociosEspecialesController extends \BaseController {
+class clientesNegociosEspecialesController extends \BaseController
+{
 
-	protected $negocio;
+      protected $negocio;
       protected $especial;
       protected $imagen;
 
@@ -16,7 +17,7 @@ class clientesNegociosEspecialesController extends \BaseController {
             $this->negocio = $negocio;
             $this->especial = $especial;
             $this->imagen = $imagen;
-            View::share('section','Negocio');
+            View::share('section', 'Negocio');
       }
 
       /**
@@ -69,7 +70,7 @@ class clientesNegociosEspecialesController extends \BaseController {
                               if ($input['imagen'])
                               {
                                     //Obtener datos de la imagen
-                                    $path = strval(Auth::user()->userable->id) . '/';
+                                    $path = strval(Auth::user()->id) . '/';
                                     $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
                                     $especial_model = array_add($especial_model, 'path', $path);
                                     $especial_model = array_add($especial_model, 'nombre_imagen', $nombre);
@@ -81,7 +82,13 @@ class clientesNegociosEspecialesController extends \BaseController {
                                     {
                                           //Guardar la imagen; 
                                           $path = Config::get('params.usrimg') . $path;
-                                          $input['imagen']->move($path, $nombre);
+                                          try
+                                          {
+                                                $input['imagen']->move($path, $nombre);
+                                          } catch (Exception $e)
+                                          {
+                                                Log::error('MiembrosController.edit: ' . $e . get_message());
+                                          }
                                     }
 
                                     Session::flash('message', 'Imagen guardada');
@@ -158,7 +165,13 @@ class clientesNegociosEspecialesController extends \BaseController {
                               {
                                     //Guardar la imagen; 
                                     $path = Config::get('params.usrimg') . $especial->path;
-                                    $input['imagen']->move($path, $especial->nombre);
+                                    try
+                                    {
+                                          $input['imagen']->move($path, $especial->nombre);
+                                    } catch (Exception $e)
+                                    {
+                                          Log::error('MiembrosController.edit: ' . $e . get_message());
+                                    }
                               }
 
                               Session::flash('message', 'Imagen guardada');
@@ -193,7 +206,6 @@ class clientesNegociosEspecialesController extends \BaseController {
                   Session::flash('error', 'No se pudo eliminar la imagen');
             }
             return Redirect::route('clientes_negocios_especiales_index.get', array('id' => Input::get('negocio_id')));
-            
       }
 
 }

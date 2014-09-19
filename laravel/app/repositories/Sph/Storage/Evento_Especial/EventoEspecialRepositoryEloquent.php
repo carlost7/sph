@@ -29,7 +29,7 @@ class EventoEspecialRepositoryEloquent implements EventoEspecialRepository
                   {
                         $imagen = new Imagen($especial_model);
                         $imagen->nombre = $especial_model['nombre_imagen'];
-                        $imagen->cliente_id = $especial->evento->cliente->id;
+                        $imagen->user_id = $especial->evento->cliente->user->id;
                         $especial->imagenes()->save($imagen);
                   }
                   return $especial;

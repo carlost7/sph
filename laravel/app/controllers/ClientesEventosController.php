@@ -35,7 +35,7 @@ class clientesEventosController extends \BaseController
             $this->pago = $pago;
             $this->subcategoria = $subcategoria;
             $this->zona = $zona;
-            View::share('section','Evento');
+            View::share('section', 'Evento');
       }
 
       /**
@@ -95,7 +95,7 @@ class clientesEventosController extends \BaseController
                   if ($input['imagen'])
                   {
                         //Obtener datos de la imagen
-                        $path = strval(Auth::user()->userable->id) . '/';
+                        $path = strval(Auth::user()->id) . '/';
                         $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
                         $evento_model = array_add($evento_model, 'path', $path);
                         $evento_model = array_add($evento_model, 'nombre_imagen', $nombre);
@@ -109,15 +109,21 @@ class clientesEventosController extends \BaseController
                         {
                               //Guardar la imagen; 
                               $path = Config::get('params.usrimg') . $path;
-                              $input['imagen']->move($path, $nombre);
+                              try
+                              {
+                                    $input['imagen']->move($path, $nombre);
+                              } catch (Exception $e)
+                              {
+                                    Log::error('MiembrosController.edit: ' . $e . get_message());
+                              }
                         }
 
                         //Crear Pago de servicios
                         $pago_model = array(
-                              'nombre' => 'Publicación de Evento',
-                              'descripcion' => $evento->nombre,
-                              'monto' => Config::get('costos.evento'),
-                              'client' => Auth::user()->userable,
+                            'nombre' => 'Publicación de Evento',
+                            'descripcion' => $evento->nombre,
+                            'monto' => Config::get('costos.evento'),
+                            'client' => Auth::user()->userable,
                         );
                         $pago = $this->pago->create($pago_model);
                         if (isset($pago))
@@ -238,7 +244,7 @@ class clientesEventosController extends \BaseController
                   if ($input['imagen'] && !$evento->imagen)
                   {
                         //Obtener datos de la imagen
-                        $path = strval(Auth::user()->userable->id) . '/';
+                        $path = strval(Auth::user()->id) . '/';
                         $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
                         $evento_model = array_add($evento_model, 'path', $path);
                         $evento_model = array_add($evento_model, 'nombre_imagen', $nombre);
@@ -250,7 +256,13 @@ class clientesEventosController extends \BaseController
                   {
                         if ($input['imagen'])
                         {
-                              $input['imagen']->move(Config::get('params.usrimg') . $evento->imagen->path, $evento->imagen->nombre);
+                              try
+                              {
+                                    $input['imagen']->move(Config::get('params.usrimg') . $evento->imagen->path, $evento->imagen->nombre);
+                              } catch (Exception $e)
+                              {
+                                    Log::error('MiembrosController.edit: ' . $e . get_message());
+                              }
                         }
                         Session::flash('message', 'Evento modificado con éxito');
 

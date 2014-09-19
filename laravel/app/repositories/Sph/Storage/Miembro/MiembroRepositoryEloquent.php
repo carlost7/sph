@@ -8,6 +8,7 @@ namespace Sph\Storage\Miembro;
  * @author carlos
  */
 use Miembro;
+use Imagen;
 
 class MiembroRepositoryEloquent implements MiembroRepository
 {
@@ -50,6 +51,20 @@ class MiembroRepositoryEloquent implements MiembroRepository
                   
                   if ($miembro->save())
                   {
+                        if (isset($miembro_model['nombre_imagen']))
+                        {
+                              $imagen = new Imagen($miembro_model);
+                              $imagen->nombre = $miembro_model['nombre_imagen'];
+                              $imagen->user_id = $miembro->user->id;
+                              $imagen->alt = 'user_profile_image';
+                              $miembro->imagen()->save($imagen);
+                        }
+                        else
+                        {
+                              $miembro->imagen->alt = 'user_profile_image';
+                              $miembro->imagen->save();
+                        }
+                        
                         return $miembro;
                   }
                   else

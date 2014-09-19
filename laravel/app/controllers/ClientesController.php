@@ -87,7 +87,7 @@ class ClientesController extends \BaseController
        */
       public function destroy($id)
       {
-            Cliente::destroy($id);
+            $this->cliente->delete($id);
 
             return Redirect::route('clientes.index');
       }

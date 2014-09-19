@@ -15,7 +15,7 @@ class clientesPromocionesController extends \BaseController
             parent::__construct();
             $this->promocion = $promocion;
             $this->pago = $pago;
-            View::share('section','Promocion');
+            View::share('section', 'Promocion');
       }
 
       /**
@@ -60,7 +60,7 @@ class clientesPromocionesController extends \BaseController
                   if ($input['imagen'])
                   {
                         //Obtener datos de la imagen
-                        $path = strval(Auth::user()->userable->id) . '/';
+                        $path = strval(Auth::user()->id) . '/';
                         $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
                         $promocion_model = array_add($promocion_model, 'path', $path);
                         $promocion_model = array_add($promocion_model, 'nombre_imagen', $nombre);
@@ -73,7 +73,13 @@ class clientesPromocionesController extends \BaseController
                         {
                               //Guardar la imagen; 
                               $path = Config::get('params.usrimg') . $path;
-                              $input['imagen']->move($path, $nombre);
+                              try
+                              {
+                                    $input['imagen']->move($path, $nombre);
+                              } catch (Exception $e)
+                              {
+                                    Log::error('MiembrosController.edit: ' . $e . get_message());
+                              }
                         }
 
                         $pago_model = array(
@@ -157,7 +163,7 @@ class clientesPromocionesController extends \BaseController
                   if ($input['imagen'] && !$promocion->imagen)
                   {
                         //Obtener datos de la imagen
-                        $path = strval(Auth::user()->userable->id) . '/';
+                        $path = strval(Auth::user()->id) . '/';
                         $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
                         $promocion_model = array_add($promocion_model, 'path', $path);
                         $promocion_model = array_add($promocion_model, 'nombre_imagen', $nombre);
@@ -171,7 +177,13 @@ class clientesPromocionesController extends \BaseController
                               //Guardar la imagen; 
                               $path = Config::get('params.usrimg') . $promocion->imagen->path;
                               $nombre = $promocion->imagen->nombre;
-                              $input['imagen']->move($path, $nombre);
+                              try
+                              {
+                                    $input['imagen']->move($path, $nombre);
+                              } catch (Exception $e)
+                              {
+                                    Log::error('MiembrosController.edit: ' . $e . get_message());
+                              }
                         }
 
                         Session::flash('message', 'Promoción editada con éxito');

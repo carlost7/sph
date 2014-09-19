@@ -37,9 +37,10 @@ body {
     
 }
 
-#imagepreview{
-    padding-top: 25%;
-    padding-bottom: 25%;
+.profile_image{
+    padding-top: 10%;    
+    padding-bottom: 10%;
+    
 }
 
 .listas{
