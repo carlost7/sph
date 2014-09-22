@@ -19,7 +19,7 @@ class ClientesTableSeeder extends Seeder
                       'telefono' => $faker->phoneNumber,
                       'ext' => $faker->numberBetween(100, 990),
                       'celular' => $faker->phoneNumber,
-                      'is_active' => $faker->boolean(50),
+                      'is_activo' => $faker->boolean(50),
                       'marketing_id' => $faker->numberBetween(1, 5),
                   ));
             }           

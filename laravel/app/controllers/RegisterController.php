@@ -62,7 +62,7 @@ class RegisterController extends \BaseController
 
                         //Se crea el objeto de usuario con los datos de entrada y el usuario al que pertenece
                         $cliente_model = Input::all();
-                        $cliente_model = array_add($cliente_model, 'is_active', false);
+                        $cliente_model = array_add($cliente_model, 'is_activo', false);
                         $cliente_model = array_add($cliente_model, 'token', $token);
                         $cliente_model = array_add($cliente_model, 'user', $user);
 
@@ -104,7 +104,7 @@ class RegisterController extends \BaseController
             {
                   if ($token == $cliente->token)
                   {
-                        $cliente_model = array('is_active' => true, 'token' => '');
+                        $cliente_model = array('is_activo' => true, 'token' => '');
                         $cliente = $this->cliente->activar_cliente($id);
                         if (isset($cliente))
                         {

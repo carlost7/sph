@@ -63,7 +63,7 @@ class ClienteRepositoryEloquent implements ClienteRepository
       public function activar_cliente($id)
       {
             $cliente = Cliente::find($id);
-            $cliente->is_active=true;
+            $cliente->is_activo=true;
             $cliente->token = '';
             
             if($cliente->save()){

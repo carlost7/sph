@@ -22,7 +22,7 @@ class CreateClientesTable extends Migration
                   $table->string('telefono');
                   $table->string('ext');
                   $table->string('celular');
-                  $table->boolean('is_active');
+                  $table->boolean('is_activo');
                   $table->string('token');
                   $table->timestamps();
             });

@@ -95,7 +95,7 @@ Route::filter('is_cliente', function()
       $is_client = Auth::user()->userable_type === 'Cliente';
       if ($is_client)
       {
-            if (!Auth::user()->userable->is_active)
+            if (!Auth::user()->userable->is_activo)
             {
                   return View::make('register.client_not_active');
             }
