@@ -69,7 +69,7 @@ class AuthenticateController extends \BaseController
                         );
                         $user = $this->user->update($auth->id,$data);
                         
-                        Auth::loginUsingId($auth->id);
+                        Auth::loginUsingId($auth->id,true);
                         
                         return Redirect::to('/');
                   }
@@ -119,7 +119,7 @@ class AuthenticateController extends \BaseController
                         if ($miembro)
                         {
                               $this->events->fire('nuevo_usuario_correo', array($miembro));
-                              Auth::login($user);
+                              Auth::login($user,true);
                               Session::flash('message', 'Bienvenido a Sphellar');
                               return Redirect::to('/');
                         }

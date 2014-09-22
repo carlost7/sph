@@ -17,13 +17,17 @@
             </label>                        
       </div>
 </div>
+<div class="form-group">
+      {{ Form::label('email', 'Correo electrónico') }}
+      {{ Form::text('email',$miembro->user->email,array('placeholder' => 'correo electrónico', 'class'=>'form-control')) }}
+</div>
 @if($miembro->user->password)
 <div class="form-group">
-      {{ Form::label('password', 'Contraseña*') }}
+      {{ Form::label('password', 'Contraseña') }}
       {{ Form::password('password',array('placeholder' => 'password', 'class'=>'form-control')) }}
 </div>
 <div class="form-group">
-      {{ Form::label('password_confirm', 'Confirmar contraseña*') }}
+      {{ Form::label('password_confirm', 'Confirmar contraseña') }}
       {{ Form::password('password_confirm',array('placeholder' => 'repetir password', 'class'=>'form-control')) }}
 </div>
 @endif
