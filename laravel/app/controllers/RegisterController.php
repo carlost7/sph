@@ -112,6 +112,7 @@ class RegisterController extends \BaseController
 
                               $this->events->fire('enviar_codigo', array($cliente));
 
+                              Auth::login($cliente->user);
                               Session::flash("message", 'Activación exitosa');
 
                               return Redirect::route('clientes.index');
