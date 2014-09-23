@@ -16,8 +16,58 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `zonas`
+-- Table structure for table `categorias`
 --
+
+DROP TABLE IF EXISTS `categorias`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `categorias` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `categoria` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categorias`
+--
+
+LOCK TABLES `categorias` WRITE;
+/*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
+INSERT INTO `categorias` VALUES (1,'Antros','2014-09-14 23:24:26','2014-09-14 23:24:26'),(2,'Arte','2014-09-14 23:24:26','2014-09-14 23:24:26'),(3,'Automotriz','2014-09-14 23:24:26','2014-09-14 23:24:26'),(4,'Bares','2014-09-14 23:24:26','2014-09-14 23:24:26'),(5,'Belleza','2014-09-14 23:24:26','2014-09-14 23:24:26'),(6,'Cafeterías','2014-09-14 23:24:26','2014-09-14 23:24:26'),(7,'Casinos','2014-09-14 23:24:26','2014-09-14 23:24:26'),(8,'Centros Comerciales','2014-09-14 23:24:26','2014-09-14 23:24:26'),(9,'Clubes','2014-09-14 23:24:26','2014-09-14 23:24:26'),(10,'Hospedaje','2014-09-14 23:24:26','2014-09-14 23:24:26'),(11,'Inmobiliarias','2014-09-14 23:24:26','2014-09-14 23:24:26'),(12,'Librerías','2014-09-14 23:24:26','2014-09-14 23:24:26'),(13,'Mascotas','2014-09-14 23:24:26','2014-09-14 23:24:26'),(14,'Medicina','2014-09-14 23:24:26','2014-09-14 23:24:26'),(15,'Museos','2014-09-14 23:24:26','2014-09-14 23:24:26'),(16,'Postres','2014-09-14 23:24:26','2014-09-14 23:24:26'),(17,'Puestos Callejeros','2014-09-14 23:24:26','2014-09-14 23:24:26'),(18,'Restaurantes','2014-09-14 23:24:26','2014-09-14 23:24:26'),(19,'Salud','2014-09-14 23:24:26','2014-09-14 23:24:26'),(20,'Servicios','2014-09-14 23:24:26','2014-09-14 23:24:26'),(21,'Teatros','2014-09-14 23:24:26','2014-09-14 23:24:26'),(22,'Tiendas','2014-09-14 23:24:26','2014-09-14 23:24:26'),(23,'Viajes','2014-09-14 23:24:26','2014-09-14 23:24:26'),(24,'Electrónicos','2014-09-14 23:24:26','2014-09-14 23:24:26'),(25,'Casa y Jardín','2014-09-14 23:24:26','2014-09-14 23:24:26');
+/*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `estados`
+--
+
+DROP TABLE IF EXISTS `estados`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `estados` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `estado` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `estados`
+--
+
+LOCK TABLES `estados` WRITE;
+/*!40000 ALTER TABLE `estados` DISABLE KEYS */;
+INSERT INTO `estados` VALUES (1,'Aguascalientes','2014-09-14 23:24:26','2014-09-14 23:24:26'),(2,'Baja California','2014-09-14 23:24:26','2014-09-14 23:24:26'),(3,'Baja California Sur','2014-09-14 23:24:26','2014-09-14 23:24:26'),(4,'Campeche','2014-09-14 23:24:26','2014-09-14 23:24:26'),(5,'Coahuila','2014-09-14 23:24:26','2014-09-14 23:24:26'),(6,'Colima','2014-09-14 23:24:26','2014-09-14 23:24:26'),(7,'Chiapas','2014-09-14 23:24:26','2014-09-14 23:24:26'),(8,'Chihuahua','2014-09-14 23:24:26','2014-09-14 23:24:26'),(9,'Distrito Federal','2014-09-14 23:24:26','2014-09-14 23:24:26'),(10,'Durango','2014-09-14 23:24:26','2014-09-14 23:24:26'),(11,'Guanajuato','2014-09-14 23:24:27','2014-09-14 23:24:27'),(12,'Guerrero','2014-09-14 23:24:27','2014-09-14 23:24:27'),(13,'Hidalgo','2014-09-14 23:24:27','2014-09-14 23:24:27'),(14,'Jalisco','2014-09-14 23:24:27','2014-09-14 23:24:27'),(15,'Estado de México','2014-09-14 23:24:27','2014-09-14 23:24:27'),(16,'Michoacán','2014-09-14 23:24:27','2014-09-14 23:24:27'),(17,'Morelos','2014-09-14 23:24:27','2014-09-14 23:24:27'),(18,'Nayarit','2014-09-14 23:24:27','2014-09-14 23:24:27'),(19,'Nuevo León','2014-09-14 23:24:27','2014-09-14 23:24:27'),(20,'Oaxaca','2014-09-14 23:24:27','2014-09-14 23:24:27'),(21,'Puebla','2014-09-14 23:24:27','2014-09-14 23:24:27'),(22,'Querétaro','2014-09-14 23:24:27','2014-09-14 23:24:27'),(23,'Quintana Roo','2014-09-14 23:24:27','2014-09-14 23:24:27'),(24,'San Luis Potosí','2014-09-14 23:24:27','2014-09-14 23:24:27'),(25,'Sinaloa','2014-09-14 23:24:27','2014-09-14 23:24:27'),(26,'Sonora','2014-09-14 23:24:27','2014-09-14 23:24:27'),(27,'Tabasco','2014-09-14 23:24:27','2014-09-14 23:24:27'),(28,'Tamaulipas','2014-09-14 23:24:27','2014-09-14 23:24:27'),(29,'Tlaxcala','2014-09-14 23:24:27','2014-09-14 23:24:27'),(30,'Veracruz','2014-09-14 23:24:27','2014-09-14 23:24:27'),(31,'Yucatán','2014-09-14 23:24:27','2014-09-14 23:24:27'),(32,'Zacatecas','2014-09-14 23:24:27','2014-09-14 23:24:27');
+/*!40000 ALTER TABLE `estados` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
 
 DROP TABLE IF EXISTS `zonas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -74,6 +124,7 @@ INSERT INTO `subcategorias` VALUES (1,'Perfumería','2014-09-14 23:37:56','2014-
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
@@ -82,4 +133,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-09-23 16:08:31
+-- Dump completed on 2014-09-23 16:12:28
