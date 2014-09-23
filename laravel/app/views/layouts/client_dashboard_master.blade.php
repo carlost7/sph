@@ -43,6 +43,7 @@
                         {{ Session::forget('error'); }}
                   </div>                    
                   @endif
+                  
                   @yield('content')
             </div>
       </div>

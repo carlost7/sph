@@ -22,7 +22,7 @@
             {{ HTML::style('css/autocomplete.css') }}
             {{ HTML::style('css/main.css') }}            
             <script>
-                  var base_url = '{{ URL::to("/") }}';
+                  var base_url = '{{ URL::to("/") }}';                  
             </script>
       </head>
       <body>
@@ -105,7 +105,7 @@
                   {{ Session::forget('error'); }}
             </div>                    
             @endif
-
+            
             @yield('wrapper')
 
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>                

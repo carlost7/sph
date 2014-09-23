@@ -68,7 +68,11 @@ class PagosController extends \BaseController
                   }
             }
 
-            $referer = Request::header('referer');
+            if(Config::get('params.prueba_pago')){
+                  $referer = Url::rout('obtener_pago_prueba');
+            }else{
+                  $referer = Request::header('referer');
+            }            
 
             $preference_data = array(
                 "items" => $items,
@@ -96,6 +100,13 @@ class PagosController extends \BaseController
                   Session::flash('error', 'Ocurrio un error al tratar de generar el pago.');
                   return Redirect::back();
             }
+      }
+      
+      public function obtener_pago_prueba(){
+            $exref = Input::get('exref');
+            $status = Input::get('status');
+            
+            return View::make('pagos.index')->with(array('exref'=>$exref,'status'=>$status));
       }
 
       /*

@@ -147,6 +147,7 @@ Route::post('registrar-usuario', array(
 
 Route::any('pagos/recibir_notificacion_prueba', array('uses' => 'PagosController@recibir_notificacion_prueba', 'as' => 'recibir_notificacion_prueba'));
 Route::any('pagos/recibir_notificacion', array('uses' => 'PagosController@recibir_notificacion', 'as' => 'recibir_notificacion'));
+Route::get('pagos/obtener_pago_prueba',array('uses'=>'PagosController@obtener_pago_prueba','as'=>'obtener_pago_prueba'));
 
 
 /*
