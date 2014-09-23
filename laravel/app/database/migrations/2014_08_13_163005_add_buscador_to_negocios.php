@@ -16,9 +16,9 @@ class AddBuscadorToNegocios extends Migration
             Schema::table('negocios', function(Blueprint $table)
             {
                   $table->integer('estado_id')->unsigned();
-                  $table->integer('zona_id')->unsigned();
+                  $table->integer('zona_id')->unsigned()->nullable();
                   $table->integer('categoria_id')->unsigned();
-                  $table->integer('subcategoria_id')->unsigned();
+                  $table->integer('subcategoria_id')->unsigned()->nullable();;
                   $table->foreign('estado_id')->references('id')->on('estados')->onDelete('cascade')->onUpdate('cascade');
                   $table->foreign('zona_id')->references('id')->on('zonas')->onDelete('cascade')->onUpdate('cascade');
                   $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade')->onUpdate('cascade');

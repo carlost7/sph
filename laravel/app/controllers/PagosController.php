@@ -69,7 +69,7 @@ class PagosController extends \BaseController
             }
 
             if(Config::get('params.prueba_pago')){
-                  $referer = Url::rout('obtener_pago_prueba');
+                  $referer = Url::route('obtener_pago_prueba');
             }else{
                   $referer = Request::header('referer');
             }            
@@ -103,9 +103,8 @@ class PagosController extends \BaseController
       }
       
       public function obtener_pago_prueba(){
-            $exref = Input::get('exref');
-            $status = Input::get('status');
-            
+            $exref = Input::get('external_reference');
+            $status = 'approved';            
             return View::make('pagos.index')->with(array('exref'=>$exref,'status'=>$status));
       }
 

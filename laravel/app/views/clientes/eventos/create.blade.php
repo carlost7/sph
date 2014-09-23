@@ -40,7 +40,7 @@
             <div class="col-sm-6">
                   {{ Form::label('hora_fin','Hora termino') }}
                   <div class="input-group clockpicker" data-autoclose="true">
-                        <input type="text" class="form-control" name="hora_fin" value="{{ Input::old('hora_ini')}}">
+                        <input type="text" class="form-control" name="hora_fin" value="{{ Input::old('hora_fin')}}">
                         <span class="input-group-addon">
                               <span class="glyphicon glyphicon-time"></span>
                         </span>

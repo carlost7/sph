@@ -15,7 +15,7 @@ class CreateComentarios extends Migration {
 		Schema::create('comentarios', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('usuario_id');
+			$table->integer('usuario_id')->unsigned();
                   $table->foreign('usuario_id')->references('id')->on('clientes')->onDelete('cascade')->onUpdate('cascade');
 			$table->text('comentario');
 			$table->text('comentable_type');
