@@ -11,18 +11,44 @@
       {{ Form::text('nombre', Input::old('nombre'), array('placeholder' => 'nombre del evento', 'class'=>'form-control')) }}
 </div>
 <div class="form-group">
-      {{ Form::label('fecha_inicio', 'Fecha de inicio') }}      
-      <div class='input-group date' id='datetimepicker1' data-date-format="DD-MM-YYYY">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-            <input type='text' class="form-control" name="fecha_inicio" value="{{ Input::old('fecha_inicio') }}" placeholder="fecha de inicio" />
+      <div class="row">
+            <div class="col-sm-6">
+                  {{ Form::label('fecha_inicio', 'Fecha de inicio') }}      
+                  <div class='input-group date' id='datetimepicker1' data-date-format="DD-MM-YYYY">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <input type='text' class="form-control" name="fecha_inicio" value="{{ Input::old('fecha_inicio') }}" placeholder="fecha de inicio" />
+                  </div>                  
+            </div>      
+            <div class="col-sm-6">
+                  {{ Form::label('fecha_fin', 'Fecha de finalización') }}      
+                  <div class='input-group date' id='datetimepicker2' data-date-format="DD-MM-YYYY">
+                        <input type='text' class="form-control" name="fecha_fin" value="{{ Input::old('fecha_fin') }}" placeholder="fecha de finalización" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                  </div>
+            </div>
+      </div>
+      <div class="row">
+            <div class="col-sm-6">
+                  {{ Form::label('hora_inicio','Hora inicio') }}
+                  <div class="input-group clockpicker" data-autoclose="true">
+                        <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-time"></span>
+                        </span>
+                        <input type="text" class="form-control" name="hora_inicio" value="{{ Input::old('hora_inicio')}}">
+                  </div> 
+            </div>
+            <div class="col-sm-6">
+                  {{ Form::label('hora_fin','Hora termino') }}
+                  <div class="input-group clockpicker" data-autoclose="true">
+                        <input type="text" class="form-control" name="hora_fin" value="{{ Input::old('hora_ini')}}">
+                        <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-time"></span>
+                        </span>
+                  </div> 
+            </div>
       </div>
 </div>        
 <div class="form-group">
-      {{ Form::label('fecha_fin', 'Fecha de finalización') }}      
-      <div class='input-group date' id='datetimepicker2' data-date-format="DD-MM-YYYY">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-            <input type='text' class="form-control" name="fecha_fin" value="{{ Input::old('fecha_fin') }}" placeholder="fecha de finalización" />
-      </div>
 </div>
 <div class="form-group">
       {{ Form::label('lugar', 'Lugar') }}
@@ -39,33 +65,6 @@
 <div class="form-group">
       {{ Form::label('telefono', 'Teléfono') }}
       {{ Form::text('telefono', Input::old('telefono'), array('placeholder' => 'teléfono', 'class'=>'form-control')) }}
-</div>
-<div class="form-group">      
-      <div class="row">
-            <div class="col-sm-12">
-                  {{ Form::label('horario','Horario') }}
-            </div>
-      </div>
-      <div class="row">
-            <div class="col-sm-6">
-                  {{ Form::label('hora_inicio','Inicia') }}
-                  <div class="input-group clockpicker" data-autoclose="true">
-                        <input type="text" class="form-control" name="hora_inicio" value="{{ Input::old('hora_inicio')}}">
-                        <span class="input-group-addon">
-                              <span class="glyphicon glyphicon-time"></span>
-                        </span>
-                  </div> 
-            </div>
-            <div class="col-sm-6">
-                  {{ Form::label('hora_fin','Termina') }}
-                  <div class="input-group clockpicker" data-autoclose="true">
-                        <span class="input-group-addon">
-                              <span class="glyphicon glyphicon-time"></span>
-                        </span>
-                        <input type="text" class="form-control" name="hora_fin" value="{{ Input::old('hora_ini')}}">
-                  </div> 
-            </div>
-      </div>
 </div>
 <div class="form-group">
       {{ Form::label('mas_infor','Más información') }}
@@ -196,6 +195,7 @@
 
 <div class="form-group">
       <button type="submit" class="btn btn-primary">Crear evento</button>
+      <button type="submit" class="btn btn-primary">Agregar imágenes</button>
 </div>        
 
 {{ Form::close() }}
@@ -215,7 +215,6 @@
             $('#datetimepicker1').datetimepicker({
                   language: 'es',
                   pickTime: false,
-
             });
       });
       $(function() {
@@ -290,7 +289,7 @@
 </script>
 
 <script>
-      
+
 </script>
 @stop
 
