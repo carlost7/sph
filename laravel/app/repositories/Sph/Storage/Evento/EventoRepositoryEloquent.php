@@ -30,6 +30,8 @@ class EventoRepositoryEloquent implements EventoRepository
             $evento->hora_fin = new \DateTime($evento_model['hora_fin']);
             $evento->cliente_id = $evento_model['cliente']->id;
             $evento->categoria_id = $evento_model['categoria'];
+            $evento->publicacion_inicio = new \DateTime($evento_model['publicacion_inicio']);
+            $evento->publicacion_fin = new \DateTime($evento_model['publicacion_fin']);
             if (isset($evento_model['subcategoria']))
             {
                   $evento->subcategoria_id = $evento_model['subcategoria'];
@@ -93,6 +95,14 @@ class EventoRepositoryEloquent implements EventoRepository
                   $evento->hora_inicio = new \DateTime($evento_model['hora_inicio']);
                   $evento->hora_fin = new \DateTime($evento_model['hora_fin']);
                   $evento->categoria_id = $evento_model['categoria'];
+                  if (isset($evento_model['publicacion_inicio']))
+                  {
+                        $evento->publicacion_inicio = new \DateTime($evento_model['publicacion_inicio']);
+                  }
+                  if (isset($evento_model['publicacion_fin']))
+                  {
+                        $evento->publicacion_fin = new \DateTime($evento_model['publicacion_fin']);
+                  }
                   if (isset($evento_model['subcategoria']))
                   {
                         $evento->subcategoria_id = $evento_model['subcategoria'];

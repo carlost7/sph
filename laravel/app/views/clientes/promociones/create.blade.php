@@ -31,9 +31,8 @@
             <input type='text' class="form-control" name="vigencia_inicio" value="{{ Input::old('vigencia_inicio') }}" id="vig_ini" placeholder="fecha de inicio" />
       </div>
 </div>        
-
 <div class="form-group">
-      {{ Form::label('llevar','Vigencia de la promoción') }}
+      {{ Form::label('vigencia','Vigencia de la promoción') }}
       <div class="row">
             <div class="col-sm-3">
                   <div class="radio">
@@ -70,7 +69,6 @@
 
       </div>      
 </div>
-
 <div class="form-group">
       {{ Form::label('vigencia_fin', 'Fin') }}      
       <div class='input-group date' id='datetimepicker2' data-date-format="DD-MM-YYYY HH:mm">

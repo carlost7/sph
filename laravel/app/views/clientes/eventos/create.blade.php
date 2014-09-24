@@ -7,6 +7,29 @@
 {{ Form::open(array('route'=>'clientes_eventos.store','files'=>true)) }}
 
 <div class="form-group">
+      <div class="row">
+            <div class="col-sm-6">
+                  {{ Form::label('estado','Estado') }}
+                  {{ Form::select('estado', $estados->lists('estado','id'),null,array('class'=>'form-control','id'=>'estados')) }}
+            </div>
+            <div class="col-sm-6">
+                  {{ Form::label('zona','Zona') }}
+                  {{ Form::select('zona', array(),null,array('class'=>'form-control', 'id'=>'zonas')) }}
+            </div>
+      </div>
+      <div class="row">
+            <div class="col-sm-6">
+                  {{ Form::label('categoria','Categoria') }}
+                  {{ Form::select('categoria', $categorias->lists('categoria','id'),null,array('class'=>'form-control','id'=>'categorias')) }}
+            </div>
+            <div class="col-sm-6">
+                  {{ Form::label('subcategoria','Subcategoria') }}
+                  {{ Form::select('subcategoria', array(),null,array('class'=>'form-control', 'id'=>'subcats')) }}
+            </div>
+      </div>
+</div>
+
+<div class="form-group">
       {{ Form::label('nombre', 'Nombre') }}
       {{ Form::text('nombre', Input::old('nombre'), array('placeholder' => 'nombre del evento', 'class'=>'form-control')) }}
 </div>
@@ -67,7 +90,6 @@
       {{ Form::text('telefono', Input::old('telefono'), array('placeholder' => 'teléfono', 'class'=>'form-control')) }}
 </div>
 <div class="form-group">
-      {{ Form::label('mas_infor','Más información') }}
       <div class="row">
             <div class="col-sm-6">
                   {{ Form::label('moneda','Moneda') }}
@@ -134,28 +156,7 @@
             </div>
       </div>
 </div>
-<div class="form-group">
-      <div class="row">
-            <div class="col-sm-6">
-                  {{ Form::label('estado','Estado') }}
-                  {{ Form::select('estado', $estados->lists('estado','id'),null,array('class'=>'form-control','id'=>'estados')) }}
-            </div>
-            <div class="col-sm-6">
-                  {{ Form::label('zona','Zona') }}
-                  {{ Form::select('zona', array(),null,array('class'=>'form-control', 'id'=>'zonas')) }}
-            </div>
-      </div>
-      <div class="row">
-            <div class="col-sm-6">
-                  {{ Form::label('categoria','Categoria') }}
-                  {{ Form::select('categoria', $categorias->lists('categoria','id'),null,array('class'=>'form-control','id'=>'categorias')) }}
-            </div>
-            <div class="col-sm-6">
-                  {{ Form::label('subcategoria','subcategoria') }}
-                  {{ Form::select('subcategoria', array(),null,array('class'=>'form-control', 'id'=>'subcats')) }}
-            </div>
-      </div>
-</div>
+
 <div class="form-group">
       <div class="row">
             <div class="col-sm-12">
@@ -183,20 +184,82 @@
 
       {{ $mapa['html'] }}      
 </div>        
+
+
 <div class="form-group">
-      <div class="checkbox">
-            <label>
-                  {{ Form::checkbox('add_images', true) }}      
-                  agregar o editar imagenes extra
-            </label>
+      <div class="row">
+            <div class="col-sm-12">
+                  {{ Form::label('publicacion','Publicar contenido') }}
+            </div>            
       </div>
+      <div class="row">
+            <div class="col-sm-6">
+                  {{ Form::label('publicacion_inicio', 'Inicio de publicación') }}
+                  <div class='input-group date' id='datetimepicker3' data-date-format="DD-MM-YYYY">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <input type='text' class="form-control" name="publicacion_inicio" value="{{ Input::old('publicacion_inicio') }}" id="vig_ini" placeholder="fecha de inicio de la publicación" />
+                  </div>
+            </div>
+            <div class="col-sm-6">
+                  {{ Form::label('publicacion_fin', 'Fin de la publicación') }}      
+                  <div class='input-group date' id='datetimepicker4' data-date-format="DD-MM-YYYY">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <input type='text' class="form-control" name="publicacion_fin" value="{{ Input::old('publicacion_fin') }}" id="vig_fin" placeholder="fecha de finalización de la publicación" readonly="true"/>
+                  </div>
+            </div>
+      </div>      
+</div>        
+<div class="form-group">
+      <div class="row">
+            <div class="col-sm-12">
+                  {{ Form::label('vigencia','Vigencia de la publicación') }}
+                  <p>Elige el tiempo en que quieres que tu publicación este activa en la página, si eliges la publicación gratuita solo podrá mostrarse 2 semanas y los miembros no tendran posibilidad de ver el mapa o darle like a tu evento</p>
+            </div>
+      </div>      
+      <div class="row">
+            <div class="col-sm-3">
+                  <div class="radio">
+                        <label id="1">
+                              {{ Form::radio('tiempo_publicacion',1) }}            
+                              1 Mes
+                        </label>
+                  </div>
+            </div>
+            <div class="col-sm-3">
+                  <div class="radio">
+                        <label id="2">                               
+                              {{ Form::radio('tiempo_publicacion',2) }}                       
+                              2 Meses
+                        </label>
+                  </div>
+            </div>
+            <div class="col-sm-3">
+                  <div class="radio">
+                        <label id="3">                              
+                              {{ Form::radio('tiempo_publicacion',3) }}                       
+                              3 Meses
+                        </label>
+                  </div>
+            </div>
+            <div class="col-sm-3">
+                  <div class="radio">
+                        <label id="gratis">
+                              {{ Form::radio('tiempo_publicacion',4) }}            
+                              Gratis
+                        </label>
+                  </div>
+            </div>
+
+      </div>      
 </div>
+{{ Form::hidden('add_images',false,array('id'=>'addimg')) }}      
+
 
 @include('layouts.show_form_errors')
 
 <div class="form-group">
       <button type="submit" class="btn btn-primary">Crear evento</button>
-      <button type="submit" class="btn btn-primary">Agregar imágenes</button>
+      <button type="submit" class="btn btn-primary" onclick="$('#addimg').val('1')">Agregar imágenes</button>
 </div>        
 
 {{ Form::close() }}
@@ -217,9 +280,11 @@
                   language: 'es',
                   pickTime: false,
             });
-      });
-      $(function() {
             $('#datetimepicker2').datetimepicker({
+                  language: 'es',
+                  pickTime: false,
+            });
+            $('#datetimepicker3').datetimepicker({
                   language: 'es',
                   pickTime: false,
             });
@@ -281,8 +346,11 @@
 <script>
       function save_map(event) {
             $('#latlng').val(event.latLng);
-            createMarker_map({map: map, position: event.latLng});
+            createMarker_map(
+                    {map: map, position: event.latLng}
+            );
       }
+
 </script>
 
 <script type="text/javascript">
@@ -290,7 +358,25 @@
 </script>
 
 <script>
+      $("#1").click(function() {
+            sumar_fecha(30);
+      });
+      $("#2").click(function() {
+            sumar_fecha(60);
+      });
+      $("#3").click(function() {
+            sumar_fecha(90);
+      });
+      $("#gratis").click(function() {
+            sumar_fecha(15);
+      });
 
+      function sumar_fecha(dias) {
+            var day = moment($('#vig_ini').val(), "DD-MM-YYYY HH:mm");
+
+            day.add('days', dias);
+            $('#vig_fin').val(day.format("DD-MM-YYYY HH:mm"));
+      }
 </script>
 @stop
 

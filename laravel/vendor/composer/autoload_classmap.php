@@ -2272,6 +2272,7 @@ return array(
     'Sph\\Services\\Validators\\Negocio_especial' => $baseDir . '/app/repositories/Sph/Services/Validators/Negocio_especial.php',
     'Sph\\Services\\Validators\\Pago' => $baseDir . '/app/repositories/Sph/Services/Validators/Pago.php',
     'Sph\\Services\\Validators\\Promocion' => $baseDir . '/app/repositories/Sph/Services/Validators/Promocion.php',
+    'Sph\\Services\\Validators\\Publicacion' => $baseDir . '/app/repositories/Sph/Services/Validators/Publicacion.php',
     'Sph\\Services\\Validators\\Subcategoria' => $baseDir . '/app/repositories/Sph/Services/Validators/Subcategoria.php',
     'Sph\\Services\\Validators\\User' => $baseDir . '/app/repositories/Sph/Services/Validators/User.php',
     'Sph\\Services\\Validators\\Validator' => $baseDir . '/app/repositories/Sph/Services/Validators/Validator.php',
