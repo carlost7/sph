@@ -2,7 +2,7 @@
 
 @section('wrapper')
 <div class="container">
-      @include('layouts.show_catalog')
+      <!-- @include('layouts.show_catalog')-->
       <div class="row">
             <div class="col-sm-12">
                   <h1>Eventos</h1>

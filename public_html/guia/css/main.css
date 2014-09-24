@@ -6,8 +6,9 @@
 
 
 body {
-    padding-top: 60px;
+    padding-top: 120px;
     padding-bottom: 20px;
+    font-family:Raleway !important;
 }
 
 .published{
@@ -47,6 +48,135 @@ body {
     overflow: auto;
     max-height: 300px;    
 }
+
+
+
+/*  HEADER STYLE  */
+
+#header{
+background:#000;
+width:100%;
+height:75px;
+}
+#contenedorHEADER{
+width: 100%;
+}
+.menuHEADER, .menuHEADER ul, .menuHEADER li, .menuHEADER a{
+margin: 0;
+padding: 0;
+border: none;
+outline: none;
+}
+.menuHEADER {
+height: 75px;
+width:60%;
+background:#000;
+float:left;
+
+}
+.menuHEADER li {
+position: relative;
+list-style: none;
+float: left;
+display: block;
+}
+
+
+.menuHEADER li a.estoy {
+    background:#5e58d4;
+}
+
+.menuHEADER a {
+display:block;
+padding: 0 22px;
+margin:5px 0;
+height:65px;
+font-weight: 600;
+line-height: 65px;
+text-decoration: none;
+font-size: 13px;
+color: #fff;
+border-left: 1px solid #5e58d4;
+/*border-right: 1px solid #4f5058;*/
+transition: color .2s ease-in-out;
+-moz-transition: color .2s ease-in-out;
+-webkit-transition: color .2s ease-in-out;
+-o-transition: color .2s ease-in-out;
+-ms-transition: color .2s ease-in-out;
+}
+
+.menuHEADER a img {
+margin: -5px 0;
+height: 73px;
+}
+
+.menuHEADER li:first-child a {
+border-left: none;
+    border-right: none;
+    padding:0 22px 0 0;
+}
+
+.menuHEADER li:nth-child(2) a{
+border-left: none;
+    border-right: none;
+}
+
+.menuHEADER li:last-child a {border-right: none;}
+
+.menuHEADER li:hover > a {color: #3edac0;;}
+
+.menuHEADER ul{
+position: absolute;
+top: 60px;
+left:0;
+opacity: 0;
+background: #000;
+border-bottom: 2px solid #f96069;
+transition: opacity  .20s ease .1s;
+-webkit-transition: opacity  .20s ease .1s;
+-moz-transition: opacity  .20s ease .1s;
+-o-transition: opacity  .20s ease .1s;
+-ms-transition: opacity  .20s ease .1s;
+}
+
+.menuHEADER li:hover ul{
+padding: 0 0 30px 0;
+}
+
+.menuHEADER li:hover > ul { opacity: 1; }
+.menuHEADER ul li {
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+ 
+    -webkit-transition: height .25s ease .1s;
+    -moz-transition: height .25s ease .1s;
+    -o-transition: height .25s ease .1s;
+    -ms-transition: height .25s ease .1s;
+    transition: height .25s ease .1s;
+}
+.menuHEADER li:hover > ul li {
+    height: 36px;
+    overflow: visible;
+    padding: 0 15px;
+}
+.menuHEADER ul li a { 
+    width: 150px;
+    padding: 4px 10px !important;
+    margin: 0;
+ 
+    border: none;
+    
+}
+
+.menuHEADER ul li a:before {
+    content: "• ";
+padding-right: 9px;
+color: #fecd2f;
+opacity: 0.8;
+}
+
+.menuHEADER ul li:last-child a { border: none; }
 
 
 

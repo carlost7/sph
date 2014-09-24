@@ -3,7 +3,9 @@
 @section('wrapper')
 <div class="container">
       
-      @include('layouts.show_catalog')
+     <!-- @include('layouts.show_catalog')-->
+     
+     
       <div class="row">
             <div class="col-sm-8">
                   <h2>Negocios</h2>
@@ -74,3 +76,8 @@
 
 
 @stop
+            
+          
+            {{ HTML::script('js/classie.js') }}
+            @section('scripts')
+            @show

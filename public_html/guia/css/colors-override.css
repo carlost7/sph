@@ -250,7 +250,7 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family:'Raleway';
   font-size: 14px;
   line-height: 1.428571429;
   color: #4f1273;
@@ -385,7 +385,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family:'Raleway';
   font-weight: 500;
   line-height: 1.1;
 }
@@ -1532,30 +1532,48 @@ input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   height: auto;
 }
+
+/* Form guia buscador*/
+
+.form_guia{
+  float:left;
+  width:40%;
+  margin:18px 0 0 0;
+}
+
+#btn_guia{
+  background:#3edac0;
+  border:0;
+  border-radius:10px 0 10px 0;
+  height:42px;
+  width:75%;
+  font-weight:700;
+}
+
 .form-control:-moz-placeholder {
-  color: #f95f68;
+  color: #878787; 
 }
 .form-control::-moz-placeholder {
-  color: #f95f68;
+  color: #878787;
 }
 .form-control:-ms-input-placeholder {
-  color: #f95f68;
+  color: #878787;
 }
 .form-control::-webkit-input-placeholder {
-  color: #f95f68;
+  color: #878787;
 }
 .form-control {
   display: block;
   width: 100%;
-  height: 34px;
-  padding: 6px 12px;
+  height: 42px;
+  padding: 12px 20px;
   font-size: 14px;
   line-height: 1.428571429;
   color: #4f1273;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #cccccc;
-  border-radius: 4px;
+  border-radius: 10px 0 10px 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
@@ -3901,8 +3919,10 @@ textarea.input-group-sm > .input-group-btn > .btn {
   color: #333333;
 }
 .navbar-inverse {
-  background-color: #090709;
+  background-color: #000000;
   border-color: #000000;
+  
+  height:75px;
 }
 .navbar-inverse .navbar-brand {
   color: #f95f68;
@@ -3916,7 +3936,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
   color: #f95f68;
 }
 .navbar-inverse .navbar-nav > li > a {
-  color: #f95f68;
+  color: #fff;
+  padding:10px 20px;
 }
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
@@ -3949,6 +3970,14 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-inverse .navbar-form {
   border-color: #000000;
 }
+
+.navbar-collapse.collapse {
+  background: #f96069;
+  height:40px !important;
+  clear:both;
+}
+
+
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus {
