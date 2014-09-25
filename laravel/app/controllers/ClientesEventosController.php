@@ -86,7 +86,7 @@ class clientesEventosController extends \BaseController
             $input = array('imagen' => Input::File('imagen'));
             $validatorImagen = new Sph\Services\Validators\Imagen($input, 'save');
 
-            if ($validatorEvento->passes() & $validatorMasinfo->passes() & $validatorCatalogo->passes() & $validatorImagen->passes() & $validatorEspecial->passes())
+            if ($validatorEvento->passes() & $validatorMasinfo->passes() & $validatorCatalogo->passes() & $validatorImagen->passes() & $validatorEspecial->passes() & $validatorPublicacion->passes())
             {
                   $evento_model = Input::all();
                   $evento_model = array_add($evento_model, 'cliente', Auth::user()->userable);

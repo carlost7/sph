@@ -52,6 +52,74 @@
       @endif
 </div>
 
+@if($editar_publicacion)
+<div class="form-group">
+      <div class="row">
+            <div class="col-sm-12">
+                  {{ Form::label('publicacion','Publicar contenido') }}
+            </div>            
+      </div>
+      <div class="row">
+            <div class="col-sm-12">
+                  <label id="mod_pub">
+                        {{ Form::checkbox('modificar_publicacion',true,false,array('id'=>'modificar_publicacion')) }} 
+                        Modificar fechas de publicación
+                  </label>
+            </div>
+      </div>
+      <div class="row">
+            <div class="col-sm-6 publicacion" >
+                  {{ Form::label('publicacion_inicio', 'Inicio de publicación') }}
+                  <div class='input-group date' id='datetimepicker3' data-date-format="DD-MM-YYYY">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <input type='text' class="form-control" name="publicacion_inicio" value="{{ date('d-m-Y',strtotime($evento->publicacion_inicio)) }}" id="vig_ini" placeholder="fecha de inicio de la publicación" />
+                  </div>
+            </div>
+            <div class="col-sm-6 publicacion" >
+                  {{ Form::label('publicacion_fin', 'Fin de la publicación') }}      
+                  <div class='input-group date' id='datetimepicker4' data-date-format="DD-MM-YYYY">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <input type='text' class="form-control" name="publicacion_fin" value="{{ date('d-m-Y',strtotime($evento->publicacion_fin)) }}" id="vig_fin" placeholder="fecha de finalización de la publicación" readonly="true"/>
+                  </div>
+            </div>
+      </div>      
+</div>
+<div class="form-group" id="editar_publicacion">
+      <div class="row">
+            <div class="col-sm-12">
+                  {{ Form::label('vigencia','Vigencia de la publicación') }}                  
+            </div>
+      </div>      
+
+      <div class="row">
+            <div class="col-sm-3">
+                  <div class="radio">
+                        <label id="1" class="publicacion">
+                              {{ Form::radio('tiempo_publicacion',1) }}            
+                              1 Mes
+                        </label>
+                  </div>
+            </div>
+            <div class="col-sm-3">
+                  <div class="radio">
+                        <label id="2" class="publicacion">                               
+                              {{ Form::radio('tiempo_publicacion',2) }}                       
+                              2 Meses
+                        </label>
+                  </div>
+            </div>
+            <div class="col-sm-3">
+                  <div class="radio">
+                        <label id="3" class="publicacion">                              
+                              {{ Form::radio('tiempo_publicacion',3) }}                       
+                              3 Meses
+                        </label>
+                  </div>
+            </div>
+      </div>      
+</div>
+@endif
+
 
 @include('layouts.show_form_errors')
 
@@ -111,6 +179,25 @@
                   }
             });
       });
+</script>
+
+<script>
+      $('.clockpicker').clockpicker();
+
+      $("#1").click(function() {
+            sumar_fecha(30);
+      });
+      $("#2").click(function() {
+            sumar_fecha(60);
+      });
+      $("#3").click(function() {
+            sumar_fecha(90);
+      });      
+      function sumar_fecha(dias) {
+            var day = moment($('#vig_ini').val(), "DD-MM-YYYY");
+            day.add('days', dias);
+            $('#vig_fin').val(day.format("DD-MM-YYYY"));
+      }
 </script>
 
 @stop

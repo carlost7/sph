@@ -28,7 +28,11 @@
                   ${{ $pago->monto }}
             </p>            
             <p>
-                  {{ $pago->created_at }}
+                  @if(is_a($pago->pagable, Promocion::class) || is_a($pago->pagable, Evento::class))
+                  Fechas de publicación: {{ date('d-m-Y',strtotime($pago->pagable->publicacion_inicio)).' - '.date('d-m-Y',strtotime($pago->pagable->publicacion_fin)) }}
+                  @else
+                  Pago generado: {{ date('d-m-Y',strtotime($pago->updated_at)) }}
+                  @endif
             </p>       
             <p>
                   {{ $pago->status }}

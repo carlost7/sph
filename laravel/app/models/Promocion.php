@@ -7,11 +7,6 @@ class Promocion extends \Eloquent
       // Don't forget to fill this array
       protected $fillable = ['nombre', 'codigo', 'descripcion', 'vigencia_inicio', 'vigencia_fin', 'publicar'];
 
-      public function client()
-      {
-            return $this->belongsTo('Cliente', 'cliente_id', 'id');
-      }
-
       public function pago()
       {
             return $this->morphOne('Pago', 'pagable');

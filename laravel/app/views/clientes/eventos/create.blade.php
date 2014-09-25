@@ -184,8 +184,6 @@
 
       {{ $mapa['html'] }}      
 </div>        
-
-
 <div class="form-group">
       <div class="row">
             <div class="col-sm-12">
@@ -197,14 +195,14 @@
                   {{ Form::label('publicacion_inicio', 'Inicio de publicación') }}
                   <div class='input-group date' id='datetimepicker3' data-date-format="DD-MM-YYYY">
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                        <input type='text' class="form-control" name="publicacion_inicio" value="{{ Input::old('publicacion_inicio') }}" id="vig_ini" placeholder="fecha de inicio de la publicación" />
+                        <input type='text' class="form-control" name="publicacion_inicio" value="{{ Input::old('publicacion_inicio') }}" id="pub_ini" placeholder="fecha de inicio de la publicación" />
                   </div>
             </div>
             <div class="col-sm-6">
                   {{ Form::label('publicacion_fin', 'Fin de la publicación') }}      
                   <div class='input-group date' id='datetimepicker4' data-date-format="DD-MM-YYYY">
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                        <input type='text' class="form-control" name="publicacion_fin" value="{{ Input::old('publicacion_fin') }}" id="vig_fin" placeholder="fecha de finalización de la publicación" readonly="true"/>
+                        <input type='text' class="form-control" name="publicacion_fin" value="{{ Input::old('publicacion_fin') }}" id="pub_fin" placeholder="fecha de finalización de la publicación" readonly="true"/>
                   </div>
             </div>
       </div>      
@@ -371,11 +369,11 @@
             sumar_fecha(15);
       });
 
-      function sumar_fecha(dias) {
-            var day = moment($('#vig_ini').val(), "DD-MM-YYYY HH:mm");
-
+      function sumar_fecha(dias) {            
+            var day = moment($('#pub_ini').val(), "DD-MM-YYYY");
+            
             day.add('days', dias);
-            $('#vig_fin').val(day.format("DD-MM-YYYY HH:mm"));
+            $('#pub_fin').val(day.format("DD-MM-YYYY"));
       }
 </script>
 @stop

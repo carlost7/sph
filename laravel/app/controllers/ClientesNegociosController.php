@@ -83,7 +83,6 @@ class clientesNegociosController extends \BaseController
        */
       public function store()
       {
-
             $validatorNegocio = new Sph\Services\Validators\Negocio(Input::all(), 'save');
             $validatorHorario = new Sph\Services\Validators\HorarioNegocio(Input::all(), 'save');
             $validatorMasinfo = new Sph\Services\Validators\MasinfoNegocio(Input::all(), 'save');

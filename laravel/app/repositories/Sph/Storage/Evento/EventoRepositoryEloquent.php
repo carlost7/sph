@@ -150,9 +150,7 @@ class EventoRepositoryEloquent implements EventoRepository
             return null;
       }
 
-      public function
-
-      agregar_pago($evento_model, $pago_model)
+      public function agregar_pago($evento_model, $pago_model)
       {
 
             if ($evento_model->pago()->save($pago_model))
@@ -162,24 +160,6 @@ class EventoRepositoryEloquent implements EventoRepository
             else
             {
                   return null;
-            }
-      }
-
-      public function
-
-      activar($id)
-      {
-            $evento = Evento::find($id);
-            $evento->publicar = true;
-            $evento->is_activo = true;
-            $evento->fecha_nueva_activacion = \Carbon\Carbon::now()->addMonth();
-            if ($evento->save())
-            {
-                  return true;
-            }
-            else
-            {
-                  return false;
             }
       }
 

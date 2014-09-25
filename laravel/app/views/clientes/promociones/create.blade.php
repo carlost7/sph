@@ -25,52 +25,14 @@
       {{ Form::textArea('descripcion', Input::old('descripcion'), array('placeholder' => 'Descripcion', 'class'=>'form-control')) }}
 </div>
 <div class="form-group">
-      {{ Form::label('vigencia_inicio', 'Inicio') }}      
+      {{ Form::label('vigencia_inicio', 'Vigencia de la promoción (inicio)') }}      
       <div class='input-group date' id='datetimepicker1' data-date-format="DD-MM-YYYY HH:mm">
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             <input type='text' class="form-control" name="vigencia_inicio" value="{{ Input::old('vigencia_inicio') }}" id="vig_ini" placeholder="fecha de inicio" />
       </div>
 </div>        
 <div class="form-group">
-      {{ Form::label('vigencia','Vigencia de la promoción') }}
-      <div class="row">
-            <div class="col-sm-3">
-                  <div class="radio">
-                        <label id="semana">
-                              {{ Form::radio('tiempo_promo',1) }}            
-                              Semana
-                        </label>
-                  </div>
-            </div>
-            <div class="col-sm-3">
-                  <div class="radio">
-                        <label id="quincena">                               
-                              {{ Form::radio('tiempo_promo',2) }}                       
-                              Quincena
-                        </label>
-                  </div>
-            </div>
-            <div class="col-sm-3">
-                  <div class="radio">
-                        <label id="mes">                              
-                              {{ Form::radio('tiempo_promo',3) }}                       
-                              Mes
-                        </label>
-                  </div>
-            </div>
-            <div class="col-sm-3">
-                  <div class="radio">
-                        <label>
-                              {{ Form::radio('tiempo_promo',4,true) }}            
-                              Manual
-                        </label>
-                  </div>
-            </div>
-
-      </div>      
-</div>
-<div class="form-group">
-      {{ Form::label('vigencia_fin', 'Fin') }}      
+      {{ Form::label('vigencia_fin', 'Vigencia de la promoción (fin)') }}      
       <div class='input-group date' id='datetimepicker2' data-date-format="DD-MM-YYYY HH:mm">
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             <input type='text' class="form-control" name="vigencia_fin" value="{{ Input::old('vigencia_fin') }}" id="vig_fin" placeholder="fecha de finalización" />
@@ -84,6 +46,64 @@
       {{ Form::label('alt','Texto alternativo') }}
       {{ Form::text('alt',Input::old('alt'),array('placeholder' => 'Texto alternativo', 'class'=>'form-control')) }}
 
+</div>
+
+<div class="form-group">
+      <div class="row">
+            <div class="col-sm-12">
+                  {{ Form::label('publicacion','Publicar contenido') }}
+            </div>            
+      </div>
+      <div class="row">
+            <div class="col-sm-6">
+                  {{ Form::label('publicacion_inicio', 'Inicio de publicación') }}
+                  <div class='input-group date' id='datetimepicker3' data-date-format="DD-MM-YYYY">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <input type='text' class="form-control" name="publicacion_inicio" value="{{ Input::old('publicacion_inicio') }}" id="pub_ini" placeholder="fecha de inicio de la publicación" />
+                  </div>
+            </div>
+            <div class="col-sm-6">
+                  {{ Form::label('publicacion_fin', 'Fin de la publicación') }}      
+                  <div class='input-group date' id='datetimepicker4' data-date-format="DD-MM-YYYY">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <input type='text' class="form-control" name="publicacion_fin" value="{{ Input::old('publicacion_fin') }}" id="pub_fin" placeholder="fecha de finalización de la publicación" readonly="true"/>
+                  </div>
+            </div>
+      </div>      
+</div>        
+<div class="form-group">
+      <div class="row">
+            <div class="col-sm-12">
+                  {{ Form::label('vigencia','Vigencia de la publicación') }}
+                  <p>Elige el tiempo en que quieres que tu publicación este activa en la página, si eliges la publicación gratuita solo podrá mostrarse 2 semanas y los miembros no tendran posibilidad de ver el mapa o darle like a tu evento</p>
+            </div>
+      </div>      
+      <div class="row">
+            <div class="col-sm-3">
+                  <div class="radio">
+                        <label id="1">
+                              {{ Form::radio('tiempo_publicacion',1) }}            
+                              7 dias
+                        </label>
+                  </div>
+            </div>
+            <div class="col-sm-3">
+                  <div class="radio">
+                        <label id="2">                               
+                              {{ Form::radio('tiempo_publicacion',2) }}                       
+                              15 dias
+                        </label>
+                  </div>
+            </div>
+            <div class="col-sm-3">
+                  <div class="radio">
+                        <label id="3">                              
+                              {{ Form::radio('tiempo_publicacion',3) }}                       
+                              30 dias
+                        </label>
+                  </div>
+            </div>
+      </div>      
 </div>
 
 @include('layouts.show_form_errors')
@@ -110,18 +130,19 @@
 {{ HTML::script('js/vendor/bootstrap-file-input.js') }}
 
 <script type="text/javascript">
-      $(function() {
-            $('#datetimepicker1').datetimepicker({
-                  language: 'es',
-                  pick12HourFormat: false
+      $('#datetimepicker1').datetimepicker({
+            language: 'es',
+            pickTime: false,
 
-            });
       });
-      $(function() {
-            $('#datetimepicker2').datetimepicker({
-                  language: 'es',
-                  pick12HourFormat: false
-            });
+      $('#datetimepicker2').datetimepicker({
+            language: 'es',
+            pickTime: false,
+      });
+
+      $('#datetimepicker3').datetimepicker({
+            language: 'es',
+            pickTime: false,
       });
 </script>
 
@@ -147,23 +168,23 @@
 </script>
 
 <script>
-      $("#semana").click(function() {
+      $("#1").click(function() {
             sumar_fecha(7);
       });
-      $("#quincena").click(function() {
-            sumar_fecha(15);
+      $("#2").click(function() {
+            sumar_fecha(14);
       });
-      $("#mes").click(function() {
+      $("#3").click(function() {
             sumar_fecha(30);
       });
-      
-      function sumar_fecha(dias){
-            var day = moment($('#vig_ini').val(),"DD-MM-YYYY HH:mm");
+
+      function sumar_fecha(dias) {
+            var day = moment($('#pub_ini').val(), "DD-MM-YYYY");
             
-            day.add('days',dias);
-            $('#vig_fin').val(day.format("DD-MM-YYYY HH:mm"));
+            day.add('days', dias);
+            $('#pub_fin').val(day.format("DD-MM-YYYY"));
       }
-      
+
 </script>
 @stop
 
