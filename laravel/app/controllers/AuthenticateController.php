@@ -78,13 +78,13 @@ class AuthenticateController extends \BaseController
                   Session::put('uid', $user->uid);
                   Session::put('oauth_token', $token->getIdentifier());
                   Session::put('oauth_token_secret', $token->getSecret());
-                  Session::save();
+                  //Session::save();
 
                   return Redirect::route('authenticate.register');
             }
             catch (Exception $e)
             {
-                  Log::error("Authenticate::callback ".print_r($e));
+                  Log::error("Authenticate::callback ".print_r($e,true));
                   return App::abort(404);
             }
       }
