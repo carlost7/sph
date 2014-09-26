@@ -65,7 +65,15 @@ class PromocionRepositoryEloquent implements PromocionRepository
                   $promocion->fill($promocion_model);
                   $promocion->vigencia_inicio = new \DateTime($promocion_model['vigencia_inicio']);
                   $promocion->vigencia_fin = new \DateTime($promocion_model['vigencia_fin']);
-
+                  if (isset($promocion_model['publicacion_inicio']))
+                  {
+                        $promocion->publicacion_inicio = new \DateTime($promocion_model['publicacion_inicio']);
+                  }
+                  if (isset($promocion_model['publicacion_fin']))
+                  {
+                        $promocion->publicacion_fin = new \DateTime($promocion_model['publicacion_fin']);
+                  }                  
+                  
                   if ($promocion->save())
                   {
 

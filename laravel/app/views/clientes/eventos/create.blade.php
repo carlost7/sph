@@ -273,20 +273,20 @@
 
 {{ $mapa['js'] }}
 <script type="text/javascript">
-      $(function() {
-            $('#datetimepicker1').datetimepicker({
-                  language: 'es',
-                  pickTime: false,
-            });
-            $('#datetimepicker2').datetimepicker({
-                  language: 'es',
-                  pickTime: false,
-            });
-            $('#datetimepicker3').datetimepicker({
-                  language: 'es',
-                  pickTime: false,
-            });
+
+      $('#datetimepicker1').datetimepicker({
+            language: 'es',
+            pickTime: false,
       });
+      $('#datetimepicker2').datetimepicker({
+            language: 'es',
+            pickTime: false,
+      });
+      $('#datetimepicker3').datetimepicker({
+            language: 'es',
+            pickTime: false,
+      });
+
 </script>
 
 <script>
@@ -369,9 +369,9 @@
             sumar_fecha(15);
       });
 
-      function sumar_fecha(dias) {            
+      function sumar_fecha(dias) {
             var day = moment($('#pub_ini').val(), "DD-MM-YYYY");
-            
+
             day.add('days', dias);
             $('#pub_fin').val(day.format("DD-MM-YYYY"));
       }

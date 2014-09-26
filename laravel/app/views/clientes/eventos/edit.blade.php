@@ -219,7 +219,7 @@
 <div class="form-group" id="editar_publicacion">
       <div class="row">
             <div class="col-sm-12">
-                  {{ Form::label('vigencia','Vigencia de la publicación') }}                  
+                  {{ Form::label('vigencia','Tiempo de la publicación') }}                  
             </div>
       </div>      
 
@@ -289,17 +289,21 @@
 {{ HTML::script('js/vendor/bootstrap-clockpicker.min.js') }}
 
 <script>
-      $(function() {
-            $('#datetimepicker1').datetimepicker({
-                  language: 'es',
-                  pickTime: false,
-            })
+
+      $('#datetimepicker1').datetimepicker({
+            language: 'es',
+            pickTime: false,
+      })
+
+
+      $('#datetimepicker2').datetimepicker({
+            language: 'es',
+            pickTime: false,
       });
-      $(function() {
-            $('#datetimepicker2').datetimepicker({
-                  language: 'es',
-                  pickTime: false,
-            });
+
+      $('#datetimepicker3').datetimepicker({
+            language: 'es',
+            pickTime: false,
       });
 </script>
 
@@ -395,9 +399,9 @@
 
 <script>
       $(function() {
-            $('.publicacion :input').attr('disabled',true);
+            $('.publicacion :input').attr('disabled', true);
       });
-      
+
       $("#modificar_publicacion").click(function() {
             if ($('#modificar_publicacion').is(':checked')) {
                   $('.publicacion :input').attr('disabled', false);
