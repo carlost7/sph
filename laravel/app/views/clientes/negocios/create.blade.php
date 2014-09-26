@@ -305,19 +305,11 @@
       {{ $mapa['html'] }}      
       @endif
 </div>        
-<div class="form-group">
-      <div class="checkbox">
-            <label>
-                  {{ Form::checkbox('add_images', true) }}      
-                  agregar o editar imagenes extra
-            </label>
-      </div>
-</div>
-
+{{ Form::hidden('add_images',false,array('id'=>'addimg')) }}      
 @include('layouts.show_form_errors')
-
 <div class="form-group">
       <button type="submit" class="btn btn-primary">Crear negocio</button>
+      <button type="submit" class="btn btn-primary" onclick="$('#addimg').val('1')">Agregar Imagenes</button>
 </div>        
 
 {{ Form::close() }}
@@ -397,14 +389,14 @@
 </script>
 
 <script>
-      $('#ini').focusout(function(){
+      $('#ini').focusout(function() {
             valor = $('#ini').val();
-            
+
             $(".timeini").val(valor);
       });
-      $('#fin').focusout(function(){
+      $('#fin').focusout(function() {
             valor = $('#fin').val();
-            
+
             $(".timefin").val(valor);
       });
 </script>

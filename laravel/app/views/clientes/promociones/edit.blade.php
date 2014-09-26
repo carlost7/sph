@@ -52,6 +52,74 @@
       @endif
 </div>
 
+@if($editar_publicacion)
+<div class="form-group">
+      <div class="row">
+            <div class="col-sm-12">
+                  {{ Form::label('publicacion','Publicar contenido') }}
+            </div>            
+      </div>
+      <div class="row">
+            <div class="col-sm-12">
+                  <label id="mod_pub">
+                        {{ Form::checkbox('modificar_publicacion',true,false,array('id'=>'modificar_publicacion')) }} 
+                        Modificar fechas de publicación
+                  </label>
+            </div>
+      </div>
+      <div class="row">
+            <div class="col-sm-6 publicacion" >
+                  {{ Form::label('publicacion_inicio', 'Inicio de publicación') }}
+                  <div class='input-group date' id='datetimepicker3' data-date-format="DD-MM-YYYY">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <input type='text' class="form-control" name="publicacion_inicio" value="{{ date('d-m-Y',strtotime($promocion->publicacion_inicio)) }}" id="pub_ini" placeholder="fecha de inicio de la publicación" />
+                  </div>
+            </div>
+            <div class="col-sm-6 publicacion" >
+                  {{ Form::label('publicacion_fin', 'Fin de la publicación') }}      
+                  <div class='input-group date' id='datetimepicker4' data-date-format="DD-MM-YYYY">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <input type='text' class="form-control" name="publicacion_fin" value="{{ date('d-m-Y',strtotime($promocion->publicacion_fin)) }}" id="pub_fin" placeholder="fecha de finalización de la publicación" readonly="true"/>
+                  </div>
+            </div>
+      </div>      
+</div>
+<div class="form-group" id="editar_publicacion">
+      <div class="row">
+            <div class="col-sm-12">
+                  {{ Form::label('vigencia','Tiempo de la publicación') }}                  
+            </div>
+      </div>      
+
+      <div class="row">
+            <div class="col-sm-3">
+                  <div class="radio">
+                        <label id="1" class="publicacion">
+                              {{ Form::radio('tiempo_publicacion',1) }}            
+                              7 dias
+                        </label>
+                  </div>
+            </div>
+            <div class="col-sm-3">
+                  <div class="radio">
+                        <label id="2" class="publicacion">                               
+                              {{ Form::radio('tiempo_publicacion',2) }}                       
+                              14 dias
+                        </label>
+                  </div>
+            </div>
+            <div class="col-sm-3">
+                  <div class="radio">
+                        <label id="3" class="publicacion">                              
+                              {{ Form::radio('tiempo_publicacion',3) }}                       
+                              30 dias
+                        </label>
+                  </div>
+            </div>
+      </div>      
+</div>
+@endif
+
 
 @include('layouts.show_form_errors')
 
@@ -76,19 +144,21 @@
 {{ HTML::script('js/vendor/bootstrap-datetimepicker.es.js') }}
 {{ HTML::script('js/vendor/bootstrap-file-input.js') }}
 
-<script type="text/javascript">
-      $(function() {
-            $('#datetimepicker1').datetimepicker({
-                  language: 'es',
-                  pick12HourFormat: false
+<script>
+      $('#datetimepicker1').datetimepicker({
+            language: 'es',
+            pickTime: false,
+      })
 
-            });
+
+      $('#datetimepicker2').datetimepicker({
+            language: 'es',
+            pickTime: false,
       });
-      $(function() {
-            $('#datetimepicker2').datetimepicker({
-                  language: 'es',
-                  pick12HourFormat: false
-            });
+
+      $('#datetimepicker3').datetimepicker({
+            language: 'es',
+            pickTime: false,
       });
 </script>
 
@@ -111,6 +181,37 @@
                   }
             });
       });
+</script>
+
+<script>
+      $(function() {
+            $('.publicacion :input').attr('disabled', true);
+      });
+
+      $("#modificar_publicacion").click(function() {
+            if ($('#modificar_publicacion').is(':checked')) {
+                  $('.publicacion :input').attr('disabled', false);
+            } else {
+                  $('.publicacion :input').prop('disabled', true);
+            }
+      });
+</script>
+
+<script>
+      $("#1").click(function() {
+            sumar_fecha(7);
+      });
+      $("#2").click(function() {
+            sumar_fecha(14);
+      });
+      $("#3").click(function() {
+            sumar_fecha(30);
+      });
+      function sumar_fecha(dias) {
+            var day = moment($('#pub_ini').val(), "DD-MM-YYYY");
+            day.add('days', dias);
+            $('#pub_fin').val(day.format("DD-MM-YYYY"));
+      }            
 </script>
 
 @stop

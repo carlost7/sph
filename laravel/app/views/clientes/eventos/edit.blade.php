@@ -1,7 +1,6 @@
 @extends('layouts.client_dashboard_master')
 
 @section('content')
-
 @if($evento)
 <h2>Editar: {{ $evento->nombre }}</h2>
 
@@ -12,19 +11,43 @@
       {{ Form::text('nombre', $evento->nombre, array('placeholder' => 'nombre del negocio', 'class'=>'form-control')) }}
 </div>
 <div class="form-group">
-      {{ Form::label('fecha_inicio', 'Fecha de inicio') }}      
-      <div class='input-group date' id='datetimepicker1' data-date-format="DD-MM-YYYY HH:mm">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-            <input type='text' class="form-control" name="fecha_inicio" value="{{ date('d-m-Y H:i',strtotime($evento->fecha_inicio)) }}" placeholder="fecha de inicio" />
+      <div class="row">
+            <div class="col-sm-6">
+                  {{ Form::label('fecha_inicio', 'Fecha de inicio') }}      
+                  <div class='input-group date' id='datetimepicker1' data-date-format="DD-MM-YYYY">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <input type='text' class="form-control" name="fecha_inicio" value="{{ date('d-m-Y',strtotime($evento->fecha_inicio)) }}" placeholder="fecha de inicio" />
+                  </div>                  
+            </div>      
+            <div class="col-sm-6">
+                  {{ Form::label('fecha_fin', 'Fecha de finalización') }}      
+                  <div class='input-group date' id='datetimepicker2' data-date-format="DD-MM-YYYY">
+                        <input type='text' class="form-control" name="fecha_fin" value="{{ date('d-m-Y',strtotime($evento->fecha_fin)) }}" placeholder="fecha de finalización" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                  </div>
+            </div>
+      </div>
+      <div class="row">
+            <div class="col-sm-6">
+                  {{ Form::label('hora_inicio','Hora inicio') }}
+                  <div class="input-group clockpicker" data-autoclose="true">
+                        <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-time"></span>
+                        </span>
+                        <input type="text" class="form-control" name="hora_inicio" value="{{ date('H:i',strtotime($evento->hora_inicio))}}">
+                  </div> 
+            </div>
+            <div class="col-sm-6">
+                  {{ Form::label('hora_fin','Hora termino') }}
+                  <div class="input-group clockpicker" data-autoclose="true">
+                        <input type="text" class="form-control" name="hora_fin" value="{{ date('H:i',strtotime($evento->hora_fin))}}">
+                        <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-time"></span>
+                        </span>
+                  </div> 
+            </div>
       </div>
 </div>        
-<div class="form-group">
-      {{ Form::label('fecha_fin', 'Fecha de finalización') }}      
-      <div class='input-group date' id='datetimepicker2' data-date-format="DD-MM-YYYY HH:mm">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-            <input type='text' class="form-control" name="fecha_fin" value="{{ date('d-m-Y H:i',strtotime($evento->fecha_fin)) }}" placeholder="fecha de finalización" />
-      </div>
-</div>
 <div class="form-group">
       {{ Form::label('lugar', 'Lugar') }}
       {{ Form::text('lugar', $evento->lugar, array('placeholder' => 'lugar', 'class'=>'form-control')) }}
@@ -41,35 +64,8 @@
       {{ Form::label('telefono', 'Teléfono') }}
       {{ Form::text('telefono', $evento->telefono, array('placeholder' => 'teléfono', 'class'=>'form-control')) }}
 </div>
-<div class="form-group">      
-      <div class="row">
-            <div class="col-sm-12">
-                  {{ Form::label('horario','Horario') }}
-            </div>
-      </div>
-      <div class="row">
-            <div class="col-sm-6">
-                  {{ Form::label('hora_inicio','Inicia') }}
-                  <div class="input-group clockpicker" data-autoclose="true">
-                        <input type="text" class="form-control" name="hora_inicio" value="{{ date('H:i',strtotime($evento->hora_inicio))}}">
-                        <span class="input-group-addon">
-                              <span class="glyphicon glyphicon-time"></span>
-                        </span>
-                  </div>                             
-            </div>
-            <div class="col-sm-6">
-                  {{ Form::label('hora_fin','Termina') }}
-                  <div class="input-group clockpicker" data-autoclose="true">
-                        <input type="text" class="form-control" name="hora_inicio" value="{{ date('H:i',strtotime($evento->hora_fin))}}">
-                        <span class="input-group-addon">
-                              <span class="glyphicon glyphicon-time"></span>
-                        </span>
-                  </div>
-            </div>
-      </div>
-</div>
 <div class="form-group">
-      {{ Form::label('mas_infor','Más información') }}
+      {{ Form::label('mas_info','Más información') }}
       <div class="row">
             <div class="col-sm-6">
                   {{ Form::label('moneda','Moneda') }}
@@ -142,7 +138,7 @@
             </div>
             <div class="col-sm-6">
                   {{ Form::label('zona','Zona') }}
-                  {{ Form::select('zona', array(),$evento->zona->id,array('class'=>'form-control', 'id'=>'zonas')) }}
+                  {{ Form::select('zona', array(),(count($evento->zona))?$evento->zona->id:'',array('class'=>'form-control', 'id'=>'zonas')) }}
             </div>
       </div>
       <div class="row">
@@ -152,7 +148,7 @@
             </div>
             <div class="col-sm-6">
                   {{ Form::label('subcategoria','subcategoria') }}
-                  {{ Form::select('subcategoria', array(),$evento->subcategoria->id,array('class'=>'form-control', 'id'=>'subcats')) }}
+                  {{ Form::select('subcategoria', array(), (count($evento->subcategoria))?$evento->subcategoria->id:'',array('class'=>'form-control', 'id'=>'subcats')) }}
             </div>
       </div>
 </div>
@@ -186,23 +182,93 @@
       {{ Form::hidden('mapa',($evento->especial) ? $evento->especial->mapa : '',array('id'=>'latlng')) }}
       {{ $mapa['js'] }}
       {{ $mapa['html'] }}      
-</div>        
+</div>  
+
+@if($editar_publicacion)
 <div class="form-group">
-      <div class="checkbox">
-            <label>
-                  {{ Form::checkbox('add_images', true) }}      
-                  agregar o editar imagenes especiales
-            </label>
+      <div class="row">
+            <div class="col-sm-12">
+                  {{ Form::label('publicacion','Publicar contenido') }}
+            </div>            
       </div>
+      <div class="row">
+            <div class="col-sm-12">
+                  <label id="mod_pub">
+                        {{ Form::checkbox('modificar_publicacion',true,false,array('id'=>'modificar_publicacion')) }} 
+                        Modificar fechas de publicación
+                  </label>
+            </div>
+      </div>
+      <div class="row">
+            <div class="col-sm-6 publicacion" >
+                  {{ Form::label('publicacion_inicio', 'Inicio de publicación') }}
+                  <div class='input-group date' id='datetimepicker3' data-date-format="DD-MM-YYYY">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <input type='text' class="form-control" name="publicacion_inicio" value="{{ date('d-m-Y',strtotime($evento->publicacion_inicio)) }}" id="vig_ini" placeholder="fecha de inicio de la publicación" />
+                  </div>
+            </div>
+            <div class="col-sm-6 publicacion" >
+                  {{ Form::label('publicacion_fin', 'Fin de la publicación') }}      
+                  <div class='input-group date' id='datetimepicker4' data-date-format="DD-MM-YYYY">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <input type='text' class="form-control" name="publicacion_fin" value="{{ date('d-m-Y',strtotime($evento->publicacion_fin)) }}" id="vig_fin" placeholder="fecha de finalización de la publicación" readonly="true"/>
+                  </div>
+            </div>
+      </div>      
 </div>
+<div class="form-group" id="editar_publicacion">
+      <div class="row">
+            <div class="col-sm-12">
+                  {{ Form::label('vigencia','Tiempo de la publicación') }}                  
+            </div>
+      </div>      
+
+      <div class="row">
+            <div class="col-sm-3">
+                  <div class="radio">
+                        <label id="1" class="publicacion">
+                              {{ Form::radio('tiempo_publicacion',1) }}            
+                              1 Mes
+                        </label>
+                  </div>
+            </div>
+            <div class="col-sm-3">
+                  <div class="radio">
+                        <label id="2" class="publicacion">                               
+                              {{ Form::radio('tiempo_publicacion',2) }}                       
+                              2 Meses
+                        </label>
+                  </div>
+            </div>
+            <div class="col-sm-3">
+                  <div class="radio">
+                        <label id="3" class="publicacion">                              
+                              {{ Form::radio('tiempo_publicacion',3) }}                       
+                              3 Meses
+                        </label>
+                  </div>
+            </div>
+            <div class="col-sm-3">
+                  <div class="radio">
+                        <label id="gratis" class="publicacion">
+                              {{ Form::radio('tiempo_publicacion',4) }}            
+                              Gratis
+                        </label>
+                  </div>
+            </div>
+
+      </div>      
+</div>
+@endif
 
 
+{{ Form::hidden('add_images',false,array('id'=>'addimg')) }}                        
 @include('layouts.show_form_errors')
 
 <div class="form-group">
       <button type="submit" class="btn btn-primary">Editar evento</button>
-</div>        
-
+      <button type="submit" class="btn btn-primary" onclick="$('addimg').val('1')">Agregar imágenes</button>
+</div>
 
 {{ Form::close() }}
 
@@ -222,25 +288,27 @@
 {{ HTML::script('js/vendor/bootstrap-file-input.js') }}
 {{ HTML::script('js/vendor/bootstrap-clockpicker.min.js') }}
 
-<script type="text/javascript">
-      $(function() {
-            $('#datetimepicker1').datetimepicker({
-                  language: 'es',
-                  pickTime: false,                  
+<script>
 
-            });
+      $('#datetimepicker1').datetimepicker({
+            language: 'es',
+            pickTime: false,
+      })
+
+
+      $('#datetimepicker2').datetimepicker({
+            language: 'es',
+            pickTime: false,
       });
-      $(function() {
-            $('#datetimepicker2').datetimepicker({
-                  language: 'es',
-                  pickTime: false,                  
-            });
+
+      $('#datetimepicker3').datetimepicker({
+            language: 'es',
+            pickTime: false,
       });
 </script>
 
 <script>
       $('.file-inputs').bootstrapFileInput();
-
       $(function() {
             $('#uploadFile').on("change", function() {
                   var files = !!this.files ? this.files : [];
@@ -260,7 +328,7 @@
 </script>
 
 <script>
-      $(document).ready(function() {
+      $(function() {
             $('#estados').change(function() {
                   var estado_id = $("#estados").val();
                   url = base_url + "/obtener_zona/" + estado_id;
@@ -268,18 +336,15 @@
                         $("#zonas").empty();
                         for (i = 0; i < data.length; i++) {
                               resultado = data[i];
-                              if(resultado.id == {{$evento->zona->id}}){
+                              if (resultado.id === '{{(count($evento->zona))?$evento->zona->id:""}}') {
                                     elemento = "<option value=" + resultado.id + " selected >" + resultado.zona + "</option>";
-                              }else{
+                              } else {
                                     elemento = "<option value=" + resultado.id + ">" + resultado.zona + "</option>";
                               }
-                              
                               $("#zonas").append(elemento);
-                        }                        
+                        }
                   });
-                  
             }).trigger('change');
-
             $('#categorias').change(function() {
                   var categoria_id = $("#categorias").val();
                   url = base_url + "/obtener_subcategoria/" + categoria_id;
@@ -287,9 +352,9 @@
                         $("#subcats").empty();
                         for (i = 0; i < data.length; i++) {
                               resultado = data[i];
-                              if(resultado.id == {{$evento->subcategoria->id}}){
+                              if (resultado.id === '{{(count($evento->subcategoria))?$evento->subcategoria->id:""}}') {
                                     elemento = "<option value=" + resultado.id + " selected >" + resultado.subcategoria + "</option>";
-                              }else{
+                              } else {
                                     elemento = "<option value=" + resultado.id + ">" + resultado.subcategoria + "</option>";
                               }
                               $("#subcats").append(elemento);
@@ -297,22 +362,54 @@
                   });
             }).trigger('change');
       });
-     
 </script>
-
 
 <script>
-      function save_map(event){
+      function save_map(event) {
             $('#latlng').val(event.latLng);
-            createMarker_map({ map: map, position:event.latLng });
+            createMarker_map({map: map, position: event.latLng});
       }
-      
-      function edit_map(event){  
-            $('#latlng').val(event.latLng);            
+
+      function edit_map(event) {
+            $('#latlng').val(event.latLng);
       }
 </script>
 
-<script type="text/javascript">
+<script>
       $('.clockpicker').clockpicker();
+
+      $("#1").click(function() {
+            sumar_fecha(30);
+      });
+      $("#2").click(function() {
+            sumar_fecha(60);
+      });
+      $("#3").click(function() {
+            sumar_fecha(90);
+      });
+      $("#gratis").click(function() {
+            sumar_fecha(15);
+      });
+      function sumar_fecha(dias) {
+            var day = moment($('#vig_ini').val(), "DD-MM-YYYY");
+            day.add('days', dias);
+            $('#vig_fin').val(day.format("DD-MM-YYYY"));
+      }
 </script>
+
+<script>
+      $(function() {
+            $('.publicacion :input').attr('disabled', true);
+      });
+
+      $("#modificar_publicacion").click(function() {
+            if ($('#modificar_publicacion').is(':checked')) {
+                  $('.publicacion :input').attr('disabled', false);
+            } else {
+                  $('.publicacion :input').prop('disabled', true);
+            }
+      });
+
+</script>
+
 @stop

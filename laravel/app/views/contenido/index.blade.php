@@ -97,10 +97,14 @@
                         <h3><strong>{{ HTML::linkRoute('negocios.show',$negocio->nombre,$negocio->id) }}</strong></h3>
                         <hr />
                         <p>Categoria: {{ $negocio->categoria->categoria }}</p>
+                        @if(count($negocio->subcategoria))
                         <p>Subcategoria: {{ $negocio->subcategoria->subcategoria }}</p>
+                        @endif
                         <hr />                  
                         <p>Estado: {{ $negocio->estado->estado }}</p>
+                        @if(count($negocio->zona))
                         <p>Zona: {{ $negocio->zona->zona }}</p>
+                        @endif
                         <hr />                  
                         <p>Dirección: {{ $negocio->direccion }}</p>
                         <p>Teléfono: {{ $negocio->telefono }}</p>
@@ -125,10 +129,15 @@
                         <h3><strong>{{HTML::linkRoute('eventos.show',$evento->nombre,$evento->id) }}</strong></h3>
                         <hr />
                         <p>Categoria: {{ $evento->categoria->categoria }}</p>
+                        @if(count($evento->subcategoria))
                         <p>Subcategoria: {{ $evento->subcategoria->subcategoria }}</p>
+                        @endif
+                        
                         <hr />                  
                         <p>Estado: {{ $evento->estado->estado }}</p>
+                        @if(count($evento->subcategoria))
                         <p>Zona: {{ $evento->zona->zona }}</p>
+                        @endif
                         <p>Dirección: {{ $evento->direccion }}</p>
                         @if(count($evento->especial))
                         <p>Web: <a href="{{$evento->especial->web}}">{{$evento->nombre}}</a></p>

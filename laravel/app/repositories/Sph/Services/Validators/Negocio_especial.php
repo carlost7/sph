@@ -20,7 +20,7 @@ class Negocio_especial extends Validator
       public static $rules = array(
           "update" => array(
               'email' => 'email',
-              'webpage' => 'url',
+              'webpage' => '',
               'mapa' => ''               
           )
       );

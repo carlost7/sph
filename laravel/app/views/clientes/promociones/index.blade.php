@@ -33,7 +33,7 @@
 
 @else
 
-<h3>No existen negocios para agregar promociones</h3>
+<h3>No existen promociones activas</h3>
 
 @endif
 

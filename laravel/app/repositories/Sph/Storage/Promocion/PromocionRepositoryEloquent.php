@@ -25,6 +25,8 @@ class PromocionRepositoryEloquent implements PromocionRepository
             $promocion->vigencia_inicio = new \DateTime($promocion_model['vigencia_inicio']);
             $promocion->vigencia_fin = new \DateTime($promocion_model['vigencia_fin']);
             $promocion->negocio_id = $promocion_model['negocio'];
+            $promocion->publicacion_inicio = new \DateTime($promocion_model['publicacion_inicio']);
+            $promocion->publicacion_fin = new \DateTime($promocion_model['publicacion_fin']);
             if ($promocion->save())
             {
                   if (isset($promocion_model['nombre_imagen']))
@@ -63,7 +65,15 @@ class PromocionRepositoryEloquent implements PromocionRepository
                   $promocion->fill($promocion_model);
                   $promocion->vigencia_inicio = new \DateTime($promocion_model['vigencia_inicio']);
                   $promocion->vigencia_fin = new \DateTime($promocion_model['vigencia_fin']);
-
+                  if (isset($promocion_model['publicacion_inicio']))
+                  {
+                        $promocion->publicacion_inicio = new \DateTime($promocion_model['publicacion_inicio']);
+                  }
+                  if (isset($promocion_model['publicacion_fin']))
+                  {
+                        $promocion->publicacion_fin = new \DateTime($promocion_model['publicacion_fin']);
+                  }                  
+                  
                   if ($promocion->save())
                   {
 
@@ -102,20 +112,5 @@ class PromocionRepositoryEloquent implements PromocionRepository
             }
       }
 
-      public function activar($id)
-      {
-            $promocion = Promocion::find($id);
-            $promocion->publicar = true;
-            $promocion->is_activo = true;
-            $promocion->fecha_nueva_activacion = \Carbon\Carbon::now()->addMonth();
-            if ($promocion->save())
-            {
-                  return true;
-            }
-            else
-            {
-                  return false;
-            }
-      }
-
+      
 }

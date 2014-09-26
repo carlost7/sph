@@ -50,10 +50,11 @@ class clientesPromocionesController extends \BaseController
       public function store()
       {
             $validatorPromocion = new Sph\Services\Validators\Promocion(Input::all(), 'save');
+            $validatorPublicacion = new Sph\Services\Validators\Publicacion(Input::all(), 'save');
             $input = array('imagen' => Input::File('imagen'));
             $validatorImagen = new Sph\Services\Validators\Imagen(Input::all(), 'save');
 
-            if ($validatorPromocion->passes() & $validatorImagen->passes())
+            if ($validatorPromocion->passes() & $validatorImagen->passes() & $validatorPublicacion->passes())
             {
                   $promocion_model = Input::all();
                   $promocion_model = array_add($promocion_model, 'publicar', false);
@@ -85,7 +86,7 @@ class clientesPromocionesController extends \BaseController
                         $pago_model = array(
                             'nombre' => 'Publicación de promoción',
                             'descripcion' => Input::get('nombre'),
-                            'monto' => Config::get('costos.promocion'),
+                            'monto' => Config::get('costos.promocion.' . Input::get('tiempo_publicacion')),
                             'client' => Auth::user()->userable,
                         );
                         $pago = $this->pago->create($pago_model);
@@ -107,9 +108,10 @@ class clientesPromocionesController extends \BaseController
 
             $promociones_messages = ($validatorPromocion->getErrors() != null) ? $validatorPromocion->getErrors()->all() : array();
             $imagen_messages = ($validatorImagen->getErrors() != null) ? $validatorImagen->getErrors()->all() : array();
+            $publicacion_messages = ($validatorPublicacion->getErrors() != null) ? $validatorPublicacion->getErrors()->all() : array();
 
             $validationMessages = array_merge_recursive(
-                    $promociones_messages, $imagen_messages
+                    $promociones_messages, $imagen_messages, $publicacion_messages
             );
 
             return Redirect::back()->withErrors($validationMessages)->withInput();
@@ -124,6 +126,13 @@ class clientesPromocionesController extends \BaseController
       public function show($id)
       {
             $promocion = $this->promocion->find($id);
+
+            if (Auth::user()->userable->id !== $promocion->negocio->cliente->id)
+            {
+                  Session::flash('error', 'La promoción no pertenece al usuario actual');
+                  return Redirect::back();
+            }
+
             return View::make('clientes.promociones.show')->with('promocion', $promocion);
       }
 
@@ -138,7 +147,27 @@ class clientesPromocionesController extends \BaseController
             $negocios = Auth::user()->userable->negocios;
             $promocion = $this->promocion->find($id);
 
-            return View::make('clientes.promociones.edit')->with(array('promocion' => $promocion, 'negocios' => $negocios));
+            if (Auth::user()->userable->id !== $promocion->negocio->cliente->id)
+            {
+                  Session::flash('error', 'La promoción no pertenece al usuario actual');
+                  return Redirect::back();
+            }
+
+            $inicio = new Carbon($promocion->publicacion_inicio);
+            if (Carbon::now()->gte($inicio))
+            {
+                  $editar_publicacion = false;
+            }
+            else
+            {
+                  $editar_publicacion = true;
+            }
+
+            return View::make('clientes.promociones.edit')->with(
+                            array('promocion' => $promocion,
+                                'negocios' => $negocios,
+                                'editar_publicacion' => $editar_publicacion)
+            );
       }
 
       /**
@@ -149,15 +178,21 @@ class clientesPromocionesController extends \BaseController
        */
       public function update($id)
       {
+            $promocion = $this->promocion->find($id);
+
+            if (Auth::user()->userable->id !== $promocion->negocio->cliente->id)
+            {
+                  Session::flash('error', 'La promoción no pertenece al usuario actual');
+                  return Redirect::back();
+            }
+
             $validatorPromocion = new Sph\Services\Validators\Promocion(Input::all(), 'update');
+            $validatorPublicacion = new Sph\Services\Validators\Publicacion(Input::all(), 'update');
             $input = array('imagen' => Input::File('imagen'));
             $validatorImagen = new Sph\Services\Validators\Imagen(Input::all(), 'update');
 
-            if ($validatorPromocion->passes() & $validatorImagen->passes())
+            if ($validatorPromocion->passes() & $validatorImagen->passes() & $validatorPublicacion->passes())
             {
-
-                  $promocion = $this->promocion->find($id);
-
                   $promocion_model = Input::all();
 
                   if ($input['imagen'] && !$promocion->imagen)
@@ -168,6 +203,28 @@ class clientesPromocionesController extends \BaseController
                         $promocion_model = array_add($promocion_model, 'path', $path);
                         $promocion_model = array_add($promocion_model, 'nombre_imagen', $nombre);
                   }
+
+                  //Checar si se modificaron las fechas de publicacion
+
+                  if (Input::get('modificar_publicacion'))
+                  {
+                        if ($promocion->publicacion_inicio !== Input::get('publicacion_inicio') ||
+                            $promocion->publicacion_fin !== Input::get('publicacion_fin'))
+                        {
+                              $fecha_inicio_anterior = new Carbon($promocion->publicacion_inicio);
+                              $fecha_fin_anterior = new Carbon($promocion->publicacion_fin);
+                              
+                              $fecha_anterior = $fecha_fin_anterior->sub($fecha_inicio_anterior);
+                              
+                              dd($fecha_anterior);
+                        }
+                  }
+
+                  //Si se agregaron dias, genera un nuevo pago, 
+                  //Si se redujeron dias y no estaba pagado, se reduce el costo del pago
+                  //Si se redujeron dias y ya estaba pagado, no se modifica el costo
+
+
 
                   $promocion = $this->promocion->update($id, $promocion_model);
                   if (isset($promocion))
@@ -196,8 +253,9 @@ class clientesPromocionesController extends \BaseController
             }
             $promocion_messages = ($validatorPromocion->getErrors() != null) ? $validatorPromocion->getErrors()->all() : array();
             $imagen_messages = ($validatorImagen->getErrors() != null) ? $validatorImagen->getErrors()->all() : array();
+            $publicacion_messages = ($validatorPublicacion->getErrors() != null) ? $validatorPublicacion->getErrors()->all() : array();
 
-            $validationMessages = array_merge_recursive($promocion_messages, $imagen_messages);
+            $validationMessages = array_merge_recursive($promocion_messages, $imagen_messages, $publicacion_messages);
 
             return Redirect::back()->withErrors($validationMessages)->withInput();
       }
@@ -210,6 +268,14 @@ class clientesPromocionesController extends \BaseController
        */
       public function destroy($id)
       {
+            $promocion = $this->promocion->find($id);
+
+            if (Auth::user()->userable->id !== $promocion->negocio->cliente->id)
+            {
+                  Session::flash('error', 'La promoción no pertenece al usuario actual');
+                  return Redirect::back();
+            }
+
             if ($this->promocion->delete($id))
             {
                   Session::flash('message', 'Promocion eliminada');

@@ -245,9 +245,6 @@ Route::group(array('before' => 'auth'), function() {
              * *************************
              */
 
-            Route::get('clientes_eventos_activar/{id}', array('as' => 'clientes_eventos_activar.post',
-                  'uses' => 'clientesEventosController@activar')
-            );
             Route::resource('clientes_eventos', 'clientesEventosController', array('names' => array('index' => 'clientes_eventos.index',
                         'create' => 'clientes_eventos.create',
                         'store' => 'clientes_eventos.store',
@@ -275,9 +272,6 @@ Route::group(array('before' => 'auth'), function() {
              * *************************
              */
 
-            Route::get('clientes_promociones_activar/{id}', array('as' => 'clientes_promociones_activar.get',
-                  'uses' => 'ClientesPromocionesController@activar')
-            );
             Route::resource('clientes_promociones', 'clientesPromocionesController', array('names' => array('index' => 'clientes_promociones.index',
                         'create' => 'clientes_promociones.create',
                         'store' => 'clientes_promociones.store',

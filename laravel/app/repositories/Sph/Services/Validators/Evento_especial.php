@@ -22,9 +22,7 @@ class Evento_especial extends Validator
           "update" => array(
               'mapa' => '',
               'email' => 'email',
-              'web' => 'url',
-              
-              
+              'web' => '',
           ),
       );
 

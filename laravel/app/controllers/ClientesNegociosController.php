@@ -83,7 +83,6 @@ class clientesNegociosController extends \BaseController
        */
       public function store()
       {
-
             $validatorNegocio = new Sph\Services\Validators\Negocio(Input::all(), 'save');
             $validatorHorario = new Sph\Services\Validators\HorarioNegocio(Input::all(), 'save');
             $validatorMasinfo = new Sph\Services\Validators\MasinfoNegocio(Input::all(), 'save');
@@ -178,6 +177,13 @@ class clientesNegociosController extends \BaseController
       public function show($id)
       {
             $negocio = $this->negocio->find($id);
+            if (Auth::user()->userable->id !== $negocio->cliente->id)
+            {
+                  Session::flash('error', 'El negocio no pertenece al usuario actual');
+                  return Redirect::back();
+            }
+
+
             $mapa = null;
 
             if ($negocio->is_especial && count($negocio->especial))
@@ -205,40 +211,38 @@ class clientesNegociosController extends \BaseController
       public function edit($id)
       {
             $negocio = $this->negocio->find($id);
+            if (Auth::user()->userable->id !== $negocio->cliente->id)
+            {
+                  Session::flash('error', 'El negocio no pertenece al usuario actual');
+                  return Redirect::back();
+            }
+
+
             $categorias = $this->categoria->all();
             $estados = $this->estado->all();
             $mapa = null;
 
-            if (count($negocio->especial) && isset($negocio->especial->mapa))
+            $config = array();
+            $marker = array();
+
+
+            if (isset($negocio->especial->mapa))
             {
-
-                  $config = array();
                   $config['center'] = $negocio->especial->mapa;
-                  $config['zoom'] = '13';
-                  Gmaps::initialize($config);
-
-                  $marker = array();
                   $marker['position'] = $negocio->especial->mapa;
                   $marker['draggable'] = true;
-                  $marker['ondragend'] = 'edit_map(event);';
-                  Gmaps::add_marker($marker);
-
-                  $mapa = Gmaps::create_map();
+                  $marker['ondragend'] = 'edit_map(event);';                  
             }
             else
             {
-                  $config = array();
                   $config['center'] = '19.417, -99.169';
-                  $config['zoom'] = '13';
-                  $config['onclick'] = 'save_map(event);';
-                  Gmaps::initialize($config);
-
-                  $marker = array();
-                  Gmaps::add_marker($marker);
-                  $mapa = Gmaps::create_map();
+                  $config['onclick'] = 'save_map(event);';                  
             }
 
-
+            $config['zoom'] = '13';
+            Gmaps::initialize($config);
+            Gmaps::add_marker($marker);
+            $mapa = Gmaps::create_map();
 
             return View::make('clientes.negocios.edit')->with(array('negocio' => $negocio, 'categorias' => $categorias, 'estados' => $estados, 'mapa' => $mapa));
       }
@@ -251,6 +255,13 @@ class clientesNegociosController extends \BaseController
        */
       public function update($id)
       {
+            $negocio = $this->negocio->find($id);
+            if (Auth::user()->userable->id !== $negocio->cliente->id)
+            {
+                  Session::flash('error', 'El negocio no pertenece al usuario actual');
+                  return Redirect::back();
+            }
+
             $validatorNegocio = new Sph\Services\Validators\Negocio(Input::all(), 'update');
             $validatorHorario = new Sph\Services\Validators\HorarioNegocio(Input::all(), 'update');
             $validatorMasinfo = new Sph\Services\Validators\MasinfoNegocio(Input::all(), 'update');
@@ -329,6 +340,13 @@ class clientesNegociosController extends \BaseController
        */
       public function destroy($id)
       {
+            $negocio = $this->negocio->find($id);
+            if (Auth::user()->userable->id !== $negocio->cliente->id)
+            {
+                  Session::flash('error', 'El negocio no pertenece al usuario actual');
+                  return Redirect::back();
+            }
+
             if ($this->negocio->delete($id))
             {
                   Session::flash('message', 'Negocio eliminado');
@@ -347,6 +365,13 @@ class clientesNegociosController extends \BaseController
 
       public function activar($id)
       {
+            $negocio = $this->negocio->find($id);
+            if (Auth::user()->userable->id !== $negocio->cliente->id)
+            {
+                  Session::flash('error', 'El negocio no pertenece al usuario actual');
+                  return Redirect::back();
+            }
+
             $negocio = $this->negocio->find($id);
             if ($negocio->cliente->id == Auth::user()->userable->id)
             {

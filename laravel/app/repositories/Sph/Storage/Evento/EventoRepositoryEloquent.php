@@ -30,6 +30,8 @@ class EventoRepositoryEloquent implements EventoRepository
             $evento->hora_fin = new \DateTime($evento_model['hora_fin']);
             $evento->cliente_id = $evento_model['cliente']->id;
             $evento->categoria_id = $evento_model['categoria'];
+            $evento->publicacion_inicio = new \DateTime($evento_model['publicacion_inicio']);
+            $evento->publicacion_fin = new \DateTime($evento_model['publicacion_fin']);
             if (isset($evento_model['subcategoria']))
             {
                   $evento->subcategoria_id = $evento_model['subcategoria'];
@@ -93,6 +95,14 @@ class EventoRepositoryEloquent implements EventoRepository
                   $evento->hora_inicio = new \DateTime($evento_model['hora_inicio']);
                   $evento->hora_fin = new \DateTime($evento_model['hora_fin']);
                   $evento->categoria_id = $evento_model['categoria'];
+                  if (isset($evento_model['publicacion_inicio']))
+                  {
+                        $evento->publicacion_inicio = new \DateTime($evento_model['publicacion_inicio']);
+                  }
+                  if (isset($evento_model['publicacion_fin']))
+                  {
+                        $evento->publicacion_fin = new \DateTime($evento_model['publicacion_fin']);
+                  }
                   if (isset($evento_model['subcategoria']))
                   {
                         $evento->subcategoria_id = $evento_model['subcategoria'];
@@ -140,9 +150,7 @@ class EventoRepositoryEloquent implements EventoRepository
             return null;
       }
 
-      public function
-
-      agregar_pago($evento_model, $pago_model)
+      public function agregar_pago($evento_model, $pago_model)
       {
 
             if ($evento_model->pago()->save($pago_model))
@@ -152,24 +160,6 @@ class EventoRepositoryEloquent implements EventoRepository
             else
             {
                   return null;
-            }
-      }
-
-      public function
-
-      activar($id)
-      {
-            $evento = Evento::find($id);
-            $evento->publicar = true;
-            $evento->is_activo = true;
-            $evento->fecha_nueva_activacion = \Carbon\Carbon::now()->addMonth();
-            if ($evento->save())
-            {
-                  return true;
-            }
-            else
-            {
-                  return false;
             }
       }
 

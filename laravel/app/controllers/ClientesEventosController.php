@@ -9,6 +9,7 @@ use Sph\Storage\MasinfoEvento\MasinfoEventoRepository as Masinfo;
 use Sph\Storage\Pago\PagoRepository as Pago;
 use Sph\Storage\Imagen\ImagenRepository as Imagen;
 use Sph\Storage\Evento_Especial\EventoEspecialRepository as Especial;
+use Carbon\Carbon;
 
 class clientesEventosController extends \BaseController
 {
@@ -65,8 +66,6 @@ class clientesEventosController extends \BaseController
             $config['onclick'] = 'save_map(event);';
             Gmaps::initialize($config);
 
-            $marker = array();
-            Gmaps::add_marker($marker);
             $mapa = Gmaps::create_map();
 
             return View::make('clientes.eventos.create')->with(array('categorias' => $categorias, 'estados' => $estados, 'mapa' => $mapa));
@@ -83,10 +82,11 @@ class clientesEventosController extends \BaseController
             $validatorMasinfo = new Sph\Services\Validators\MasinfoEvento(Input::all(), 'save');
             $validatorCatalogo = new Sph\Services\Validators\Catalogo(Input::all(), 'save');
             $validatorEspecial = new Sph\Services\Validators\Evento_especial(Input::all(), 'update');
+            $validatorPublicacion = new Sph\Services\Validators\Publicacion(Input::all(), 'save');
             $input = array('imagen' => Input::File('imagen'));
             $validatorImagen = new Sph\Services\Validators\Imagen($input, 'save');
 
-            if ($validatorEvento->passes() & $validatorMasinfo->passes() & $validatorCatalogo->passes() & $validatorImagen->passes() & $validatorEspecial->passes())
+            if ($validatorEvento->passes() & $validatorMasinfo->passes() & $validatorCatalogo->passes() & $validatorImagen->passes() & $validatorEspecial->passes() & $validatorPublicacion->passes())
             {
                   $evento_model = Input::all();
                   $evento_model = array_add($evento_model, 'cliente', Auth::user()->userable);
@@ -100,7 +100,6 @@ class clientesEventosController extends \BaseController
                         $evento_model = array_add($evento_model, 'path', $path);
                         $evento_model = array_add($evento_model, 'nombre_imagen', $nombre);
                   }
-
 
                   $evento = $this->evento->create($evento_model);
                   if (isset($evento))
@@ -122,7 +121,7 @@ class clientesEventosController extends \BaseController
                         $pago_model = array(
                             'nombre' => 'Publicación de Evento',
                             'descripcion' => $evento->nombre,
-                            'monto' => Config::get('costos.evento'),
+                            'monto' => Config::get('costos.evento.'.Input::get('tiempo_publicacion')),
                             'client' => Auth::user()->userable,
                         );
                         $pago = $this->pago->create($pago_model);
@@ -153,9 +152,10 @@ class clientesEventosController extends \BaseController
             $especial_messages = ($validatorEspecial->getErrors() != null) ? $validatorEspecial->getErrors()->all() : array();
             $catalogo_messages = ($validatorCatalogo->getErrors() != null) ? $validatorCatalogo->getErrors()->all() : array();
             $imagen_messages = ($validatorImagen->getErrors() != null) ? $validatorImagen->getErrors()->all() : array();
+            $publicacion_messages = ($validatorPublicacion->getErrors() != null) ? $validatorPublicacion->getErrors()->all() : array();
 
             $validationMessages = array_merge_recursive(
-                    $evento_messages, $masinfo_messages, $catalogo_messages, $imagen_messages, $especial_messages
+                    $evento_messages, $masinfo_messages, $catalogo_messages, $imagen_messages, $especial_messages, $publicacion_messages
             );
 
             return Redirect::back()->withErrors($validationMessages)->withInput();
@@ -169,11 +169,19 @@ class clientesEventosController extends \BaseController
        */
       public function show($id)
       {
+
             $evento = $this->evento->find($id);
+
+            if (Auth::user()->userable->id !== $evento->cliente->id)
+            {
+                  Session::flash('error', 'El evento no pertenece al usuario actual');
+                  return Redirect::back();
+            }
+
             $mapa = null;
+            
             if (count($evento->especial) && isset($evento->especial->mapa))
             {
-
                   $config = array();
                   $config['center'] = $evento->especial->mapa;
                   $config['zoom'] = '13';
@@ -199,25 +207,53 @@ class clientesEventosController extends \BaseController
       {
             $evento = $this->evento->find($id);
 
+            if (Auth::user()->userable->id !== $evento->cliente->id)
+            {
+                  Session::flash('error', 'El evento no pertenece al usuario actual');
+                  return Redirect::back();
+            }
+
             $categorias = $this->categoria->all();
             $estados = $this->estado->all();
 
-
             $config = array();
-            $config['center'] = $evento->especial->mapa;
+            $marker = array();
+
+            if (isset($evento->especial->mapa))
+            {
+                  $config['center'] = $evento->especial->mapa;
+                  $marker['position'] = $evento->especial->mapa;
+                  $marker['draggable'] = true;
+                  $marker['ondragend'] = 'edit_map(event);';                  
+            }
+            else
+            {
+                  $config['center'] = '19.417, -99.169';
+                  $config['onclick'] = 'save_map(event);';                  
+            }
+
             $config['zoom'] = '13';
             Gmaps::initialize($config);
-
-            $marker = array();
-            $marker['position'] = $evento->especial->mapa;
-            $marker['draggable'] = true;
-            $marker['ondragend'] = 'edit_map(event);';
             Gmaps::add_marker($marker);
-
             $mapa = Gmaps::create_map();
 
-
-            return View::make('clientes.eventos.edit')->with(array('evento' => $evento, 'categorias' => $categorias, 'estados' => $estados, 'mapa' => $mapa));
+            
+            //dd($evento->publicacion_inicio);
+            
+            $inicio = new Carbon($evento->publicacion_inicio);
+            if(Carbon::now()->gte($inicio)){
+                  $editar_publicacion = false;
+            }else{
+                  $editar_publicacion = true;
+            }
+            
+            return View::make('clientes.eventos.edit')->with(
+                    array('evento' => $evento, 
+                        'categorias' => $categorias, 
+                        'estados' => $estados, 
+                        'mapa' => $mapa, 
+                        'editar_publicacion'=>$editar_publicacion)
+                    );
       }
 
       /**
@@ -228,16 +264,24 @@ class clientesEventosController extends \BaseController
        */
       public function update($id)
       {
+            $evento = $this->evento->find($id);
+            if (Auth::user()->userable->id !== $evento->cliente->id)
+            {
+                  Session::flash('error', 'El evento no pertenece al usuario actual');
+                  return Redirect::back();
+            }
+
+
             $validatorEvento = new Sph\Services\Validators\Evento(Input::all(), 'update');
             $validatorMasinfo = new Sph\Services\Validators\MasinfoEvento(Input::all(), 'update');
             $validatorEspecial = new Sph\Services\Validators\Evento_especial(Input::all(), 'update');
             $validatorCatalogo = new Sph\Services\Validators\Catalogo(Input::all(), 'update');
+            $validatorPublicacion = new Sph\Services\Validators\Publicacion(Input::all(), 'save');
             $input = array('imagen' => Input::File('imagen'));
             $validatorImagen = new Sph\Services\Validators\Imagen($input, 'update');
 
             if ($validatorEvento->passes() & $validatorMasinfo->passes() & $validatorCatalogo->passes() & $validatorEspecial->passes())
             {
-                  $evento = $this->evento->find($id);
 
                   $evento_model = Input::all();
 
@@ -286,9 +330,10 @@ class clientesEventosController extends \BaseController
             $especial_messages = ($validatorEspecial->getErrors() != null) ? $validatorEspecial->getErrors()->all() : array();
             $catalogo_messages = ($validatorCatalogo->getErrors() != null) ? $validatorCatalogo->getErrors()->all() : array();
             $imagen_messages = ($validatorImagen->getErrors() != null) ? $validatorImagen->getErrors()->all() : array();
+            $publicacion_messages = ($validatorPublicacion->getErrors() != null) ? $validatorPublicacion->getErrors()->all() : array();
 
             $validationMessages = array_merge_recursive(
-                    $evento_messages, $masinfo_messages, $catalogo_messages, $imagen_messages, $especial_messages
+                    $evento_messages, $masinfo_messages, $catalogo_messages, $imagen_messages, $especial_messages, $publicacion_messages
             );
 
             return Redirect::back()->withErrors($validationMessages)->withInput();
@@ -302,6 +347,13 @@ class clientesEventosController extends \BaseController
        */
       public function destroy($id)
       {
+            $evento = $this->evento->find($id);
+            if (Auth::user()->userable->id !== $evento->cliente->id)
+            {
+                  Session::flash('error', 'El evento no pertenece al usuario actual');
+                  return Redirect::back();
+            }
+
             if ($this->evento->delete($id))
             {
                   Session::flash('message', 'Evento eliminado');
@@ -316,6 +368,13 @@ class clientesEventosController extends \BaseController
       public function activar($id)
       {
             $evento = $this->evento->find($id);
+
+            if (Auth::user()->userable->id !== $evento->cliente->id)
+            {
+                  Session::flash('error', 'El evento no pertenece al usuario actual');
+                  return Redirect::back();
+            }
+
             if ($evento->client->id == Auth::user()->userable->id)
             {
                   if ($this->evento->activar($id))
