@@ -21,7 +21,13 @@ class NegociosController extends \BaseController
        */
       public function index()
       {
-            $negocios = \Negocio::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc')->paginate(20);
+            View::share('name','Negocois - Sphellar');
+            
+            $tipocat = Input::get('tipocat');
+            $tipolocal = Input::get('tipolocal');
+            
+            $queryNegocios = \Negocio::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc');
+            
             return View::make('contenido.negocios_index')->with(array('negocios' => $negocios));            
       }
 

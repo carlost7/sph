@@ -21,10 +21,12 @@ class EventosController extends \BaseController
        */
       public function index()
       {
+            View::share('name','Cartelera - Sphellar');
+            
             View::share('tipocat',Input::get('categoria'));
             View::share('tipolocal',Input::get('estado'));
             
-            $eventos = \Evento::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc')->paginate(10);
+            $queryEventos = \Evento::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc');            
             return View::make('contenido.eventos_index')->with(array('eventos' => $eventos));
       }
 

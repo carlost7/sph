@@ -37,7 +37,7 @@ class ContenidoController extends \BaseController
       public function index()
       {
 
-            View::share('name','Sphellar');
+            View::share('name','Guia - Sphellar');
             
             $tipocat = Input::get('tipocat');
             $tipolocal = Input::get('tipolocal');
