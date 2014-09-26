@@ -2,7 +2,7 @@
 
 @section('wrapper')
 <div class="container">
-      <!-- @include('layouts.show_catalog')-->
+      @include('layouts.show_catalog')
 
       <div class="row">
             <div class="col-sm-9">
@@ -94,6 +94,9 @@
 @stop
 
 @section('scripts')
+
+{{ HTML::script('js/vendor/getCatalog.js') }}
+
 @if($mapa)
 {{ $mapa['js'] }}
 @endif

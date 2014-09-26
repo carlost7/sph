@@ -1,18 +1,24 @@
 <?php
 
 Use Sph\Storage\Evento\EventoRepository as Evento;
+Use Sph\Storage\Categoria\CategoriaRepository as Categoria;
+Use Sph\Storage\Estado\EstadoRepository as Estado;
 
 class EventosController extends \BaseController
 {
 
       protected $evento;
+      protected $categoria;
+      protected $estado;
 
-      public function __construct(Evento $evento)
+      public function __construct(Evento $evento, Categoria $categoria, Estado $estado)
       {
             parent::__construct();
             $this->evento = $evento;
+            $this->estado = $estado;
+            $this->categoria = $categoria;
       }
-      
+
       /**
        * Display a listing of the resource.
        * GET /eventos
@@ -21,13 +27,56 @@ class EventosController extends \BaseController
        */
       public function index()
       {
-            View::share('name','Cartelera - Sphellar');
-            
-            View::share('tipocat',Input::get('categoria'));
-            View::share('tipolocal',Input::get('estado'));
-            
-            $queryEventos = \Evento::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc');            
-            return View::make('contenido.eventos_index')->with(array('eventos' => $eventos));
+            View::share('name', 'Cartelera - Sphellar');
+
+            $categorias = $this->categoria->all();
+            $estados = $this->estado->all();
+
+            $tipocat = Input::get('tipocat');
+            $tipolocal = Input::get('tipolocal');
+
+
+            $queryEventos = \Evento::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc');
+            if (isset($tipocat))
+            {
+                  $tipocat = explode("-", $tipocat);
+
+                  if (count($tipocat) > 1)
+                  {
+
+                        $queryEventos = $queryEventos->where('subcategoria_id', $tipocat[1]);
+                  }
+
+                  $queryEventos = $queryEventos->where('categoria_id', $tipocat[0]);
+            }
+
+            if ($tipolocal)
+            {
+
+                  $tipolocal = explode("-", $tipolocal);
+
+
+                  if (count($tipolocal) > 1)
+                  {
+
+                        $queryEventos = $queryEventos->where('zona_id', $tipolocal[1]);
+                  }
+
+
+
+                  $queryEventos = $queryEventos->where('estado_id', $tipolocal[0]);
+            }
+
+
+            $eventos = $queryEventos->paginate(20);
+            /* $querys = DB::getQueryLog();
+              $lastQuery = end($querys);
+              //dd($lastQuery); */
+
+            Session::set('tipolocal', Input::get('estado'));
+            Session::set('tipocat', Input::get('categoria'));
+
+            return View::make('contenido.eventos_index')->with(array('eventos' => $eventos,'estados'=>$estados,'categorias'=>$categorias));
       }
 
       /**
@@ -63,7 +112,8 @@ class EventosController extends \BaseController
       {
             $evento = $this->evento->find($id);
             $mapa = null;
-
+            $categorias = $this->categoria->all();
+            $estados = $this->estado->all();
 
             if ($evento->is_especial && count($evento->especial))
             {
@@ -79,7 +129,9 @@ class EventosController extends \BaseController
                   $mapa = Gmaps::create_map();
             }
 
-            return View::make('contenido.show_evento')->with(array('evento' => $evento, 'mapa' => $mapa));
+            View::share('name', $evento->nombre . ' - Sphellar');
+
+            return View::make('contenido.show_evento')->with(array('evento' => $evento, 'mapa' => $mapa,'estados'=>$estados,'categorias'=>$categorias));
       }
 
       /**

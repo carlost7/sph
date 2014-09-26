@@ -7,9 +7,7 @@
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
             <title>
-                  @section('title')
-                  {{ (isset($titulo))?$titulo:'Sphellar'}}
-                  @show
+                  {{ (isset($name))?$name:'Sphellar'}}                  
             </title>
             <meta name="description" content="">            
             <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -78,10 +76,10 @@
                                     </ul>
                               </li>
                               <li><a href="http://sphellar.com/mx/eventos.html">EVENTOS</a></li>
-                              <li><a class="estoy"href="http://sphellar.com/mx/guia/">GUÍA</a>
+                              <li><a class="estoy"href="{{ URL::to('/') }}">GUÍA</a>
                                     <ul>
-                                          <li><a href="#">Negocios</a></li>
-                                          <li><a href="#">Cartelera</a></li>
+                                          <li><a href="{{ URL::route('negocios.index') }}">Negocios</a></li>
+                                          <li><a href="{{ URL::route('eventos.index') }}">Cartelera</a></li>
                                     </ul>
                               </li>
                         </ul>
@@ -123,7 +121,6 @@
 
                   <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
-                              <li><a href="{{ URL::to('/') }}">Index</a></li>
                               @if(Auth::check())
                               <li class="dropdown">                                          
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuario <span class="caret"></span></a>

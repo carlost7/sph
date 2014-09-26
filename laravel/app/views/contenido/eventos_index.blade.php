@@ -2,20 +2,29 @@
 
 @section('wrapper')
 <div class="container">
-      <!-- @include('layouts.show_catalog')-->
+      @include('layouts.show_catalog')
       <div class="row">
-            <div class="col-sm-12">
-                  <h1>Eventos</h1>
+            <div class="col-sm-4">
+                  <h2>Cartelera</h2>
                   @foreach($eventos as $evento)
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                         @if(count($evento->imagen))
-                        <img src="{{Config::get('params.path_public_image').$evento->imagen->path.$evento->imagen->nombre}}" alt="{{ $evento->imagen->alt }}" />
+                        <a href="{{ route('eventos.show',$evento->id) }}"><img src="{{Config::get('params.path_public_image').$evento->imagen->path.$evento->imagen->nombre}}" alt="{{ $evento->imagen->alt }}" /></a>
+                        @else
+                        <a href="{{ route('eventos.show',$evento->id) }}">{{HTML::image('img/default.png')}}</a>
                         @endif
-                        <h2>{{HTML::linkRoute('eventos.show',$evento->nombre,$evento->id) }}</h2>
+                        <h3><strong>{{HTML::linkRoute('eventos.show',$evento->nombre,$evento->id) }}</strong></h3>
                         <hr />
+                        <p>Categoria: {{ $evento->categoria->categoria }}</p>
+                        @if(count($evento->subcategoria))
                         <p>Subcategoria: {{ $evento->subcategoria->subcategoria }}</p>
+                        @endif
+
                         <hr />                  
+                        <p>Estado: {{ $evento->estado->estado }}</p>
+                        @if(count($evento->subcategoria))
                         <p>Zona: {{ $evento->zona->zona }}</p>
+                        @endif
                         <p>Dirección: {{ $evento->direccion }}</p>
                         @if(count($evento->especial))
                         <p>Web: <a href="{{$evento->especial->web}}">{{$evento->nombre}}</a></p>
@@ -40,4 +49,8 @@
 
 
 
+@stop
+
+@section('scripts')
+{{ HTML::script('js/vendor/getCatalog.js') }}
 @stop

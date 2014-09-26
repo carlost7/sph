@@ -37,12 +37,12 @@ Route::get('negocios/{id}', array(
  * Mostrar Eventos
  * -----------------------------------
  */
-Route::get('eventos', array(
+Route::get('cartelera', array(
       'uses' => 'EventosController@index',
       'as' => 'eventos.index'
 ));
 
-Route::get('eventos/{id}', array(
+Route::get('cartelera/{id}', array(
       'uses' => 'EventosController@show',
       'as' => 'eventos.show'
 ));

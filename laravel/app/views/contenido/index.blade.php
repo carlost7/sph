@@ -1,89 +1,75 @@
 @extends('layouts.webpage_master')
 
-
-
-
-<!-- GALERIA -->
-
-<div class="slideshow" id="slideshow">
-    <ol class="slides">
-        <li class="current">
-            <div class="description">
-                <h2>Categoria SPHELLAR 1</h2>
-                <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
-            </div>
-            <div class="tiltview col">
-                <a href="#"><img src="img/1_screen.jpg"/></a>
-                <a href="#"><img src="img/2_screen.jpg"/></a>
-            </div>
-        </li>
-        <li>
-            <div class="description">
-                <h2>Categoria SPHELLAR 2</h2>
-                <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
-            </div>
-            <div class="tiltview row">
-                <a href="#"><img src="img/3_mobile.jpg"/></a>
-                <a href="#"><img src="img/4_mobile.jpg"/></a>
-            </div>
-        </li>
-        <li>
-            <div class="description">
-                <h2>Categoria SPHELLAR 3</h2>
-                <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
-            </div>
-            <div class="tiltview col">
-                <a href="#"><img src="img/5_screen.jpg"/></a>
-                <a href="#"><img src="img/6_screen.jpg"/></a>
-            </div>
-        </li>
-        <li>
-            <div class="description">
-                <h2>Categoria SPHELLAR 4</h2>
-                <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
-            </div>
-            <div class="tiltview row">
-                <a href="#"><img src="img/1_mobile.jpg"/></a>
-                <a href="#"><img src="img/2_mobile.jpg"/></a>
-            </div>
-        </li>
-        <li>
-            <div class="description">
-                <h2>Categoria SPHELLAR 5</h2>
-                <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
-            </div>
-            <div class="tiltview col">
-                <a href="#"><img src="img/3_screen.jpg"/></a>
-                <a href="#"><img src="img/4_screen.jpg"/></a>
-            </div>
-        </li>
-        <li>
-            <div class="description">
-                <h2>Categoria SPHELLAR 6</h2>
-                <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
-            </div>
-            <div class="tiltview row">
-                <a href="#"><img src="img/5_mobile.jpg"/></a>
-                <a href="#"><img src="img/6_mobile.jpg"/></a>
-            </div>
-        </li>
-    </ol>
-</div><!-- /slideshow -->
-
-
-
-
-
-
-
-
-
 @section('wrapper')
 <div class="container">
-      
-     <!-- @include('layouts.show_catalog')-->
-     
-     
+
+      <!-- GALERIA -->
+
+      <div class="slideshow" id="slideshow">
+            <ol class="slides">
+                  <li class="current">
+                        <div class="description">
+                              <h2>Categoria SPHELLAR 1</h2>
+                              <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
+                        </div>
+                        <div class="tiltview col">
+                              <a href="#"><img src="img/1_screen.jpg"/></a>
+                              <a href="#"><img src="img/2_screen.jpg"/></a>
+                        </div>
+                  </li>
+                  <li>
+                        <div class="description">
+                              <h2>Categoria SPHELLAR 2</h2>
+                              <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
+                        </div>
+                        <div class="tiltview row">
+                              <a href="#"><img src="img/3_mobile.jpg"/></a>
+                              <a href="#"><img src="img/4_mobile.jpg"/></a>
+                        </div>
+                  </li>
+                  <li>
+                        <div class="description">
+                              <h2>Categoria SPHELLAR 3</h2>
+                              <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
+                        </div>
+                        <div class="tiltview col">
+                              <a href="#"><img src="img/5_screen.jpg"/></a>
+                              <a href="#"><img src="img/6_screen.jpg"/></a>
+                        </div>
+                  </li>
+                  <li>
+                        <div class="description">
+                              <h2>Categoria SPHELLAR 4</h2>
+                              <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
+                        </div>
+                        <div class="tiltview row">
+                              <a href="#"><img src="img/1_mobile.jpg"/></a>
+                              <a href="#"><img src="img/2_mobile.jpg"/></a>
+                        </div>
+                  </li>
+                  <li>
+                        <div class="description">
+                              <h2>Categoria SPHELLAR 5</h2>
+                              <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
+                        </div>
+                        <div class="tiltview col">
+                              <a href="#"><img src="img/3_screen.jpg"/></a>
+                              <a href="#"><img src="img/4_screen.jpg"/></a>
+                        </div>
+                  </li>
+                  <li>
+                        <div class="description">
+                              <h2>Categoria SPHELLAR 6</h2>
+                              <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
+                        </div>
+                        <div class="tiltview row">
+                              <a href="#"><img src="img/5_mobile.jpg"/></a>
+                              <a href="#"><img src="img/6_mobile.jpg"/></a>
+                        </div>
+                  </li>
+            </ol>
+      </div><!-- /slideshow -->
+
       <div class="row">
             <div class="col-sm-8">
                   <h2>Negocios</h2>
@@ -132,7 +118,7 @@
                         @if(count($evento->subcategoria))
                         <p>Subcategoria: {{ $evento->subcategoria->subcategoria }}</p>
                         @endif
-                        
+
                         <hr />                  
                         <p>Estado: {{ $evento->estado->estado }}</p>
                         @if(count($evento->subcategoria))
@@ -163,10 +149,10 @@
 
 
 @stop
-            
+
 
 @section('scripts')
-          
+
 {{ HTML::script('js/vendor/galeria/classie.js') }}
 {{ HTML::script('js/vendor/galeria/tiltSlider.js') }}
 
@@ -174,7 +160,7 @@
 
 
 <script>
-      new TiltSlider( document.getElementById('slideshow'));
+      new TiltSlider(document.getElementById('slideshow'));
 </script>
 
 

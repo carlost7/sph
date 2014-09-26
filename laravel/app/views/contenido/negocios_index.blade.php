@@ -2,24 +2,35 @@
 
 @section('wrapper')
 <div class="container">
-    <!-- @include('layouts.show_catalog')-->
+      @include('layouts.show_catalog')
 
       <div class="row">
+            <h2>Negocios</h2>
             @foreach($negocios as $negocio)
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                   @if(count($negocio->imagen))
-                  <img src="{{Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" />
+                  <a href="{{ route('negocios.show',$negocio->id) }}"><img src="{{Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" /></a>
+                  @else
+                  <a href="{{ route('negocios.show',$negocio->id) }}">{{HTML::image('img/default.png')}}</a>
                   @endif
-                  <h2>{{ HTML::linkRoute('negocios.show',$negocio->nombre,$negocio->id) }}</h2>
+                  <h3><strong>{{ HTML::linkRoute('negocios.show',$negocio->nombre,$negocio->id) }}</strong></h3>
                   <hr />
+                  <p>Categoria: {{ $negocio->categoria->categoria }}</p>
+                  @if(count($negocio->subcategoria))
                   <p>Subcategoria: {{ $negocio->subcategoria->subcategoria }}</p>
+                  @endif
                   <hr />                  
+                  <p>Estado: {{ $negocio->estado->estado }}</p>
+                  @if(count($negocio->zona))
                   <p>Zona: {{ $negocio->zona->zona }}</p>
+                  @endif
+                  <hr />                  
                   <p>Dirección: {{ $negocio->direccion }}</p>
                   <p>Teléfono: {{ $negocio->telefono }}</p>
                   @if(count($negocio->especial))
                   <p>Web: <a href="{{$negocio->especial->webpage}}">{{$negocio->nombre}}</a></p>
                   @endif
+
 
             </div>
             @endforeach                  
@@ -36,5 +47,11 @@
 </div>
 
 
+
+@stop
+
+@section('scripts')
+
+{{ HTML::script('js/vendor/getCatalog.js') }}
 
 @stop
