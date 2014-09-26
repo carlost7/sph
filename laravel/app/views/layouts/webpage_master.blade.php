@@ -16,6 +16,7 @@
             {{ HTML::script('js/vendor/modernizr-2.6.2-respond-1.1.0.min.js') }}
             {{ HTML::style('css/bootstrap.css') }}
             {{ HTML::style('css/bootstrap-theme.css') }}
+            {{ HTML::style('css/galeria/component_galeria.css') }}
             {{ HTML::style('css/colors-override.css') }}
             {{ HTML::style('css/bootstrap-clockpicker.min.css') }}
             {{ HTML::style('css/bootstrap-datetimepicker.min.css') }}
@@ -85,14 +86,14 @@
 
                                     {{ Form::open(array('route'=>'home','method'=>'get','class'=>'form_guia')) }}
                                             <div class="row">
-                                                  <div class="col-sm-4">
+                                                  <div class="col-sm-4 form_buscador">
                                                         <div class="form-group">
                                                               <!-- {{ Form::label('estado', 'Estado') }} -->
                                                               {{ Form::text('estado',Session::get('tipolocal'),array('class'=>'form-control big-input','id'=>'local','placeholder'=>'Estado')) }}
                                                               <input type="hidden" value="" name="tipolocal" id='tipolocal'>                  
                                                         </div>                  
                                                   </div>
-                                                  <div class="col-sm-4">
+                                                  <div class="col-sm-4 form_buscador">
                                                         <div class="form-group">
                                                               <!-- {{ Form::label('categoria', 'Categoría') }} -->
                                                               {{ Form::text('categoria',Session::get('tipocat'),array('class'=>'form-control','id'=>'cat','placeholder'=>'Categoría')) }}

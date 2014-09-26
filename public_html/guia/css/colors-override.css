@@ -1537,9 +1537,14 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .form_guia{
   float:left;
-  width:40%;
-  margin:18px 0 0 0;
+  width:37%;
+  margin:18px -13px 0 13px;
 }
+
+.form_buscador{
+  padding:0 5px !important;
+}
+
 
 #btn_guia{
   background:#3edac0;

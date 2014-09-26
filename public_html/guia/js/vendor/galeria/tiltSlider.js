@@ -8,11 +8,9 @@
  * Copyright 2014, Codrops
  * http://www.codrops.com
  */
-;( function( window ) {
 
-	'use strict';
 
-	// https://gist.github.com/edankwan/4389601
+	
 	Modernizr.addTest('csstransformspreserve3d', function () {
 		var prop = Modernizr.prefixed('transformStyle');
 		var val = 'preserve-3d';
@@ -74,12 +72,13 @@
 	TiltSlider.prototype._init = function() {
 		this._addNavigation();
 		this._initEvents();
-	}
+	};
+        
 
 	// add the navigation to the DOM
 	TiltSlider.prototype._addNavigation = function() {
 		// add nav "dots"
-		this.nav = document.createElement( 'nav' )
+		this.nav = document.createElement( 'nav' );
 		var inner = '';
 		for( var i = 0; i < this.itemsCount; ++i ) {
 			inner += i === 0 ? '<span class="current"></span>' : '<span></span>';
@@ -87,7 +86,7 @@
 		this.nav.innerHTML = inner;
 		this.el.appendChild( this.nav );
 		this.navDots = [].slice.call( this.nav.children );
-	}
+	};
 
 	TiltSlider.prototype._initEvents = function() {
 		var self = this;
@@ -99,7 +98,7 @@
 				}
 			} );
 		} );
-	}
+	};
 
 	TiltSlider.prototype._showItem = function( pos ) {
 		if( this.isAnimating ) {
@@ -186,9 +185,9 @@
 			onEndAnimationCurrentItem();
 			onEndAnimationNextItem();
 		}
-	}
+	};
 
 	// add to global namespace
 	window.TiltSlider = TiltSlider;
 
-})( window );
+

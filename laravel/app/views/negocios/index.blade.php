@@ -1,5 +1,6 @@
 @extends('layouts.client_dashboard_master')
 
+
 @section('content')
 
 <div class="col-xs-12">
@@ -39,4 +40,4 @@
 @endif
 
 
-@stop
+
