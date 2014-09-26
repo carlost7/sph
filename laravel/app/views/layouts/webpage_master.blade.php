@@ -78,7 +78,12 @@
                               </ul>
                            </li>
                            <li><a href="http://sphellar.com/mx/eventos.html">EVENTOS</a></li>
-                           <li><a class="estoy"href="http://sphellar.com/mx/guia/">GUÍA</a></li>
+                           <li><a class="estoy"href="http://sphellar.com/mx/guia/">GUÍA</a>
+                            <ul>
+                                  <li><a href="#">Negocios</a></li>
+                                  <li><a href="#">Cartelera</a></li>
+                            </ul>
+                           </li>
                         </ul>
                     
                     
