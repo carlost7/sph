@@ -84,6 +84,7 @@ class AuthenticateController extends \BaseController
             }
             catch (Exception $e)
             {
+                  Log::error("Authenticate::callback ".print_r($e));
                   return App::abort(404);
             }
       }

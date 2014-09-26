@@ -87,13 +87,11 @@ Route::get('auth/{provider}', array(
       'uses' => 'AuthenticateController@authorise',
       'as' => 'authenticate.authorise'
 ));
-Route::get('auth/{provider}/callback', function(){
-      echo "entre";
-});
-/*Route::get('auth/{provider}/callback', array(
+
+Route::get('auth/{provider}/callback', array(
       'uses' => 'AuthenticateController@callback',
       'as' => 'authenticate.callback'
-));*/
+));
 
 Route::post('auth', array(
       'uses' => 'AuthenticateController@store',
