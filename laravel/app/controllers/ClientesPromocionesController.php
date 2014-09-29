@@ -212,15 +212,25 @@ class clientesPromocionesController extends \BaseController
                             $promocion->publicacion_fin !== Input::get('publicacion_fin'))
                         {
                               $fecha_inicio_anterior = new Carbon($promocion->publicacion_inicio);
-                              $fecha_fin_anterior = new Carbon($promocion->publicacion_fin);
+                              $fecha_fin_anterior = new Carbon($promocion->publicacion_fin);                              
+                              $dias_antes = $fecha_fin_anterior->diffInDays($fecha_inicio_anterior);
                               
-                              $fecha_anterior = $fecha_fin_anterior->sub($fecha_inicio_anterior);
+                              $fecha_inicio_nueva = new Carbon(Input::get('publicacion_inicio'));
+                              $fecha_fin_nueva = new Carbon(Input::get('publicacion_fin'));                              
+                              $dias_despues = $fecha_fin_nueva->diffInDays($fecha_inicio_nueva);
                               
-                              dd($fecha_anterior);
+                              //Si se agregaron dias, genera un nuevo pago, 
+                              if($dias_despues > $dias_antes){
+                                    $genera_pago = true;
+                                    $cantidad_pago = $dias_despues - $dias_antes;
+                              }
+                              
+                              
+                              
                         }
                   }
 
-                  //Si se agregaron dias, genera un nuevo pago, 
+                  
                   //Si se redujeron dias y no estaba pagado, se reduce el costo del pago
                   //Si se redujeron dias y ya estaba pagado, no se modifica el costo
 
