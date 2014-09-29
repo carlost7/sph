@@ -95,8 +95,6 @@
 
 @section('scripts')
 
-{{ HTML::script('js/vendor/getCatalog.js') }}
-
 @if($mapa)
 {{ $mapa['js'] }}
 @endif

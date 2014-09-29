@@ -22,7 +22,7 @@
             {{ HTML::style('css/main.css') }}     
 
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway" type="text/css">
-
+            <link rel="shortcut icon" href="{{ asset('img/default.png') }}">
             <script>
                   var base_url = '{{ URL::to("/") }}';
             </script>
@@ -195,6 +195,7 @@
             {{ HTML::script('js/vendor/bootstrap.min.js') }}
             {{ HTML::script('js/vendor/jquery.autocomplete.js') }}
             {{ HTML::script('js/main.js') }}
+            {{ HTML::script('js/getCatalog.js') }}
             @section('scripts')
             @show
       </body>

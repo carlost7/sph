@@ -42,16 +42,6 @@
                   </div>                  
             </div>    
       </div>
-
-
 </div>
-
-
-
-@stop
-
-@section('scripts')
-
-{{ HTML::script('js/vendor/getCatalog.js') }}
 
 @stop
