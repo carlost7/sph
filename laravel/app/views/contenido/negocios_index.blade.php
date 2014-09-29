@@ -2,7 +2,7 @@
 
 @section('wrapper')
 <div class="container">
-      @include('layouts.show_catalog')
+      @include('layouts.show_catalog',array('action'=>'negocio'))
 
       <div class="row">
             <h2>Negocios</h2>

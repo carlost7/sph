@@ -38,7 +38,7 @@ class AuthenticateController extends \BaseController
                   Session::put('credentials', $credentials);
                   Session::save();
 
-                  return $provider->authorize($credentials);
+                  dd($provider->authorize($credentials));
             }
             catch (Exception $e)
             {
@@ -50,8 +50,6 @@ class AuthenticateController extends \BaseController
       {
             try
             {
-                  dd(Session::all());
-                  
                   $provider = $this->manager->get($provider);
 
                   $token = $provider->getTokenCredentials(
@@ -82,6 +80,7 @@ class AuthenticateController extends \BaseController
                   Session::put('oauth_token_secret', $token->getSecret());
                   //Session::save();
 
+                  Log::error('entrada');
                   return Redirect::route('authenticate.register');
             }
             catch (Exception $e)
