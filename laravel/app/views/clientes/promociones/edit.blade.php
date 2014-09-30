@@ -124,7 +124,7 @@
 @include('layouts.show_form_errors')
 
 <div class="form-group">
-      <button type="submit" class="btn btn-primary">Editar evento</button>
+      <button type="submit" class="btn btn-primary">Editar promoción</button>
 </div>        
 
 {{ Form::close() }}

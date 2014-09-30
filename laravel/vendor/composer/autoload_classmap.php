@@ -13,6 +13,7 @@ return array(
     'AddMarketingIdToClients' => $baseDir . '/app/database/migrations/2014_07_24_172952_add_marketing_id_to_clients.php',
     'AddRankToEventosTable' => $baseDir . '/app/database/migrations/2014_09_08_121529_add_rank_to_eventos_table.php',
     'AddRankToNegociosTable' => $baseDir . '/app/database/migrations/2014_09_08_121340_add_rank_to_negocios_table.php',
+    'AddTipopagoPagos' => $baseDir . '/app/database/migrations/2014_09_30_120530_add_tipopago_pagos.php',
     'AddUsersTableAddOauthColumns' => $baseDir . '/app/database/migrations/2014_09_14_020749_add_users_table_add_oauth_columns.php',
     'AdminCatalogoController' => $baseDir . '/app/controllers/AdminCatalogoController.php',
     'Administrador' => $baseDir . '/app/models/Administrador.php',

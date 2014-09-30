@@ -83,6 +83,8 @@ class clientesPromocionesController extends \BaseController
                               }
                         }
 
+
+
                         $pago_model = array(
                             'nombre' => 'Publicación de promoción',
                             'descripcion' => Input::get('nombre'),
@@ -160,7 +162,11 @@ class clientesPromocionesController extends \BaseController
             }
             else
             {
-                  $editar_publicacion = true;
+                  if($promocion->pago->pagado){
+                        $editar_publicacion = false;
+                  }else{
+                        $editar_publicacion = true;
+                  }                  
             }
 
             return View::make('clientes.promociones.edit')->with(
@@ -195,6 +201,7 @@ class clientesPromocionesController extends \BaseController
             {
                   $promocion_model = Input::all();
 
+                  //Obtener imagen
                   if ($input['imagen'] && !$promocion->imagen)
                   {
                         //Obtener datos de la imagen
@@ -203,38 +210,6 @@ class clientesPromocionesController extends \BaseController
                         $promocion_model = array_add($promocion_model, 'path', $path);
                         $promocion_model = array_add($promocion_model, 'nombre_imagen', $nombre);
                   }
-
-                  //Checar si se modificaron las fechas de publicacion
-
-                  if (Input::get('modificar_publicacion'))
-                  {
-                        if ($promocion->publicacion_inicio !== Input::get('publicacion_inicio') ||
-                            $promocion->publicacion_fin !== Input::get('publicacion_fin'))
-                        {
-                              $fecha_inicio_anterior = new Carbon($promocion->publicacion_inicio);
-                              $fecha_fin_anterior = new Carbon($promocion->publicacion_fin);                              
-                              $dias_antes = $fecha_fin_anterior->diffInDays($fecha_inicio_anterior);
-                              
-                              $fecha_inicio_nueva = new Carbon(Input::get('publicacion_inicio'));
-                              $fecha_fin_nueva = new Carbon(Input::get('publicacion_fin'));                              
-                              $dias_despues = $fecha_fin_nueva->diffInDays($fecha_inicio_nueva);
-                              
-                              //Si se agregaron dias, genera un nuevo pago, 
-                              if($dias_despues > $dias_antes){
-                                    $genera_pago = true;
-                                    $cantidad_pago = $dias_despues - $dias_antes;
-                              }
-                              
-                              
-                              
-                        }
-                  }
-
-                  
-                  //Si se redujeron dias y no estaba pagado, se reduce el costo del pago
-                  //Si se redujeron dias y ya estaba pagado, no se modifica el costo
-
-
 
                   $promocion = $this->promocion->update($id, $promocion_model);
                   if (isset($promocion))
@@ -253,6 +228,18 @@ class clientesPromocionesController extends \BaseController
                               }
                         }
 
+                        
+                        if (Input::get('modificar_publicacion'))
+                        {                        
+                              $pago_model = array(
+                                  'monto' => Config::get('costos.promocion.' . Input::get('tiempo_publicacion')),
+                                  'pagado' => false,
+                              );
+                              
+                              $pago = $this->pago->update($promocion->pago->id,$pago_model);                              
+                              
+                        }
+                        
                         Session::flash('message', 'Promoción editada con éxito');
                         return Redirect::route('clientes_promociones.index');
                   }

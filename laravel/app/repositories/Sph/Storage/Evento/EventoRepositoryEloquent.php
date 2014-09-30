@@ -112,6 +112,11 @@ class EventoRepositoryEloquent implements EventoRepository
                   {
                         $evento->zona_id = $evento_model['zona'];
                   }
+                  if (isset($evento_model['publicar']))
+                  {
+                        $evento->publicar = $evento_model['publicar'];
+                  }
+                  
 
                   if ($evento->save())
                   {
