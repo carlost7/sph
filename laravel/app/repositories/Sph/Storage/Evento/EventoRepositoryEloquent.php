@@ -168,4 +168,18 @@ class EventoRepositoryEloquent implements EventoRepository
             }
       }
 
+      public function agregar_rank($evento_id)
+      {
+            $evento = Evento::find($evento_id);
+            
+            if(isset($evento)){
+                  $evento->rank = $evento->rank + 1;
+                  if($evento->save()){
+                        return $evento;
+                  }else{
+                        return null;
+                  }
+            }
+      }
+
 }

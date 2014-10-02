@@ -48,7 +48,7 @@ class MiembroRepositoryEloquent implements MiembroRepository
             if (isset($miembro))
             {
                   $miembro->fill($miembro_model);
-                  
+
                   if ($miembro->save())
                   {
                         if (isset($miembro_model['nombre_imagen']))
@@ -64,7 +64,7 @@ class MiembroRepositoryEloquent implements MiembroRepository
                               $miembro->imagen->alt = 'user_profile_image';
                               $miembro->imagen->save();
                         }
-                        
+
                         return $miembro;
                   }
                   else
@@ -75,5 +75,6 @@ class MiembroRepositoryEloquent implements MiembroRepository
 
             return null;
       }
+
       
 }

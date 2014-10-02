@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateUsuariosRanks extends Migration {
+class CreateNegociosRanksTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,14 +12,14 @@ class CreateUsuariosRanks extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('usuarios_ranks', function(Blueprint $table)
+		Schema::create('negocios_ranks', function(Blueprint $table)
 		{
 			$table->increments('id');
-                  $table->integer('miembro_id')->unsigned();
+			$table->integer('miembro_id')->unsigned();
                   $table->foreign('miembro_id')->references('id')->on('miembros')->onDelete('cascade')->onUpdate('cascade');
-			$table->string('rankable_type');
-                  $table->integer('rankable_id');
-                  $table->timestamps();
+			$table->integer('negocio_id')->unsigned();
+                  $table->foreign('negocio_id')->references('id')->on('negocios')->onDelete('cascade')->onUpdate('cascade');
+			$table->timestamps();
 		});
 	}
 
@@ -31,7 +31,7 @@ class CreateUsuariosRanks extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('usuarios_ranks');
+		Schema::drop('negocios_ranks');
 	}
 
 }

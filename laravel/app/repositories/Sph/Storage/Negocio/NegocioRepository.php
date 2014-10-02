@@ -18,4 +18,6 @@ interface NegocioRepository
       public function agregar_pago($negocio_model, $pago_model);
 
       public function activar($id);
+      
+      public function agregar_rank($negocio_id, $miembro);
 }

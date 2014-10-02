@@ -8,6 +8,22 @@
             <div class="col-sm-9">
                   @if($negocio)
 
+                  @if(Auth::check() && Auth::user()->userable_type === 'Miembro')
+                        @if($negocio->is_especial)    
+                              @if()
+                              <div class="rank" id="rank">
+                                    <button type="button" class="btn btn-small btn-primary" id="btn_rank"> + Rank</button>      
+                              </div>
+                              @else
+                              
+                              @endif
+                        @else
+                              <button type="button" class="btn btn-small btn-primary" id="btn_rank" disabled="disabled"> + Rank</button>                  
+                        @endif                  
+                  @else
+                  <p>{{ HTML::linkRoute('register.user','Regístrate como usuario para rankear el negocio ') }}</p> 
+                  @endif
+
                   <h2>{{ $negocio->nombre }}</h2>
                   @if(count($negocio->imagen))
                   <img src="{{Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" />
@@ -98,4 +114,15 @@
 @if($mapa)
 {{ $mapa['js'] }}
 @endif
+
+<script>
+      $("#btn_rank").click(function() {
+            //url = base_url + "miembro/rank/{{get_class($negocio).'/'.$negocio->id}}";
+            url = "{{ URL::route('miembro.add_rank',array(get_class($negocio),$negocio->id)) }}";
+            $.post(url).done(function(data) {
+                  alert(data);
+            });
+      });
+</script>
+
 @stop
