@@ -88,6 +88,7 @@ class clientesEventosController extends \BaseController
 
             if ($validatorEvento->passes() & $validatorMasinfo->passes() & $validatorCatalogo->passes() & $validatorImagen->passes() & $validatorEspecial->passes() & $validatorPublicacion->passes())
             {
+
                   $evento_model = Input::all();
                   $evento_model = array_add($evento_model, 'cliente', Auth::user()->userable);
                   $evento_model = array_add($evento_model, 'publicar', false);
@@ -117,35 +118,45 @@ class clientesEventosController extends \BaseController
                               }
                         }
 
-                        //Crear Pago de servicios
-                        $pago_model = array(
-                            'nombre' => 'Publicación de Evento',
-                            'descripcion' => $evento->nombre,
-                            'monto' => Config::get('costos.evento.'.Input::get('tiempo_publicacion')),
-                            'client' => Auth::user()->userable,
-                        );
-                        $pago = $this->pago->create($pago_model);
-                        if (isset($pago))
+
+                        if (Input::get('tiempo_publicacion') == 'gratis')
                         {
-                              if ($this->evento->agregar_pago($evento, $pago))
+                              $evento_model = array('publicar' => true);
+                              $this->evento->update($evento->id, $input);
+                        }
+                        else
+                        {
+                              //Crear Pago de servicios
+                              $pago_model = array(
+                                  'nombre' => 'Publicación de Evento',
+                                  'descripcion' => $evento->nombre,
+                                  'monto' => Config::get('costos.evento.' . Input::get('tiempo_publicacion')),
+                                  'client' => Auth::user()->userable,
+                              );
+                              $pago = $this->pago->create($pago_model);
+                              if (isset($pago))
                               {
-                                    Session::flash('message', 'Evento agregado con éxito');
-                              }
-                              if (Input::get('add_images'))
-                              {
-                                    return Redirect::route('clientes_eventos_especiales_index.get', array('id' => $evento->id));
-                              }
-                              else
-                              {
-                                    return Redirect::route('clientes_eventos.index');
+                                    $this->evento->agregar_pago($evento, $pago);
                               }
                         }
-                  }
-                  else
-                  {
-                        Session::flash('error', 'Error al agregar el evento');
+
+                        Session::flash('message', 'Evento agregado con éxito');
+
+                        if (Input::get('add_images'))
+                        {
+                              return Redirect::route('clientes_eventos_especiales_index.get', array('id' => $evento->id));
+                        }
+                        else
+                        {
+                              return Redirect::route('clientes_eventos.index');
+                        }
                   }
             }
+            else
+            {
+                  Session::flash('error', 'Error al agregar el evento');
+            }
+
             //Mensaje de error de validaciones
             $evento_messages = ($validatorEvento->getErrors() != null) ? $validatorEvento->getErrors()->all() : array();
             $masinfo_messages = ($validatorMasinfo->getErrors() != null) ? $validatorMasinfo->getErrors()->all() : array();
@@ -179,7 +190,7 @@ class clientesEventosController extends \BaseController
             }
 
             $mapa = null;
-            
+
             if (count($evento->especial) && isset($evento->especial->mapa))
             {
                   $config = array();
@@ -224,12 +235,12 @@ class clientesEventosController extends \BaseController
                   $config['center'] = $evento->especial->mapa;
                   $marker['position'] = $evento->especial->mapa;
                   $marker['draggable'] = true;
-                  $marker['ondragend'] = 'edit_map(event);';                  
+                  $marker['ondragend'] = 'edit_map(event);';
             }
             else
             {
                   $config['center'] = '19.417, -99.169';
-                  $config['onclick'] = 'save_map(event);';                  
+                  $config['onclick'] = 'save_map(event);';
             }
 
             $config['zoom'] = '13';
@@ -237,23 +248,40 @@ class clientesEventosController extends \BaseController
             Gmaps::add_marker($marker);
             $mapa = Gmaps::create_map();
 
-            
+
             //dd($evento->publicacion_inicio);
-            
+
             $inicio = new Carbon($evento->publicacion_inicio);
-            if(Carbon::now()->gte($inicio)){
+            if (Carbon::now()->gte($inicio))
+            {
                   $editar_publicacion = false;
-            }else{
-                  $editar_publicacion = true;
             }
-            
+            else
+            {
+                  if (count($evento->pago))
+                  {
+                        if ($evento->pago->pagado)
+                        {
+                              $editar_publicacion = false;
+                        }
+                        else
+                        {
+                              $editar_publicacion = true;
+                        }
+                  }
+                  else
+                  {
+                        $editar_publicacion = true;
+                  }
+            }
+
             return View::make('clientes.eventos.edit')->with(
-                    array('evento' => $evento, 
-                        'categorias' => $categorias, 
-                        'estados' => $estados, 
-                        'mapa' => $mapa, 
-                        'editar_publicacion'=>$editar_publicacion)
-                    );
+                            array('evento' => $evento,
+                                'categorias' => $categorias,
+                                'estados' => $estados,
+                                'mapa' => $mapa,
+                                'editar_publicacion' => $editar_publicacion)
+            );
       }
 
       /**
@@ -294,6 +322,17 @@ class clientesEventosController extends \BaseController
                         $evento_model = array_add($evento_model, 'nombre_imagen', $nombre);
                   }
 
+                  if (Input::get('modificar_publicacion'))
+                  {
+                        //si es gratis, elimina el pago 
+                        if (Input::get('tiempo_publicacion') == 'gratis')
+                        {
+                              $evento_model = array_add($evento_model, 'publicar', true);
+                        }else{
+                              $evento_model = array_add($evento_model, 'publicar', false);
+                        }
+                  }
+
                   $evento = $this->evento->update($id, $evento_model);
 
                   if (isset($evento))
@@ -308,6 +347,48 @@ class clientesEventosController extends \BaseController
                                     Log::error('MiembrosController.edit: ' . $e . get_message());
                               }
                         }
+
+                        if (Input::get('modificar_publicacion'))
+                        {
+                              //si es gratis, elimina el pago 
+                              if (Input::get('tiempo_publicacion') == 'gratis')
+                              {
+                                    if (count($evento->pago))
+                                    {
+                                          $this->pago->delete($evento->pago->id);
+                                    }
+                              }
+                              else
+                              {
+
+                                    if (count($evento->pago))
+                                    {
+                                          //si es de paga agrega el pago
+                                          $pago_model = array(
+                                              'monto' => Config::get('costos.evento.' . Input::get('tiempo_publicacion')),
+                                              'pagado' => false,
+                                          );
+                                          $pago = $this->pago->update($evento->pago->id, $pago_model);
+                                    }
+                                    else
+                                    {
+                                          //Crear Pago de servicios
+                                          $pago_model = array(
+                                              'nombre' => 'Publicación de Evento',
+                                              'descripcion' => $evento->nombre,
+                                              'monto' => Config::get('costos.evento.' . Input::get('tiempo_publicacion')),
+                                              'client' => Auth::user()->userable,
+                                          );
+                                          $pago = $this->pago->create($pago_model);
+                                          if (isset($pago))
+                                          {
+                                                $this->evento->agregar_pago($evento, $pago);
+                                          }
+                                    }
+                              }
+                        }
+
+
                         Session::flash('message', 'Evento modificado con éxito');
 
                         if (Input::get('add_images'))

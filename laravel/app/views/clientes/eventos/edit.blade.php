@@ -251,7 +251,7 @@
             <div class="col-sm-3">
                   <div class="radio">
                         <label id="gratis" class="publicacion">
-                              {{ Form::radio('tiempo_publicacion',4) }}            
+                              {{ Form::radio('tiempo_publicacion','gratis') }}            
                               Gratis
                         </label>
                   </div>

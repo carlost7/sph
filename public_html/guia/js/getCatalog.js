@@ -32,4 +32,20 @@ $(function() {
             }
         });
     }).trigger('change');
+
+
+    $("#search_catalog").click(function(e){
+       e.preventDefault();
+       if( $("#busca_negocio").is(':checked') && $("#busca_cartelera").is(':checked') ){
+           url = base_url;
+       }else if($("#busca_negocio").is(':checked')){
+           url = base_url+'/negocios';
+       }else if($("#busca_cartelera").is(':checked')){
+           url = base_url+'/cartelera';
+       }else{
+           url = base_url;
+       }
+       $("#form_catalog").attr("action",url).submit();
+    });
+
 });

@@ -2,7 +2,7 @@
 
 @section('wrapper')
 <div class="container">
-      @include('layouts.show_catalog')
+      @include('layouts.show_catalog',array('action'=>'cartelera'))
       <div class="row">
             <div class="col-sm-4">
                   <h2>Cartelera</h2>
@@ -41,16 +41,9 @@
                         {{ $eventos->links()}}      
                   </div>                  
             </div>            
-
       </div>
-
-
 </div>
 
 
 
-@stop
-
-@section('scripts')
-{{ HTML::script('js/vendor/getCatalog.js') }}
 @stop
