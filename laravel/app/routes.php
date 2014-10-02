@@ -16,7 +16,6 @@ Route::get('/', array(
     'as' => 'home'
 ));
 
-
 /*
  * -----------------------------------
  * Mostrar Negocios
@@ -438,12 +437,12 @@ Route::group(array('before' => 'auth'), function()
                 'uses' => 'MiembrosController@add_rank',
                 'as' => 'miembro.add_rank'
             ));
-            
+
             Route::post('miembro/rank/{tipo}/{id}', array(
                 'uses' => 'MiembrosController@add_rank',
                 'as' => 'miembro.add_rank'
             ));
-            
+
             Route::get('miembro/rank/{tipo}/{id}', array(
                 'uses' => 'MiembrosController@add_rank',
                 'as' => 'miembro.add_rank'

@@ -1,138 +1,140 @@
 @extends('layouts.webpage_master')
 
-@section('wrapper') <section id="btns_opcion">
-        
-        <div id="negocio_opcion">
-            
+@section('wrapper') 
+
+<section id="btns_opcion">
+
+      <div id="negocio_opcion">
+
             <section class="invisible">
-            
-            <a href="{{ URL::route('negocios.index') }}">
-               
-                <p>Negocios</p>
-            </a>
-                
+
+                  <a href="{{ URL::route('negocios.index') }}">
+
+                        <p>Negocios</p>
+                  </a>
+
             </section>
 
-        </div>
-        
-        <div id="cartelera_opcion">
-            
+      </div>
+
+      <div id="cartelera_opcion">
+
             <section class="invisible color">
-            
-             <a href="{{ URL::route('eventos.index') }}">
-                
-                 <p>Cartelera</p>
-             </a>
-                
+
+                  <a href="{{ URL::route('eventos.index') }}">
+
+                        <p>Cartelera</p>
+                  </a>
+
             </section>
-             
-        </div>
-        
-    </section>
 
-      <!-- GALERIA -->
+      </div>
 
-      <div class="slideshow" id="slideshow">
-            <ol class="slides">
-                  <li class="current">
-                        <div class="description">
-                              <h2>Categoria SPHELLAR 1</h2>
-                              <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
-                        </div>
-                        <div class="tiltview col">
-                              <a href="#"><img src="img/1_screen.jpg"/></a>
-                              <a href="#"><img src="img/2_screen.jpg"/></a>
-                        </div>
-                  </li>
-                  <li>
-                        <div class="description">
-                              <h2>Categoria SPHELLAR 2</h2>
-                              <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
-                        </div>
-                        <div class="tiltview row">
-                              <a href="#"><img src="img/3_mobile.jpg"/></a>
-                              <a href="#"><img src="img/4_mobile.jpg"/></a>
-                        </div>
-                  </li>
-                  <li>
-                        <div class="description">
-                              <h2>Categoria SPHELLAR 3</h2>
-                              <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
-                        </div>
-                        <div class="tiltview col">
-                              <a href="#"><img src="img/5_screen.jpg"/></a>
-                              <a href="#"><img src="img/6_screen.jpg"/></a>
-                        </div>
-                  </li>
-                  <li>
-                        <div class="description">
-                              <h2>Categoria SPHELLAR 4</h2>
-                              <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
-                        </div>
-                        <div class="tiltview row">
-                              <a href="#"><img src="img/1_mobile.jpg"/></a>
-                              <a href="#"><img src="img/2_mobile.jpg"/></a>
-                        </div>
-                  </li>
-                  <li>
-                        <div class="description">
-                              <h2>Categoria SPHELLAR 5</h2>
-                              <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
-                        </div>
-                        <div class="tiltview col">
-                              <a href="#"><img src="img/3_screen.jpg"/></a>
-                              <a href="#"><img src="img/4_screen.jpg"/></a>
-                        </div>
-                  </li>
-                  <li>
-                        <div class="description">
-                              <h2>Categoria SPHELLAR 6</h2>
-                              <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
-                        </div>
-                        <div class="tiltview row">
-                              <a href="#"><img src="img/5_mobile.jpg"/></a>
-                              <a href="#"><img src="img/6_mobile.jpg"/></a>
-                        </div>
-                  </li>
-            </ol>
-      </div><!-- /slideshow -->
-      
-      
-      
-      
-      <section id="publicidad_tres">
-          
-          <article class="publi">
-              
-              <a href="#">
-                 {{HTML::image('img/publicidad/cuadro_1.jpg','Publicidad uno')}} 
-              </a>
-              
-          </article>
-          
-          <article class="publi">
-              
-              <a href="#">
-                 {{HTML::image('img/publicidad/cuadro_2.jpg','Publicidad uno')}} 
-              </a>
-              
-          </article>
-          
-          <article class="publi">
-              
-              <a href="#">
-                 {{HTML::image('img/publicidad/cuadro_3.jpg','Publicidad uno')}} 
-              </a>
-              
-          </article>
-          
-      </section>
-               
-      
-      
-      
-      
-      
+</section>
+
+<!-- GALERIA -->
+
+<div class="slideshow" id="slideshow">
+      <ol class="slides">
+            <li class="current">
+                  <div class="description">
+                        <h2>Categoria SPHELLAR 1</h2>
+                        <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
+                  </div>
+                  <div class="tiltview col">
+                        <a href="#"><img src="img/1_screen.jpg"/></a>
+                        <a href="#"><img src="img/2_screen.jpg"/></a>
+                  </div>
+            </li>
+            <li>
+                  <div class="description">
+                        <h2>Categoria SPHELLAR 2</h2>
+                        <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
+                  </div>
+                  <div class="tiltview row">
+                        <a href="#"><img src="img/3_mobile.jpg"/></a>
+                        <a href="#"><img src="img/4_mobile.jpg"/></a>
+                  </div>
+            </li>
+            <li>
+                  <div class="description">
+                        <h2>Categoria SPHELLAR 3</h2>
+                        <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
+                  </div>
+                  <div class="tiltview col">
+                        <a href="#"><img src="img/5_screen.jpg"/></a>
+                        <a href="#"><img src="img/6_screen.jpg"/></a>
+                  </div>
+            </li>
+            <li>
+                  <div class="description">
+                        <h2>Categoria SPHELLAR 4</h2>
+                        <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
+                  </div>
+                  <div class="tiltview row">
+                        <a href="#"><img src="img/1_mobile.jpg"/></a>
+                        <a href="#"><img src="img/2_mobile.jpg"/></a>
+                  </div>
+            </li>
+            <li>
+                  <div class="description">
+                        <h2>Categoria SPHELLAR 5</h2>
+                        <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
+                  </div>
+                  <div class="tiltview col">
+                        <a href="#"><img src="img/3_screen.jpg"/></a>
+                        <a href="#"><img src="img/4_screen.jpg"/></a>
+                  </div>
+            </li>
+            <li>
+                  <div class="description">
+                        <h2>Categoria SPHELLAR 6</h2>
+                        <p>Ejemplo de banner 1 en <a href="#">Sphellar</a>, podría venderse para publicidad.</p>
+                  </div>
+                  <div class="tiltview row">
+                        <a href="#"><img src="img/5_mobile.jpg"/></a>
+                        <a href="#"><img src="img/6_mobile.jpg"/></a>
+                  </div>
+            </li>
+      </ol>
+</div><!-- /slideshow -->
+
+
+
+
+<section id="publicidad_tres">
+
+      <article class="publi">
+
+            <a href="#">
+                  {{HTML::image('img/publicidad/cuadro_1.jpg','Publicidad uno')}} 
+            </a>
+
+      </article>
+
+      <article class="publi">
+
+            <a href="#">
+                  {{HTML::image('img/publicidad/cuadro_2.jpg','Publicidad uno')}} 
+            </a>
+
+      </article>
+
+      <article class="publi">
+
+            <a href="#">
+                  {{HTML::image('img/publicidad/cuadro_3.jpg','Publicidad uno')}} 
+            </a>
+
+      </article>
+
+</section>
+
+
+
+
+
+
 <div class="container">
 
 
@@ -148,16 +150,16 @@
                         @endif
                         <h3 class="title_negocio"><strong>{{ HTML::linkRoute('negocios.show',$negocio->nombre,$negocio->id) }}</strong></h3>
                         <hr />
-                        <p>Categoria: {{ HTML::image("Img/Categorias-icons/".$negocio->categoria->categoria.".png") }}</p>
+                        <p>Categoria: {{ HTML::image("Img/Categorias-icons/".Str::slug($negocio->categoria->categoria).".png") }}</p>
                         @if(count($negocio->subcategoria))
                         <p>Subcategoria: {{ $negocio->subcategoria->subcategoria }}</p>
                         @endif
-                                          
+
                         <p>Estado: {{ $negocio->estado->estado }}</p>
                         @if(count($negocio->zona))
                         <p>Zona: {{ $negocio->zona->zona }}</p>
                         @endif
-                                         
+
                         <p>Dirección: {{ $negocio->direccion }}</p>
                         <p>Teléfono: {{ $negocio->telefono }}</p>
                         @if(count($negocio->especial))
