@@ -13,6 +13,6 @@ interface MiembroRepository
 
       public function update($id, array $zona_model);
 
-      public function delete($id);
+      public function delete($id);      
       
 }

@@ -16,4 +16,14 @@ class Miembro extends \Eloquent
             return $this->morphOne('Imagen', 'imageable');
       }
 
+      public function ranknegocios()
+      {
+            return $this->hasMany('RankNegocio');
+      }
+
+      public function negocios()
+      {
+            return $this->hasManyThrough('RankNegocio','Negocio');
+      }
+
 }

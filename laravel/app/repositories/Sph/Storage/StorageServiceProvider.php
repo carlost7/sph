@@ -75,6 +75,9 @@ class StorageServiceProvider extends ServiceProvider
                     'Sph\Storage\Promocion\PromocionRepository', 'Sph\Storage\Promocion\PromocionRepositoryEloquent'
             );
             $this->app->bind(
+                    'Sph\Storage\Rank\RankRepository', 'Sph\Storage\Rank\RankRepositoryEloquent'
+            );
+            $this->app->bind(
                     'Sph\Storage\Subcategoria\SubcategoriaRepository', 'Sph\Storage\Subcategoria\SubcategoriaRepositoryEloquent'
             );            
             $this->app->bind(

@@ -2,18 +2,27 @@
 
 use Sph\Storage\Miembro\MiembroRepository as Miembro;
 use Sph\Storage\User\UserRepository as User;
+use Sph\Storage\Negocio\NegocioRepository as Negocio;
+use Sph\Storage\Evento\EventoRepository as Evento;
+use Sph\Storage\Rank\RankRepository as Rank;
 
 class MiembrosController extends \BaseController
 {
 
       protected $miembro;
       protected $user;
+      protected $negocio;
+      protected $evento;
+      protected $rank;
 
-      public function __construct(Miembro $miembro, User $user)
+      public function __construct(Miembro $miembro, User $user, Negocio $negocio, Evento $evento, Rank $rank)
       {
             parent::__construct();
             $this->miembro = $miembro;
             $this->user = $user;
+            $this->evento = $evento;
+            $this->negocio = $negocio;
+            $this->rank = $rank;
             View::share('section', 'Miembro');
       }
 
@@ -88,17 +97,18 @@ class MiembrosController extends \BaseController
                               {
                                     //Guardar la imagen; 
                                     $path = Config::get('params.usrimg') . $path;
-                                    try{
+                                    try
+                                    {
                                           $input['imagen']->move($path, $miembro->imagen->nombre);
-                                    }catch(Exception $e){
-                                          Log::error('MiembrosController.edit: '.print_r($e,true));
+                                    } catch (Exception $e)
+                                    {
+                                          Log::error('MiembrosController.edit: ' . print_r($e, true));
                                           Session::flash('message', 'Error al modificar el usuario, intentelo de nuevo');
                                     }
                               }
                               Session::flash('message', 'Usuario modificado con éxito');
-                              return Redirect::route('miembros.show',$id);
+                              return Redirect::route('miembros.show', $id);
                         }
-                        
                   }
             }
             $user_messages = ($validateUser->getErrors() != null) ? $validateUser->getErrors()->all() : array();
@@ -120,6 +130,51 @@ class MiembrosController extends \BaseController
             Miembro::destroy($id);
 
             return Redirect::route('miembros.index');
+      }
+
+      public function add_rank($tipo, $id)
+      {
+            $tipo = strtolower($tipo);
+
+            $rankedObject = $this->$tipo->find($id);
+
+            if (isset($rankedObject))
+            {
+                  
+                  //Checa si el usuario ya tiene el objet
+                  if ($tipo == "negocio")
+                  {
+
+                        $negocio = Auth::user()->userable->ranknegocios->filter(function($ranknegocio) use($id)
+                        {
+                              return $ranknegocio->negocio_id == $id;
+                        });
+
+                        if(count($negocio)){
+                              $resultado = array('mensaje', 'Ya habias rankeado esto antes');
+                              return Response::json($resultado);
+                        }                              
+                        
+                  }
+                  else
+                  {
+
+                        echo "no";
+                        /* if(Auth::user()->userable->ranknegocios->contains($id)){
+
+                          } */
+                  }
+
+                  $objeto = $this->$tipo->agregar_rank($id,Auth::user()->userable);
+
+                  $resultado = array('mensaje' => 'Agregado con exito', 'rank' => $rankedObject->rank);
+            }
+            else
+            {
+                  $resultado = array('mensaje', 'No existe el objeto para rankear');
+            }
+
+            return Response::json($resultado);
       }
 
 }

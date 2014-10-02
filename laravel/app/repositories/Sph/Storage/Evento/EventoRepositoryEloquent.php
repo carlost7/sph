@@ -116,7 +116,7 @@ class EventoRepositoryEloquent implements EventoRepository
                   {
                         $evento->publicar = $evento_model['publicar'];
                   }
-                  
+
 
                   if ($evento->save())
                   {
@@ -165,6 +165,20 @@ class EventoRepositoryEloquent implements EventoRepository
             else
             {
                   return null;
+            }
+      }
+
+      public function agregar_rank($evento_id)
+      {
+            $evento = Evento::find($evento_id);
+            
+            if(isset($evento)){
+                  $evento->rank = $evento->rank + 1;
+                  if($evento->save()){
+                        return $evento;
+                  }else{
+                        return null;
+                  }
             }
       }
 

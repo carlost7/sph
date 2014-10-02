@@ -122,6 +122,11 @@ class NegociosController extends \BaseController
                   $mapa = Gmaps::create_map();
             }
             
+            if(Auth::user()->userable_type === 'Miembro'){
+                  
+            }
+            
+            
             View::share('name',$negocio->nombre.' - Sphellar');
             
             return View::make('contenido.show_negocio')->with(array('negocio' => $negocio, 'mapa' => $mapa,'estados'=>$estados,'categorias'=>$categorias));

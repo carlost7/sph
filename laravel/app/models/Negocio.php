@@ -118,4 +118,18 @@ class Negocio extends \Eloquent
             return $this->morphOne('Imagen', 'imageable');
       }
 
+      /*
+       * tiene diferentes ranks
+       */
+
+      public function ranks()
+      {
+            return $this->hasMany('RankNegocio');
+      }
+
+      public function miembro()
+      {
+            return $this->hasManyThrough('RankNegocio', 'Miembro');
+      }
+
 }

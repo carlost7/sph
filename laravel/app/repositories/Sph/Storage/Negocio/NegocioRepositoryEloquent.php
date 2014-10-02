@@ -12,6 +12,7 @@ use HorarioNegocio;
 use MasInfoNegocio;
 use Negocio_especial;
 use Imagen;
+use RankNegocio;
 
 class NegocioRepositoryEloquent implements NegocioRepository
 {
@@ -28,14 +29,14 @@ class NegocioRepositoryEloquent implements NegocioRepository
             $negocio->categoria_id = $negocio_model['categoria'];
             if (isset($negocio_model['subcategoria']))
             {
-                  $negocio->subcategoria_id = $negocio_model['subcategoria'];                  
+                  $negocio->subcategoria_id = $negocio_model['subcategoria'];
             }
             $negocio->estado_id = $negocio_model['estado'];
             if (isset($negocio_model['zona']))
             {
                   $negocio->zona_id = $negocio_model['zona'];
             }
-            
+
             if ($negocio->save())
             {
 
@@ -166,6 +167,34 @@ class NegocioRepositoryEloquent implements NegocioRepository
             else
             {
                   return false;
+            }
+      }
+
+      public function agregar_rank($negocio_id, $miembro)
+      {
+            $negocio = Negocio::find($negocio_id);
+            
+            if (isset($negocio))
+            {
+                  $negocio->rank = $negocio->rank + 1;
+                  if ($negocio->save())
+                  {
+                        $rank = new RankNegocio();
+                        $rank->miembro_id = $miembro->id;
+                        
+                        if ($negocio->ranks()->save($rank))
+                        {
+                              return $negocio;
+                        }
+                        else
+                        {
+                              return null;
+                        }
+                  }
+                  else
+                  {
+                        return null;
+                  }
             }
       }
 
