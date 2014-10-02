@@ -6044,8 +6044,8 @@ td.visible-print {
 
 
 .publi img{
-    border:1px solid #fff;
-    box-shadow:0 1px 4px rgba(0, 0,0, 0.4);
+    
+   
 } 
 
 .publi:last-of-type{
@@ -6053,7 +6053,47 @@ td.visible-print {
 } 
 
    
+.cuadro_front{
+    height:500px;
+    padding:2%;
+    margin:2%;
+    width:44%;
+    
+    border:1px solid #dadada;
+} 
 
+.cuadro_front.especial{
+    
+    width:100%;
+    
+    
+} 
+
+.cuadro_front a img{
+    text-align:center;
+    margin:0 auto;
+    display:block;
+    
+    border:1px solid #fff;
+    box-shadow:0 1px 4px rgba(0, 0,0, 0.4);
+    
+} 
+
+.title_index{
+    color:#000; 
+    font-weight:300;
+    text-align: center;
+    
+   
+} 
+
+.title_negocio a{
+     text-shadow:2px 1px #501474;
+     text-transform: uppercase;
+     font-weight:700;
+     font-size: 0.9em;
+     color:rgba(255,255,255,0.5);
+} 
 
 
 

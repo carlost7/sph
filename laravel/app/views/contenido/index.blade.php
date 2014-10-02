@@ -138,7 +138,7 @@
 
       <div class="row">
             <div class="col-sm-8">
-                  <h2>Negocios</h2>
+                  <h2 class="title_index">Negocios</h2>
                   @foreach($negocios as $negocio)
                   <div class="col-sm-6 cuadro_front">
                         @if(count($negocio->imagen))
@@ -146,18 +146,18 @@
                         @else
                         <a href="{{ route('negocios.show',$negocio->id) }}">{{HTML::image('img/negocio-default.jpg')}}</a>
                         @endif
-                        <h3><strong>{{ HTML::linkRoute('negocios.show',$negocio->nombre,$negocio->id) }}</strong></h3>
+                        <h3 class="title_negocio"><strong>{{ HTML::linkRoute('negocios.show',$negocio->nombre,$negocio->id) }}</strong></h3>
                         <hr />
                         <p>Categoria: {{ HTML::image("Img/Categorias-icons/".$negocio->categoria->categoria.".png") }}</p>
                         @if(count($negocio->subcategoria))
                         <p>Subcategoria: {{ $negocio->subcategoria->subcategoria }}</p>
                         @endif
-                        <hr />                  
+                                          
                         <p>Estado: {{ $negocio->estado->estado }}</p>
                         @if(count($negocio->zona))
                         <p>Zona: {{ $negocio->zona->zona }}</p>
                         @endif
-                        <hr />                  
+                                         
                         <p>Dirección: {{ $negocio->direccion }}</p>
                         <p>Teléfono: {{ $negocio->telefono }}</p>
                         @if(count($negocio->especial))
@@ -170,9 +170,9 @@
 
             </div>
             <div class="col-sm-4">
-                  <h2>Cartelera</h2>
+                  <h2 class="title_index">Cartelera</h2>
                   @foreach($eventos as $evento)
-                  <div class="col-sm-12">
+                  <div class="col-sm-12 cuadro_front especial">
                         @if(count($evento->imagen))
                         <a href="{{ route('eventos.show',$evento->id) }}"><img src="{{Config::get('params.path_public_image').$evento->imagen->path.$evento->imagen->nombre}}" alt="{{ $evento->imagen->alt }}" /></a>
                         @else
