@@ -7,22 +7,23 @@
       <div class="row">
             <div class="col-sm-9">
                   @if($negocio)
-
-                  @if(Auth::check() && Auth::user()->userable_type === 'Miembro')
+                  <div class="rank" id="rank">
+                        @if(Auth::check() && Auth::user()->userable_type === 'Miembro')
                         @if($negocio->is_especial)    
-                              @if()
-                              <div class="rank" id="rank">
-                                    <button type="button" class="btn btn-small btn-primary" id="btn_rank"> + Rank</button>      
-                              </div>
-                              @else
-                              
-                              @endif
+                        @if($add_rank)
+
+                        <button type="button" class="btn btn-small btn-primary" id="btn_rank"> + Rank</button>
+
                         @else
-                              <button type="button" class="btn btn-small btn-primary" id="btn_rank" disabled="disabled"> + Rank</button>                  
+                        rank: {{ $negocio->rank }}
+                        @endif
+                        @else
+                        <button type="button" class="btn btn-small btn-primary" id="btn_rank" disabled="disabled"> + Rank</button>                  
                         @endif                  
-                  @else
-                  <p>{{ HTML::linkRoute('register.user','Regístrate como usuario para rankear el negocio ') }}</p> 
-                  @endif
+                        @else
+                        <p>{{ HTML::linkRoute('register.user','Regístrate como usuario para rankear el negocio ') }}</p> 
+                        @endif
+                  </div>
 
                   <h2>{{ $negocio->nombre }}</h2>
                   @if(count($negocio->imagen))
@@ -120,7 +121,13 @@
             //url = base_url + "miembro/rank/{{get_class($negocio).'/'.$negocio->id}}";
             url = "{{ URL::route('miembro.add_rank',array(get_class($negocio),$negocio->id)) }}";
             $.post(url).done(function(data) {
-                  alert(data);
+                  if(data['error']){
+                        $("#rank").html(data['mensaje']);
+                  }else{
+                        $("#rank").html("rank: "+data['rank']);
+                  }
+                  
+            
             });
       });
 </script>

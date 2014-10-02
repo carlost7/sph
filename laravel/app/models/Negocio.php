@@ -127,7 +127,7 @@ class Negocio extends \Eloquent
             return $this->hasMany('RankNegocio');
       }
 
-      public function miembro()
+      public function miembros()
       {
             return $this->hasManyThrough('RankNegocio', 'Miembro');
       }

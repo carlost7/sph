@@ -14,7 +14,7 @@ class SubcategoriaRepositoryEloquent implements SubcategoriaRepository
 
       public function all()
       {
-            return Subcategoria::all();
+            return Subcategoria::remember(60)->get();
       }
 
       public function create(array $subcat_model)
@@ -60,7 +60,7 @@ class SubcategoriaRepositoryEloquent implements SubcategoriaRepository
       }
 
       public function getSubcatByCategoria($categoria_id){
-            return Subcategoria::where('categoria_id', $categoria_id)->get();
+            return Subcategoria::where('categoria_id', $categoria_id)->remember(60)->get();
             
       }
       

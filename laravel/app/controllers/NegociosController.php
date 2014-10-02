@@ -27,50 +27,50 @@ class NegociosController extends \BaseController
        */
       public function index()
       {
-            View::share('name','Negocios - Sphellar');
-            
+            View::share('name', 'Negocios - Sphellar');
+
             $tipocat = Input::get('tipocat');
             $tipolocal = Input::get('tipolocal');
 
             $categorias = $this->categoria->all();
             $estados = $this->estado->all();
-            
+
 
             $queryNegocios = \Negocio::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc');
-            
+
             if (isset($tipocat))
             {
                   $tipocat = explode("-", $tipocat);
 
                   if (count($tipocat) > 1)
                   {
-                        $queryNegocios = $queryNegocios->where('subcategoria_id', $tipocat[1]);                        
+                        $queryNegocios = $queryNegocios->where('subcategoria_id', $tipocat[1]);
                   }
-                  $queryNegocios = $queryNegocios->where('categoria_id', $tipocat[0]);                  
+                  $queryNegocios = $queryNegocios->where('categoria_id', $tipocat[0]);
             }
 
             if ($tipolocal)
             {
                   $tipolocal = explode("-", $tipolocal);
 
-                  if (count($tipolocal) > 1)                  {
-                        $queryNegocios = $queryNegocios->where('zona_id', $tipolocal[1]);                        
+                  if (count($tipolocal) > 1)
+                  {
+                        $queryNegocios = $queryNegocios->where('zona_id', $tipolocal[1]);
                   }
 
                   $queryNegocios = $queryNegocios->where('estado_id', $tipolocal[0]);
-                  
             }
 
             $negocios = $queryNegocios->paginate(20);
 
-            /*$querys = DB::getQueryLog();
-            $lastQuery = end($querys);
-            //dd($lastQuery);*/
-            
-            Session::set('tipolocal',Input::get('estado'));
-            Session::set('tipocat',Input::get('categoria'));
-            
-            return View::make('contenido.negocios_index')->with(array('negocios' => $negocios,'estados'=>$estados,'categorias'=>$categorias));
+            /* $querys = DB::getQueryLog();
+              $lastQuery = end($querys);
+              //dd($lastQuery); */
+
+            Session::set('tipolocal', Input::get('estado'));
+            Session::set('tipocat', Input::get('categoria'));
+
+            return View::make('contenido.negocios_index')->with(array('negocios' => $negocios, 'estados' => $estados, 'categorias' => $categorias));
       }
 
       /**
@@ -108,6 +108,8 @@ class NegociosController extends \BaseController
             $mapa = null;
             $categorias = $this->categoria->all();
             $estados = $this->estado->all();
+
+
             if ($negocio->is_especial && count($negocio->especial))
             {
                   $config = array();
@@ -115,21 +117,37 @@ class NegociosController extends \BaseController
                   $config['zoom'] = '13';
                   Gmaps::initialize($config);
 
+
                   $marker = array();
                   $marker['position'] = $negocio->especial->mapa;
                   Gmaps::add_marker($marker);
-
                   $mapa = Gmaps::create_map();
             }
-            
-            if(Auth::user()->userable_type === 'Miembro'){
-                  
+
+
+            $add_rank = true;
+
+            if (Auth::user()->userable_type === 'Miembro')
+            {
+                  $negocio_user = Auth::user()->userable->ranknegocios->filter(function($ranknegocio) use($id)
+                  {
+                        return $ranknegocio->negocio_id == $id;
+                  });
+
+                  if (count($negocio_user))
+                  {
+                        $add_rank = false;
+                  }
             }
-            
-            
-            View::share('name',$negocio->nombre.' - Sphellar');
-            
-            return View::make('contenido.show_negocio')->with(array('negocio' => $negocio, 'mapa' => $mapa,'estados'=>$estados,'categorias'=>$categorias));
+
+            View::share('name', $negocio->nombre . ' - Sphellar');
+
+            return View::make('contenido.show_negocio')->with(
+                            array('negocio' => $negocio,
+                                'mapa' => $mapa,
+                                'estados' => $estados,
+                                'categorias' => $categorias,
+                                'add_rank' => $add_rank));
       }
 
       /**
