@@ -83,7 +83,8 @@ display: block;
 
 
 .menuHEADER li a.estoy {
-    background:#5e58d4;
+    color:#3edac0;
+    font-weight: 600;
 }
 
 .menuHEADER a {

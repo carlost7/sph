@@ -13,16 +13,16 @@ class DatabaseSeeder extends Seeder
             Eloquent::unguard();
             
             
-            $this->call('AdministradoresTableSeeder');
-            $this->call('MarketingsTableSeeder');
-            /*$this->call('UserTableSeeder');
+            //$this->call('AdministradoresTableSeeder');
+            //$this->call('MarketingsTableSeeder');
+            $this->call('UserTableSeeder');
             $this->call('MarketingsTableSeeder');
             $this->call('ClientesTableSeeder');            
             
-            $this->call('CategoriaTableSeeder');
-            $this->call('SubcategoriaTableSeeder');
-            $this->call('EstadoTableSeeder');
-            $this->call('ZonaTableSeeder');
+            //$this->call('CategoriaTableSeeder');
+            //$this->call('SubcategoriaTableSeeder');
+            //$this->call('EstadoTableSeeder');
+            //$this->call('ZonaTableSeeder');
             
             $this->call('NegocioTableSeeder');
             $this->call('MasinfoNegocioTableSeeder');
@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
             $this->call('EventoTableSeeder');
             $this->call('MasinfoEventoTableSeeder');            
             $this->call('EspecialEventoTableSeeder');
-            */
+            
             
       }
 

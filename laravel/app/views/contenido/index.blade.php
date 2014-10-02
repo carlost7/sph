@@ -1,7 +1,34 @@
 @extends('layouts.webpage_master')
 
-@section('wrapper')
-<div class="container">
+@section('wrapper') <section id="btns_opcion">
+        
+        <div id="negocio_opcion">
+            
+            <section class="invisible">
+            
+            <a href="{{ URL::route('negocios.index') }}">
+               
+                <p>Negocios</p>
+            </a>
+                
+            </section>
+
+        </div>
+        
+        <div id="cartelera_opcion">
+            
+            <section class="invisible color">
+            
+             <a href="{{ URL::route('eventos.index') }}">
+                
+                 <p>Cartelera</p>
+             </a>
+                
+            </section>
+             
+        </div>
+        
+    </section>
 
       <!-- GALERIA -->
 
@@ -69,20 +96,59 @@
                   </li>
             </ol>
       </div><!-- /slideshow -->
+      
+      
+      
+      
+      <section id="publicidad_tres">
+          
+          <article class="publi">
+              
+              <a href="#">
+                 {{HTML::image('img/publicidad/cuadro_1.jpg','Publicidad uno')}} 
+              </a>
+              
+          </article>
+          
+          <article class="publi">
+              
+              <a href="#">
+                 {{HTML::image('img/publicidad/cuadro_2.jpg','Publicidad uno')}} 
+              </a>
+              
+          </article>
+          
+          <article class="publi">
+              
+              <a href="#">
+                 {{HTML::image('img/publicidad/cuadro_3.jpg','Publicidad uno')}} 
+              </a>
+              
+          </article>
+          
+      </section>
+               
+      
+      
+      
+      
+      
+<div class="container">
+
 
       <div class="row">
             <div class="col-sm-8">
                   <h2>Negocios</h2>
                   @foreach($negocios as $negocio)
-                  <div class="col-sm-6">
+                  <div class="col-sm-6 cuadro_front">
                         @if(count($negocio->imagen))
                         <a href="{{ route('negocios.show',$negocio->id) }}"><img src="{{Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" /></a>
                         @else
-                        <a href="{{ route('negocios.show',$negocio->id) }}">{{HTML::image('img/default.png')}}</a>
+                        <a href="{{ route('negocios.show',$negocio->id) }}">{{HTML::image('img/negocio-default.jpg')}}</a>
                         @endif
                         <h3><strong>{{ HTML::linkRoute('negocios.show',$negocio->nombre,$negocio->id) }}</strong></h3>
                         <hr />
-                        <p>Categoria: {{ $negocio->categoria->categoria }}</p>
+                        <p>Categoria: {{ HTML::image("Img/Categorias-icons/".$negocio->categoria->categoria.".png") }}</p>
                         @if(count($negocio->subcategoria))
                         <p>Subcategoria: {{ $negocio->subcategoria->subcategoria }}</p>
                         @endif
@@ -110,7 +176,7 @@
                         @if(count($evento->imagen))
                         <a href="{{ route('eventos.show',$evento->id) }}"><img src="{{Config::get('params.path_public_image').$evento->imagen->path.$evento->imagen->nombre}}" alt="{{ $evento->imagen->alt }}" /></a>
                         @else
-                        <a href="{{ route('eventos.show',$evento->id) }}">{{HTML::image('img/default.png')}}</a>
+                        <a href="{{ route('eventos.show',$evento->id) }}">{{HTML::image('img/evento-default.jpg')}}</a>
                         @endif
                         <h3><strong>{{HTML::linkRoute('eventos.show',$evento->nombre,$evento->id) }}</strong></h3>
                         <hr />

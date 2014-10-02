@@ -254,7 +254,7 @@ body {
   font-size: 14px;
   line-height: 1.428571429;
   color: #4f1273;
-  background-color: #fcfafa;
+  background-color: #fff;
 }
 input,
 button,
@@ -3977,7 +3977,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-collapse.collapse {
-  background: #f96069;
+  background: #000;
   height:40px !important;
   clear:both;
 }
@@ -5932,3 +5932,133 @@ td.visible-print {
     display: none !important;
   }
 }
+
+
+/*   Botones Negocio / Cartelera del index   */
+
+#btns_opcion{
+    margin:-1% 0 0 0;
+    /*margin:1.7% auto 2% auto;*/
+    text-align: center;
+    background:#000; 
+   
+} 
+
+#negocio_opcion, #cartelera_opcion{
+    
+    width:50%;
+    margin:0;
+    display:inline-block;
+   
+    text-align: center; 
+    padding:0;
+     
+} 
+
+#negocio_opcion{
+    background:url(../img/negocios.png) center no-repeat; 
+    background-size: cover;
+    margin:0 -0.15em;
+} 
+
+#cartelera_opcion{
+    background:url(../img/eventos.png) center no-repeat; 
+    background-size: cover;
+    margin: 0 0.1em 0 -0.1em;
+    
+} 
+
+
+
+#negocio_opcion p, #cartelera_opcion p{
+    color:#fff;
+    font-size:1.5em;
+    position:relative;
+    background:#000;
+    margin:7% auto;
+    width:25%;
+    
+    padding:1.5%;
+    
+    border-radius: 0 20px 0 20px;
+   /*text-shadow:3px 1px rgba(255,255,255,0.3);*/
+   
+   transition: all 0.5s linear;
+   -webkit-transition:  all 0.5s linear;
+   -moz-transition:  all 0.5s linear;
+   -ms-transition: all 0.5s linear;     
+} 
+
+
+
+#negocio_opcion p:hover, #cartelera_opcion p:hover{
+    border-radius: 20px 0 20px 0;
+    text-decoration: none;
+} 
+
+#negocio_opcion a, #cartelera_opcion a{
+    text-decoration: none;
+} 
+
+.invisible{
+    background:#3edac0;
+    clear:both;
+    opacity:0.7;
+    
+    display:inline-block;
+    width:100%;
+    
+    visibility: visible;
+    
+     transition: all 0.35s linear;
+   -webkit-transition:  all 0.35s linear;
+   -moz-transition:  all 0.35s linear;
+   -ms-transition: all 0.35s linear;
+} 
+
+.invisible.color{
+    background:#501474;
+} 
+
+.invisible:hover{
+    opacity:0;
+}
+
+/* PUBLICIDAD - CUADROS */
+
+
+#publicidad_tres{
+    padding:0 9% 3% 9%;
+    width:100%;
+    box-sizing: border-box;
+} 
+
+.publi{
+    display:inline-block;
+    
+    width:33%;
+    margin:0 auto;
+    text-align:center;
+    
+} 
+
+
+.publi img{
+    border:1px solid #fff;
+    box-shadow:0 1px 4px rgba(0, 0,0, 0.4);
+} 
+
+.publi:last-of-type{
+    margin: 0 0% 0 0;
+} 
+
+   
+
+
+
+
+
+
+
+
+

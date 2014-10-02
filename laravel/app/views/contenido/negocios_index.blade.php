@@ -11,7 +11,7 @@
                   @if(count($negocio->imagen))
                   <a href="{{ route('negocios.show',$negocio->id) }}"><img src="{{Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" /></a>
                   @else
-                  <a href="{{ route('negocios.show',$negocio->id) }}">{{HTML::image('img/default.png')}}</a>
+                  <a href="{{ route('negocios.show',$negocio->id) }}">{{HTML::image('img/negocio-default.jpg')}}</a>
                   @endif
                   <h3><strong>{{ HTML::linkRoute('negocios.show',$negocio->nombre,$negocio->id) }}</strong></h3>
                   <hr />
@@ -29,6 +29,17 @@
                   <p>Teléfono: {{ $negocio->telefono }}</p>
                   @if(count($negocio->especial))
                   <p>Web: <a href="{{$negocio->especial->webpage}}">{{$negocio->nombre}}</a></p>
+                  
+                  @if(count($negocio->masInfo))
+                  @if($negocio->masInfo->llevar)
+                  ´{{HTML::image('img/si.png')}}
+                  @else
+                   {{HTML::image('img/no.png')}}
+                  @endif
+                  @endif
+                  
+
+                  
                   @endif
 
 

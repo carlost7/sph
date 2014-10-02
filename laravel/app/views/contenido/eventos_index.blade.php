@@ -11,7 +11,7 @@
                         @if(count($evento->imagen))
                         <a href="{{ route('eventos.show',$evento->id) }}"><img src="{{Config::get('params.path_public_image').$evento->imagen->path.$evento->imagen->nombre}}" alt="{{ $evento->imagen->alt }}" /></a>
                         @else
-                        <a href="{{ route('eventos.show',$evento->id) }}">{{HTML::image('img/default.png')}}</a>
+                        <a href="{{ route('eventos.show',$evento->id) }}">{{HTML::image('img/evento-default.jpg')}}</a>
                         @endif
                         <h3><strong>{{HTML::linkRoute('eventos.show',$evento->nombre,$evento->id) }}</strong></h3>
                         <hr />
