@@ -106,7 +106,7 @@ class NegociosController extends \BaseController
       {
             $negocio = $this->negocio->find($id);
             
-            dd($negocio);
+            //dd($negocio);
             $mapa = null;
             $categorias = $this->categoria->all();
             $estados = $this->estado->all();
