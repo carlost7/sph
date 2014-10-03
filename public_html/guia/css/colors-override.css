@@ -6004,7 +6004,7 @@ td.visible-print {
     background:#3edac0;
     clear:both;
     opacity:0.7;
-    
+    height:135px;
     display:inline-block;
     width:100%;
     
@@ -6056,17 +6056,58 @@ td.visible-print {
 .cuadro_front{
     height:500px;
     padding:2%;
-    margin:2%;
-    width:44%;
     
-    border:1px solid #dadada;
+    width:50%;
+     border:1px solid #dadada;
+    
+} 
+
+.cuadro_front:first-of-type{
+    
+    border-right:1px solid #dadada;
+    border-left:1px solid #dadada;
+    border-bottom:1px solid #dadada;
+    border-top:1px solid #dadada !important;
+} 
+
+.cuadro_front:nth-of-type(2){
+    
+    border-right:1px solid #dadada;
+    border-left:1px solid #dadada;
+    border-bottom:1px solid #dadada;
+    border-top:1px solid #dadada !important;
+}
+
+
+.cuadro_front:nth-child(even){
+    
+    border-right:1px solid #dadada;
+    border-left:1px solid #dadada;
+    border-bottom:1px solid #dadada;
+    border-top:0;
+} 
+
+.cuadro_front:nth-child(odd){
+    
+    border-right:1px solid #dadada;
+    border-bottom:1px solid #dadada;
+    border-top:0;
+    border-left:0;
 } 
 
 .cuadro_front.especial{
     
     width:100%;
     
+    border:1px solid #dadada;
+} 
+
+.cuadro_front.especial:nth-child(even){
     
+    border-right:1px solid #dadada;
+    border-left:1px solid #dadada;
+    border-top:0;
+    border-bottom:0;
 } 
 
 .cuadro_front a img{
@@ -6083,6 +6124,7 @@ td.visible-print {
     color:#000; 
     font-weight:300;
     text-align: center;
+    line-height:2em;
     
    
 } 
@@ -6093,8 +6135,38 @@ td.visible-print {
      font-weight:700;
      font-size: 0.9em;
      color:rgba(255,255,255,0.5);
+     
+     transition:all 0.3s linear;
+     -moz-transition:all 0.3s linear;
+     -webkit-transition:all 0.3s linear;
+     
 } 
 
+.title_negocio a:hover{
+     
+     text-shadow:2px 1px #5e58d4;
+    
+     text-decoration:none;
+} 
+
+
+
+.info_guia{
+    color:#999; 
+} 
+
+.cuadro_front p{
+    color:#515151;
+    font-size: 0.9em; 
+        
+} 
+
+
+.img_catego img{
+    width:20px;
+    height: 20px;
+    margin-left:10px;
+} 
 
 
 

@@ -149,21 +149,23 @@
                         <a href="{{ route('negocios.show',$negocio->id) }}">{{HTML::image('img/negocio-default.jpg')}}</a>
                         @endif
                         <h3 class="title_negocio"><strong>{{ HTML::linkRoute('negocios.show',$negocio->nombre,$negocio->id) }}</strong></h3>
-                        <hr />
-                        <p>Categoria: {{ HTML::image("Img/Categorias-icons/".Str::slug($negocio->categoria->categoria).".png") }}</p>
+                        <!--<hr /> -->
+                        <p class="img_catego"><span class="info_guia">Categoria:</span> {{ HTML::image("img/Categorias-icons/".Str::slug($negocio->categoria->categoria).".png") }}</p>
+                        
+                       
                         @if(count($negocio->subcategoria))
-                        <p>Subcategoria: {{ $negocio->subcategoria->subcategoria }}</p>
+                        <p><span class="info_guia">Subcategoria:</span> {{ $negocio->subcategoria->subcategoria }}</p>
                         @endif
 
-                        <p>Estado: {{ $negocio->estado->estado }}</p>
+                        <p><span class="info_guia">Estado:</span> {{ $negocio->estado->estado }}</p>
                         @if(count($negocio->zona))
-                        <p>Zona: {{ $negocio->zona->zona }}</p>
+                        <p><span class="info_guia">Zona:</span> {{ $negocio->zona->zona }}</p>
                         @endif
 
-                        <p>Dirección: {{ $negocio->direccion }}</p>
-                        <p>Teléfono: {{ $negocio->telefono }}</p>
+                        <p><span class="info_guia">Dirección:</span> {{ $negocio->direccion }}</p>
+                        <p><span class="info_guia">Teléfono:</span> {{ $negocio->telefono }}</p>
                         @if(count($negocio->especial))
-                        <p>Web: <a href="{{$negocio->especial->webpage}}">{{$negocio->nombre}}</a></p>
+                        <p><span class="info_guia">Web:</span> <a href="{{$negocio->especial->webpage}}">{{$negocio->nombre}}</a></p>
                         @endif
 
 
@@ -182,19 +184,18 @@
                         @endif
                         <h3><strong>{{HTML::linkRoute('eventos.show',$evento->nombre,$evento->id) }}</strong></h3>
                         <hr />
-                        <p>Categoria: {{ $evento->categoria->categoria }}</p>
+                        <p class="img_catego"><span class="info_guia">Categoria:</span> {{ HTML::image("img/Categorias-icons/".Str::slug($negocio->categoria->categoria).".png") }}</p>
                         @if(count($evento->subcategoria))
                         <p>Subcategoria: {{ $evento->subcategoria->subcategoria }}</p>
                         @endif
-
-                        <hr />                  
-                        <p>Estado: {{ $evento->estado->estado }}</p>
+               
+                        <p><span class="info_guia">Estado:</span> {{ $evento->estado->estado }}</p>
                         @if(count($evento->subcategoria))
-                        <p>Zona: {{ $evento->zona->zona }}</p>
+                        <p><span class="info_guia">Zona:</span> {{ $evento->zona->zona }}</p>
                         @endif
-                        <p>Dirección: {{ $evento->direccion }}</p>
+                        <p><span class="info_guia">Dirección:</span> {{ $evento->direccion }}</p>
                         @if(count($evento->especial))
-                        <p>Web: <a href="{{$evento->especial->web}}">{{$evento->nombre}}</a></p>
+                        <p><span class="info_guia">Web:</span> <a href="{{$evento->especial->web}}">{{$evento->nombre}}</a></p>
                         @endif
 
 
