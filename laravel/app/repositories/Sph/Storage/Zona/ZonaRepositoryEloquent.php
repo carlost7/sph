@@ -14,7 +14,7 @@ class ZonaRepositoryEloquent implements ZonaRepository
 
       public function all()
       {
-            return Zona::remember(60)->get();
+            return Zona::all();
       }
 
       public function create(array $zona_model)
