@@ -82,7 +82,7 @@ class NegocioRepositoryEloquent implements NegocioRepository
 
       public function find($id)
       {
-            return Negocio::find($id)->with('especial')->remember(5)->first();
+            return Negocio::with('especial')->find($id);            
       }
 
       public function update($id, array $negocio_model)

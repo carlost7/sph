@@ -26,7 +26,7 @@ Route::get('negocios', array(
     'as' => 'negocios.index'
 ));
 
-Route::get('negocios/{id}', array(
+Route::get('negocios/{id}/{nombre?}', array(
     'uses' => 'NegociosController@show',
     'as' => 'negocios.show'
 ));
@@ -41,7 +41,7 @@ Route::get('cartelera', array(
     'as' => 'eventos.index'
 ));
 
-Route::get('cartelera/{id}', array(
+Route::get('cartelera/{id}/{nombre?}', array(
     'uses' => 'EventosController@show',
     'as' => 'eventos.show'
 ));

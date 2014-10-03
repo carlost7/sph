@@ -9,11 +9,11 @@
                   @foreach($eventos as $evento)
                   <div class="col-sm-12">
                         @if(count($evento->imagen))
-                        <a href="{{ route('eventos.show',$evento->id) }}"><img src="{{Config::get('params.path_public_image').$evento->imagen->path.$evento->imagen->nombre}}" alt="{{ $evento->imagen->alt }}" /></a>
+                        <a href="{{ route('eventos.show',array($evento->id,Str::slug($evento->nombre))) }}"><img src="{{Config::get('params.path_public_image').$evento->imagen->path.$evento->imagen->nombre}}" alt="{{ $evento->imagen->alt }}" /></a>
                         @else
-                        <a href="{{ route('eventos.show',$evento->id) }}">{{HTML::image('img/evento-default.jpg')}}</a>
+                        <a href="{{ route('eventos.show',array($evento->id,Str::slug($evento->nombre))) }}">{{HTML::image('img/evento-default.jpg')}}</a>
                         @endif
-                        <h3><strong>{{HTML::linkRoute('eventos.show',$evento->nombre,$evento->id) }}</strong></h3>
+                        <h3><strong>{{HTML::linkRoute('eventos.show',$evento->nombre,array($evento->id,Str::slug($evento->nombre))) }}</strong></h3>
                         <hr />
                         <p>Categoria: {{ $evento->categoria->categoria }}</p>
                         @if(count($evento->subcategoria))

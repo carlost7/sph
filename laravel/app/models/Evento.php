@@ -100,4 +100,18 @@ class Evento extends \Eloquent
             return $this->morphOne('Imagen', 'imageable');
       }
 
+      
+            /*
+       * tiene diferentes ranks
+       */
+
+      public function ranks()
+      {
+            return $this->hasMany('RankEvento');
+      }
+
+      public function miembros()
+      {
+            return $this->hasManyThrough('RankEvento', 'Miembro');
+      }
 }

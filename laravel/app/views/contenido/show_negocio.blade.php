@@ -7,16 +7,19 @@
       <div class="row">
             <div class="col-sm-9">
                   @if($negocio)
-                  
+
+                  <h2>{{ $negocio->nombre }}</h2>
+
                   <div class="rank" id="rank">
                         @if(Auth::check() && Auth::user()->userable_type === 'Miembro')
                         @if($negocio->is_especial)    
                         @if($add_rank)
-                              <button type="button" class="btn btn-small btn-primary" id="btn_rank"> + Rank</button>
-                        @else
-                        
+                        <button type="button" class="btn btn-small btn-primary" id="btn_rank"> + Rank</button>
                         rank: {{ $negocio->rank }}
-                        
+                        @else
+
+                        rank: {{ $negocio->rank }}
+
                         @endif
                         @else
                         <button type="button" class="btn btn-small btn-primary" id="btn_rank" disabled="disabled"> + Rank</button>                  
@@ -26,7 +29,7 @@
                         @endif
                   </div>
 
-                  <h2>{{ $negocio->nombre }}</h2>
+
                   @if(count($negocio->imagen))
                   <img src="{{Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" />
                   @endif
@@ -122,13 +125,13 @@
             //url = base_url + "miembro/rank/{{get_class($negocio).'/'.$negocio->id}}";
             url = "{{ URL::route('miembro.add_rank',array(get_class($negocio),$negocio->id)) }}";
             $.post(url).done(function(data) {
-                  if(data['error']){
+                  if (data['error']) {
                         $("#rank").html(data['mensaje']);
-                  }else{
-                        $("#rank").html("rank: "+data['rank']);
+                  } else {
+                        $("#rank").html("rank: " + data['rank']);
                   }
-                  
-            
+
+
             });
       });
 </script>

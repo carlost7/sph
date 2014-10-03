@@ -128,10 +128,35 @@ class EventosController extends \BaseController
 
                   $mapa = Gmaps::create_map();
             }
+            
+            $add_rank = true;
 
+            
+            
+            if (Auth::check() && Auth::user()->userable_type === 'Miembro')
+            {
+                  
+                  $evento_user = Auth::user()->userable->rankeventos->filter(function($rankevento) use($id)
+                  {
+                        return $rankevento->evento_id == $id;
+                  });
+
+                  if (count($evento_user))
+                  {
+                        $add_rank = false;
+                  }
+            }
+            
+            
+            
             View::share('name', $evento->nombre . ' - Sphellar');
 
-            return View::make('contenido.show_evento')->with(array('evento' => $evento, 'mapa' => $mapa,'estados'=>$estados,'categorias'=>$categorias));
+            return View::make('contenido.show_evento')->with(
+                    array('evento' => $evento, 
+                        'mapa' => $mapa,
+                        'estados'=>$estados,
+                        'categorias'=>$categorias,
+                        'add_rank'=>$add_rank));
       }
 
       /**

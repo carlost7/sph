@@ -150,26 +150,29 @@ class MiembrosController extends \BaseController
                               return $ranknegocio->negocio_id == $id;
                         });
                         
-                        dd($ranks);
-                        
-                        if(count($ranks->negocio)){
+                        if(count($ranks)){
                               $resultado = array('error'=>true,'mensaje'=>'Ya habias rankeado esto antes');
                               return Response::json($resultado);
-                        }                              
+                        } 
                         
                   }
                   else
                   {
 
-                        echo "no";
-                        /* if(Auth::user()->userable->ranknegocios->contains($id)){
-
-                          } */
+                        $ranks = Auth::user()->userable->rankeventos->filter(function($rankevento) use($id)
+                        {
+                              return $rankevento->evento_id == $id;
+                        });
+                        
+                        if(count($ranks)){
+                              $resultado = array('error'=>true,'mensaje'=>'Ya habias rankeado esto antes');
+                              return Response::json($resultado);
+                        } 
                   }
 
                   $objeto = $this->$tipo->agregar_rank($id,Auth::user()->userable);
 
-                  $resultado = array('mensaje' => 'Agregado con exito', 'rank' => $rankedObject->rank);
+                  $resultado = array('mensaje' => 'Agregado con exito', 'rank' => $objeto->rank);
             }
             else
             {

@@ -144,11 +144,11 @@
                   @foreach($negocios as $negocio)
                   <div class="col-sm-6 cuadro_front">
                         @if(count($negocio->imagen))
-                        <a href="{{ route('negocios.show',$negocio->id) }}"><img src="{{Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" /></a>
+                        <a href="{{ route('negocios.show',array($negocio->id,Str::slug($negocio->nombre))) }}"><img src="{{Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" /></a>
                         @else
-                        <a href="{{ route('negocios.show',$negocio->id) }}">{{HTML::image('img/negocio-default.jpg')}}</a>
+                        <a href="{{ route('negocios.show',array($negocio->id,Str::slug($negocio->nombre))) }}">{{HTML::image('img/negocio-default.jpg')}}</a>
                         @endif
-                        <h3 class="title_negocio"><strong>{{ HTML::linkRoute('negocios.show',$negocio->nombre,$negocio->id) }}</strong></h3>
+                        <h3 class="title_negocio"><strong>{{ HTML::linkRoute('negocios.show',$negocio->nombre,array($negocio->id,Str::slug($negocio->nombre))) }}</strong></h3>
                         <hr />
                         <p>Categoria: {{ HTML::image("Img/Categorias-icons/".Str::slug($negocio->categoria->categoria).".png") }}</p>
                         @if(count($negocio->subcategoria))
@@ -176,11 +176,11 @@
                   @foreach($eventos as $evento)
                   <div class="col-sm-12 cuadro_front especial">
                         @if(count($evento->imagen))
-                        <a href="{{ route('eventos.show',$evento->id) }}"><img src="{{Config::get('params.path_public_image').$evento->imagen->path.$evento->imagen->nombre}}" alt="{{ $evento->imagen->alt }}" /></a>
+                        <a href="{{ route('eventos.show',array($evento->id,Str::slug($evento->nombre))) }}"><img src="{{Config::get('params.path_public_image').$evento->imagen->path.$evento->imagen->nombre}}" alt="{{ $evento->imagen->alt }}" /></a>
                         @else
-                        <a href="{{ route('eventos.show',$evento->id) }}">{{HTML::image('img/evento-default.jpg')}}</a>
+                        <a href="{{ route('eventos.show',array($evento->id,Str::slug($evento->nombre))) }}">{{HTML::image('img/evento-default.jpg')}}</a>
                         @endif
-                        <h3><strong>{{HTML::linkRoute('eventos.show',$evento->nombre,$evento->id) }}</strong></h3>
+                        <h3><strong>{{HTML::linkRoute('eventos.show',$evento->nombre,array($evento->id,Str::slug($evento->nombre))) }}</strong></h3>
                         <hr />
                         <p>Categoria: {{ $evento->categoria->categoria }}</p>
                         @if(count($evento->subcategoria))
