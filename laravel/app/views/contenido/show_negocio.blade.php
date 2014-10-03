@@ -7,15 +7,16 @@
       <div class="row">
             <div class="col-sm-9">
                   @if($negocio)
+                  
                   <div class="rank" id="rank">
                         @if(Auth::check() && Auth::user()->userable_type === 'Miembro')
                         @if($negocio->is_especial)    
                         @if($add_rank)
-
-                        <button type="button" class="btn btn-small btn-primary" id="btn_rank"> + Rank</button>
-
+                              <button type="button" class="btn btn-small btn-primary" id="btn_rank"> + Rank</button>
                         @else
+                        
                         rank: {{ $negocio->rank }}
+                        
                         @endif
                         @else
                         <button type="button" class="btn btn-small btn-primary" id="btn_rank" disabled="disabled"> + Rank</button>                  

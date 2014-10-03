@@ -105,6 +105,8 @@ class NegociosController extends \BaseController
       public function show($id)
       {
             $negocio = $this->negocio->find($id);
+            
+            dd($negocio);
             $mapa = null;
             $categorias = $this->categoria->all();
             $estados = $this->estado->all();
@@ -127,6 +129,8 @@ class NegociosController extends \BaseController
 
             $add_rank = true;
 
+            dd($negocio);
+            
             if (Auth::user()->userable_type === 'Miembro')
             {
                   $negocio_user = Auth::user()->userable->ranknegocios->filter(function($ranknegocio) use($id)
@@ -139,9 +143,11 @@ class NegociosController extends \BaseController
                         $add_rank = false;
                   }
             }
-
+            
             View::share('name', $negocio->nombre . ' - Sphellar');
 
+            dd($negocio);
+            
             return View::make('contenido.show_negocio')->with(
                             array('negocio' => $negocio,
                                 'mapa' => $mapa,
