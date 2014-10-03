@@ -55,7 +55,7 @@
 
                         <ul class="menuHEADER">
                              
-                             <li><a href="http://sphellar.com/mx/">{{HTML::image('img/logotipo.png','Logotipo Sphellar')}}</a></li>
+                             <li><a href="http://sphellar.com/mx/"><img alt="sphellar" src="http://sphellar.com/mx/images/logo.png"></a></li>
 
                               <li><a href="http://sphellar.com/mx/destinos.html">DESTINOS</a></li>
                               <li><a href="http://sphellar.com/mx/cultura.html">CULTURA</a>
