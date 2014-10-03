@@ -14,7 +14,7 @@ class EstadoRepositoryEloquent implements EstadoRepository
 
       public function all()
       {
-            return Estado::all();
+            return Estado::all();            
       }
 
       public function create(array $estado_model)

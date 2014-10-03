@@ -145,13 +145,15 @@ class MiembrosController extends \BaseController
                   if ($tipo == "negocio")
                   {
 
-                        $negocio = Auth::user()->userable->ranknegocios->filter(function($ranknegocio) use($id)
+                        $ranks = Auth::user()->userable->ranknegocios->filter(function($ranknegocio) use($id)
                         {
                               return $ranknegocio->negocio_id == $id;
                         });
-
-                        if(count($negocio)){
-                              $resultado = array('mensaje', 'Ya habias rankeado esto antes');
+                        
+                        dd($ranks);
+                        
+                        if(count($ranks->negocio)){
+                              $resultado = array('error'=>true,'mensaje'=>'Ya habias rankeado esto antes');
                               return Response::json($resultado);
                         }                              
                         

@@ -63,7 +63,7 @@ class ZonaRepositoryEloquent implements ZonaRepository
       }
       
       public function getZonaByEstado($estado_id){
-            return Zona::where('estado_id',$estado_id)->get();
+            return Zona::where('estado_id',$estado_id)->remember(60)->get();
       }
 
       public function getZonaLike($word){

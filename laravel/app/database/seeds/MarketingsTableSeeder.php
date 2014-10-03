@@ -19,12 +19,12 @@ class MarketingsTableSeeder extends Seeder
               } */
 
             $marketing = Marketing::create(array(
-                  'name' => 'marketing',
+                  'name' => 'Nestor Bernardino',
                   'is_activo' => true,
             ));
             User::create(array(
                   'password' => Hash::make('klendactu'),
-                  'email' => 'markting001@sphellar.com',
+                  'email' => 'nestor.bernardino@sphellar.com',
                   'userable_type' => 'Marketing',
                   'userable_id' => $marketing->id,
             ));

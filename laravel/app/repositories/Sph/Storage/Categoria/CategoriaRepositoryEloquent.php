@@ -14,7 +14,7 @@ class CategoriaRepositoryEloquent implements CategoriaRepository
 
       public function all()
       {
-            return Categoria::all();
+            return Categoria::remember(60)->get();
       }
 
       public function create(array $categoria_model)
