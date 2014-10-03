@@ -129,7 +129,7 @@ class NegociosController extends \BaseController
 
             $add_rank = true;
 
-            dd($negocio);
+            //dd($negocio);
             
             if (Auth::user()->userable_type === 'Miembro')
             {
@@ -146,7 +146,7 @@ class NegociosController extends \BaseController
             
             View::share('name', $negocio->nombre . ' - Sphellar');
 
-            dd($negocio);
+            //dd($negocio);
             
             return View::make('contenido.show_negocio')->with(
                             array('negocio' => $negocio,
