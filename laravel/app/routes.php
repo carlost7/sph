@@ -460,7 +460,8 @@ Route::group(array('before' => 'auth'), function()
       Route::get('pagar_contenido', array('as' => 'pagar_contenido.get',
           'uses' => 'PagosController@generar_link_pago')
       );
-      
-      
+
+
+      Route::resource('comentarios', 'ComentariosController');
 });
 

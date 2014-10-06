@@ -1,107 +1,132 @@
 <?php
 
-class ComentariosController extends \BaseController {
+use Sph\Storage\Comentario\ComentarioRepository as Comentario;
+use Sph\Storage\Negocio\NegocioRepository as Negocio;
+use Sph\Storage\Evento\EventoRepository as Evento;
 
-	/**
-	 * Display a listing of comentarios
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$comentarios = Comentario::all();
+class ComentariosController extends \BaseController
+{
 
-		return View::make('comentarios.index', compact('comentarios'));
-	}
+      protected $comentario;
+      protected $negocio;
+      protected $evento;
 
-	/**
-	 * Show the form for creating a new comentario
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('comentarios.create');
-	}
+      public function __construct(Comentario $comentario, Negocio $negocio, Evento $evento)
+      {
+            $this->comentario = $comentario;
+            $this->negocio = $negocio;
+            $this->evento = $evento;
+      }
 
-	/**
-	 * Store a newly created comentario in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$validator = Validator::make($data = Input::all(), Comentario::$rules);
+      /**
+       * Store a newly created comentario in storage.
+       *
+       * @return Response
+       */
+      public function store($id, $clase)
+      {
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+            $objeto = $this->$class->find($id);
+            $resultado = array();
+            if (isset($objeto))
+            {
 
-		Comentario::create($data);
+                  $commentValidator = new \Sph\Services\Validators\Comentario(Input::all(), 'save');
 
-		return Redirect::route('comentarios.index');
-	}
+                  $resultado = array();
 
-	/**
-	 * Display the specified comentario.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$comentario = Comentario::findOrFail($id);
+                  if ($commentValidator->passes())
+                  {
+                        $comentario_model = Input::all();
+                        $comentario_model = array_add($comentario_model, 'user_id', Auth::user()->id);
+                        $comentario_model = array_add($comentario_model, 'objeto', $objeto);
 
-		return View::make('comentarios.show', compact('comentario'));
-	}
+                        if ($this->comentario->create($comentario_model))
+                        {
+                              $status = "exito";
+                              $resultado = array_add($resultado, "status", 'éxito');
+                              $resultado = array_add($resultado, "mensaje", "Comentario Agregado con exito");
+                              $resultado = array_add($resultado, "comentario", $comentario);
+                        }
+                  }
+                  else
+                  {
 
-	/**
-	 * Show the form for editing the specified comentario.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$comentario = Comentario::find($id);
+                        $resultado = array_add($resultado, "status", 'error');
+                        $resultado = array_add($resultado, "mensaje", $commentValidator->getErrors());
+                  }
+            }
+            else
+            {
+                  $resultado = array_add($resultado, "status", "error");
+                  $resultado = array_add($resultado, "mensaje", "No existe el objeto a comentar");
+            }
 
-		return View::make('comentarios.edit', compact('comentario'));
-	}
+            return Response::json($resultado);
+      }
 
-	/**
-	 * Update the specified comentario in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$comentario = Comentario::findOrFail($id);
+      /**
+       * Update the specified comentario in storage.
+       *
+       * @param  int  $id
+       * @return Response
+       */
+      public function update($id)
+      {
+            $objeto = $this->$class->find($id);
+            $resultado = array();
+            if (isset($objeto))
+            {
+                  $commentValidator = new \Sph\Services\Validators\Comentario(Input::all(), 'save');
 
-		$validator = Validator::make($data = Input::all(), Comentario::$rules);
+                  if ($commentValidator->passes())
+                  {
+                        $comentario_model = Input::all();
+                        $comentario_model = array_add($comentario_model, 'user_id', Auth::user()->id);
+                        $comentario_model = array_add($comentario_model, 'objeto', $objeto);
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+                        if ($this->comentario->create($comentario_model))
+                        {
+                              $resultado = array_add($resultado, "status", 'éxito');
+                              $resultado = array_add($resultado, "mensaje", "Comentario Agregado con exito");
+                              $resultado = array_add($resultado, "comentario", $comentario);
+                        }
+                  }
+                  else
+                  {
 
-		$comentario->update($data);
+                        $resultado = array_add($resultado, "status", 'error');
+                        $resultado = array_add($resultado, "mensaje", $commentValidator->getErrors());
+                  }
+            }
+            else
+            {
+                  $resultado = array_add($resultado, "status", "error");
+                  $resultado = array_add($resultado, "mensaje", "No existe el objeto a comentar");
+            }
 
-		return Redirect::route('comentarios.index');
-	}
+            return Response::json($resultado);
+      }
 
-	/**
-	 * Remove the specified comentario from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		Comentario::destroy($id);
-
-		return Redirect::route('comentarios.index');
-	}
+      /**
+       * Remove the specified comentario from storage.
+       *
+       * @param  int  $id
+       * @return Response
+       */
+      public function destroy($id)
+      {
+            $resultado = array();
+            
+            if ($this->comentario->delete($id))
+            {
+                  $resultado = array_add($resultado, "resultado", true);
+            }
+            else
+            {
+                  $resultado = array_add($resultado, "resultado", false);
+            }     
+            return Response::json($resultado);
+      }
 
 }
