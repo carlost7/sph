@@ -6028,7 +6028,7 @@ td.visible-print {
 
 
 #publicidad_tres{
-    padding:0 9% 3% 9%;
+    padding:0 9% 1% 9%;
     width:100%;
     box-sizing: border-box;
 } 
@@ -6052,7 +6052,7 @@ td.visible-print {
     margin: 0 0% 0 0;
 } 
 
-   
+ /* CUADROS NEGOCIOS INDEX */  
 .cuadro_front{
     height:500px;
     padding:2%;
@@ -6134,6 +6134,86 @@ td.visible-print {
     
 } 
 
+.cuadro_front p{
+    color:#515151;
+    font-size: 0.9em; 
+        
+} 
+
+
+/* CUADRO NEGOCIOS INDEX*/
+
+.cuadro_front_negocios{
+    height:500px;
+    padding:2%;
+
+    width:25%;
+    border:1px solid #dadada;
+
+} 
+
+.cuadro_front_negocios:first-of-type{
+
+    border-right:1px solid #dadada;
+    border-left:1px solid #dadada;
+    border-bottom:1px solid #dadada;
+    border-top:1px solid #dadada !important;
+} 
+
+.cuadro_front_negocios:nth-of-type(2){
+
+    border-right:1px solid #dadada;
+    border-left:1px solid #dadada;
+    border-bottom:1px solid #dadada;
+    border-top:1px solid #dadada !important;
+}
+
+
+.cuadro_front_negocios:nth-child(even){
+
+    border-right:1px solid #dadada;
+    border-left:1px solid #dadada;
+    border-bottom:1px solid #dadada;
+    border-top:0;
+} 
+
+.cuadro_front_negocios:nth-child(odd){
+
+    border-right:1px solid #dadada;
+    border-bottom:1px solid #dadada;
+    border-top:0;
+    border-left:0;
+} 
+
+.cuadro_front_negocios a img{
+    text-align:center;
+    margin:0 auto;
+    display:block;
+
+    
+
+} 
+
+.cuadro_front_negocios p{
+    color:#515151;
+    font-size: 0.9em; 
+
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .title_index{
     color:#000; 
     font-weight:300;
@@ -6194,11 +6274,7 @@ td.visible-print {
     content:"· "
 } 
 
-.cuadro_front p{
-    color:#515151;
-    font-size: 0.9em; 
-        
-} 
+
 
 .img_catego{
     position:relative;
@@ -6225,8 +6301,53 @@ td.visible-print {
 } 
 
 
+.tabla_negocios, .tabla_cartelera{
+    text-align:center;
+   height:40px;
+}
+
+.tabla_negocios img, .tabla_cartelera img{
+    width:30px;
+} 
+
+.tabla_negocios td:nth-child(1){
+    background:#000; 
+    
+} 
 
 
+.tabla_negocios td:nth-child(2){
+    background:#000; 
+    
+} 
+
+.tabla_negocios td:nth-child(3){
+    background:#000; 
+    
+} 
+
+
+.tabla_cartelera td:nth-child(1){
+    background:#f96069; 
+    
+} 
+
+
+.tabla_cartelera td:nth-child(2){
+    background:#f96069; 
+    
+} 
+
+.tabla_cartelera td:nth-child(3){
+    background:#f96069; 
+    
+} 
+
+
+
+.txt_descripcion{
+    min-height: 15%;
+} 
 
 
 

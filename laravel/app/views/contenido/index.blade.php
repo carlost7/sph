@@ -162,21 +162,51 @@
                         <p><span class="info_guia">Zona:</span> {{ $negocio->zona->zona }}</p>
                         @endif-->
 
-                        <p><span class="info_guia">Descripción:</span> {{ $negocio->descripcion }}</p>
+                        <p class="txt_descripcion"><span class="info_guia">Descripción:</span> {{ $negocio->descripcion }}</p>
                         <!--<p><span class="info_guia">Teléfono:</span> {{ $negocio->telefono }}</p>
                         @if(count($negocio->especial))
                         <p><span class="info_guia">Web:</span> <a href="{{$negocio->especial->webpage}}">{{$negocio->nombre}}</a></p>
                         @endif-->
                         
                         
-                        @if(count($negocio->masInfo))
-                        @if($negocio->masInfo->llevar)
-                        {{HTML::image('img/si.png')}}
+                        <table width="100%" border="0" class="tabla_negocios">
+                            
+                        <tr>
+                                
+                        <td>
+                            
+                            @if(count($negocio->masInfo))
+                        @if($negocio->masInfo->efectivo)
+                        {{HTML::image('img/si_no/efectivo_si.png')}}
                         @else
-                        {{HTML::image('img/no.png')}}
+                        {{HTML::image('img/si_no/efectivo_no.png')}}
+                        @endif
+                        
+                        </td>
+                        
+                        <td>
+                            
+                            
+                        @if($negocio->masInfo->tc)
+                        {{HTML::image('img/si_no/tarjeta_si.png')}}
+                        @else
+                        {{HTML::image('img/si_no/tarjeta_no.png')}}
+                        @endif
+                       
+                        </td>
+                                
+                        <td>
+                       
+                        @if($negocio->masInfo->llevar)
+                        {{HTML::image('img/si_no/llevar_si.png')}}
+                        @else
+                        {{HTML::image('img/si_no/llevar_no.png')}}
                         @endif
                         @endif
-
+                        </td>
+                        
+                        </tr>
+                         </table>
 
                   </div>
                   @endforeach                  
@@ -193,21 +223,59 @@
                         @endif
                         <h3  class="title_cartelera"><strong>{{HTML::linkRoute('eventos.show',$evento->nombre,$evento->id) }}</strong></h3>
                         
-                        <p class="img_catego"><span class="info_guia">Categoria:</span> {{ HTML::image("img/Categorias-icons/".Str::slug($negocio->categoria->categoria).".png") }}</p>
+                        <p class="img_catego">{{ HTML::image("img/Categorias-icons/".Str::slug($negocio->categoria->categoria).".png") }}</p>
                         @if(count($evento->subcategoria))
                         <p>Subcategoria: {{ $evento->subcategoria->subcategoria }}</p>
                         @endif
                
-                        <!--<p><span class="info_guia">Estado:</span> {{ $evento->estado->estado }}</p>
-                        @if(count($evento->subcategoria))
-                        <p><span class="info_guia">Zona:</span> {{ $evento->zona->zona }}</p>
+                        
+                        
+                        <p class="txt_descripcion"><span class="info_guia">Descripción:</span> {{ $evento->descripcion }}</p>
+                        <!--<p><span class="info_guia">Teléfono:</span> {{ $negocio->telefono }}</p>
+                        @if(count($negocio->especial))
+                        <p><span class="info_guia">Web:</span> <a href="{{$negocio->especial->webpage}}">{{$negocio->nombre}}</a></p>
                         @endif-->
                         
                         
-                        <p><span class="info_guia">Dirección:</span> {{ $evento->direccion }}</p>
-                        @if(count($evento->especial))
-                        <p><span class="info_guia">Web:</span> <a href="{{$evento->especial->web}}">{{$evento->nombre}}</a></p>
+                        <table width="100%" border="0" class="tabla_cartelera">
+                            
+                        <tr>
+                                
+                        <td>
+                            
+                        @if(count($evento->masInfo))
+                        @if($evento->masInfo->efectivo)
+                        {{HTML::image('img/si_no/efectivo_si.png')}}
+                        @else
+                        {{HTML::image('img/si_no/efectivo_no.png')}}
                         @endif
+                        
+                        </td>
+                        
+                        <td>
+                            
+                        
+                        @if($evento->masInfo->tc)
+                        {{HTML::image('img/si_no/tarjeta_si.png')}}
+                        @else
+                        {{HTML::image('img/si_no/tarjeta_no.png')}}
+                        @endif
+                       
+                        </td>
+                                
+                        <td>
+                       
+                        @if($evento->masInfo->alcohol)
+                        {{HTML::image('img/si_no/alcohol_si.png')}}
+                        @else
+                        {{HTML::image('img/si_no/alcohol_no.png')}}
+                        @endif
+                        @endif
+                        </td>
+                        
+                        </tr>
+                         </table>
+                        
 
 
                   </div>
@@ -222,6 +290,8 @@
             </div>    
 
       </div>
+    
+    
 
 
 </div>
