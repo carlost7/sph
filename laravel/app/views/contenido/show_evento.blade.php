@@ -2,18 +2,37 @@
 
 @section('wrapper')
 <div class="container">
-      
-     @include('layouts.show_catalog',array('action'=>'cartelera'))
-      
+
+      @include('layouts.show_catalog',array('action'=>'cartelera'))
+
       @if($evento)
-      
+
       <h2>{{ $evento->nombre }}</h2>
+
+      <div class="rank" id="rank">
+            @if(Auth::check() && Auth::user()->userable_type === 'Miembro')
+            @if($evento->is_especial)    
+            @if($add_rank)
+            <button type="button" class="btn btn-small btn-primary" id="btn_rank"> + Rank</button>
+            rank: {{ $evento->rank }}
+            @else
+
+            rank: {{ $evento->rank }}
+
+            @endif
+            @else
+            <button type="button" class="btn btn-small btn-primary" id="btn_rank" disabled="disabled"> + Rank</button>                  
+            @endif                  
+            @else
+            <p>{{ HTML::linkRoute('register.user','Regístrate como usuario para rankear el negocio ') }}</p> 
+            @endif
+      </div>
 
       @if(count($evento->imagen))
       <img src="{{Config::get('params.path_public_image').$evento->imagen->path.$evento->imagen->nombre}}" alt="{{ $evento->imagen->alt }}" />
       @endif
-      
-      
+
+
       <div class="list-group">  
             <p class="list-group-item"><span class="label label-default">Fecha:</span> {{ date('d-m-Y',strtotime($evento->fecha_inicio)).' - '.date('d-m-Y',strtotime($evento->fecha_fin)) }}</p>
             <p class="list-group-item"><span class="label label-default">Horario:</span> {{ date('H:i',strtotime($evento->hora_inicio)).' - '.date('H:i',strtotime($evento->hora_fin)) }}</p>
@@ -72,6 +91,22 @@
 @if($mapa)
 {{ $mapa['js'] }}
 @endif
+
+<script>
+      $("#btn_rank").click(function() {
+            
+            url = "{{ URL::route('miembro.add_rank',array(get_class($evento),$evento->id)) }}";
+            $.post(url).done(function(data) {
+                  if (data['error']) {
+                        $("#rank").html(data['mensaje']);
+                  } else {
+                        $("#rank").html("rank: " + data['rank']);
+                  }
+
+
+            });
+      });
+</script>
 
 
 @stop

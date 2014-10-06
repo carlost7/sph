@@ -17,6 +17,6 @@ interface EventoRepository
 
       public function agregar_pago($evento_model, $pago_model);
       
-      public function agregar_rank($evento_id);
+      public function agregar_rank($evento_id, $miembro);
 
 }

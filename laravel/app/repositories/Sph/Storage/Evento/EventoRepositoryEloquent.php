@@ -11,6 +11,7 @@ use Evento;
 use Evento_especial;
 use MasInfoEvento;
 use Imagen;
+use RankEvento;
 
 class EventoRepositoryEloquent implements EventoRepository
 {
@@ -168,15 +169,29 @@ class EventoRepositoryEloquent implements EventoRepository
             }
       }
 
-      public function agregar_rank($evento_id)
+      public function agregar_rank($evento_id, $miembro)
       {
             $evento = Evento::find($evento_id);
             
-            if(isset($evento)){
+            if (isset($evento))
+            {
                   $evento->rank = $evento->rank + 1;
-                  if($evento->save()){
-                        return $evento;
-                  }else{
+                  if ($evento->save())
+                  {
+                        $rank = new RankEvento();
+                        $rank->miembro_id = $miembro->id;
+                        
+                        if ($evento->ranks()->save($rank))
+                        {
+                              return $evento;
+                        }
+                        else
+                        {
+                              return null;
+                        }
+                  }
+                  else
+                  {
                         return null;
                   }
             }

@@ -20,6 +20,11 @@ class Miembro extends \Eloquent
       {
             return $this->hasMany('RankNegocio');
       }
+      
+      public function rankeventos()
+      {
+            return $this->hasMany('RankEvento');
+      }
 
       public function negocios()
       {

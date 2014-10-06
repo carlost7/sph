@@ -106,12 +106,11 @@ class NegociosController extends \BaseController
       {
             $negocio = $this->negocio->find($id);
             
-            //dd($negocio);
             $mapa = null;
             $categorias = $this->categoria->all();
             $estados = $this->estado->all();
 
-
+            
             if ($negocio->is_especial && count($negocio->especial))
             {
                   $config = array();
@@ -131,7 +130,7 @@ class NegociosController extends \BaseController
 
             //dd($negocio);
             
-            if (Auth::user()->userable_type === 'Miembro')
+            if (Auth::check() && Auth::user()->userable_type === 'Miembro')
             {
                   $negocio_user = Auth::user()->userable->ranknegocios->filter(function($ranknegocio) use($id)
                   {
