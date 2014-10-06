@@ -1,15 +1,25 @@
 <?php
 
-class Comentario extends \Eloquent {
+class Comentario extends \Eloquent
+{
 
       protected $table = 'comentarios';
-      
-	// Add your validation rules here
-	public static $rules = [
-		// 'title' => 'required'
-	];
+      protected $fillable = ['comentario'];
 
-	// Don't forget to fill this array
-	protected $fillable = [];
+      public function comentable()
+      {
+            return $this->morphTo();
+      }
+
+      public function usuario()
+      {
+            return $this->belongsTo('User');
+      }
+
+      public function comentarios()
+      {
+
+            return $this->morphMany('Comentario', 'comentable');
+      }
 
 }

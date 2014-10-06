@@ -132,4 +132,10 @@ class Negocio extends \Eloquent
             return $this->hasManyThrough('RankNegocio', 'Miembro');
       }
 
+      public function comentarios()
+      {
+
+            return $this->morphMany('Comentario', 'comentable');
+      }
+
 }
