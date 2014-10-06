@@ -139,7 +139,7 @@
 
 
       <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-8 sin_padding">
                   <h2 class="title_index">Negocios</h2>
                   @foreach($negocios as $negocio)
                   <div class="col-sm-6 cuadro_front">
@@ -150,22 +150,31 @@
                         @endif
                         <h3 class="title_negocio"><strong>{{ HTML::linkRoute('negocios.show',$negocio->nombre,$negocio->id) }}</strong></h3>
                         <!--<hr /> -->
-                        <p class="img_catego"><span class="info_guia">Categoria:</span> {{ HTML::image("img/Categorias-icons/".Str::slug($negocio->categoria->categoria).".png") }}</p>
+                        <p class="img_catego">{{ HTML::image("img/Categorias-icons/".Str::slug($negocio->categoria->categoria).".png") }}</p>
                         
                        
                         @if(count($negocio->subcategoria))
                         <p><span class="info_guia">Subcategoria:</span> {{ $negocio->subcategoria->subcategoria }}</p>
                         @endif
 
-                        <p><span class="info_guia">Estado:</span> {{ $negocio->estado->estado }}</p>
+                        <!--<p><span class="info_guia">Estado:</span> {{ $negocio->estado->estado }}</p>
                         @if(count($negocio->zona))
                         <p><span class="info_guia">Zona:</span> {{ $negocio->zona->zona }}</p>
-                        @endif
+                        @endif-->
 
-                        <p><span class="info_guia">Dirección:</span> {{ $negocio->direccion }}</p>
-                        <p><span class="info_guia">Teléfono:</span> {{ $negocio->telefono }}</p>
+                        <p><span class="info_guia">Descripción:</span> {{ $negocio->descripcion }}</p>
+                        <!--<p><span class="info_guia">Teléfono:</span> {{ $negocio->telefono }}</p>
                         @if(count($negocio->especial))
                         <p><span class="info_guia">Web:</span> <a href="{{$negocio->especial->webpage}}">{{$negocio->nombre}}</a></p>
+                        @endif-->
+                        
+                        
+                        @if(count($negocio->masInfo))
+                        @if($negocio->masInfo->llevar)
+                        {{HTML::image('img/si.png')}}
+                        @else
+                        {{HTML::image('img/no.png')}}
+                        @endif
                         @endif
 
 
@@ -173,7 +182,7 @@
                   @endforeach                  
 
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4 col_cartelera sin_padding">
                   <h2 class="title_index">Cartelera</h2>
                   @foreach($eventos as $evento)
                   <div class="col-sm-12 cuadro_front especial">
@@ -182,17 +191,19 @@
                         @else
                         <a href="{{ route('eventos.show',$evento->id) }}">{{HTML::image('img/evento-default.jpg')}}</a>
                         @endif
-                        <h3><strong>{{HTML::linkRoute('eventos.show',$evento->nombre,$evento->id) }}</strong></h3>
-                        <hr />
+                        <h3  class="title_cartelera"><strong>{{HTML::linkRoute('eventos.show',$evento->nombre,$evento->id) }}</strong></h3>
+                        
                         <p class="img_catego"><span class="info_guia">Categoria:</span> {{ HTML::image("img/Categorias-icons/".Str::slug($negocio->categoria->categoria).".png") }}</p>
                         @if(count($evento->subcategoria))
                         <p>Subcategoria: {{ $evento->subcategoria->subcategoria }}</p>
                         @endif
                
-                        <p><span class="info_guia">Estado:</span> {{ $evento->estado->estado }}</p>
+                        <!--<p><span class="info_guia">Estado:</span> {{ $evento->estado->estado }}</p>
                         @if(count($evento->subcategoria))
                         <p><span class="info_guia">Zona:</span> {{ $evento->zona->zona }}</p>
-                        @endif
+                        @endif-->
+                        
+                        
                         <p><span class="info_guia">Dirección:</span> {{ $evento->direccion }}</p>
                         @if(count($evento->especial))
                         <p><span class="info_guia">Web:</span> <a href="{{$evento->especial->web}}">{{$evento->nombre}}</a></p>
