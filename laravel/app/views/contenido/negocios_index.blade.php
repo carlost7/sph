@@ -13,28 +13,61 @@
                   @else
                   <a href="{{ route('negocios.show',array($negocio->id,Str::slug($negocio->nombre))) }}">{{HTML::image('img/negocio-default.jpg')}}</a>
                   @endif
-                  <h3><strong>{{ HTML::linkRoute('negocios.show',$negocio->nombre,array($negocio->id,Str::slug($negocio->nombre))) }}</strong></h3>
-                  <hr />
-                  <p>Categoria: {{ $negocio->categoria->categoria }}</p>
-                  @if(count($negocio->subcategoria))
-                  <p>Subcategoria: {{ $negocio->subcategoria->subcategoria }}</p>
-                  @endif
+                  <h3 class="title_negocio"><strong>{{ HTML::linkRoute('negocios.show',$negocio->nombre,array($negocio->id,Str::slug($negocio->nombre))) }}</strong></h3>
+                  
+                  <p class="img_catego">{{ HTML::image("img/Categorias-icons/".Str::slug($negocio->categoria->categoria).".png") }}</p>
+                        
+                       
+                        @if(count($negocio->subcategoria))
+                        <p><span class="info_guia">Subcategoria:</span> {{ $negocio->subcategoria->subcategoria }}</p>
+                        @endif
                                    
                   
                                  
                   
                   
-                  @if(count($negocio->masInfo))
-                  @if($negocio->masInfo->llevar)
-                  ´{{HTML::image('img/si.png')}}
-                  @else
-                   {{HTML::image('img/no.png')}}
-                  @endif
-                  
-                  
-
-                  
-                  @endif
+                  <p class="txt_descripcion"><span class="info_guia">Descripción:</span> {{ $negocio->descripcion }}</p>
+                        
+                        
+                        
+                        <table width="100%" border="0" class="tabla_negocios">
+                            
+                        <tr>
+                                
+                        <td>
+                            
+                            @if(count($negocio->masInfo))
+                        @if($negocio->masInfo->efectivo)
+                        {{HTML::image('img/si_no/efectivo_si.png')}}
+                        @else
+                        {{HTML::image('img/si_no/efectivo_no.png')}}
+                        @endif
+                        
+                        </td>
+                        
+                        <td>
+                            
+                            
+                        @if($negocio->masInfo->tc)
+                        {{HTML::image('img/si_no/tarjeta_si.png')}}
+                        @else
+                        {{HTML::image('img/si_no/tarjeta_no.png')}}
+                        @endif
+                       
+                        </td>
+                                
+                        <td>
+                       
+                        @if($negocio->masInfo->llevar)
+                        {{HTML::image('img/si_no/llevar_si.png')}}
+                        @else
+                        {{HTML::image('img/si_no/llevar_no.png')}}
+                        @endif
+                        @endif
+                        </td>
+                        
+                        </tr>
+                         </table>
 
 
             </div>
