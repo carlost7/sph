@@ -5933,11 +5933,18 @@ td.visible-print {
   }
 }
 
+/* Tamaño total */
+
+.total{
+    max-width:100% !important;
+    padding:0;
+    overflow-x:hidden;
+} 
 
 /*   Botones Negocio / Cartelera del index   */
 
 #btns_opcion{
-    margin:3% 0 3.1% 0;
+    margin:2% 0 2.3% 0;
     /*margin:1.7% auto 2% auto;*/
     text-align: center;
     background:#000; 
@@ -6026,6 +6033,19 @@ td.visible-print {
 
 /* PUBLICIDAD - CUADROS */
 
+#publicidad_uno{
+    padding:0;
+    width:100%;
+    box-sizing: border-box;
+    margin:0 0 3% 0;
+} 
+
+#publicidad_uno article img{
+    
+    max-height:500px;
+} 
+
+
 
 #publicidad_tres{
     padding:0 9% 1% 9%;
@@ -6045,7 +6065,7 @@ td.visible-print {
 
 .publi img{
     
-   
+   box-shadow:0 1px 4px rgba(0,0,0,0.4);
 } 
 
 .publi:last-of-type{
@@ -6149,7 +6169,7 @@ td.visible-print {
     height:530px;
     padding:2%;
 
-    width:25%;
+    width:33.33%;
     border:1px solid #dadada;
 
 } 
@@ -6162,7 +6182,7 @@ td.visible-print {
     border-top:1px solid #dadada !important;
 } 
 
-.cuadro_front_negocios:nth-of-type(2), .cuadro_front_negocios:nth-of-type(3), .cuadro_front_negocios:nth-of-type(4){
+.cuadro_front_negocios:nth-of-type(2), .cuadro_front_negocios:nth-of-type(3){
 
     border-right:1px solid #dadada;
     border-left:0;
@@ -6174,7 +6194,7 @@ td.visible-print {
 .cuadro_front_negocios:nth-child(even){
 
     border-right:1px solid #dadada;
-    border-left:1px solid #dadada;
+    border-left:0;
     border-bottom:1px solid #dadada;
     border-top:0;
 } 
@@ -6233,11 +6253,11 @@ td.visible-print {
 } 
 
 .title_negocio a, .title_cartelera a{
-    /* text-shadow:2px 1px #501474; */
+    text-shadow:2px 1px #501474;
      text-transform: uppercase;
      font-weight:700;
      font-size: 0.8em;
-     color:#501474;
+     color:rgba(255,255,255,0.5);
       
      
      transition:all 0.3s linear;
@@ -6247,19 +6267,23 @@ td.visible-print {
 } 
 
 .title_cartelera a{
-     color:#f63348;
+    text-shadow: none;
+    
+     color:#f96069;
+    
 } 
+
 
 .title_cartelera a:hover{
      
-     color:#f96069;
-     text-decoration:none;
+     color:#f63348;
+      text-decoration: none;
 } 
 
 .title_negocio a:hover{
      
-     color:#5e58d4;
-     text-decoration:none;
+     color:rgba(255,255,255,0.2);
+     text-decoration: none;
 }
 
 
@@ -6357,4 +6381,14 @@ td.visible-print {
 .sin_padding{
     padding:0;
 } 
+
+
+/* Form buscador guía */
+
+#form_catalog{
+    padding:2%;
+    margin:2% 0% 2.3% 0%;
+    background:url(../img/formulario1b.jpg) center no-repeat; 
+} 
+
 

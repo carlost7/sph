@@ -12,6 +12,7 @@
             <meta name="description" content="">            
             <meta name="viewport" content="width=device-width, initial-scale=1">
             {{ HTML::script('js/vendor/modernizr-2.6.2-respond-1.1.0.min.js') }}
+            {{ HTML::script('js/tooltip.js') }}
             {{ HTML::style('css/bootstrap.css') }}
             {{ HTML::style('css/bootstrap-theme.css') }}
             {{ HTML::style('css/galeria/component_galeria.css') }}
@@ -21,7 +22,7 @@
             {{ HTML::style('css/autocomplete.css') }}
             {{ HTML::style('css/main.css') }}     
 
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway" type="text/css">
+            <link href='http://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300,100,200' rel='stylesheet' type='text/css'>
             <link rel="shortcut icon" href="{{ asset('img/default.png') }}">
             <script>
                   var base_url = '{{ URL::to("/") }}';
@@ -197,6 +198,7 @@
             {{ HTML::script('js/vendor/jquery.autocomplete.js') }}
             {{ HTML::script('js/main.js') }}
             {{ HTML::script('js/getCatalog.js') }}
+            
             @section('scripts')
             @show
       </body>
