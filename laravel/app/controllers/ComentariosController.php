@@ -84,36 +84,35 @@ class ComentariosController extends \BaseController
        */
       public function update($id)
       {
-            $objeto = $this->$class->find($id);
+            $comentario = $this->comentario->find($id);
             $resultado = array();
-            if (isset($objeto))
+            
+            if (isset($comentario) && $comentario->usuario->id == Auth::user()->id)
             {
-                  $commentValidator = new \Sph\Services\Validators\Comentario(Input::all(), 'save');
+                  $commentValidator = new \Sph\Services\Validators\Comentario(Input::all(), 'update');
 
                   if ($commentValidator->passes())
                   {
                         $comentario_model = Input::all();
-                        $comentario_model = array_add($comentario_model, 'user_id', Auth::user()->id);
-                        $comentario_model = array_add($comentario_model, 'objeto', $objeto);
-
-                        if ($this->comentario->create($comentario_model))
+                        $comentario = $this->comentario->update($id,$comentario_model);
+                        if (isset($comentario))
                         {
-                              $resultado = array_add($resultado, "status", 'éxito');
+                              $resultado = array_add($resultado, "status", true);
                               $resultado = array_add($resultado, "mensaje", "Comentario Agregado con exito");
-                              $resultado = array_add($resultado, "comentario", $comentario);
+                              $resultado = array_add($resultado, "comentario", View::make('layouts.show_comentario')->with('comentario', $comentario)->render());
                         }
                   }
                   else
                   {
 
-                        $resultado = array_add($resultado, "status", 'error');
+                        $resultado = array_add($resultado, "status", false);
                         $resultado = array_add($resultado, "mensaje", $commentValidator->getErrors());
                   }
             }
             else
             {
-                  $resultado = array_add($resultado, "status", "error");
-                  $resultado = array_add($resultado, "mensaje", "No existe el objeto a comentar");
+                  $resultado = array_add($resultado, "status", false);
+                  $resultado = array_add($resultado, "mensaje", "El comentario no pertenece al usuario activo");
             }
 
             return Response::json($resultado);
