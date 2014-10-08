@@ -74,39 +74,46 @@
       @endforeach
       @endif
 
-      @else
 
-      <h2>No seleccionó ningún negocio</h2>
-
-      @endif
 
 </div>
 
+<div class="container">      
+      <div class="row">
+            {{ Form::label('comentario','¿Qué dicen los usuarios?') }}
+            <div class="list-group" id='all_comments'>
+                  @foreach($evento->comentarios as $comentario)
+                  @include('layouts.show_comentario',array('comentario',$comentario))
+                  @endforeach
+            </div>
+      </div>
+      <div class="row">
+            <div class="add_comentario list-group-item">
+                  {{ Form::open(array('route' => array('comentarios.store','id'=>$evento->id,'clase'=>get_class($evento)),'id'=>'add_comentario')) }}
+                  {{ Form::label('comentario','Agrega tu comentario') }}
+                  {{ Form::textArea('comentario', Input::old('comentario'), array('placeholder' => 'comentario', 'class'=>'form-control','id'=>'comentario')) }}
+                  {{ Form::submit('agregar', array('class' => 'btn btn-sm btn-primary')) }}
+                  {{ Form::close() }}                        
+            </div>            
+      </div>
+</div>
 
+@else
+
+<h2>No seleccionó ningún evento</h2>
+
+@endif
 
 @stop
 
 @section('scripts')
 
+{{ HTML::script('js/rankandcomm.js') }}
+
 @if($mapa)
 {{ $mapa['js'] }}
 @endif
 
-<script>
-      $("#btn_rank").click(function() {
-            
-            url = "{{ URL::route('miembro.add_rank',array(get_class($evento),$evento->id)) }}";
-            $.post(url).done(function(data) {
-                  if (data['error']) {
-                        $("#rank").html(data['mensaje']);
-                  } else {
-                        $("#rank").html("rank: " + data['rank']);
-                  }
-
-
-            });
-      });
-</script>
 
 
 @stop

@@ -23,11 +23,21 @@ class ComentariosController extends \BaseController
        *
        * @return Response
        */
-      public function store($id, $clase)
+      public function store()
       {
-
-            $objeto = $this->$class->find($id);
+            $id = Input::get('id');
+            $clase = strtolower(Input::get('clase'));
             $resultado = array();
+
+            if (!isset($id) || !isset($clase))
+            {
+                  $resultado = array_add($resultado, "status", false);
+                  $resultado = array_add($resultado, "mensaje", "Se necesita el comentario y tipo");
+                  return Response::json($resultado);
+            }
+
+            $objeto = $this->$clase->find($id);
+
             if (isset($objeto))
             {
 
@@ -41,24 +51,25 @@ class ComentariosController extends \BaseController
                         $comentario_model = array_add($comentario_model, 'user_id', Auth::user()->id);
                         $comentario_model = array_add($comentario_model, 'objeto', $objeto);
 
-                        if ($this->comentario->create($comentario_model))
+                        $comentario = $this->comentario->create($comentario_model);
+                        if (isset($comentario))
                         {
                               $status = "exito";
-                              $resultado = array_add($resultado, "status", 'éxito');
+                              $resultado = array_add($resultado, "status", true);
                               $resultado = array_add($resultado, "mensaje", "Comentario Agregado con exito");
-                              $resultado = array_add($resultado, "comentario", $comentario);
+                              $resultado = array_add($resultado, "comentario", View::make('layouts.show_comentario')->with('comentario', $comentario)->render());
                         }
                   }
                   else
                   {
 
-                        $resultado = array_add($resultado, "status", 'error');
+                        $resultado = array_add($resultado, "status", false);
                         $resultado = array_add($resultado, "mensaje", $commentValidator->getErrors());
                   }
             }
             else
             {
-                  $resultado = array_add($resultado, "status", "error");
+                  $resultado = array_add($resultado, "status", false);
                   $resultado = array_add($resultado, "mensaje", "No existe el objeto a comentar");
             }
 
@@ -117,15 +128,25 @@ class ComentariosController extends \BaseController
       public function destroy($id)
       {
             $resultado = array();
-            
-            if ($this->comentario->delete($id))
+
+            $comentario = $this->comentario->find($id);
+            if (isset($comentario))
             {
-                  $resultado = array_add($resultado, "resultado", true);
+                  if ($comentario->usuario->id == Auth::user()->id)
+                  {
+                        if ($this->comentario->delete($id))
+                        {
+
+                              $resultado = array_add($resultado, "status", true);
+                        }
+                        else
+                        {
+                              $resultado = array_add($resultado, "status", false);
+                        }
+                  }
+            }else{
+                  $resultado = array_add($resultado, "status", false);
             }
-            else
-            {
-                  $resultado = array_add($resultado, "resultado", false);
-            }     
             return Response::json($resultado);
       }
 

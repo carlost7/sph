@@ -21,8 +21,8 @@ class ComentarioRepositoryEloquent implements ComentarioRepository
       {
             $comentario = new Comentario($comentario_model);
 
-            $comentario->comentario_type = get_class($comentario_model['objeto']);
-            $comentario->comentario_id = $comentario_model['objeto']->id;
+            $comentario->comentable_type = get_class($comentario_model['objeto']);
+            $comentario->comentable_id = $comentario_model['objeto']->id;
             $comentario->usuario_id = $comentario_model['user_id'];
 
             if ($comentario->save())
