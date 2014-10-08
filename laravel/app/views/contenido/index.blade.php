@@ -162,11 +162,7 @@
                         <p><span class="info_guia">Zona:</span> {{ $negocio->zona->zona }}</p>
                         @endif-->
 
-                        <p class="txt_descripcion"><span class="info_guia">Descripción:</span> {{ $negocio->descripcion }}</p>
-                        <!--<p><span class="info_guia">Teléfono:</span> {{ $negocio->telefono }}</p>
-                        @if(count($negocio->especial))
-                        <p><span class="info_guia">Web:</span> <a href="{{$negocio->especial->webpage}}">{{$negocio->nombre}}</a></p>
-                        @endif-->
+                        
                         
                         
                         <table width="100%" border="0" class="tabla_negocios">
@@ -177,9 +173,9 @@
                             
                             @if(count($negocio->masInfo))
                         @if($negocio->masInfo->efectivo)
-                        {{HTML::image('img/si_no/efectivo_si.png')}}
+                        {{HTML::image('img/si_no/clientes/efectivo_si.png')}}
                         @else
-                        {{HTML::image('img/si_no/efectivo_no.png')}}
+                        {{HTML::image('img/si_no/clientes/efectivo_no.png')}}
                         @endif
                         
                         </td>
@@ -188,9 +184,9 @@
                             
                             
                         @if($negocio->masInfo->tc)
-                        {{HTML::image('img/si_no/tarjeta_si.png')}}
+                        {{HTML::image('img/si_no/clientes/tarjeta_si.png')}}
                         @else
-                        {{HTML::image('img/si_no/tarjeta_no.png')}}
+                        {{HTML::image('img/si_no/clientes/tarjeta_no.png')}}
                         @endif
                        
                         </td>
@@ -198,15 +194,21 @@
                         <td>
                        
                         @if($negocio->masInfo->llevar)
-                        {{HTML::image('img/si_no/llevar_si.png')}}
+                        {{HTML::image('img/si_no/clientes/llevar_si.png')}}
                         @else
-                        {{HTML::image('img/si_no/llevar_no.png')}}
+                        {{HTML::image('img/si_no/clientes/llevar_no.png')}}
                         @endif
                         @endif
                         </td>
                         
                         </tr>
                          </table>
+                        
+                        <p class="txt_descripcion"><span class="info_guia">Descripción:</span> {{ $negocio->descripcion }}</p>
+                        <!--<p><span class="info_guia">Teléfono:</span> {{ $negocio->telefono }}</p>
+                        @if(count($negocio->especial))
+                        <p><span class="info_guia">Web:</span> <a href="{{$negocio->especial->webpage}}">{{$negocio->nombre}}</a></p>
+                        @endif-->
 
                   </div>
                   @endforeach                  
@@ -230,11 +232,7 @@
                
                         
                         
-                        <p class="txt_descripcion"><span class="info_guia">Descripción:</span> {{ $evento->descripcion }}</p>
-                        <!--<p><span class="info_guia">Teléfono:</span> {{ $negocio->telefono }}</p>
-                        @if(count($negocio->especial))
-                        <p><span class="info_guia">Web:</span> <a href="{{$negocio->especial->webpage}}">{{$negocio->nombre}}</a></p>
-                        @endif-->
+                        
                         
                         
                         <table width="100%" border="0" class="tabla_cartelera">
@@ -245,9 +243,9 @@
                             
                         @if(count($evento->masInfo))
                         @if($evento->masInfo->efectivo)
-                        {{HTML::image('img/si_no/efectivo_si.png')}}
+                        {{HTML::image('img/si_no/cartelera/efectivo_si.png')}}
                         @else
-                        {{HTML::image('img/si_no/efectivo_no.png')}}
+                        {{HTML::image('img/si_no/cartelera/efectivo_no.png')}}
                         @endif
                         
                         </td>
@@ -256,9 +254,9 @@
                             
                         
                         @if($evento->masInfo->tc)
-                        {{HTML::image('img/si_no/tarjeta_si.png')}}
+                        {{HTML::image('img/si_no/cartelera/tarjeta_si.png')}}
                         @else
-                        {{HTML::image('img/si_no/tarjeta_no.png')}}
+                        {{HTML::image('img/si_no/cartelera/tarjeta_no.png')}}
                         @endif
                        
                         </td>
@@ -266,9 +264,9 @@
                         <td>
                        
                         @if($evento->masInfo->alcohol)
-                        {{HTML::image('img/si_no/alcohol_si.png')}}
+                        {{HTML::image('img/si_no/cartelera/alcohol_si.png')}}
                         @else
-                        {{HTML::image('img/si_no/alcohol_no.png')}}
+                        {{HTML::image('img/si_no/cartelera/alcohol_no.png')}}
                         @endif
                         @endif
                         </td>
@@ -276,6 +274,12 @@
                         </tr>
                          </table>
                         
+                        
+                        <p class="txt_descripcion"><span class="info_guia">Descripción:</span> {{ $evento->descripcion }}</p>
+                        <!--<p><span class="info_guia">Teléfono:</span> {{ $negocio->telefono }}</p>
+                        @if(count($negocio->especial))
+                        <p><span class="info_guia">Web:</span> <a href="{{$negocio->especial->webpage}}">{{$negocio->nombre}}</a></p>
+                        @endif-->
 
 
                   </div>

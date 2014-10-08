@@ -7,7 +7,7 @@
       <div class="row">
           <h2 class="title_index">Negocios</h2>
             @foreach($negocios as $negocio)
-            <div class="col-sm-6 sin_padding cuadro_front_negocios">
+            <div class="col-sm-6 cuadro_front_negocios">
                   @if(count($negocio->imagen))
                   <a href="{{ route('negocios.show',array($negocio->id,Str::slug($negocio->nombre))) }}"><img src="{{Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" /></a>
                   @else
@@ -22,13 +22,7 @@
                         <p><span class="info_guia">Subcategoria:</span> {{ $negocio->subcategoria->subcategoria }}</p>
                         @endif
                                    
-                  
-                                 
-                  
-                  
-                  <p class="txt_descripcion"><span class="info_guia">Descripción:</span> {{ $negocio->descripcion }}</p>
-                        
-                        
+ 
                         
                         <table width="100%" border="0" class="tabla_negocios">
                             
@@ -38,9 +32,9 @@
                             
                             @if(count($negocio->masInfo))
                         @if($negocio->masInfo->efectivo)
-                        {{HTML::image('img/si_no/efectivo_si.png')}}
+                        {{HTML::image('img/si_no/clientes/efectivo_si.png')}}
                         @else
-                        {{HTML::image('img/si_no/efectivo_no.png')}}
+                        {{HTML::image('img/si_no/clientes/efectivo_no.png')}}
                         @endif
                         
                         </td>
@@ -49,9 +43,9 @@
                             
                             
                         @if($negocio->masInfo->tc)
-                        {{HTML::image('img/si_no/tarjeta_si.png')}}
+                        {{HTML::image('img/si_no/clientes/tarjeta_si.png')}}
                         @else
-                        {{HTML::image('img/si_no/tarjeta_no.png')}}
+                        {{HTML::image('img/si_no/clientes/tarjeta_no.png')}}
                         @endif
                        
                         </td>
@@ -59,9 +53,9 @@
                         <td>
                        
                         @if($negocio->masInfo->llevar)
-                        {{HTML::image('img/si_no/llevar_si.png')}}
+                        {{HTML::image('img/si_no/clientes/llevar_si.png')}}
                         @else
-                        {{HTML::image('img/si_no/llevar_no.png')}}
+                        {{HTML::image('img/si_no/clientes/llevar_no.png')}}
                         @endif
                         @endif
                         </td>
@@ -69,9 +63,11 @@
                         </tr>
                          </table>
 
-
+<p class="txt_descripcion"><span class="info_guia">Descripción:</span> {{ $negocio->descripcion }}</p> 
             </div>
-            @endforeach                  
+            @endforeach    
+            
+                         
       </div>
       <div class="row">
             <div class="col-sm-12">

@@ -6128,6 +6128,8 @@ td.visible-print {
     text-align:center;
     margin:0 auto;
     display:block;
+    max-width:100%;
+    max-height:100%;
     
     /*border:1px solid #fff;
     box-shadow:0 1px 4px rgba(0, 0,0, 0.4);*/
@@ -6144,7 +6146,7 @@ td.visible-print {
 /* CUADRO NEGOCIOS INDEX*/
 
 .cuadro_front_negocios{
-    height:500px;
+    height:530px;
     padding:2%;
 
     width:25%;
@@ -6160,10 +6162,10 @@ td.visible-print {
     border-top:1px solid #dadada !important;
 } 
 
-.cuadro_front_negocios:nth-of-type(2){
+.cuadro_front_negocios:nth-of-type(2), .cuadro_front_negocios:nth-of-type(3), .cuadro_front_negocios:nth-of-type(4){
 
     border-right:1px solid #dadada;
-    border-left:1px solid #dadada;
+    border-left:0;
     border-bottom:1px solid #dadada;
     border-top:1px solid #dadada !important;
 }
@@ -6265,8 +6267,10 @@ td.visible-print {
 .info_guia{
     color:#999; 
     text-align: left;
-    float:left;
-    width:25%;
+    padding-right:5px;
+    
+    /*float:left;
+    width:25%;*/
 } 
 
 .info_guia:before{
@@ -6304,6 +6308,8 @@ td.visible-print {
 .tabla_negocios, .tabla_cartelera{
     text-align:center;
    height:40px;
+   margin-top:-10px;
+   margin-bottom:5px;
 }
 
 .tabla_negocios img, .tabla_cartelera img{
@@ -6311,36 +6317,33 @@ td.visible-print {
 } 
 
 .tabla_negocios td:nth-child(1){
-    background:#000; 
+   
     
 } 
 
 
 .tabla_negocios td:nth-child(2){
-    background:#000; 
+   
     
 } 
 
 .tabla_negocios td:nth-child(3){
-    background:#000; 
+    
     
 } 
 
 
 .tabla_cartelera td:nth-child(1){
-    background:#f96069; 
     
 } 
 
 
 .tabla_cartelera td:nth-child(2){
-    background:#f96069; 
     
 } 
 
 .tabla_cartelera td:nth-child(3){
-    background:#f96069; 
-    
+   
 } 
 
 
