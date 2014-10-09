@@ -8,7 +8,7 @@
       
       <!-- PUBLICIDAD BANNER GRANDE -->
 
-          <section id="publicidad_uno">
+        <section id="publicidad_uno_interna">
     
               <article>
         
