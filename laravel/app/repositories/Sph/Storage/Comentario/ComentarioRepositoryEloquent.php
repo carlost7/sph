@@ -23,6 +23,10 @@ class ComentarioRepositoryEloquent implements ComentarioRepository
 
             $comentario->comentable_type = get_class($comentario_model['objeto']);
             $comentario->comentable_id = $comentario_model['objeto']->id;
+            $comentario->topic_type = $comentario_model['topic_type'];
+            $comentario->topic_id = $comentario_model['topic_id'];
+            
+            
             $comentario->usuario_id = $comentario_model['user_id'];
 
             if ($comentario->save())
@@ -37,7 +41,15 @@ class ComentarioRepositoryEloquent implements ComentarioRepository
 
       public function delete($id)
       {
-            return Comentario::destroy($id);
+            $comentario = Comentario::find($id);
+            if (isset($comentario))
+            {
+                  $comentario->comentarios()->delete();
+                  return Comentario::destroy($id);
+            }else{
+                  return null;
+            }
+            
       }
 
       public function find($id)
@@ -52,9 +64,12 @@ class ComentarioRepositoryEloquent implements ComentarioRepository
             if (isset($comentario))
             {
                   $comentario->fill($comentario_model);
-                  if($comentario->save()){
+                  if ($comentario->save())
+                  {
                         return $comentario;
-                  }else{
+                  }
+                  else
+                  {
                         return null;
                   }
             }

@@ -119,15 +119,19 @@
                   @endforeach
             </div>
       </div>
+      @if(Auth::check())
       <div class="row">
-            <div class="add_comentario list-group-item">
-                  {{ Form::open(array('route' => array('comentarios.store','id'=>$negocio->id,'clase'=>get_class($negocio)),'id'=>'add_comentario')) }}
+            <div class="list-group-item">
+                  {{ Form::open(array('route' => array('comentarios.store','id'=>$negocio->id,'clase'=>get_class($negocio)),'id'=>'add_res')) }}
                   {{ Form::label('comentario','Agrega tu comentario') }}
                   {{ Form::textArea('comentario', Input::old('comentario'), array('placeholder' => 'comentario', 'class'=>'form-control','id'=>'new_comentario')) }}
                   {{ Form::submit('agregar', array('class' => 'btn btn-sm btn-primary')) }}
                   {{ Form::close() }}                        
             </div>            
       </div>
+      @else
+      <p>{{ HTML::linkRoute('register.user','Regístrate como usuario para comentar ') }}</p> 
+      @endif
 </div>
 
 

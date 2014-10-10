@@ -43,7 +43,7 @@ class SessionController extends \BaseController
                               return Redirect::intended(route('clientes.index'));
                               break;
                         case 'Marketing':
-                              return Redirect::intended(route('marketings.index'));
+                              return Redirect::intended(route('marketing.index'));
                               break;
                         case 'Administrador':
                               return Redirect::intended(route('administradores.index'));

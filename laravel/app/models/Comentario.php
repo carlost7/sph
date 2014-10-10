@@ -22,4 +22,9 @@ class Comentario extends \Eloquent
             return $this->morphMany('Comentario', 'comentable');
       }
 
+      public function topic()
+      {
+            return $this->morphTo();
+      }
+
 }

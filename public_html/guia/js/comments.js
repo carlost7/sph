@@ -1,4 +1,4 @@
-$("#add_comentario").submit(function(e) {
+$("#add_res").submit(function(e) {
     var postData = $(this).serializeArray();
     var formUrl = $(this).attr('action');
     $.ajax({
@@ -6,76 +6,51 @@ $("#add_comentario").submit(function(e) {
         type: "POST",
         data: postData,
         success: function(data, textStatus, jqXHR) {
-            if (data['status'] == true) {
-                if ($(".show_comentario:last").length) {
-                    $(data['comentario']).insertAfter(".show_comentario:last");
-                } else {
-                    $(data['comentario']).insertAfter("#all_comments");
-                }
-
-                $("#new_comentario").val("");
+            if (data['status'] == true) {                
+                $("#all_comments").append(data['comentario']);
+                $("#new_comentario").val("");                                
             } else {
-                $(data['mensaje']).insertAfter(".show_comentario:last");
+                $(data['mensaje']).insertAfter("#all_comments");                
             }
-
         },
         error: function(jqXHR, textStatus, errorThrown) {
             $("error").insertAfter(".show_comentario:last");
         }
     });
-    e.preventDefault();
+    e.preventDefault();    
 });
 
-function delete_comment(id) {
-    var objeto = $("#del_comentario-" + id)
-    var postData = objeto.serializeArray();
-    var formUrl = objeto.attr('action');
+function show_response(id){
+    $("#add-com-"+id).show();
+}
 
+function hide_response(id){
+    $("#add-com-"+id).hide();
+}
+
+$(".frm_add_response").submit(function(e){
+    var postData = $(this).serializeArray();
+    var formUrl = $(this).attr('action');
+    var idform = $(this).attr('id');
+    
     $.ajax({
         url: formUrl,
         type: "POST",
         data: postData,
         success: function(data, textStatus, jqXHR) {
-            if (data['status'] == true) {
-                $("#com-" + id).remove();
+            if (data['status'] == true) {                
+                $("#text-com"+idform).val("");
+                $("#com-"+idform).append(data['comentario']);
+                $("#add-com-"+idform).hide();
             } else {
-                $(data['mensaje']).insertAfter("#del_comentario-" + id);
+                
+                $(data['mensaje']).insertAfter("#com-"+idform);                
             }
-
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            $("error").insertAfter("#del_comentario-" + id);
+            
+            $("error").insertAfter("#com-"+idform);
         }
     });
-}
-
-function show_edit_comment(id) {
-    $("#edit-com-" + id).show();
-    $("#show-com-" + id).hide();
-}
-
-function hide_edit_comment(id) {
-    $("#edit-com-" + id).hide();
-    $("#show-com-" + id).show();
-}
-
-function submit_edit_form(id) {
-    var objeto = $("#frm-com-" + id);
-    var postData = objeto.serializeArray();
-    var formUrl = objeto.attr('action');
-    $.ajax({
-        url: formUrl,
-        type: "POST",
-        data: postData,
-        success: function(data, textStatus, jqXHR) {
-            if (data['status'] == true) {
-                $("#com-"+id).replaceWith(data['comentario']);
-            } else {
-                $(data['mensaje']).insertBefore("#com-" + id);
-            }
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            $("error").insertBefore("#com-" + id);
-        }
-    });    
-}
+    e.preventDefault();
+})

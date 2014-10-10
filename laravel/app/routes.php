@@ -307,6 +307,19 @@ Route::group(array('before' => 'auth'), function()
                     'edit' => 'clientes_pagos.edit',
                     'update' => 'clientes_pagos.update',
                     'destroy' => 'clientes_pagos.destroy')));
+            
+            /*
+             * **********************************
+             * Opcion para mostrar, contestar y eliminar comentarios
+             * **********************************
+             */
+            Route::resource('clientes_comentarios','ClientesComentariosController',array('names' => array('index' => 'clientes_comentarios.index',
+                    'create' => 'clientes_comentarios.create',
+                    'store' => 'clientes_comentarios.store',
+                    'show' => 'clientes_comentarios.show',
+                    'edit' => 'clientes_comentarios.edit',
+                    'update' => 'clientes_comentarios.update',
+                    'destroy' => 'clientes_comentarios.destroy')));
       });
 
       /*
@@ -461,7 +474,7 @@ Route::group(array('before' => 'auth'), function()
           'uses' => 'PagosController@generar_link_pago')
       );
 
-
+      
       Route::resource('comentarios', 'ComentariosController');
 });
 

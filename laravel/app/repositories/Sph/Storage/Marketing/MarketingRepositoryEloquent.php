@@ -62,17 +62,25 @@ class MarketingRepositoryEloquent implements MarketingRepository
 
       public function asignar_cliente($client_object)
       {
+            //Buscamos a todos los marketings con sus clientes
             $marketings = Marketing::with('clientes')->get();
             $conteo = array();
+            //creamos un array con el conteo de clientes por marketing
             foreach ($marketings as $marketing)
             {
-                  $conteo = array_add($conteo, $marketing->id, $marketing->clientes->count());
+                  $conteo = array_add($conteo, $marketing->id, count($marketing->clientes));
             }
 
+            //Si el array tiene datos
             if (sizeof($conteo))
             {
-                  $conteo = array_keys($conteo, min($conteo));
-                  $marketing = Marketing::find($conteo[rand(0, count($conteo) - 1)]);
+                  //Obtenemos los registros que tengan menos clientes
+                  $less_client_marketings = array_keys($conteo, min($conteo));
+                  
+                  //Seleccionamos un marketing al azar
+                  $marketing = Marketing::find($less_client_marketings[rand(0, count($less_client_marketings) - 1)]);
+                  
+                  //Guardamos con el cliente
                   if ($marketing->clientes()->save($client_object))
                   {
                         return $marketing;
