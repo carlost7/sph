@@ -664,8 +664,9 @@ pre code {
   clear: both;
 }
 .row {
-  margin-left: -15px;
-  margin-right: -15px;
+  margin-left: 0;
+  margin-right: 0;
+  width:100%;
 }
 .row:before,
 .row:after {
@@ -1552,7 +1553,18 @@ input[type="number"]::-webkit-inner-spin-button {
   border-radius:10px 0 10px 0  !important;
   height:42px;
   width:75%;
-  font-weight:700;
+  font-weight:700 !important;
+  text-transform: uppercase;
+  
+  transition:all 0.3s linear;
+  -webkit-transition:all 0.3s linear;
+  -moz-transition:all 0.3s linear;
+  -ms-transition:all 0.3s linear;
+}
+
+#btn_guia:hover, .btn_guia:hover{
+  background:#fd7922 !important;
+  border-radius:0px 10px 0px 10px  !important;
 }
 
 .center{
@@ -1613,7 +1625,7 @@ textarea.form-control {
   min-height: 20px;
   margin-top: 10px;
   margin-bottom: 10px;
-  padding-left: 20px;
+  padding-left: 0px;
   vertical-align: middle;
 }
 .radio label,
@@ -4230,6 +4242,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 .label-default {
   background-color: #f95f68;
+  
 }
 .label-default[href]:hover,
 .label-default[href]:focus {
@@ -5944,12 +5957,13 @@ td.visible-print {
     max-width:100% !important;
     padding:0;
     overflow-x:hidden;
+    margin:-0.4em 0 0 0;
 } 
 
 /*   Botones Negocio / Cartelera del index   */
 
 #btns_opcion{
-    margin:2% 0 2.3% 0;
+    margin:-0.4% 0 0% 0;
     /*margin:1.7% auto 2% auto;*/
     text-align: center;
     background:#000; 
@@ -5967,13 +5981,13 @@ td.visible-print {
      
 } 
 
-#negocio_opcion{
+#negocio_opcion, #negocio_opcion_interna{
     background:url(../img/negocios.png) center no-repeat; 
     background-size: cover;
     margin:0 -0.15em;
 } 
 
-#cartelera_opcion{
+#cartelera_opcion, #cartelera_opcion_interna{
     background:url(../img/eventos.png) center no-repeat; 
     background-size: cover;
     margin: 0 0.1em 0 -0.1em;
@@ -5981,15 +5995,41 @@ td.visible-print {
 } 
 
 
+#negocio_opcion_interna{
+    background:url(../img/negocios_black.png) center no-repeat; 
+    background-size: cover;
+    margin:0 -0.15em;
+    position: fixed;
+} 
 
-#negocio_opcion p, #cartelera_opcion p{
+#cartelera_opcion_interna{
+    background:url(../img/eventos_black.png) center no-repeat; 
+    background-size: cover;
+    margin: 0 0.1em 0 -0.1em;
+} 
+
+
+#cartelera_opcion_interna, #negocio_opcion_interna{
+   width:100%;
+   clear:both;
+   margin: 0;
+   position: fixed;
+   z-index:100;
+} 
+
+#cartelera_opcion_interna:before, #negocio_opcion_interna:before{
+   
+   clear:both;
+   
+} 
+
+#negocio_opcion p, #cartelera_opcion p, #cartelera_opcion_interna p, #negocio_opcion_interna p{
     color:#fff;
     font-size:1.5em;
     position:relative;
     background:#000;
     margin:7% auto;
     width:25%;
-    
     padding:1.5%;
     
     border-radius: 0 20px 0 20px;
@@ -6001,18 +6041,40 @@ td.visible-print {
    -ms-transition: all 0.5s linear;     
 } 
 
+#cartelera_opcion_interna p, #negocio_opcion_interna p{
+    background:none;
+    margin:0.8% auto;  
+    font-size:4.5em;
+    letter-spacing:2px;
+}
 
-
-#negocio_opcion p:hover, #cartelera_opcion p:hover{
+#negocio_opcion p:hover, #cartelera_opcion p:hover, #cartelera_opcion_interna p:hover, #negocio_opcion_interna p:hover{
     border-radius: 20px 0 20px 0;
     text-decoration: none;
 } 
 
-#negocio_opcion a, #cartelera_opcion a{
+#negocio_opcion a, #cartelera_opcion a, #cartelera_opcion_interna a, #negocio_opcion_interna a{
     text-decoration: none;
 } 
 
 .invisible{
+    background:#f63348;
+    clear:both;
+    opacity:0.8;
+    height:135px;
+    display:inline-block;
+    width:100%;
+    
+    visibility: visible;
+    
+     transition: all 0.35s linear;
+   -webkit-transition:  all 0.35s linear;
+   -moz-transition:  all 0.35s linear;
+   -ms-transition: all 0.35s linear;
+} 
+
+
+.invisible_interna{
     background:#3edac0;
     clear:both;
     opacity:0.7;
@@ -6026,9 +6088,18 @@ td.visible-print {
    -webkit-transition:  all 0.35s linear;
    -moz-transition:  all 0.35s linear;
    -ms-transition: all 0.35s linear;
-} 
+}
 
 .invisible.color{
+    background:#501474;
+} 
+
+.invisible_interna{
+    background:#f63348;
+ 
+} 
+
+.invisible_interna.color{
     background:#501474;
 } 
 
@@ -6042,19 +6113,19 @@ td.visible-print {
     padding:0;
     width:100%;
     box-sizing: border-box;
-    margin:0 0 3% 0;
+    margin:0 0 0% 0;
 } 
 
 #publicidad_uno article img{
     
-    max-height:500px;
+    max-width:100%;
 } 
 
 #publicidad_uno_interna{
     float:right;
     width:75%;
     
-    margin:2% 0% 2.5% 0%;
+    margin:11.5% 0% 0% 0%;
 } 
 
 #publicidad_uno_interna img{
@@ -6064,7 +6135,7 @@ td.visible-print {
 
 
 #publicidad_tres{
-    padding:0 9% 1% 9%;
+    padding:4% 9%;
     width:100%;
     box-sizing: border-box;
     clear:both;
@@ -6183,7 +6254,7 @@ td.visible-print {
 /* CUADRO NEGOCIOS INDEX*/
 
 .cuadro_front_negocios{
-    height:530px;
+    height:500px;
     padding:2%;
 
     width:33.33%;
@@ -6229,8 +6300,6 @@ td.visible-print {
     margin:0 auto;
     display:block;
 
-    
-
 } 
 
 .cuadro_front_negocios p{
@@ -6238,19 +6307,6 @@ td.visible-print {
     font-size: 0.9em; 
 
 } 
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 .title_index{
@@ -6267,6 +6323,8 @@ td.visible-print {
     padding-bottom:2%;
      border-bottom:1px solid #fecd2f;
      min-height:60px;
+      color:rgba(255,255,255,0.5);
+      text-shadow:2px 1px #501474;
 } 
 
 .title_negocio a, .title_cartelera a{
@@ -6283,7 +6341,7 @@ td.visible-print {
      
 } 
 
-.title_cartelera a{
+.title_cartelera a, .title_cartelera{
     text-shadow: none;
     
      color:#f96069;
@@ -6404,7 +6462,7 @@ td.visible-print {
 
 #form_catalog{
     padding:2%;
-    margin:2% 0% 2.5% 0%;
+    margin:11.5% 0% 0% 0%;
     
     background:url(../img/formulario2a.jpg) center no-repeat; 
     background-size:cover;
@@ -6414,10 +6472,10 @@ td.visible-print {
     min-height:410px; 
     max-height:410px;
         
-        transition:all 0.5s linear;
-    -webkit-transition: all 0.5s linear;
-    -moz-transition: all 0.5s linear;
-    -ms-transition:all 0.5s linear;
+        transition:all 0.7s linear;
+    -webkit-transition: all 0.7s linear;
+    -moz-transition: all 0.7s linear;
+    -ms-transition:all 0.7s linear;
 } 
 
 #form_catalog:hover{
@@ -6425,7 +6483,6 @@ td.visible-print {
     background:url(../img/formulario2b.jpg) center no-repeat; 
     
 } 
-
 
 
 .guia_buscador{
@@ -6446,6 +6503,19 @@ td.visible-print {
     color:#fff; 
     float:left;
     font-weight:300;
+} 
+
+
+/**Detalle info**/
+
+.info_detalle{
+    font-size:1.3em;
+    background:none;
+    display:inline-block;
+    width:30%;
+    color:#999; 
+    font-weight: 300;
+    text-align:left;
 } 
 
 

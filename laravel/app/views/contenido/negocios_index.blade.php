@@ -2,6 +2,22 @@
 
 @section('wrapper')
 <div class="container total">
+    
+    
+    <div class="container total">
+      <div id="negocio_opcion_interna">
+
+            <section class="invisible_interna ">
+
+                  <a href="{{ URL::route('eventos.index') }}">
+
+                        <p>Negocios</p>
+                  </a>
+
+            </section>
+
+      </div>
+        
       @include('layouts.show_catalog',array('action'=>'negocio'))
       
       
@@ -13,7 +29,7 @@
               <article>
         
                  <a href="http://sphellar.com/mx/ target="new">
-                  {{HTML::image('img/publicidad/banner_publicidad_1.jpg','Publicidad Sphellar')}}   
+                  {{HTML::image('img/publicidad/banner_publicidad_2.jpg','Publicidad Sphellar')}}   
                  </a>
         
              </article>
@@ -57,7 +73,7 @@
 
 
       <div class="row">
-          <h2 class="title_index">Negocios</h2>
+          <!--<h2 class="title_index">Negocios</h2>-->
             @foreach($negocios as $negocio)
             <div class="col-sm-6 cuadro_front_negocios">
                   @if(count($negocio->imagen))

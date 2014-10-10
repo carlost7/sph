@@ -179,10 +179,6 @@
                         @endif
                
                         
-                        
-                        
-                        
-                        
                         <table width="100%" border="0" class="tabla_cartelera">
                             
                         <tr>

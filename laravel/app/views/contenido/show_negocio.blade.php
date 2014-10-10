@@ -2,13 +2,13 @@
 
 @section('wrapper')
 <div class="container">
-      @include('layouts.show_catalog',array('action'=>'negocio'))
+     <!-- @include('layouts.show_catalog',array('action'=>'negocio'))-->
 
       <div class="row">
             <div class="col-sm-9">
                   @if($negocio)
 
-                  <h2>{{ $negocio->nombre }}</h2>
+                  <h2 class="title_negocio">{{ $negocio->nombre }}</h2>
 
                   <div class="rank" id="rank">
                         @if(Auth::check() && Auth::user()->userable_type === 'Miembro')
