@@ -51,7 +51,7 @@ class ComentariosController extends \BaseController
                         $comentario_model = array_add($comentario_model, 'user_id', Auth::user()->id);
                         $comentario_model = array_add($comentario_model, 'objeto', $objeto);
 
-                        if (get_class($objeto) == Comentario::class)
+                        if (get_class($objeto) == \Comentario::class)
                         {
                               $comentario_model = array_add($comentario_model, 'topic_id', $objeto->comentable_id);
                               $comentario_model = array_add($comentario_model, 'topic_type', $objeto->comentable_type);
@@ -69,14 +69,14 @@ class ComentariosController extends \BaseController
                               $status = "exito";
                               $resultado = array_add($resultado, "status", true);
                               $resultado = array_add($resultado, "mensaje", "Comentario Agregado con exito");
-                              $resultado = array_add($resultado, "comentario", View::make('layouts.show_comentario')->with(array('comentario'=>$comentario))->render());
+                              $resultado = array_add($resultado, "comentario", View::make('layouts.show_comentario')->with(array('comentario' => $comentario))->render());
                         }
                   }
                   else
                   {
 
                         $resultado = array_add($resultado, "status", false);
-                        $resultado = array_add($resultado, "mensaje", $commentValidator->getErrors());
+                        $resultado = array_add($resultado, "mensaje", $commentValidator->getErrors()->first('comentario'));
                   }
             }
             else
@@ -153,12 +153,19 @@ class ComentariosController extends \BaseController
                         else
                         {
                               $resultado = array_add($resultado, "status", false);
+                              $resultado = array_add($resultado, "mensaje", "no se pudo eliminar el comentario");
                         }
+                  }
+                  else
+                  {
+                        $resultado = array_add($resultado, "status", false);
+                        $resultado = array_add($resultado, "mensaje", "El comentario no pertenece al usuario");
                   }
             }
             else
             {
                   $resultado = array_add($resultado, "status", false);
+                  $resultado = array_add($resultado, "mensaje", "No existe el comentario a eliminar");
             }
             return Response::json($resultado);
       }

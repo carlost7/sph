@@ -115,6 +115,48 @@ class ClientesComentariosController extends \BaseController
 
       
       /**
+       * Update the specified comentario in storage.
+       *
+       * @param  int  $id
+       * @return Response
+       */
+      public function update($id)
+      {
+            $comentario = $this->comentario->find($id);
+            $resultado = array();
+
+            if (isset($comentario) && $comentario->usuario->id == Auth::user()->id)
+            {
+                  $commentValidator = new \Sph\Services\Validators\Comentario(Input::all(), 'update');
+
+                  if ($commentValidator->passes())
+                  {
+                        $comentario_model = Input::all();
+                        $comentario = $this->comentario->update($id, $comentario_model);
+                        if (isset($comentario))
+                        {
+                              $resultado = array_add($resultado, "status", true);
+                              $resultado = array_add($resultado, "mensaje", "Comentario Agregado con exito");
+                              $resultado = array_add($resultado, "comentario", View::make('layouts.show_comentario')->with('comentario', $comentario)->render());
+                        }
+                  }
+                  else
+                  {
+
+                        $resultado = array_add($resultado, "status", false);
+                        $resultado = array_add($resultado, "mensaje", $commentValidator->getErrors());
+                  }
+            }
+            else
+            {
+                  $resultado = array_add($resultado, "status", false);
+                  $resultado = array_add($resultado, "mensaje", "El comentario no pertenece al usuario activo");
+            }
+
+            return Response::json($resultado);
+      }
+      
+      /**
        * Remove the specified resource from storage.
        * DELETE /clientescomentarios/{id}
        *
