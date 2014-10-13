@@ -53,8 +53,8 @@ class ComentariosController extends \BaseController
 
                         if (get_class($objeto) == \Comentario::class)
                         {
-                              $comentario_model = array_add($comentario_model, 'topic_id', $objeto->comentable_id);
-                              $comentario_model = array_add($comentario_model, 'topic_type', $objeto->comentable_type);
+                              $comentario_model = array_add($comentario_model, 'topic_id', $objeto->topic_id);
+                              $comentario_model = array_add($comentario_model, 'topic_type', $objeto->topic_type);
                         }
                         else
                         {

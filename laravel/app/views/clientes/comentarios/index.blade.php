@@ -6,7 +6,7 @@
 @if($comentarios)
 
 @foreach($comentarios as $comentario)
-@include('layouts.show_comentario_cliente',array('comentario',$comentario))
+@include('layouts.show_comentario',array('comentario',$comentario,'objeto'=>$objeto))
 @endforeach
 
 @endif
