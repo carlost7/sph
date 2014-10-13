@@ -39,7 +39,13 @@
             <p class="list-group-item"><span class="label label-default info_detalle">Dirección:</span> {{ $evento->direccion }}</p>
             <p class="list-group-item"><span class="label label-default info_detalle">Descripción:</span> {{ $evento->descripcion }}</p>
             <p class="list-group-item"><span class="label label-default info_detalle">Telefono:</span> {{ $evento->telefono }}</p>
-            <p class="list-group-item"><span class="label label-default info_detalle">Publicado:</span> {{ ($evento->publicar) ? 'Si' : 'No' }}</p>
+            <p class="list-group-item"><span class="label label-default info_detalle">Publicado:</span> {{ ($evento->publicar) ? 'Si' : 'No' }}
+                        @if($evento->publicar)
+                        {{HTML::image('img/si_no/cartelera/publicado_si.png','El evento está publicado',array('title'=>'El evento está publicado','data-toggle'=>'tooltip','data-placement'=>'bottom','class'=>'img_detalle')) }}
+                        @else
+                        {{HTML::image('img/si_no/cartelera/publicado_no.png','El evento no está publicado',array('title'=>'El evento no está publicado','data-toggle'=>'tooltip','data-placement'=>'bottom','class'=>'img_detalle')) }}
+                        @endif
+            </p>
       </div>
 
       @if(count($evento->masInfo))
@@ -49,10 +55,39 @@
             <p class="list-group-item"><span class="label label-default info_detalle">Costo:</span> {{ $evento->costo }}</p>
             <p class="list-group-item"><span class="label label-default info_detalle">Edad mínima:</span> {{ $evento->min_edad }}</p>
             <p class="list-group-item"><span class="label label-default info_detalle">Edad máxima:</span> {{ $evento->max_edad }}</p>
-            <p class="list-group-item"><span class="label label-default info_detalle">Cuenta con alcohol:</span> {{ ($evento->masInfo->alcohol) ? 'Si' : 'No' }}</p>
-            <p class="list-group-item"><span class="label label-default info_detalle">Acepta tarjeta de credito:</span> {{ ($evento->masInfo->tc) ? 'Si' : 'No' }}</p>
-            <p class="list-group-item"><span class="label label-default info_detalle">Acepta tarjeta de debito:</span> {{ ($evento->masInfo->td) ? 'Si' : 'No' }}</p>
-            <p class="list-group-item"><span class="label label-default info_detalle">Acepta efectivo:</span> {{ ($evento->masInfo->efectivo) ? 'Si' : 'No' }}</p>
+            <p class="list-group-item"><span class="label label-default info_detalle">Cuenta con alcohol:</span> {{ ($evento->masInfo->alcohol) ? 'Si' : 'No' }}
+                        
+                        @if(count($evento->masInfo))
+                        @if($evento->masInfo->alcohol)
+                        {{HTML::image('img/si_no/cartelera/alcohol_si.png','El evento cuenta con alcohol',array('title'=>'El evento cuenta con alcohol','data-toggle'=>'tooltip','data-placement'=>'bottom','class'=>'img_detalle')) }}
+                        @else
+                        {{HTML::image('img/si_no/cartelera/alcohol_no.png','El evento no cuenta con alcohol',array('title'=>'El evento no cuenta con alcohol','data-toggle'=>'tooltip','data-placement'=>'bottom','class'=>'img_detalle')) }}
+                        @endif
+            </p>
+            
+            <p class="list-group-item"><span class="label label-default info_detalle">Acepta tarjeta de credito:</span> {{ ($evento->masInfo->tc) ? 'Si' : 'No'}} 
+                        @if($evento->masInfo->tc)
+                        {{HTML::image('img/si_no/cartelera/tarjeta_si.png','Se acepta tarjeta de crédito',array('title'=>'Se acepta tarjeta de crédito','data-toggle'=>'tooltip','data-placement'=>'bottom','class'=>'img_detalle')) }}
+                        @else
+                        {{HTML::image('img/si_no/cartelera/tarjeta_no.png','No se acepta tarjeta de crédito',array('title'=>'No se acepta tarjeta de crédito','data-toggle'=>'tooltip','data-placement'=>'bottom','class'=>'img_detalle')) }}
+                        @endif
+            </p>
+            <p class="list-group-item"><span class="label label-default info_detalle">Acepta tarjeta de debito:</span> {{ ($evento->masInfo->td) ? 'Si' : 'No' }}
+                        @if($evento->masInfo->td)
+                        {{HTML::image('img/si_no/cartelera/debito_si.png','Se acepta tarjeta de débito',array('title'=>'Se acepta tarjeta de débito','data-toggle'=>'tooltip','data-placement'=>'bottom','class'=>'img_detalle')) }}
+                        @else
+                        {{HTML::image('img/si_no/cartelera/debito_no.png','No se acepta tarjeta de débito',array('title'=>'No se acepta tarjeta de débito','data-toggle'=>'tooltip','data-placement'=>'bottom','class'=>'img_detalle')) }}
+                        @endif
+            </p>
+            <p class="list-group-item"><span class="label label-default info_detalle">Acepta efectivo:</span> {{ ($evento->masInfo->efectivo) ? 'Si' : 'No' }}
+                        
+                        @if($evento->masInfo->efectivo)
+                        {{HTML::image('img/si_no/cartelera/efectivo_si.png','Se acepta efectivo',array('title'=>'Se acepta efectivo','data-toggle'=>'tooltip','data-placement'=>'bottom','class'=>'img_detalle')) }}
+                        @else
+                        {{HTML::image('img/si_no/cartelera/efectivo_no.png','No se acepta efectivo',array('title'=>'No se acepta efectivo','data-toggle'=>'tooltip','data-placement'=>'bottom','class'=>'img_detalle')) }}
+                        @endif
+                        @endif
+            </p>
             <p class="list-group-item"><span class="label label-default info_detalle">Otra:</span> {{ $evento->masInfo->otra }}</p>
       </div>
 
@@ -133,5 +168,14 @@
       });
 </script>
 
+<script>
+   $(function () { $("[data-toggle='tooltip']").tooltip(); });
+</script>
 
 @stop
+
+
+
+
+
+

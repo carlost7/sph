@@ -2,7 +2,7 @@
 
 @section('wrapper')
 <div class="container">
-     <!-- @include('layouts.show_catalog',array('action'=>'negocio'))-->
+     
 
       <div class="row">
             <div class="col-sm-9">
@@ -47,7 +47,9 @@
                         <p class="list-group-item"><span class="label label-default">Moneda:</span>{{ $negocio->masInfo->moneda }}</p>
                         <p class="list-group-item"><span class="label label-default">Rango mínimo:</span>{{ $negocio->masInfo->rango_min}}</p>
                         <p class="list-group-item"><span class="label label-default">Rango máximo:</span>{{ $negocio->masInfo->rango_max}}</p>
-                        <p class="list-group-item"><span class="label label-default">Acepta efectivo:</span>{{ ($negocio->masInfo->efectivo) ? "Si" : "No" }}</p>
+                        <p class="list-group-item"><span class="label label-default">Acepta efectivo:</span>{{ ($negocio->masInfo->efectivo) ? "Si" : "No" }} @if(count($evento->masInfo))
+                        
+                        </p>
                         <p class="list-group-item"><span class="label label-default">Acepta tarjeta de crédito:</span>{{ ($negocio->masInfo->tc) ? "Si" : "No" }}</p>
                         <p class="list-group-item"><span class="label label-default">Acepta tarjeta de débito:</span>{{ ($negocio->masInfo->td) ? "Si" : "No" }}</p>
                         <p class="list-group-item"><span class="label label-default">Ambiente familiar:</span>{{ ($negocio->masInfo->familiar) ? "Si" : "No" }}</p>
