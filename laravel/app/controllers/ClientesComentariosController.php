@@ -41,8 +41,7 @@ class ClientesComentariosController extends \BaseController
             }
             return Redirect::back();
       }
-      
-      
+
       /**
        * Store a newly created resource in storage.
        * POST /clientescomentarios
@@ -94,7 +93,7 @@ class ClientesComentariosController extends \BaseController
                               $status = "exito";
                               $resultado = array_add($resultado, "status", true);
                               $resultado = array_add($resultado, "mensaje", "Comentario Agregado con exito");
-                              $resultado = array_add($resultado, "comentario", View::make('layouts.show_comentario_cliente')->with(array('comentario' => $comentario, 'objeto' => $comentario->topic))->render());
+                              $resultado = array_add($resultado, "comentario", View::make('layouts.show_comentario')->with(array('comentario' => $comentario, 'objeto' => $comentario->topic))->render());
                         }
                   }
                   else
@@ -113,7 +112,6 @@ class ClientesComentariosController extends \BaseController
             return Response::json($resultado);
       }
 
-      
       /**
        * Update the specified comentario in storage.
        *
@@ -155,7 +153,7 @@ class ClientesComentariosController extends \BaseController
 
             return Response::json($resultado);
       }
-      
+
       /**
        * Remove the specified resource from storage.
        * DELETE /clientescomentarios/{id}
@@ -167,31 +165,13 @@ class ClientesComentariosController extends \BaseController
       {
             $resultado = array();
 
-            $id_objeto = Input::get('id_objeto');
-            $clase = strtolower(Input::get('clase'));
+            $comentario = $this->comentario->find($id);
 
-            if (isset($id_objeto) && isset($clase))
+            if (isset($comentario))
             {
-                  $comentario = $this->comentario->find($id);
-                  $objeto = $this->$clase->find($id_objeto);
-            }
-            else
-            {
-                  $resultado = array_add($resultado, "status", false);
-                  $resultado = array_add($resultado, "mensaje", 'Error al obtener datos del objeto');
-                  return Response::json($resultado);
-            }
-
-            if (isset($comentario) && isset($objeto))
-            {
-                  
-                  $comentarios = $objeto->topics->filter(function($topic) use ($id)
-                  {
-                        return $topic->id = $id;
-                  });
-
-
-                  if (isset($comentarios))
+                  $objeto = $comentario->topic;
+                  //Si el topic pertenece al usuario entonces lo eliminar
+                  if ($objeto->cliente->user->id == Auth::user()->id)
                   {
                         if ($this->comentario->delete($id))
                         {
@@ -201,18 +181,12 @@ class ClientesComentariosController extends \BaseController
                         {
                               $resultado = array_add($resultado, "status", false);
                         }
-                  }
-                  else
-                  {
+                  }else{
                         $resultado = array_add($resultado, "status", false);
                         $resultado = array_add($resultado, "mensaje", 'El comentario no pertenece al objeto');
                   }
             }
-            else
-            {
-                  $resultado = array_add($resultado, "status", false);
-                  $resultado = array_add($resultado, "mensaje", 'No existe el objeto');
-            }
+            
             return Response::json($resultado);
       }
 
