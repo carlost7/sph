@@ -90,8 +90,9 @@
                   <h2 class="title_index">Negocios</h2>
                   @foreach($negocios as $negocio)
                   <div class="col-sm-6 cuadro_front">
+                        
                         @if(count($negocio->imagen))
-                        <a href="{{ route('negocios.show',array($negocio->id,Str::slug($negocio->nombre))) }}"><img src="{{Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" /></a>
+                        <a href="{{ route('negocios.show',array($negocio->id,Str::slug($negocio->nombre))) }}"><img src="{{ Image::path(Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre,'resize',250,250) }}" alt="{{ $negocio->imagen->alt }}" /></a>
                         @else
                         <a href="{{ route('negocios.show',array($negocio->id,Str::slug($negocio->nombre))) }}">{{HTML::image('img/negocio-default.jpg')}}</a>
                         @endif
@@ -99,64 +100,54 @@
                         <!--<hr /> -->
                         <p class="img_catego">{{ HTML::image("img/Categorias-icons/".Str::slug($negocio->categoria->categoria).".png",$negocio->categoria->categoria,array('title'=>$negocio->categoria->categoria,'data-toggle'=>'tooltip','data-placement'=>'bottom')) }}</p>
                         
-                       
+                        <p class="img_catego">{{ HTML::image("img/Categorias-icons/".Str::slug($negocio->categoria->categoria).".png") }}</p>
+
                         @if(count($negocio->subcategoria))
                         <p><span class="info_guia">Subcategoria:</span> {{ $negocio->subcategoria->subcategoria }}</p>
                         @endif
 
-                        <!--<p><span class="info_guia">Estado:</span> {{ $negocio->estado->estado }}</p>
-                        @if(count($negocio->zona))
-                        <p><span class="info_guia">Zona:</span> {{ $negocio->zona->zona }}</p>
-                        @endif-->
-
-                        
-                        
-                        
-                        <table width="100%" border="0" class="tabla_negocios">
-                            
-                        <tr>
-                                
-                        <td>
-                            
-                            @if(count($negocio->masInfo))
-                        @if($negocio->masInfo->efectivo)
-                        {{ HTML::image('img/si_no/clientes/efectivo_si.png','Se acepta efectivo',array('title'=>'Se acepta efectivo','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
-                       
-                        @else
-                        {{HTML::image('img/si_no/clientes/efectivo_no.png','No se acepta efectivo',array('title'=>'No se acepta efectivo','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
-                        @endif
-                        
-                        </td>
-                        
-                        <td>
-                            
-                            
-                        @if($negocio->masInfo->tc)
-                        {{HTML::image('img/si_no/clientes/tarjeta_si.png','Se acepta tarjeta de crédito',array('title'=>'Se acepta tarjeta de crédito','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
-                        @else
-                        {{HTML::image('img/si_no/clientes/tarjeta_no.png','No se acepta tarjeta de crédito',array('title'=>'No se acepta tarjeta de crédito','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
-                        @endif
-                       
-                        </td>
-                                
-                        <td>
-                       
-                        @if($negocio->masInfo->llevar)
-                        {{HTML::image('img/si_no/clientes/llevar_si.png','Servicio a domicilio',array('title'=>'Servicio a domicilio','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
-                        @else
-                        {{HTML::image('img/si_no/clientes/llevar_no.png','Sin servicio a domicilio',array('title'=>'Sin servicio a domicilio','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
-                        @endif
-                        @endif
-                        </td>
-                        
-                        </tr>
-                         </table>
-                        
                         <p class="txt_descripcion"><span class="info_guia">Descripción:</span> {{ $negocio->descripcion }}</p>
-                        <!--<p><span class="info_guia">Teléfono:</span> {{ $negocio->telefono }}</p>
-                        @if(count($negocio->especial))
-                        <p><span class="info_guia">Web:</span> <a href="{{$negocio->especial->webpage}}">{{$negocio->nombre}}</a></p>
-                        @endif-->
+                        
+
+
+                        <table width="100%" border="0" class="tabla_negocios">
+
+                              <tr>
+
+                                    <td>
+
+                                          @if(count($negocio->masInfo))
+                                          @if($negocio->masInfo->efectivo)
+                                          {{HTML::image('img/si_no/efectivo_si.png')}}
+                                          @else
+                                          {{HTML::image('img/si_no/efectivo_no.png')}}
+                                          @endif
+
+                                    </td>
+
+                                    <td>
+
+
+                                          @if($negocio->masInfo->tc)
+                                          {{HTML::image('img/si_no/tarjeta_si.png')}}
+                                          @else
+                                          {{HTML::image('img/si_no/tarjeta_no.png')}}
+                                          @endif
+
+                                    </td>
+
+                                    <td>
+
+                                          @if($negocio->masInfo->llevar)
+                                          {{HTML::image('img/si_no/llevar_si.png')}}
+                                          @else
+                                          {{HTML::image('img/si_no/llevar_no.png')}}
+                                          @endif
+                                          @endif
+                                    </td>
+
+                              </tr>
+                        </table>
 
                   </div>
                   @endforeach                  
@@ -177,53 +168,50 @@
                         @if(count($evento->subcategoria))
                         <p>Subcategoria: {{ $evento->subcategoria->subcategoria }}</p>
                         @endif
-               
+
+
+
+                        <p class="txt_descripcion"><span class="info_guia">Descripción:</span> {{ $evento->descripcion }}</p>
                         
                         <table width="100%" border="0" class="tabla_cartelera">
-                            
-                        <tr>
-                                
-                        <td>
-                            
-                        @if(count($evento->masInfo))
-                        @if($evento->masInfo->efectivo)
-                        {{HTML::image('img/si_no/cartelera/efectivo_si.png','Se acepta efectivo',array('title'=>'Se acepta efectivo','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
-                        @else
-                        {{HTML::image('img/si_no/cartelera/efectivo_no.png','No se acepta efectivo',array('title'=>'No se acepta efectivo','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
-                        @endif
-                        
-                        </td>
-                        
-                        <td>
-                            
-                        
-                        @if($evento->masInfo->tc)
-                        {{HTML::image('img/si_no/cartelera/tarjeta_si.png','Se acepta tarjeta de crédito',array('title'=>'Se acepta tarjeta de crédito','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
-                        @else
-                        {{HTML::image('img/si_no/cartelera/tarjeta_no.png','No se acepta tarjeta de crédito',array('title'=>'No se acepta tarjeta de crédito','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
-                        @endif
-                       
-                        </td>
-                                
-                        <td>
-                       
-                        @if($evento->masInfo->alcohol)
-                        {{HTML::image('img/si_no/cartelera/alcohol_si.png','El evento cuenta con alcohol',array('title'=>'El evento cuenta con alcohol','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
-                        @else
-                        {{HTML::image('img/si_no/cartelera/alcohol_no.png','El evento no cuenta con alcohol',array('title'=>'El evento no cuenta con alcohol','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
-                        @endif
-                        @endif
-                        </td>
-                        
-                        </tr>
-                         </table>
-                        
-                        
-                        <p class="txt_descripcion"><span class="info_guia">Descripción:</span> {{ $evento->descripcion }}</p>
-                        <!--<p><span class="info_guia">Teléfono:</span> {{ $negocio->telefono }}</p>
-                        @if(count($negocio->especial))
-                        <p><span class="info_guia">Web:</span> <a href="{{$negocio->especial->webpage}}">{{$negocio->nombre}}</a></p>
-                        @endif-->
+
+                              <tr>
+
+                                    <td>
+
+                                          @if(count($evento->masInfo))
+                                          @if($evento->masInfo->efectivo)
+                                          {{HTML::image('img/si_no/efectivo_si.png')}}
+                                          @else
+                                          {{HTML::image('img/si_no/efectivo_no.png')}}
+                                          @endif
+
+                                    </td>
+
+                                    <td>
+
+
+                                          @if($evento->masInfo->tc)
+                                          {{HTML::image('img/si_no/tarjeta_si.png')}}
+                                          @else
+                                          {{HTML::image('img/si_no/tarjeta_no.png')}}
+                                          @endif
+
+                                    </td>
+
+                                    <td>
+
+                                          @if($evento->masInfo->alcohol)
+                                          {{HTML::image('img/si_no/alcohol_si.png')}}
+                                          @else
+                                          {{HTML::image('img/si_no/alcohol_no.png')}}
+                                          @endif
+                                          @endif
+                                    </td>
+
+                              </tr>
+                        </table>
+
 
 
                   </div>
@@ -238,8 +226,8 @@
             </div>    
 
       </div>
-    
-    
+
+
 
 
 </div>

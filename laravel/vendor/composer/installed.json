@@ -2984,5 +2984,169 @@
             "oauth1",
             "single sign on"
         ]
+    },
+    {
+        "name": "aws/aws-sdk-php",
+        "version": "2.7.0",
+        "version_normalized": "2.7.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/aws/aws-sdk-php.git",
+            "reference": "0db559ed31748770bff88a55c56d8a84208851a3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0db559ed31748770bff88a55c56d8a84208851a3",
+            "reference": "0db559ed31748770bff88a55c56d8a84208851a3",
+            "shasum": ""
+        },
+        "require": {
+            "guzzle/guzzle": ">=3.7,<4",
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "doctrine/cache": "~1.0",
+            "ext-openssl": "*",
+            "monolog/monolog": "1.4.*",
+            "phpunit/phpunit": "4.*",
+            "symfony/yaml": "2.*"
+        },
+        "suggest": {
+            "doctrine/cache": "Adds support for caching of credentials and responses",
+            "ext-apc": "Allows service description opcode caching, request and response caching, and credentials caching",
+            "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
+            "monolog/monolog": "Adds support for logging HTTP requests and responses",
+            "symfony/yaml": "Eases the ability to write manifests for creating jobs in AWS Import/Export"
+        },
+        "time": "2014-10-08 17:59:12",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.7.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Aws": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Amazon Web Services",
+                "homepage": "http://aws.amazon.com"
+            }
+        ],
+        "description": "AWS SDK for PHP - Use Amazon Web Services in your PHP project",
+        "homepage": "http://aws.amazon.com/sdkforphp",
+        "keywords": [
+            "amazon",
+            "aws",
+            "cloud",
+            "dynamodb",
+            "ec2",
+            "glacier",
+            "s3",
+            "sdk"
+        ]
+    },
+    {
+        "name": "imagecow/imagecow",
+        "version": "v1.1.0",
+        "version_normalized": "1.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/oscarotero/imageCow.git",
+            "reference": "0faf797570d07c7de295d7c3066e38de3b0921de"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/oscarotero/imageCow/zipball/0faf797570d07c7de295d7c3066e38de3b0921de",
+            "reference": "0faf797570d07c7de295d7c3066e38de3b0921de",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2014-05-28 14:24:41",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Imagecow": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Oscar Otero",
+                "email": "oom@oscarotero.com",
+                "homepage": "http://oscarotero.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "PHP library to manipulate and generate responsive images",
+        "homepage": "https://github.com/oscarotero/imageCow/",
+        "keywords": [
+            "image"
+        ]
+    },
+    {
+        "name": "kevbaldwyn/image",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kevbaldwyn/image.git",
+            "reference": "d8754577fd0022d7e70446ec098497201b149fbd"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kevbaldwyn/image/zipball/d8754577fd0022d7e70446ec098497201b149fbd",
+            "reference": "d8754577fd0022d7e70446ec098497201b149fbd",
+            "shasum": ""
+        },
+        "require": {
+            "aws/aws-sdk-php": "2.x",
+            "imagecow/imagecow": "1.*",
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "dev-master"
+        },
+        "suggest": {
+            "illuminate/support": "If using this package with Laravel > 4, you will need to install Illuminate Support. If Laravel is already installed this will already be available."
+        },
+        "time": "2014-08-12 08:16:21",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "KevBaldwyn\\Image": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "authors": [
+            {
+                "name": "Kevin Baldwyn",
+                "email": "kevin@purepixel.co.uk"
+            }
+        ],
+        "description": "A Laravel 4 package to aid generating automatically resized images on the fly and generating responsive images.",
+        "keywords": [
+            "Laravel 4",
+            "image",
+            "imagecow",
+            "laravel",
+            "resize",
+            "responsive"
+        ]
     }
 ]

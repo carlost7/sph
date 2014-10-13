@@ -16,6 +16,10 @@ Route::get('/', array(
     'as' => 'home'
 ));
 
+Route::get('prueba',function(){
+      return View::make('contenido.prueba');      
+});
+
 /*
  * -----------------------------------
  * Mostrar Negocios

@@ -32,7 +32,9 @@ return array(
     'Normalizer' => array($vendorDir . '/patchwork/utf8/class'),
     'Net' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'Math' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
+    'KevBaldwyn\\Image' => array($vendorDir . '/kevbaldwyn/image/src'),
     'Jeremeamia\\SuperClosure' => array($vendorDir . '/jeremeamia/SuperClosure/src'),
+    'Imagecow' => array($vendorDir . '/imagecow/imagecow'),
     'Illuminate' => array($vendorDir . '/laravel/framework/src'),
     'Guzzle\\Tests' => array($vendorDir . '/guzzle/guzzle/tests'),
     'Guzzle' => array($vendorDir . '/guzzle/guzzle/src'),
@@ -50,5 +52,6 @@ return array(
     'ClassPreloader' => array($vendorDir . '/classpreloader/classpreloader/src'),
     'Carbon' => array($vendorDir . '/nesbot/carbon/src'),
     'Boris' => array($vendorDir . '/d11wtq/boris/lib'),
+    'Aws' => array($vendorDir . '/aws/aws-sdk-php/src'),
     'Appitventures\\Phpgmaps\\' => array($vendorDir . '/appitventures/phpgmaps/src'),
 );
