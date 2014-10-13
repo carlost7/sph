@@ -88,7 +88,6 @@ class clientesEventosController extends \BaseController
 
             if ($validatorEvento->passes() & $validatorMasinfo->passes() & $validatorCatalogo->passes() & $validatorImagen->passes() & $validatorEspecial->passes() & $validatorPublicacion->passes())
             {
-
                   $evento_model = Input::all();
                   $evento_model = array_add($evento_model, 'cliente', Auth::user()->userable);
                   $evento_model = array_add($evento_model, 'publicar', false);
@@ -121,8 +120,8 @@ class clientesEventosController extends \BaseController
 
                         if (Input::get('tiempo_publicacion') == 'gratis')
                         {
-                              $evento_model = array('publicar' => true);
-                              $this->evento->update($evento->id, $input);
+                              $evento_model = array_add($evento_model, 'publicar', true);
+                              $this->evento->update($evento->id, $evento_model);
                         }
                         else
                         {

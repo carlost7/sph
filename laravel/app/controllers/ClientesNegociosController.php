@@ -119,7 +119,7 @@ class clientesNegociosController extends \BaseController
                                     $input['imagen']->move($path, $nombre);
                               } catch (Exception $e)
                               {
-                                    Log::error('MiembrosController.edit: ' . $e . get_message());
+                                    Log::error('MiembrosController.edit: ' . $e->getMessage());
                               }
                         }
 

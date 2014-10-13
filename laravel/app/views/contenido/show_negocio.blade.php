@@ -25,7 +25,7 @@
                         <button type="button" class="btn btn-small btn-primary" id="btn_rank" disabled="disabled"> + Rank</button>                  
                         @endif                  
                         @else
-                        <p>{{ HTML::linkRoute('register.user','Regístrate como usuario para rankear el negocio ') }}</p> 
+                        <p>¿Te gusta este lugar? {{ HTML::linkRoute('register.user','Regístrate como usuario para rankear el negocio ') }}</p> 
                         @endif
                   </div>
 
@@ -110,11 +110,36 @@
       </div>
 </div>
 
+<div class="container">      
+      <div class="row">
+            {{ Form::label('comentario','¿Qué dicen los usuarios?') }}
+            <div class="list-group" id='all_comments'>
+                  @foreach($negocio->comentarios as $comentario)
+                  @include('layouts.show_comentario',array('comentario',$comentario))
+                  @endforeach
+            </div>
+      </div>
+      @if(Auth::check())
+      <div class="row">
+            <div class="list-group-item">
+                  {{ Form::open(array('route' => array('comentarios.store','id'=>$negocio->id,'clase'=>get_class($negocio)),'id'=>'add_res')) }}
+                  {{ Form::label('comentario','Agrega tu comentario') }}
+                  {{ Form::textArea('comentario', Input::old('comentario'), array('placeholder' => 'comentario', 'class'=>'form-control','id'=>'new_comentario')) }}
+                  {{ Form::submit('agregar', array('class' => 'btn btn-sm btn-primary')) }}
+                  {{ Form::close() }}                        
+            </div>            
+      </div>
+      @else
+      <p>{{ HTML::linkRoute('register.user','Regístrate como usuario para comentar ') }}</p> 
+      @endif
+</div>
 
 
 @stop
 
 @section('scripts')
+
+{{ HTML::script('js/comments.js') }}
 
 @if($mapa)
 {{ $mapa['js'] }}
@@ -122,7 +147,7 @@
 
 <script>
       $("#btn_rank").click(function() {
-            //url = base_url + "miembro/rank/{{get_class($negocio).'/'.$negocio->id}}";
+
             url = "{{ URL::route('miembro.add_rank',array(get_class($negocio),$negocio->id)) }}";
             $.post(url).done(function(data) {
                   if (data['error']) {

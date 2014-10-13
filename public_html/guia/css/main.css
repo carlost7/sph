@@ -179,6 +179,11 @@ opacity: 0.8;
 
 .menuHEADER ul li:last-child a { border: none; }
 
+.edit_comentario{
+    display: none;
+}
 
-
+.add_comentario{
+    display: none;
+}
 

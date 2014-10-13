@@ -16,7 +16,7 @@ class Evento extends Validator
               'hora_fin' => array('regex:/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/'),
               'lugar' => 'required',
               'direccion' => 'required',
-              'descripcion' => 'required|min:20|max:140',
+              'descripcion' => 'required|min:30|max:500',
               'telefono' => 'required',              
           ),
           "update" => array(
@@ -26,7 +26,7 @@ class Evento extends Validator
               'hora_fin' => array('regex:/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/'),
               'lugar' => 'required',
               'direccion' => 'required',
-              'descripcion' => 'required|min:20|max:140',
+              'descripcion' => 'required|min:30|max:500',
               'telefono' => '',              
           ),
       );

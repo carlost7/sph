@@ -5,6 +5,7 @@
 <div class="col-xs-12">
       <ul class="nav nav-pills">            
             <li>{{ HTML::linkRoute('clientes_negocios.edit','Editar negocio',$negocio->id) }}</li>            
+            <li>{{ HTML::linkRoute('clientes_comentarios.index','Mostrar comentarios',array('id'=>$negocio->id,'clase'=>get_class($negocio))) }}</li>            
       </ul>
 </div>
 

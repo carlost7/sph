@@ -18,10 +18,10 @@ class Comentario extends Validator
 
       public static $rules = array(
             "save" => array(
-                  'comentario' => 'required',                  
+                  'comentario' => 'required|min:2|max:5000',                  
             ),
             "update" => array(
-                  'comentario' => 'required',                  
+                  'comentario' => 'required|min:2|max:5000',                  
             ),
       );
 
