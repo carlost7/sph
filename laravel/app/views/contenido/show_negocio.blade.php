@@ -5,7 +5,7 @@
      <!-- @include('layouts.show_catalog',array('action'=>'negocio'))-->
 
       <div class="row">
-            <div class="col-sm-9">
+            <div class="col-sm-10">
                   @if($negocio)
 
                   <h2 class="title_negocio">{{ $negocio->nombre }}</h2>
@@ -34,44 +34,44 @@
                   <img src="{{Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" />
                   @endif
                   <div class="list-group">  
-                        <p class="list-group-item"><span class="label label-default">Teléfono:</span> {{ $negocio->direccion }}</p>
-                        <p class="list-group-item"><span class="label label-default">Dirección:</span> {{ $negocio->telefono }}</p>
-                        <p class="list-group-item"><span class="label label-default">Descripción:</span> {{ $negocio->descripcion }}</p>
-                        <p class="list-group-item"><span class="label label-default">Publicado:</span> {{ ($negocio->publicar) ? "Si" : "No" }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Teléfono:</span> {{ $negocio->direccion }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Dirección:</span> {{ $negocio->telefono }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Descripción:</span> {{ $negocio->descripcion }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Publicado:</span> {{ ($negocio->publicar) ? "Si" : "No" }}</p>
                   </div>
 
                   @if(count($negocio->masInfo))
                   <div class="list-group">  
-                        <p class="list-group-item"><span class="label label-default">Entregan a Domicilio:</span>{{ ($negocio->masInfo->domicilio)  ? "Si" : "No" }}</p>
-                        <p class="list-group-item"><span class="label label-default">Para llevar:</span>{{ ($negocio->masInfo->llevar) ? "Si" : "No" }}</p>
-                        <p class="list-group-item"><span class="label label-default">Moneda:</span>{{ $negocio->masInfo->moneda }}</p>
-                        <p class="list-group-item"><span class="label label-default">Rango mínimo:</span>{{ $negocio->masInfo->rango_min}}</p>
-                        <p class="list-group-item"><span class="label label-default">Rango máximo:</span>{{ $negocio->masInfo->rango_max}}</p>
-                        <p class="list-group-item"><span class="label label-default">Acepta efectivo:</span>{{ ($negocio->masInfo->efectivo) ? "Si" : "No" }}</p>
-                        <p class="list-group-item"><span class="label label-default">Acepta tarjeta de crédito:</span>{{ ($negocio->masInfo->tc) ? "Si" : "No" }}</p>
-                        <p class="list-group-item"><span class="label label-default">Acepta tarjeta de débito:</span>{{ ($negocio->masInfo->td) ? "Si" : "No" }}</p>
-                        <p class="list-group-item"><span class="label label-default">Ambiente familiar:</span>{{ ($negocio->masInfo->familiar) ? "Si" : "No" }}</p>
-                        <p class="list-group-item"><span class="label label-default">Cuenta con alcohol:</span>{{ ($negocio->masInfo->alcohol) ? "Si" : "No" }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Entregan a Domicilio:</span>{{ ($negocio->masInfo->domicilio)  ? "Si" : "No" }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Para llevar:</span>{{ ($negocio->masInfo->llevar) ? "Si" : "No" }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Moneda:</span>{{ $negocio->masInfo->moneda }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Rango mínimo:</span>{{ $negocio->masInfo->rango_min}}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Rango máximo:</span>{{ $negocio->masInfo->rango_max}}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Acepta efectivo:</span>{{ ($negocio->masInfo->efectivo) ? "Si" : "No" }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Acepta tarjeta de crédito:</span>{{ ($negocio->masInfo->tc) ? "Si" : "No" }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Acepta tarjeta de débito:</span>{{ ($negocio->masInfo->td) ? "Si" : "No" }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Ambiente familiar:</span>{{ ($negocio->masInfo->familiar) ? "Si" : "No" }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Cuenta con alcohol:</span>{{ ($negocio->masInfo->alcohol) ? "Si" : "No" }}</p>
                   </div>
                   @endif
 
                   @if(count($negocio->horario))
                   <div class="list-group">  
-                        <p class="list-group-item"><span class="label label-default">Lunes:</span>    {{ date('H:i',strtotime($negocio->horario->lun_ini)).' - '.date('H:i',strtotime($negocio->horario->lun_fin)) }}</p>
-                        <p class="list-group-item"><span class="label label-default">Martes:</span>   {{ date('H:i',strtotime($negocio->horario->mar_ini)).' - '.date('H:i',strtotime($negocio->horario->mar_fin)) }}</p>
-                        <p class="list-group-item"><span class="label label-default">Miércoles:</span>{{ date('H:i',strtotime($negocio->horario->mie_ini)).' - '.date('H:i',strtotime($negocio->horario->mie_fin)) }}</p>
-                        <p class="list-group-item"><span class="label label-default">Jueves:</span>   {{ date('H:i',strtotime($negocio->horario->jue_ini)).' - '.date('H:i',strtotime($negocio->horario->jue_fin)) }}</p>
-                        <p class="list-group-item"><span class="label label-default">Viernes:</span>  {{ date('H:i',strtotime($negocio->horario->vie_ini)).' - '.date('H:i',strtotime($negocio->horario->vie_fin)) }}</p>
-                        <p class="list-group-item"><span class="label label-default">Sábado:</span>   {{ date('H:i',strtotime($negocio->horario->sab_ini)).' - '.date('H:i',strtotime($negocio->horario->sab_fin)) }}</p>
-                        <p class="list-group-item"><span class="label label-default">Domingo:</span>  {{ date('H:i',strtotime($negocio->horario->dom_ini)).' - '.date('H:i',strtotime($negocio->horario->dom_fin)) }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Lunes:</span>    {{ date('H:i',strtotime($negocio->horario->lun_ini)).' - '.date('H:i',strtotime($negocio->horario->lun_fin)) }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Martes:</span>   {{ date('H:i',strtotime($negocio->horario->mar_ini)).' - '.date('H:i',strtotime($negocio->horario->mar_fin)) }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Miércoles:</span>{{ date('H:i',strtotime($negocio->horario->mie_ini)).' - '.date('H:i',strtotime($negocio->horario->mie_fin)) }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Jueves:</span>   {{ date('H:i',strtotime($negocio->horario->jue_ini)).' - '.date('H:i',strtotime($negocio->horario->jue_fin)) }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Viernes:</span>  {{ date('H:i',strtotime($negocio->horario->vie_ini)).' - '.date('H:i',strtotime($negocio->horario->vie_fin)) }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Sábado:</span>   {{ date('H:i',strtotime($negocio->horario->sab_ini)).' - '.date('H:i',strtotime($negocio->horario->sab_fin)) }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Domingo:</span>  {{ date('H:i',strtotime($negocio->horario->dom_ini)).' - '.date('H:i',strtotime($negocio->horario->dom_fin)) }}</p>
                   </div>
                   @endif
 
                   @if($negocio->is_especial && count($negocio->especial))
                   <div class="list-group">  
-                        <p class="list-group-item"><span class="label label-default">Web:</span>    {{ $negocio->especial->webpage }}</p>
-                        <p class="list-group-item"><span class="label label-default">Email:</span>  {{ $negocio->especial->email }}</p>
-                        <p class="list-group-item"><span class="label label-default">Mapa:</span>   
+                        <p class="list-group-item"><span class="label label-default info_detalle">Web:</span>    {{ $negocio->especial->webpage }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Email:</span>  {{ $negocio->especial->email }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Mapa:</span>   
                               @if($mapa)            
                               {{ $mapa['html'] }}                  
                               @endif
@@ -90,7 +90,7 @@
 
                   @endif
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                   @if($negocio && count($negocio->promociones))
                   @foreach($negocio->promociones as $promocion)
                   <h2>{{ $promocion->nombre }}</h2>
@@ -98,11 +98,11 @@
                   <img src="{{Config::get('params.path_public_image').$promocion->imagen->path.$promocion->imagen->nombre}}" alt="{{ $promocion->imagen->alt }}" />
                   @endif
                   <div class="list-group">  
-                        <p class="list-group-item"><span class="label label-default">Negocio:</span> {{ $promocion->negocio->nombre }}</p>      
-                        <p class="list-group-item"><span class="label label-default">Nombre:</span> {{ $promocion->nombre }}</p>      
-                        <p class="list-group-item"><span class="label label-default">Código:</span> {{ $promocion->codigo }}</p>
-                        <p class="list-group-item"><span class="label label-default">Descripción:</span> {{ $promocion->descripcion }}</p>
-                        <p class="list-group-item"><span class="label label-default">Vigencia:</span> {{ date('d-m-Y H:i',strtotime($promocion->vigencia_inicio)).' - '.date('d-m-Y H:i',strtotime($promocion->vigencia_fin)) }}</p>                        
+                        <p class="list-group-item"><span class="label label-default info_detalle">Negocio:</span> {{ $promocion->negocio->nombre }}</p>      
+                        <p class="list-group-item"><span class="label label-default info_detalle">Nombre:</span> {{ $promocion->nombre }}</p>      
+                        <p class="list-group-item"><span class="label label-default info_detalle">Código:</span> {{ $promocion->codigo }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Descripción:</span> {{ $promocion->descripcion }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Vigencia:</span> {{ date('d-m-Y H:i',strtotime($promocion->vigencia_inicio)).' - '.date('d-m-Y H:i',strtotime($promocion->vigencia_fin)) }}</p>                        
                   </div>
                   @endforeach
                   @endif
