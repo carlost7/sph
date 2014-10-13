@@ -5937,7 +5937,7 @@ td.visible-print {
 /*   Botones Negocio / Cartelera del index   */
 
 #btns_opcion{
-    margin:-1% 0 0 0;
+    margin:3% 0 3.1% 0;
     /*margin:1.7% auto 2% auto;*/
     text-align: center;
     background:#000; 
@@ -6004,7 +6004,7 @@ td.visible-print {
     background:#3edac0;
     clear:both;
     opacity:0.7;
-    
+    height:135px;
     display:inline-block;
     width:100%;
     
@@ -6028,7 +6028,7 @@ td.visible-print {
 
 
 #publicidad_tres{
-    padding:0 9% 3% 9%;
+    padding:0 9% 1% 9%;
     width:100%;
     box-sizing: border-box;
 } 
@@ -6052,53 +6052,306 @@ td.visible-print {
     margin: 0 0% 0 0;
 } 
 
-   
+ /* CUADROS NEGOCIOS INDEX */  
 .cuadro_front{
     height:500px;
     padding:2%;
-    margin:2%;
-    width:44%;
     
+    width:50%;
+     border:1px solid #dadada;
+    
+} 
+
+.cuadro_front:first-of-type{
+    
+    border-right:1px solid #dadada;
+    border-left:1px solid #dadada;
+    border-bottom:1px solid #dadada;
+    border-top:1px solid #dadada !important;
+} 
+
+.cuadro_front:nth-of-type(2){
+    
+    border-right:1px solid #dadada;
+    border-left:1px solid #dadada;
+    border-bottom:1px solid #dadada;
+    border-top:1px solid #dadada !important;
+}
+
+
+.cuadro_front:nth-child(even){
+    
+    border-right:1px solid #dadada;
+    border-left:1px solid #dadada;
+    border-bottom:1px solid #dadada;
+    border-top:0;
+} 
+
+.cuadro_front:nth-child(odd){
+    
+    border-right:1px solid #dadada;
+    border-bottom:1px solid #dadada;
+    border-top:0;
+    border-left:0;
+} 
+
+/*.cuadro_front.especial{
+    
+    width:100%;
+    padding:4%;
     border:1px solid #dadada;
 } 
+
+.cuadro_front.especial:nth-child(even){
+    
+    border-right:1px solid #dadada;
+    border-left:1px solid #dadada;
+    border-top:0;
+    border-bottom:0;
+} 
+*/
 
 .cuadro_front.especial{
     
     width:100%;
-    
-    
+    padding:4%;
+    border-top:0 !important;
+    border-bottom:1px solid #515151 !important;
+    border-left:0 !important;
+    border-right:0 !important;
+    background:#000; 
 } 
+
+
 
 .cuadro_front a img{
     text-align:center;
     margin:0 auto;
     display:block;
     
-    border:1px solid #fff;
-    box-shadow:0 1px 4px rgba(0, 0,0, 0.4);
+    /*border:1px solid #fff;
+    box-shadow:0 1px 4px rgba(0, 0,0, 0.4);*/
     
 } 
+
+.cuadro_front p{
+    color:#515151;
+    font-size: 0.9em; 
+        
+} 
+
+
+/* CUADRO NEGOCIOS INDEX*/
+
+.cuadro_front_negocios{
+    height:500px;
+    padding:2%;
+
+    width:25%;
+    border:1px solid #dadada;
+
+} 
+
+.cuadro_front_negocios:first-of-type{
+
+    border-right:1px solid #dadada;
+    border-left:1px solid #dadada;
+    border-bottom:1px solid #dadada;
+    border-top:1px solid #dadada !important;
+} 
+
+.cuadro_front_negocios:nth-of-type(2){
+
+    border-right:1px solid #dadada;
+    border-left:1px solid #dadada;
+    border-bottom:1px solid #dadada;
+    border-top:1px solid #dadada !important;
+}
+
+
+.cuadro_front_negocios:nth-child(even){
+
+    border-right:1px solid #dadada;
+    border-left:1px solid #dadada;
+    border-bottom:1px solid #dadada;
+    border-top:0;
+} 
+
+.cuadro_front_negocios:nth-child(odd){
+
+    border-right:1px solid #dadada;
+    border-bottom:1px solid #dadada;
+    border-top:0;
+    border-left:0;
+} 
+
+.cuadro_front_negocios a img{
+    text-align:center;
+    margin:0 auto;
+    display:block;
+
+    
+
+} 
+
+.cuadro_front_negocios p{
+    color:#515151;
+    font-size: 0.9em; 
+
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .title_index{
     color:#000; 
     font-weight:300;
     text-align: center;
+    line-height:2em;
     
-   
 } 
 
-.title_negocio a{
-     text-shadow:2px 1px #501474;
+
+.title_negocio, .title_cartelera {
+    text-align:center;
+    padding-bottom:2%;
+     border-bottom:1px solid #fecd2f;
+     min-height:60px;
+} 
+
+.title_negocio a, .title_cartelera a{
+    /* text-shadow:2px 1px #501474; */
      text-transform: uppercase;
      font-weight:700;
-     font-size: 0.9em;
-     color:rgba(255,255,255,0.5);
+     font-size: 0.8em;
+     color:#501474;
+      
+     
+     transition:all 0.3s linear;
+     -moz-transition:all 0.3s linear;
+     -webkit-transition:all 0.3s linear;
+     
+} 
+
+.title_cartelera a{
+     color:#f63348;
+} 
+
+.title_cartelera a:hover{
+     
+     color:#f96069;
+     text-decoration:none;
+} 
+
+.title_negocio a:hover{
+     
+     color:#5e58d4;
+     text-decoration:none;
+}
+
+
+
+.info_guia{
+    color:#999; 
+    text-align: left;
+    float:left;
+    width:25%;
+} 
+
+.info_guia:before{
+    color:#3edac0; 
+    content:"· "
 } 
 
 
 
+.img_catego{
+    position:relative;
+    right:0;
+    top:-35px;
+    text-align:right;
+    height:0px;
+} 
 
 
 
+.img_catego img{
+    width:20px;
+    height: 20px;
+    margin-left:10px;
+} 
 
+/* COLUMNA CARTELERA*/
+
+
+
+.col_cartelera p{
+   color:#fff;  
+} 
+
+
+.tabla_negocios, .tabla_cartelera{
+    text-align:center;
+   height:40px;
+}
+
+.tabla_negocios img, .tabla_cartelera img{
+    width:30px;
+} 
+
+.tabla_negocios td:nth-child(1){
+    background:#000; 
+    
+} 
+
+
+.tabla_negocios td:nth-child(2){
+    background:#000; 
+    
+} 
+
+.tabla_negocios td:nth-child(3){
+    background:#000; 
+    
+} 
+
+
+.tabla_cartelera td:nth-child(1){
+    background:#f96069; 
+    
+} 
+
+
+.tabla_cartelera td:nth-child(2){
+    background:#f96069; 
+    
+} 
+
+.tabla_cartelera td:nth-child(3){
+    background:#f96069; 
+    
+} 
+
+
+
+.txt_descripcion{
+    min-height: 15%;
+} 
+
+
+
+.sin_padding{
+    padding:0;
+} 
 

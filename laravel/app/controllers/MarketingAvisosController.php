@@ -96,7 +96,7 @@ class MarketingAvisosController extends \BaseController
             {
                   $bitacora_model = Input::all();
                   $bitacora_model = array_add($bitacora_model, 'fecha', \Carbon\Carbon::now());
-                  $bitacora_model = array_add($bitacora_model, 'client', $object->client);
+                  $bitacora_model = array_add($bitacora_model, 'client', $object->cliente);
                   $bitacora = $this->bitacora_cliente->create($bitacora_model);
 
                   //Activa el contenido del usuario y elimina el aviso de la pagina de marketing
@@ -107,9 +107,10 @@ class MarketingAvisosController extends \BaseController
                               $data = array(
                                   'tipo' => Input::get('clase'),
                               );
+                              
                               Mail::queue('emails.publicacion_contenido_gratuito', $data, function($message) use ($object)
                               {
-                                    $message->to($object->client->user->email, $object->client->nombre)->subject('publicacion de contenido en Sphellar');
+                                    $message->to($object->cliente->user->email, $object->cliente->nombre)->subject('publicacion de contenido en Sphellar');
                               });
 
                               Session::flash('message', 'Publicado exitosamente');
@@ -126,7 +127,7 @@ class MarketingAvisosController extends \BaseController
                         );
                         Mail::queue('emails.contenido_no_publicado', $data, function($message) use ($object)
                         {
-                              $message->to($object->client->user->email, $object->client->nombre)->subject('publicacion de contenido en Sphellar');
+                              $message->to($object->cliente->user->email, $object->cliente->nombre)->subject('publicacion de contenido en Sphellar');
                         });
                   }
                   //Elimina el aviso del cliente 

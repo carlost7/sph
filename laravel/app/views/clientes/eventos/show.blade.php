@@ -5,6 +5,7 @@
 <div class="col-xs-12">
       <ul class="nav nav-pills">            
             <li>{{ HTML::linkRoute('clientes_eventos.edit','Editar evento',$evento->id) }}</li>            
+            <li>{{ HTML::linkRoute('clientes_comentarios.index','Mostrar comentarios',array('id'=>$evento->id,'clase'=>get_class($evento))) }}</li>            
       </ul>
 </div>
 

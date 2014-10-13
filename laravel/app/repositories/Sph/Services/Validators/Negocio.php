@@ -22,11 +22,11 @@ class Negocio extends Validator
               'nombre' => 'required',
               'direccion' => 'required',
               'telefono' => 'required',
-              'descripcion' => 'required|min:20|max:140',              
+              'descripcion' => 'required|min:30|max:500',              
           ),
           "update" => array(
               'telefono' => 'required',
-              'descripcion' => 'required|min:20|max:140',              
+              'descripcion' => 'required|min:30|max:500',              
           )
       );
 
