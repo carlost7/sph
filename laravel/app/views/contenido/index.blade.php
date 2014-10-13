@@ -100,7 +100,6 @@
                         <!--<hr /> -->
                         <p class="img_catego">{{ HTML::image("img/Categorias-icons/".Str::slug($negocio->categoria->categoria).".png",$negocio->categoria->categoria,array('title'=>$negocio->categoria->categoria,'data-toggle'=>'tooltip','data-placement'=>'bottom')) }}</p>
                         
-                        <p class="img_catego">{{ HTML::image("img/Categorias-icons/".Str::slug($negocio->categoria->categoria).".png") }}</p>
 
                         @if(count($negocio->subcategoria))
                         <p><span class="info_guia">Subcategoria:</span> {{ $negocio->subcategoria->subcategoria }}</p>
@@ -118,9 +117,10 @@
 
                                           @if(count($negocio->masInfo))
                                           @if($negocio->masInfo->efectivo)
-                                          {{HTML::image('img/si_no/efectivo_si.png')}}
+                        {{ HTML::image('img/si_no/clientes/efectivo_si.png','Se acepta efectivo',array('title'=>'Se acepta efectivo','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
+                       
                                           @else
-                                          {{HTML::image('img/si_no/efectivo_no.png')}}
+                        {{HTML::image('img/si_no/clientes/efectivo_no.png','No se acepta efectivo',array('title'=>'No se acepta efectivo','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
                                           @endif
 
                                     </td>
@@ -129,9 +129,9 @@
 
 
                                           @if($negocio->masInfo->tc)
-                                          {{HTML::image('img/si_no/tarjeta_si.png')}}
+                        {{HTML::image('img/si_no/clientes/tarjeta_si.png','Se acepta tarjeta de crédito',array('title'=>'Se acepta tarjeta de crédito','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
                                           @else
-                                          {{HTML::image('img/si_no/tarjeta_no.png')}}
+                        {{HTML::image('img/si_no/clientes/tarjeta_no.png','No se acepta tarjeta de crédito',array('title'=>'No se acepta tarjeta de crédito','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
                                           @endif
 
                                     </td>
@@ -139,9 +139,9 @@
                                     <td>
 
                                           @if($negocio->masInfo->llevar)
-                                          {{HTML::image('img/si_no/llevar_si.png')}}
+                        {{HTML::image('img/si_no/clientes/llevar_si.png','Servicio a domicilio',array('title'=>'Servicio a domicilio','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
                                           @else
-                                          {{HTML::image('img/si_no/llevar_no.png')}}
+                        {{HTML::image('img/si_no/clientes/llevar_no.png','Sin servicio a domicilio',array('title'=>'Sin servicio a domicilio','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
                                           @endif
                                           @endif
                                     </td>
@@ -181,9 +181,9 @@
 
                                           @if(count($evento->masInfo))
                                           @if($evento->masInfo->efectivo)
-                                          {{HTML::image('img/si_no/efectivo_si.png')}}
+                        {{HTML::image('img/si_no/cartelera/efectivo_si.png','Se acepta efectivo',array('title'=>'Se acepta efectivo','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
                                           @else
-                                          {{HTML::image('img/si_no/efectivo_no.png')}}
+                        {{HTML::image('img/si_no/cartelera/efectivo_no.png','No se acepta efectivo',array('title'=>'No se acepta efectivo','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
                                           @endif
 
                                     </td>
@@ -192,9 +192,9 @@
 
 
                                           @if($evento->masInfo->tc)
-                                          {{HTML::image('img/si_no/tarjeta_si.png')}}
+                        {{HTML::image('img/si_no/cartelera/tarjeta_si.png','Se acepta tarjeta de crédito',array('title'=>'Se acepta tarjeta de crédito','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
                                           @else
-                                          {{HTML::image('img/si_no/tarjeta_no.png')}}
+                        {{HTML::image('img/si_no/cartelera/tarjeta_no.png','No se acepta tarjeta de crédito',array('title'=>'No se acepta tarjeta de crédito','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
                                           @endif
 
                                     </td>
@@ -202,9 +202,9 @@
                                     <td>
 
                                           @if($evento->masInfo->alcohol)
-                                          {{HTML::image('img/si_no/alcohol_si.png')}}
+                        {{HTML::image('img/si_no/cartelera/alcohol_si.png','El evento cuenta con alcohol',array('title'=>'El evento cuenta con alcohol','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
                                           @else
-                                          {{HTML::image('img/si_no/alcohol_no.png')}}
+                        {{HTML::image('img/si_no/cartelera/alcohol_no.png','El evento no cuenta con alcohol',array('title'=>'El evento no cuenta con alcohol','data-toggle'=>'tooltip','data-placement'=>'bottom')) }}
                                           @endif
                                           @endif
                                     </td>
