@@ -6380,7 +6380,7 @@ td.visible-print {
 
 .info_guia:before{
     color:#3edac0; 
-    content:"· "
+    content:"• ";
 } 
 
 
@@ -6454,7 +6454,7 @@ td.visible-print {
 
 
 .txt_descripcion{
-    min-height: 15%;
+    margin:0 0 5px 0;
 } 
 
 

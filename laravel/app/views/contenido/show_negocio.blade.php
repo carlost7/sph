@@ -34,8 +34,8 @@
                   <img src="{{Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" />
                   @endif
                   <div class="list-group">  
-                        <p class="list-group-item"><span class="label label-default info_detalle">Teléfono:</span> {{ $negocio->direccion }}</p>
-                        <p class="list-group-item"><span class="label label-default info_detalle">Dirección:</span> {{ $negocio->telefono }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Teléfono:</span> {{ $negocio->telefono }}</p>
+                        <p class="list-group-item"><span class="label label-default info_detalle">Dirección:</span> {{ $negocio->direccion }}</p>
                         <p class="list-group-item"><span class="label label-default info_detalle">Descripción:</span> {{ $negocio->descripcion }}</p>
                         <p class="list-group-item"><span class="label label-default info_detalle">Publicado:</span> {{ ($negocio->publicar) ? "Si" : "No" }}</p>
                   </div>
