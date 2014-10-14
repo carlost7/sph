@@ -42,7 +42,7 @@
       {{ Form::label('imagen','Imágen') }}
       <input type="file" name="imagen" id='uploadFile' title="Seleccionar" class="file-inputs" data-filename-placement="inside">
       @if($promocion->imagen)
-      <div id="imagepreview" class="imagepreview" style="background-image: url({{ Config::get('params.path_public_image').$promocion->imagen->path.$promocion->imagen->nombre }})"></div>
+      <div id="imagepreview" class="imagepreview" style="background-image: url({{ Config::get('params.path_serve_image').$promocion->imagen->path.$promocion->imagen->nombre }})"></div>
       {{ Form::label('alt','Descripción') }}
       {{ Form::text('alt',$promocion->imagen->alt,array('placeholder' => 'descripción', 'class'=>'form-control')) }}
       @else

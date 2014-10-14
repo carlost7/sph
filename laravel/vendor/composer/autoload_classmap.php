@@ -11,6 +11,7 @@ return array(
     'AddFechasToEventos' => $baseDir . '/app/database/migrations/2014_09_22_184315_add_fechas_to_eventos.php',
     'AddFechasToPromociones' => $baseDir . '/app/database/migrations/2014_09_22_184328_add_fechas_to_promociones.php',
     'AddMarketingIdToClients' => $baseDir . '/app/database/migrations/2014_07_24_172952_add_marketing_id_to_clients.php',
+    'AddMasInfoNegociosTable' => $baseDir . '/app/database/migrations/2014_10_14_145813_add_mas_info_negocios_table.php',
     'AddRankToComentarios' => $baseDir . '/app/database/migrations/2014_10_06_112324_add_rank_to_comentarios.php',
     'AddRankToEventosTable' => $baseDir . '/app/database/migrations/2014_09_08_121529_add_rank_to_eventos_table.php',
     'AddRankToNegociosTable' => $baseDir . '/app/database/migrations/2014_09_08_121340_add_rank_to_negocios_table.php',

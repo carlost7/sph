@@ -9,7 +9,7 @@ interface ProviderInterface {
 	public function getVarTransform();
 
 	public function getQueryStringData($key);
-
+      
 	public function getJsPath();
 
 	public function getWorkerName();

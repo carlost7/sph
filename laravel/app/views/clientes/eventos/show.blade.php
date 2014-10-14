@@ -13,7 +13,7 @@
 <h2>{{ $evento->nombre }}</h2>
 
 @if(count($evento->imagen))
-<img src="{{Config::get('params.path_public_image').$evento->imagen->path.$evento->imagen->nombre}}" alt="{{ $evento->imagen->alt }}" />
+<img src="{{Config::get('params.path_serve_image').$evento->imagen->path.$evento->imagen->nombre}}" alt="{{ $evento->imagen->alt }}" />
 @endif
 
 <div class="list-group">  
@@ -54,7 +54,7 @@
       </p>
 </div>
 @foreach($evento->especial->imagenes as $imagen)
-<img src="{{Config::get('params.path_public_image').$imagen->path.$imagen->nombre}}" alt="{{ $imagen->alt }}" />
+<img src="{{Config::get('params.path_serve_image').$imagen->path.$imagen->nombre}}" alt="{{ $imagen->alt }}" />
 @endforeach
 
 @endif

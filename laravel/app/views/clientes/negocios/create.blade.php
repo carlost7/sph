@@ -44,92 +44,6 @@
       {{ Form::label('descripcion', 'Descripción') }}
       {{ Form::textArea('descripcion', Input::old('descripcion'), array('placeholder' => 'descripcion', 'class'=>'form-control')) }}
 </div>
-
-
-<div class="form-group">
-      {{ Form::label('llevar','Más información') }}
-      <div class="row">
-            <div class="col-sm-6">
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox('domicilio',1) }}            
-                              ¿Entregan a domicilio?
-                        </label>
-                  </div>
-                  <div class="checkbox">
-                        <label>                              
-                              {{ Form::checkbox('llevar',1) }}                       
-                              ¿Servicio para llevar?
-                        </label>
-                  </div>
-            </div>
-            <div class="col-sm-6">
-                  <div class="checkbox">
-                        <label>                              
-                              {{ Form::checkbox('familiar',1) }}                       
-                              ¿Ambiente familiar?
-                        </label>
-                  </div>
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox('alcohol',1) }}            
-                              ¿Cuenta con alcohol?
-                        </label>
-                  </div>
-            </div>
-
-      </div>      
-</div>
-<div class="form-group">
-      <div class="row">
-            <div class="col-sm-4">
-                  {{ Form::label('moneda','Moneda') }}
-                  {{ Form::select('moneda', array('MEX' => 'Pesos', 'USD' => 'Dólares'),null,array('class'=>'form-control')) }}
-            </div>
-            <div class="col-sm-4">
-                  {{ Form::label('rango_min','Rango de precios mínimo') }}
-                  {{ Form::text('rango_min', Input::old('rango_min'), array('placeholder' => '00.00', 'class'=>'form-control')) }}
-            </div>
-            <div class="col-sm-4">
-                  {{ Form::label('rango_max','Rango de precios máximo') }}
-                  {{ Form::text('rango_max', Input::old('rango_max'), array('placeholder' => '00.00', 'class'=>'form-control')) }}
-            </div>
-      </div>
-</div>
-<div class="form-group">
-      <div class="row">
-            <div class="col-sm-12">
-                  {{ Form::label('pagos','Pagos Aceptados') }}
-            </div>            
-      </div>
-      <div class="row">
-            <div class="col-sm-4">
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox('tc', true) }}      
-                              Tarjeta de crédito
-                        </label>
-                  </div>
-
-            </div>
-            <div class="col-sm-4">
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox('td', true) }}      
-                              Tarjeta de debito
-                        </label>
-                  </div>
-            </div>
-            <div class="col-sm-4">
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox('efectivo', true) }}
-                              Efectivo
-                        </label>                        
-                  </div>
-            </div>
-      </div>
-</div>
 <div class="form-group">      
       <div class="row">
             <div class="col-sm-6">
@@ -289,7 +203,63 @@
       </div>
 </div>
 
+<div class="form-group">
+      <div class="row">
+            <div class="col-sm-6">
+                  <div class="checkbox">
+                        <label>
+                              {{ Form::checkbox("efectivo",1) }}            
+                              ¿Reciben pago en efectivo?
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>                              
+                              {{ Form::checkbox("tc",1) }} 
+                              ¿Reciben tarjetas de credito?
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>
+                              {{ Form::checkbox("td",1) }}
+                              ¿Reciben tarjetas de debito?
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>                              
+                              {{ Form::checkbox("familiar",1) }}
+                              ¿Es un espacio familiar?
+                        </label>
+                  </div>
+            </div>
+            <div class="col-sm-6">
+                  <div class="checkbox">
+                        <label>                              
+                              {{ Form::checkbox("estacionamiento",1) }}                                               
+                              ¿Cuenta con estacionamiento?
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>
+                              {{ Form::checkbox("valet_parking",1) }}            
+                              ¿Cuenta con valet parking?
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>                              
+                              {{ Form::checkbox("wifi",1) }}                 
+                              ¿Cuenta con wifi?
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>
+                              {{ Form::checkbox("mascotas",1) }}            
+                              ¿Se permiten mascotas?
+                        </label>
+                  </div>
+            </div>
 
+      </div>      
+</div>
 <div class="form-group">
       {{ Form::label('webpage', 'Página web') }}            
       {{ Form::text('webpage', Input::old('webpage') ,array('placeholder'=>'página web','class'=>'form-control')) }}

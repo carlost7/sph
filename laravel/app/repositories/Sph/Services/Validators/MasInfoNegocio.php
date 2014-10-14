@@ -13,33 +13,30 @@ namespace Sph\Services\Validators;
  *
  * @author carlos
  */
-
 class MasinfoNegocio extends Validator
 {
+
       public static $rules = array(
           "save" => array(
-              'domicilio'=>'boolean',
-              'llevar'=>'boolean',
-              'moneda'=>'alpha|size:3',
-              'efectivo'=>'boolean',
-              'tc'=>'boolean',
-              'td'=>'boolean',
-              'rango_min'=>'numeric',
-              'rango_max'=>'numeric',
-              'familiar'=>'boolean',              
-              'alcohol'=>'boolean',              
+              "efectivo" => "boolean",
+              "tc" => "boolean",
+              "td" => "boolean",
+              "familiar" => "boolean",
+              "estacionamiento" => "boolean",
+              "valet_parking" => "boolean",
+              "wifi" => "boolean",
+              "mascotas"
           ),
           "update" => array(
-              'domicilio'=>'boolean',
-              'llevar'=>'boolean',
-              'moneda'=>'alpha|size:3',
-              'efectivo'=>'boolean',
-              'tc'=>'boolean',
-              'td'=>'boolean',
-              'rango_min'=>'numeric',
-              'rango_max'=>'numeric',
-              'familiar'=>'boolean',              
-              'alcohol'=>'boolean',
+              "efectivo" => "boolean",
+              "tc" => "boolean",
+              "td" => "boolean",
+              "familiar" => "boolean",
+              "estacionamiento" => "boolean",
+              "valet_parking" => "boolean",
+              "wifi" => "boolean",
+              "mascotas"
           ),
       );
+
 }

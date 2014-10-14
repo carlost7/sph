@@ -12,7 +12,7 @@
 <div class="row">
       <div class="col-sm-6">
             @if(count($miembro->imagen))
-            <img src="{{Config::get('params.path_public_image').$miembro->imagen->path.$miembro->imagen->nombre}}" alt="{{ $miembro->imagen->alt }}" />
+            <img src="{{Config::get('params.path_serve_image').$miembro->imagen->path.$miembro->imagen->nombre}}" alt="{{ $miembro->imagen->alt }}" />
             @else
             {{HTML::image('img/profile_default.png')}}
             @endif            

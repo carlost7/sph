@@ -92,7 +92,7 @@
                   <div class="col-sm-6 cuadro_front">
                         
                         @if(count($negocio->imagen))
-                        <a href="{{ route('negocios.show',array($negocio->id,Str::slug($negocio->nombre))) }}"><img src="{{ Image::path(Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre,'resize',250,250) }}" alt="{{ $negocio->imagen->alt }}" /></a>
+                        <a href="{{ route('negocios.show',array($negocio->id,Str::slug($negocio->nombre))) }}"><img src="{{ Config::get('params.path_serve_image_transform').Image::path($negocio->imagen->path.$negocio->imagen->nombre,'resizeCrop',250,250,'left','top') }}" alt="{{ $negocio->imagen->alt }}" /></a>
                         @else
                         <a href="{{ route('negocios.show',array($negocio->id,Str::slug($negocio->nombre))) }}">{{HTML::image('img/negocio-default.jpg')}}</a>
                         @endif
@@ -121,7 +121,7 @@
                   @foreach($eventos as $evento)
                   <div class="col-sm-12 cuadro_front especial">
                         @if(count($evento->imagen))
-                        <a href="{{ route('eventos.show',array($evento->id,Str::slug($evento->nombre))) }}"><img src="{{Config::get('params.path_public_image').$evento->imagen->path.$evento->imagen->nombre}}" alt="{{ $evento->imagen->alt }}" /></a>
+                        <a href="{{ route('eventos.show',array($evento->id,Str::slug($evento->nombre))) }}"><img src="{{ Config::get('params.path_serve_image_transform').Image::path($evento->imagen->path.$evento->imagen->nombre,'resizeCrop',250,250,'left','top') }}" alt="{{ $evento->imagen->alt }}" /></a>
                         @else
                         <a href="{{ route('eventos.show',array($evento->id,Str::slug($evento->nombre))) }}">{{HTML::image('img/evento-default.jpg')}}</a>
                         @endif

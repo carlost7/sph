@@ -12,7 +12,7 @@
 
 <h2>{{ $negocio->nombre }}</h2>
 @if(count($negocio->imagen))
-<img src="{{Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" />
+<img src="{{ Config::get('params.path_serve_image_transform').Image::path($negocio->imagen->path.$negocio->imagen->nombre,'resizeCrop',250,250,'left','top') }}" alt="{{ $negocio->imagen->alt }}" />
 @endif
 <div class="list-group">  
       <p class="list-group-item"><span class="label label-default">Teléfono:</span> {{ $negocio->telefono }}</p>
@@ -23,16 +23,14 @@
 
 @if(count($negocio->masInfo))
 <div class="list-group">  
-      <p class="list-group-item"><span class="label label-default">Entregan a Domicilio:</span>{{ ($negocio->masInfo->domicilio)  ? "Si" : "No" }}</p>
-      <p class="list-group-item"><span class="label label-default">Para llevar:</span>{{ ($negocio->masInfo->llevar) ? "Si" : "No" }}</p>
-      <p class="list-group-item"><span class="label label-default">Moneda:</span>{{ $negocio->masInfo->moneda }}</p>
-      <p class="list-group-item"><span class="label label-default">Rango mínimo:</span>{{ $negocio->masInfo->rango_min}}</p>
-      <p class="list-group-item"><span class="label label-default">Rango máximo:</span>{{ $negocio->masInfo->rango_max}}</p>
-      <p class="list-group-item"><span class="label label-default">Acepta efectivo:</span>{{ ($negocio->masInfo->efectivo) ? "Si" : "No" }}</p>
-      <p class="list-group-item"><span class="label label-default">Acepta tarjeta de crédito:</span>{{ ($negocio->masInfo->tc) ? "Si" : "No" }}</p>
-      <p class="list-group-item"><span class="label label-default">Acepta tarjeta de débito:</span>{{ ($negocio->masInfo->td) ? "Si" : "No" }}</p>
-      <p class="list-group-item"><span class="label label-default">Ambiente familiar:</span>{{ ($negocio->masInfo->familiar) ? "Si" : "No" }}</p>
-      <p class="list-group-item"><span class="label label-default">Cuenta con alcohol:</span>{{ ($negocio->masInfo->alcohol) ? "Si" : "No" }}</p>
+      <p class="list-group-item"><span class="label label-default">Acepta Efectivo:</span>{{ ($negocio->masInfo->efectivo)  ? "Si" : "No" }}</p>
+      <p class="list-group-item"><span class="label label-default">Acepta Tarjeta de Credito:</span>{{ ($negocio->masInfo->tc) ? "Si" : "No" }}</p>
+      <p class="list-group-item"><span class="label label-default">Acepta Tarjeta de Debito:</span>{{ $negocio->masInfo->td }}</p>
+      <p class="list-group-item"><span class="label label-default">Es Ambiente Familiar:</span>{{ $negocio->masInfo->familiar}}</p>
+      <p class="list-group-item"><span class="label label-default">Cuenta con Estacionamiento:</span>{{ $negocio->masInfo->estacionamiento}}</p>
+      <p class="list-group-item"><span class="label label-default">Cuenta con Valet Parking:</span>{{ ($negocio->masInfo->valet_parking) ? "Si" : "No" }}</p>
+      <p class="list-group-item"><span class="label label-default">Cuenta con Wi-FiI:</span>{{ ($negocio->masInfo->wifi) ? "Si" : "No" }}</p>
+      <p class="list-group-item"><span class="label label-default">Se Permiten Mascotas:</span>{{ ($negocio->masInfo->mascotas) ? "Si" : "No" }}</p>      
 </div>
 @endif
 
@@ -61,7 +59,7 @@
 </div>
 
 @foreach($negocio->especial->imagenes as $imagen)
-<img src="{{Config::get('params.path_public_image').$imagen->path.$imagen->nombre}}" alt="{{ $imagen->alt }}" />
+<img src="{{Config::get('params.path_serve_image').$imagen->path.$imagen->nombre}}" alt="{{ $imagen->alt }}" />
 @endforeach
 
 @endif
