@@ -9,3 +9,4 @@ return array(
     'path_system_public_image' => './img',
     'path_serve_image_transform' => URL::to('/'),
 );
+

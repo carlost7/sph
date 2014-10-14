@@ -31,7 +31,7 @@
 
 
                   @if(count($negocio->imagen))
-                  <img src="{{Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" />
+                  <img src="{{Config::get('params.path_serve_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" />
                   @endif
                   <div class="list-group">  
                         <p class="list-group-item"><span class="label label-default info_detalle">Teléfono:</span> {{ $negocio->direccion }}</p>
@@ -79,7 +79,7 @@
                   </div>
 
                   @foreach($negocio->especial->imagenes as $imagen)
-                  <img src="{{Config::get('params.path_public_image').$imagen->path.$imagen->nombre}}" alt="{{ $imagen->alt }}" />
+                  <img src="{{Config::get('params.path_serve_image').$imagen->path.$imagen->nombre}}" alt="{{ $imagen->alt }}" />
                   @endforeach
 
                   @endif
@@ -95,7 +95,7 @@
                   @foreach($negocio->promociones as $promocion)
                   <h2>{{ $promocion->nombre }}</h2>
                   @if($promocion->imagen->count())
-                  <img src="{{Config::get('params.path_public_image').$promocion->imagen->path.$promocion->imagen->nombre}}" alt="{{ $promocion->imagen->alt }}" />
+                  <img src="{{Config::get('params.path_serve_image').$promocion->imagen->path.$promocion->imagen->nombre}}" alt="{{ $promocion->imagen->alt }}" />
                   @endif
                   <div class="list-group">  
                         <p class="list-group-item"><span class="label label-default info_detalle">Negocio:</span> {{ $promocion->negocio->nombre }}</p>      

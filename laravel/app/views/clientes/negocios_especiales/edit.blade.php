@@ -16,7 +16,7 @@
 <div class="form-group">      
       {{ Form::label('imagen','Imágen') }}
       <input type="file" name="imagen" id='uploadFile' title="Seleccionar" class="file-inputs" data-filename-placement="inside">      
-      <div id="imagepreview" class="imagepreview" style="background-image: url({{ Config::get('params.path_public_image').$imagen->path.$imagen->nombre }})"></div>
+      <div id="imagepreview" class="imagepreview" style="background-image: url({{ Config::get('params.path_serve_image').$imagen->path.$imagen->nombre }})"></div>
       {{ Form::label('alt','Descripción') }}
       {{ Form::text('alt',$imagen->alt,array('placeholder' => 'descripción', 'class'=>'form-control')) }}
 </div>      

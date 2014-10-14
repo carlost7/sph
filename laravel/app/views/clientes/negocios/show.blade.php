@@ -61,7 +61,7 @@
 </div>
 
 @foreach($negocio->especial->imagenes as $imagen)
-<img src="{{Config::get('params.path_public_image').$imagen->path.$imagen->nombre}}" alt="{{ $imagen->alt }}" />
+<img src="{{Config::get('params.path_serve_image').$imagen->path.$imagen->nombre}}" alt="{{ $imagen->alt }}" />
 @endforeach
 
 @endif

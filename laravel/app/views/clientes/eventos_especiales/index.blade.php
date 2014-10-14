@@ -17,7 +17,7 @@
 <div class="list-group">
       @foreach($imagenes as $imagen)
       
-      <a href="{{ URL::route('clientes_eventos_especiales.edit',array('id'=>$imagen->id,'evento_id'=>$evento_id)) }}"><img src="{{Config::get('params.path_public_image').$imagen->path.$imagen->nombre}}" alt="{{ $imagen->alt }}" /></a>
+      <a href="{{ URL::route('clientes_eventos_especiales.edit',array('id'=>$imagen->id,'evento_id'=>$evento_id)) }}"><img src="{{Config::get('params.path_serve_image').$imagen->path.$imagen->nombre}}" alt="{{ $imagen->alt }}" /></a>
       
       @endforeach
 </div>

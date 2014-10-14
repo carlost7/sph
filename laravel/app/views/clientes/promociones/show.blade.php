@@ -12,7 +12,7 @@
 <h2>{{ $promocion->nombre }}</h2>
 
 @if($promocion->imagen->count())
-<img src="{{Config::get('params.path_public_image').$promocion->imagen->path.$promocion->imagen->nombre}}" alt="{{ $promocion->imagen->alt }}" />
+<img src="{{Config::get('params.path_serve_image').$promocion->imagen->path.$promocion->imagen->nombre}}" alt="{{ $promocion->imagen->alt }}" />
 @endif
 <div class="list-group">  
       <p class="list-group-item"><span class="label label-default">Negocio:</span> {{ $promocion->negocio->nombre }}</p>      

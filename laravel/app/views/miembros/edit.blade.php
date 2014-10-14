@@ -38,7 +38,7 @@
                   {{ Form::label('imagen','Perfil') }}
                   <input type="file" name="imagen" id='uploadFile' title="Seleccionar" class="file-inputs" data-filename-placement="inside">
                   @if($miembro->imagen)
-                  <div id="imagepreview" class="profile_image imagepreview" style="background-image: url({{ Config::get('params.path_public_image').$miembro->imagen->path.$miembro->imagen->nombre }})"></div>
+                  <div id="imagepreview" class="profile_image imagepreview" style="background-image: url({{ Config::get('params.path_serve_image').$miembro->imagen->path.$miembro->imagen->nombre }})"></div>
                   @else
                   <div id="imagepreview" class="profile_image imagepreview" style="background-image: url('{{URL::to("/")}}/img/profile_default.png')"></div>
                   @endif
