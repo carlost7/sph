@@ -65,7 +65,7 @@ class Image {
 	{
             $imgPath = $this->provider->getQueryStringData($this->provider->getVarImage());
             
-		if(array_key_exists(self::CALLBACK_MODIFY_IMG_PATH, $this->callbacks)) {
+            if(array_key_exists(self::CALLBACK_MODIFY_IMG_PATH, $this->callbacks)) {
 			foreach($this->callbacks[self::CALLBACK_MODIFY_IMG_PATH] as $callback) {
 				$imgPath = $callback($imgPath);
 			}
@@ -184,7 +184,7 @@ class Image {
             if(is_null($this->server)) {
 			// get the tarnsformations
 			$operations = $this->getOperations();
-                  
+
                   // check cache
                   $this->cacher->init($this->getImagePath(), $operations, $this->cacheLifetime, $this->provider->publicPath());
                   
@@ -271,7 +271,7 @@ class Image {
 		if($this->provider->getQueryStringData($this->provider->getVarResponsiveFlag()) == 'true') {
 			$operations = Imagecow::getResponsiveOperations($_COOKIE['Imagecow_detection'], $this->provider->getQueryStringData($this->provider->getVarTransform()));
 		}else{
-			$operations = $this->provider->getQueryStringDataFromUrl($this->provider->getVarTransform(),$this->pathString);
+                  $operations = $this->provider->getQueryStringDataUrl($this->provider->getVarTransform(),$this->pathString);
 		}
 		return $operations;
 	}

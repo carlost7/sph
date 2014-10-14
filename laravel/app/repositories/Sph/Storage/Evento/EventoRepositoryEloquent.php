@@ -45,8 +45,8 @@ class EventoRepositoryEloquent implements EventoRepository
 
             if ($evento->save())
             {
-                  $mas_info = new MasInfoEvento($evento_model);
-                  $evento->masInfo()->save($mas_info);
+                  /*$mas_info = new MasInfoEvento($evento_model);
+                  $evento->masInfo()->save($mas_info);*/
 
                   if (isset($evento_model['nombre_imagen']))
                   {
@@ -121,8 +121,8 @@ class EventoRepositoryEloquent implements EventoRepository
 
                   if ($evento->save())
                   {
-                        $evento->masInfo->fill($evento_model);
-                        $evento->masInfo->save();
+                        /*$evento->masInfo->fill($evento_model);
+                        $evento->masInfo->save();*/
 
                         if (isset($evento_model['nombre_imagen']))
                         {

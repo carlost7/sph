@@ -35,13 +35,7 @@ class Provider implements ProviderInterface {
             return Input::get($key);
 	}
       
-      public function getQueryStringDataFromUrl($key,$path)
-	{
-            dd($path);
-            dd(parse_str($path));
-            return Input::get($key);
-	}
-
+      
 	public function getJsPath()
 	{
 		return Config::get('image::js_path');
@@ -83,4 +77,5 @@ class Provider implements ProviderInterface {
 		Event::fire($name, $args);
 	}
 
+      }
 }
