@@ -9,6 +9,8 @@ interface ProviderInterface {
 	public function getVarTransform();
 
 	public function getQueryStringData($key);
+        
+        public function getQueryStringDataUrl($key,$path);
 
 	public function getJsPath();
 

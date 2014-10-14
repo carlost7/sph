@@ -95,7 +95,7 @@ class clientesEventosController extends \BaseController
                   if ($input['imagen'])
                   {
                         //Obtener datos de la imagen
-                        $path = strval(Auth::user()->id) . '/';
+                        $path = Config::get('params.path_user_images').strval(Auth::user()->id) . '/';
                         $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
                         $evento_model = array_add($evento_model, 'path', $path);
                         $evento_model = array_add($evento_model, 'nombre_imagen', $nombre);
@@ -107,7 +107,7 @@ class clientesEventosController extends \BaseController
                         if ($input['imagen'])
                         {
                               //Guardar la imagen; 
-                              $path = Config::get('params.usrimg') . $path;
+                              $path = Config::get('params.path_public_image') . $path;
                               try
                               {
                                     $input['imagen']->move($path, $nombre);
@@ -340,7 +340,7 @@ class clientesEventosController extends \BaseController
                         {
                               try
                               {
-                                    $input['imagen']->move(Config::get('params.usrimg') . $evento->imagen->path, $evento->imagen->nombre);
+                                    $input['imagen']->move(Config::get('params.path_public_image') . $evento->imagen->path, $evento->imagen->nombre);
                               } catch (Exception $e)
                               {
                                     Log::error('MiembrosController.edit: ' . $e . get_message());

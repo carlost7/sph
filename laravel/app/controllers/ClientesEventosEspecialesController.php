@@ -70,7 +70,7 @@ class clientesEventosEspecialesController extends \BaseController
                               if ($input['imagen'])
                               {
                                     //Obtener datos de la imagen
-                                    $path = strval(Auth::user()->id) . '/';
+                                    $path = Config::get('params.path_user_images').strval(Auth::user()->id) . '/';
                                     $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
                                     $especial_model = array_add($especial_model, 'path', $path);
                                     $especial_model = array_add($especial_model, 'nombre_imagen', $nombre);
@@ -81,7 +81,7 @@ class clientesEventosEspecialesController extends \BaseController
                                     if ($input['imagen'])
                                     {
                                           //Guardar la imagen; 
-                                          $path = Config::get('params.usrimg') . $path;
+                                          $path = Config::get('params.path_public_image') . $path;
                                           try
                                           {
                                                 $input['imagen']->move($path, $nombre);
@@ -164,7 +164,7 @@ class clientesEventosEspecialesController extends \BaseController
                               if ($input['imagen'])
                               {
                                     //Guardar la imagen; 
-                                    $path = Config::get('params.usrimg') . $especial->path;
+                                    $path = Config::get('params.path_public_image') . $especial->path;
                                     try
                                     {
 
