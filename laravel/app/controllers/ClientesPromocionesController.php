@@ -61,7 +61,7 @@ class clientesPromocionesController extends \BaseController
                   if ($input['imagen'])
                   {
                         //Obtener datos de la imagen
-                        $path = strval(Auth::user()->id) . '/';
+                        $path = Config::get('params.path_user_images').strval(Auth::user()->id) . '/';
                         $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
                         $promocion_model = array_add($promocion_model, 'path', $path);
                         $promocion_model = array_add($promocion_model, 'nombre_imagen', $nombre);

@@ -16,6 +16,7 @@ class Image
       private $cacher;
       private $cacheLifetime; // minutes
       private $pathStringbase = '';
+      private $pathImgBase = '';
       private $pathString;
       private $callbacks = array();
       private $server;
@@ -33,6 +34,7 @@ class Image
             $this->cacher = $cacher;
             $this->cacheLifetime = $cacheLifetime;
             $this->pathStringBase = $serveRoute;
+            $this->pathImgBase = \Config::get('params.path_public');
             $this->expires = $expires;
       }
 
@@ -64,11 +66,10 @@ class Image
       public function getImagePath()
       {
             $imgPath = $this->provider->getQueryStringData($this->provider->getVarImage());
-
+            
             if (array_key_exists(self::CALLBACK_MODIFY_IMG_PATH, $this->callbacks))
             {
-                  foreach ($this->callbacks[self::CALLBACK_MODIFY_IMG_PATH] as $callback)
-                  {
+                  foreach ($this->callbacks[self::CALLBACK_MODIFY_IMG_PATH] as $callback) {
                         $imgPath = $callback($imgPath);
                   }
             }
@@ -106,7 +107,7 @@ class Image
             $this->pathString = $this->getBasePath();
             $this->pathString .= $this->provider->getVarImage() . '=' . $img;
             $this->pathString .= '&' . $this->provider->getVarTransform() . '=' . $transform;
-
+            
             return $this;
       }
 
@@ -145,7 +146,7 @@ class Image
             //header('Content-Type: ' . $this->getMimeType());
 
             $server = $this->getServer();
-
+            
             if (!$server->isFromCache())
             {
                   $server->create();
@@ -186,10 +187,11 @@ class Image
             {
                   // get the tarnsformations
                   $operations = $this->getOperations();
-
+                  
                   // check cache
-                  $this->cacher->init($this->getImagePath(), $operations, $this->cacheLifetime, $this->provider->publicPath());
-
+                  $imagen = $this->pathImgBase."/".$this->getImagePath();
+                  $this->cacher->init($imagen, $operations, $this->cacheLifetime, $this->provider->publicPath());
+                  
                   // get the correctly instantiated server object
                   if ($this->cacher->exists())
                   {
@@ -204,7 +206,6 @@ class Image
                         );
                   }
             }
-
             return $this->server;
       }
 
@@ -290,8 +291,7 @@ class Image
             $first = $params[0];
             $transformA = array();
 
-            foreach ($params as $key => $param)
-            {
+            foreach ($params as $key => $param) {
                   if ($key > 0)
                   {
                         $transformA[] = $param;

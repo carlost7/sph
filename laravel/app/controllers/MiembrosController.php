@@ -83,7 +83,7 @@ class MiembrosController extends \BaseController
                         if ($input['imagen'])
                         {
                               //Obtener datos de la imagen
-                              $path = strval(Auth::user()->id) . '/';
+                              $path = Config::get('params.path_user_images').strval(Auth::user()->id) . '/';
                               $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
                               $miembro_model = array_add($miembro_model, 'path', $path);
                               $miembro_model = array_add($miembro_model, 'nombre_imagen', $nombre);
@@ -96,7 +96,7 @@ class MiembrosController extends \BaseController
                               if ($input['imagen'])
                               {
                                     //Guardar la imagen; 
-                                    $path = Config::get('params.usrimg') . $path;
+                                    $path = Config::get('params.path_public_image') . $path;
                                     try
                                     {
                                           $input['imagen']->move($path, $miembro->imagen->nombre);

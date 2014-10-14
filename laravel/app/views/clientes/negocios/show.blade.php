@@ -12,7 +12,7 @@
 
 <h2>{{ $negocio->nombre }}</h2>
 @if(count($negocio->imagen))
-<img src="{{Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" />
+<img src="{{Config::get('params.path_serve_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" />
 @endif
 <div class="list-group">  
       <p class="list-group-item"><span class="label label-default">Teléfono:</span> {{ $negocio->telefono }}</p>

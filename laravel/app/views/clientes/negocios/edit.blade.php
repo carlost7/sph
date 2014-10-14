@@ -19,6 +19,7 @@
       {{ Form::label('descripcion', 'Descripción') }}
       {{ Form::textArea('descripcion', $negocio->descripcion, array('placeholder' => 'Descripcion', 'class'=>'form-control')) }}
 </div>
+@if(count($negocio->masInfo))
 <div class="form-group">
       {{ Form::label('llevar','Más información') }}
       <div class="row">
@@ -103,6 +104,7 @@
             </div>
       </div>
 </div>
+@endif
 <div class="form-group">      
       <div class="row">
             <div class="col-sm-6">

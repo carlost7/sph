@@ -1,13 +1,11 @@
 <?php
 
 return array(
-  
-    'enviar_codigo_correo' => true,
-    
-    'usrimg' => 'img/user_images/',
-    
-    'path_public_image' => URL::to('/').'/img/user_images/',
-    
-    'prueba_pago' => false,
-    
+      'enviar_codigo_correo' => true,
+      'prueba_pago' => false,
+      
+      
+      'path_public_image' => '/img/',
+      'path_user_images' => 'user_images/',
+      'path_serve_image' => URL::to('/') . '/img/',
 );
