@@ -21,88 +21,61 @@
 </div>
 @if(count($negocio->masInfo))
 <div class="form-group">
-      {{ Form::label('llevar','Más información') }}
       <div class="row">
             <div class="col-sm-6">
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox('domicilio',1,$negocio->masInfo->domicilio) }}
-                              ¿Entregan a domicilio?
+                              {{ Form::checkbox("efectivo",$negocio->masInfo->efectivo) }}            
+                              ¿Reciben pago en efectivo?
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>                              
-                              {{ Form::checkbox('llevar',1,$negocio->masInfo->llevar) }} 
-                              ¿Servicio para llevar?
+                              {{ Form::checkbox("tc",$negocio->masInfo->tc) }} 
+                              ¿Reciben tarjetas de credito?
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>
+                              {{ Form::checkbox("td",$negocio->masInfo->td) }}
+                              ¿Reciben tarjetas de debito?
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>                              
+                              {{ Form::checkbox("familiar",$negocio->masInfo->familiar) }}
+                              ¿Es un espacio familiar?
                         </label>
                   </div>
             </div>
             <div class="col-sm-6">
                   <div class="checkbox">
                         <label>                              
-                              {{ Form::checkbox('familiar',1,$negocio->masInfo->familiar) }}
-                              ¿Ambiente familiar?
+                              {{ Form::checkbox("estacionamiento",$negocio->masInfo->estacionamiento) }}                                               
+                              ¿Cuenta con estacionamiento?
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox('alcohol',1,$negocio->masInfo->alcohol) }}
-                              ¿Cuenta con alcohol?
+                              {{ Form::checkbox("valet_parking",$negocio->masInfo->valet_parking) }}            
+                              ¿Cuenta con valet parking?
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>                              
+                              {{ Form::checkbox("wifi",$negocio->masInfo->wifi) }}                 
+                              ¿Cuenta con wifi?
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>
+                              {{ Form::checkbox("mascotas",$negocio->masInfo->mascotas) }}            
+                              ¿Se permiten mascotas?
                         </label>
                   </div>
             </div>
 
       </div>      
-</div>
-<div class="form-group">
-      <div class="row">
-            <div class="col-sm-4">
-                  {{ Form::label('moneda','Moneda') }}
-                  {{ Form::select('moneda', array('MEX' => 'Pesos', 'USD' => 'Dólares'),$negocio->mas_info->moneda,array('class'=>'form-control')) }}
-            </div>
-            <div class="col-sm-4">
-                  {{ Form::label('rango_min','Rango de precios mínimo') }}
-                  {{ Form::text('rango_min', $negocio->mas_info->rango_min, array('placeholder' => '00.00', 'class'=>'form-control')) }}
-            </div>
-            <div class="col-sm-4">
-                  {{ Form::label('rango_max','Rango de precios máximo') }}
-                  {{ Form::text('rango_max', $negocio->mas_info->rango_max, array('placeholder' => '00.00', 'class'=>'form-control')) }}
-            </div>
-      </div>
-</div>
-<div class="form-group">
-      <div class="row">
-            <div class="col-sm-12">
-                  {{ Form::label('pagos','Pagos Aceptados') }}
-            </div>            
-      </div>
-      <div class="row">
-            <div class="col-sm-4">
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox('tc', true,$negocio->mas_info->tc) }}      
-                              Tarjeta de crédito
-                        </label>
-                  </div>
-
-            </div>
-            <div class="col-sm-4">
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox('td', true,$negocio->mas_info->td) }}      
-                              Tarjeta de debito
-                        </label>
-                  </div>
-            </div>
-            <div class="col-sm-4">
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox('efectivo', true,$negocio->mas_info->efectivo) }}
-                              Efectivo
-                        </label>                        
-                  </div>
-            </div>
-      </div>
 </div>
 @endif
 <div class="form-group">      

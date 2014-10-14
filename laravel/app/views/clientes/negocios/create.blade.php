@@ -44,7 +44,6 @@
       {{ Form::label('descripcion', 'Descripción') }}
       {{ Form::textArea('descripcion', Input::old('descripcion'), array('placeholder' => 'descripcion', 'class'=>'form-control')) }}
 </div>
-
 <div class="form-group">      
       <div class="row">
             <div class="col-sm-6">
@@ -204,7 +203,63 @@
       </div>
 </div>
 
+<div class="form-group">
+      <div class="row">
+            <div class="col-sm-6">
+                  <div class="checkbox">
+                        <label>
+                              {{ Form::checkbox("efectivo",1) }}            
+                              ¿Reciben pago en efectivo?
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>                              
+                              {{ Form::checkbox("tc",1) }} 
+                              ¿Reciben tarjetas de credito?
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>
+                              {{ Form::checkbox("td",1) }}
+                              ¿Reciben tarjetas de debito?
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>                              
+                              {{ Form::checkbox("familiar",1) }}
+                              ¿Es un espacio familiar?
+                        </label>
+                  </div>
+            </div>
+            <div class="col-sm-6">
+                  <div class="checkbox">
+                        <label>                              
+                              {{ Form::checkbox("estacionamiento",1) }}                                               
+                              ¿Cuenta con estacionamiento?
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>
+                              {{ Form::checkbox("valet_parking",1) }}            
+                              ¿Cuenta con valet parking?
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>                              
+                              {{ Form::checkbox("wifi",1) }}                 
+                              ¿Cuenta con wifi?
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>
+                              {{ Form::checkbox("mascotas",1) }}            
+                              ¿Se permiten mascotas?
+                        </label>
+                  </div>
+            </div>
 
+      </div>      
+</div>
 <div class="form-group">
       {{ Form::label('webpage', 'Página web') }}            
       {{ Form::text('webpage', Input::old('webpage') ,array('placeholder'=>'página web','class'=>'form-control')) }}
