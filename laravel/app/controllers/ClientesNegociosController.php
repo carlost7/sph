@@ -99,7 +99,7 @@ class clientesNegociosController extends \BaseController
                   if ($input['imagen'])
                   {
                         //Obtener datos de la imagen
-                        $path = Config::get('params.path_user_images').strval(Auth::user()->id) . '/';
+                        $path = Config::get('params.path_user_images') . strval(Auth::user()->id) . '/';
                         $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
                         $negocio_model = array_add($negocio_model, 'path', $path);
                         $negocio_model = array_add($negocio_model, 'nombre_imagen', $nombre);
@@ -126,7 +126,7 @@ class clientesNegociosController extends \BaseController
                         $pago_model = array(
                             'nombre' => 'Publicación de Negocio',
                             'descripcion' => $negocio->nombre,
-                            'monto' => Config::get('costos.negocio'),                            
+                            'monto' => Config::get('costos.negocio'),
                             'client' => Auth::user()->userable,
                         );
                         $pago = $this->pago->create($pago_model);
@@ -223,19 +223,18 @@ class clientesNegociosController extends \BaseController
 
             $config = array();
             $marker = array();
-
-
+            
             if (isset($negocio->especial->mapa))
             {
                   $config['center'] = $negocio->especial->mapa;
                   $marker['position'] = $negocio->especial->mapa;
                   $marker['draggable'] = true;
-                  $marker['ondragend'] = 'edit_map(event);';                  
+                  $marker['ondragend'] = 'edit_map(event);';
             }
             else
             {
                   $config['center'] = '19.417, -99.169';
-                  $config['onclick'] = 'save_map(event);';                  
+                  $config['onclick'] = 'save_map(event);';
             }
 
             $config['zoom'] = '13';

@@ -34,7 +34,7 @@ class Image
             $this->cacher = $cacher;
             $this->cacheLifetime = $cacheLifetime;
             $this->pathStringBase = $serveRoute;
-            $this->pathImgBase = \Config::get('params.path_public');
+            $this->pathImgBase = \Config::get('params.path_system_public_image');
             $this->expires = $expires;
       }
 

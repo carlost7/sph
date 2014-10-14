@@ -257,8 +257,9 @@
             <div class="col-sm-6">
                   {{ Form::label('imagen','Imágen') }}
                   <input type="file" name="imagen" id='uploadFile' title="Seleccionar" class="file-inputs" data-filename-placement="inside">
+                  
                   @if($negocio->imagen)
-                  <div id="imagepreview" class="imagepreview" style="background-image: url({{ Config::get('params.path_public_image').$negocio->imagen->path.$negocio->imagen->nombre }})"></div>
+                  <div id="imagepreview" class="imagepreview" style="background-image: url({{ Config::get('params.path_serve_image_transform').Image::path($negocio->imagen->path.$negocio->imagen->nombre,'resizeCrop',250,250,'left','top') }})"></div>
                   {{ Form::label('alt','Descripción') }}
                   {{ Form::text('alt',$negocio->imagen->alt,array('placeholder' => 'descripción', 'class'=>'form-control')) }}
                   @else
