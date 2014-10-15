@@ -185,7 +185,7 @@ class clientesNegociosController extends \BaseController
 
             $mapa = null;
 
-            if ($negocio->is_especial && count($negocio->especial))
+            if (count($negocio->especial))
             {
                   $config = array();
                   $config['center'] = $negocio->especial->mapa;
@@ -197,7 +197,7 @@ class clientesNegociosController extends \BaseController
                   Gmaps::add_marker($marker);
                   $mapa = Gmaps::create_map();
             }
-
+            
             return View::make('clientes.negocios.show')->with(array('negocio' => $negocio, 'mapa' => $mapa));
       }
 

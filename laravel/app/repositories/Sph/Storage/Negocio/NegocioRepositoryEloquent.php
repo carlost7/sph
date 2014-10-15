@@ -105,6 +105,34 @@ class NegocioRepositoryEloquent implements NegocioRepository
                   {
 
                         $negocio->horario->fill($negocio_model);
+                        if(!isset($negocio_model['lun_ini']) && !isset($negocio_model['lun_fin'])){
+                              $negocio->horario->lun_ini = null;
+                              $negocio->horario->lun_fin = null;
+                        }                        
+                        if(!isset($negocio_model['mar_ini']) && !isset($negocio_model['mar_fin']) ){
+                              $negocio->horario->mar_ini = null;
+                              $negocio->horario->mar_fin = null;
+                        }
+                        if(!isset($negocio_model['mie_ini']) && !isset($negocio_model['mie_fin'])){
+                              $negocio->horario->mie_ini = null;
+                              $negocio->horario->mie_fin = null;
+                        }
+                        if(!isset($negocio_model['jue_ini']) && !isset($negocio_model['jue_fin'])){
+                              $negocio->horario->jue_ini = null;
+                              $negocio->horario->jue_fin = null;
+                        }
+                        if(!isset($negocio_model['vie_ini']) && !isset($negocio_model['vie_fin'])){
+                              $negocio->horario->vie_ini = null;
+                              $negocio->horario->vie_fin = null;
+                        }
+                        if(!isset($negocio_model['sab_ini']) && !isset($negocio_model['sab_fin'])){
+                              $negocio->horario->sab_ini = null;
+                              $negocio->horario->sab_fin = null;
+                        }
+                        if(!isset($negocio_model['dom_ini']) && !isset($negocio_model['dom_fin'])){
+                              $negocio->horario->dom_ini = null;
+                              $negocio->horario->dom_fin = null;
+                        }                            
                         $negocio->horario->save();
                         
                         $negocio->masInfo->fill($negocio_model);

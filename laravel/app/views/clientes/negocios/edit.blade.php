@@ -80,14 +80,22 @@
 @endif
 <div class="form-group">      
       <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                   <div class="row">
                         <div class="col-sm-12">
                               {{ Form::label('horario','Horarios') }}
                         </div>
                   </div>
                   <div class="row">
-                        <div class="col-sm-6">
+                  <div class="col-sm-2">
+                              <div class="checkbox">
+                                    <label>
+                                          {{ Form::checkbox("lun",1,($negocio->horario->lun_ini == "00:00:00")?true:false,array('class'=>'desactivar','id'=>'lun')) }}
+                                          Cerrado
+                                    </label>
+                              </div>
+                        </div>
+                        <div class="col-sm-5">
                               {{ Form::label('lun_ini','Lunes inicio') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <span class="input-group-addon">
@@ -96,7 +104,7 @@
                                     <input type="text" class="form-control" name="lun_ini" value="{{ date('H:i',strtotime($negocio->horario->lun_ini))}}">
                               </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                               {{ Form::label('lun_fin','Lunes fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <input type="text" class="form-control" name="lun_fin" value="{{ date('H:i',strtotime($negocio->horario->lun_fin))}}">
@@ -107,7 +115,15 @@
                         </div>
                   </div>
                   <div class="row">
-                        <div class="col-sm-6">
+                  <div class="col-sm-2">
+                              <div class="checkbox">
+                                    <label>
+                                          {{ Form::checkbox("mar",1,($negocio->horario->mar_ini == "00:00:00")?true:false,array('class'=>'desactivar','id'=>'mar')) }}
+                                          Cerrado
+                                    </label>
+                              </div>
+                        </div>
+                        <div class="col-sm-5">
                               {{ Form::label('mar_ini','Martes inicio') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <span class="input-group-addon">
@@ -116,7 +132,7 @@
                                     <input type="text" class="form-control" name="mar_ini" value="{{ date('H:i',strtotime($negocio->horario->lun_ini))}}">
                               </div>                             
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                               {{ Form::label('mar_fin','Martes fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <input type="text" class="form-control" name="mar_fin" value="{{ date('H:i',strtotime($negocio->horario->mar_fin))}}">
@@ -127,7 +143,15 @@
                         </div>
                   </div>
                   <div class="row">
-                        <div class="col-sm-6">
+                  <div class="col-sm-2">
+                              <div class="checkbox">
+                                    <label>
+                                          {{ Form::checkbox("mie",1,(($negocio->horario->mie_ini == "00:00:00"))?true:false,array('class'=>'desactivar','id'=>'mie')) }}
+                                          Cerrado
+                                    </label>
+                              </div>
+                        </div>
+                        <div class="col-sm-5">
                               {{ Form::label('mie_ini','Miercoles inicio') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <span class="input-group-addon">
@@ -136,7 +160,7 @@
                                     <input type="text" class="form-control" name="mie_ini" value="{{ date('H:i',strtotime($negocio->horario->mie_ini))}}">
                               </div>                             
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                               {{ Form::label('mie_fin','Miercoles fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <input type="text" class="form-control" name="mie_fin" value="{{ date('H:i',strtotime($negocio->horario->mie_fin))}}">
@@ -147,7 +171,15 @@
                         </div>
                   </div>
                   <div class="row">
-                        <div class="col-sm-6">
+                  <div class="col-sm-2">
+                              <div class="checkbox">
+                                    <label>
+                                          {{ Form::checkbox("jue",1,($negocio->horario->jue_ini == "00:00:00")?true:false,array('class'=>'desactivar','id'=>'jue')) }}
+                                          Cerrado
+                                    </label>
+                              </div>
+                        </div>
+                        <div class="col-sm-5">
                               {{ Form::label('jue_ini','Jueves inicio') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <span class="input-group-addon">
@@ -156,7 +188,7 @@
                                     <input type="text" class="form-control" name="jue_ini" value="{{ date('H:i',strtotime($negocio->horario->jue_ini))}}">
                               </div>                             
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                               {{ Form::label('jue_fin','Jueves fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <input type="text" class="form-control" name="jue_fin" value="{{ date('H:i',strtotime($negocio->horario->jue_fin))}}">
@@ -167,7 +199,15 @@
                         </div>
                   </div>
                   <div class="row">
-                        <div class="col-sm-6">
+                  <div class="col-sm-2">
+                              <div class="checkbox">
+                                    <label>
+                                          {{ Form::checkbox("vie",1,($negocio->horario->vie_ini == "00:00:00")?true:false,array('class'=>'desactivar','id'=>'vie')) }}
+                                          Cerrado
+                                    </label>
+                              </div>
+                        </div>
+                        <div class="col-sm-5">
                               {{ Form::label('vie_ini','Viernes inicio') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <span class="input-group-addon">
@@ -176,7 +216,7 @@
                                     <input type="text" class="form-control" name="vie_ini" value="{{ date('H:i',strtotime($negocio->horario->vie_ini))}}">
                               </div>                             
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                               {{ Form::label('vie_fin','Viernes fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <input type="text" class="form-control" name="vie_fin" value="{{ date('H:i',strtotime($negocio->horario->vie_fin))}}">
@@ -187,7 +227,15 @@
                         </div>
                   </div>
                   <div class="row">
-                        <div class="col-sm-6">
+                  <div class="col-sm-2">
+                              <div class="checkbox">
+                                    <label>
+                                          {{ Form::checkbox("sab",1,($negocio->horario->sab_ini == "00:00:00")?true:false,array('class'=>'desactivar','id'=>'sab')) }}
+                                          Cerrado
+                                    </label>
+                              </div>
+                        </div>
+                        <div class="col-sm-5">
                               {{ Form::label('sab_ini','Sabado inicio') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <span class="input-group-addon">
@@ -196,7 +244,7 @@
                                     <input type="text" class="form-control" name="sab_ini" value="{{ date('H:i',strtotime($negocio->horario->sab_ini))}}">
                               </div>                              
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                               {{ Form::label('sab_fin','Sabado fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <input type="text" class="form-control" name="sab_fin" value="{{ date('H:i',strtotime($negocio->horario->sab_fin))}}">
@@ -207,7 +255,15 @@
                         </div>
                   </div>
                   <div class="row">
-                        <div class="col-sm-6">
+                  <div class="col-sm-2">
+                              <div class="checkbox">
+                                    <label>
+                                          {{ Form::checkbox("dom",1,($negocio->horario->dom_ini == "00:00:00")?true:false,array('class'=>'desactivar','id'=>'dom')) }}
+                                          Cerrado
+                                    </label>
+                              </div>
+                        </div>
+                        <div class="col-sm-5">
                               {{ Form::label('dom_ini','Domingo inicio') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <span class="input-group-addon">
@@ -216,7 +272,7 @@
                                     <input type="text" class="form-control" name="dom_ini" value="{{ date('H:i',strtotime($negocio->horario->dom_ini))}}">
                               </div>                             
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                               {{ Form::label('dom_fin','Domingo fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <input type="text" class="form-control" name="dom_fin" value="{{ date('H:i',strtotime($negocio->horario->dom_fin))}}">
@@ -226,8 +282,12 @@
                               </div>                             
                         </div>
                   </div>      
-            </div>
-            <div class="col-sm-6">
+            </div>            
+      </div>
+</div>
+<div class="form-group">
+      <div class="row">
+            <div class="col-sm-12">
                   {{ Form::label('imagen','Imágen') }}
                   <input type="file" name="imagen" id='uploadFile' title="Seleccionar" class="file-inputs" data-filename-placement="inside">
                   
@@ -392,8 +452,36 @@
       }
 </script>
 
-<script type="text/javascript">
+<script>
       $('.clockpicker').clockpicker();
+      
+      
+      $(".desactivar").click(function(e) {
+            var dia = $(this).attr('id');
+            if ($(this).prop('checked')) {
+                  $("input[name="+dia+"_ini]").prop('disabled',true);
+                  $("input[name="+dia+"_fin]").prop('disabled',true);
+            }else{
+                  $("input[name="+dia+"_ini]").prop('disabled',false);
+                  $("input[name="+dia+"_fin]").prop('disabled',false);
+            }
+
+      });
+      
+      $(document).ready(function(){
+            
+            $(".desactivar").each(function(i){
+                  var dia = $(this).attr('id');
+                  if ($(this).prop('checked')) {
+                        $("input[name="+dia+"_ini]").prop('disabled',true);
+                        $("input[name="+dia+"_fin]").prop('disabled',true);
+                  }else{
+                        $("input[name="+dia+"_ini]").prop('disabled',false);
+                        $("input[name="+dia+"_fin]").prop('disabled',false);
+                  }
+            });            
+      });
+      
 </script>
 
 

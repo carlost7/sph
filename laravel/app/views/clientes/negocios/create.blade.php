@@ -53,7 +53,15 @@
                         </div>
                   </div>
                   <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-2">
+                              <div class="checkbox">
+                                    <label>
+                                          {{ Form::checkbox("lun",1,null,array('class'=>'desactivar','id'=>'lun')) }}
+                                          Cerrado
+                                    </label>
+                              </div>
+                        </div>
+                        <div class="col-sm-5">
                               {{ Form::label('lun_ini','Lunes inicio') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <span class="input-group-addon">
@@ -62,7 +70,7 @@
                                     <input type="text" class="form-control" name="lun_ini" id="ini" value="{{ Input::old('lun_ini')}}">
                               </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                               {{ Form::label('lun_fin','Lunes fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <input type="text" class="form-control" name="lun_fin" id="fin" value="{{ Input::old('lun_ini')}}">
@@ -73,7 +81,15 @@
                         </div>
                   </div>
                   <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-2">
+                              <div class="checkbox">
+                                    <label>
+                                          {{ Form::checkbox("mar",1,null,array('class'=>'desactivar','id'=>'mar')) }}
+                                          Cerrado
+                                    </label>
+                              </div>
+                        </div>
+                        <div class="col-sm-5">
                               {{ Form::label('mar_ini','Martes inicio') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <span class="input-group-addon">
@@ -82,7 +98,7 @@
                                     <input type="text" class="form-control timeini" name="mar_ini" value="{{ Input::old('lun_ini')}}">
                               </div>                             
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                               {{ Form::label('mar_fin','Martes fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <input type="text" class="form-control timefin" name="mar_fin" value="{{ Input::old('lun_ini')}}">
@@ -93,7 +109,15 @@
                         </div>
                   </div>
                   <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-2">
+                              <div class="checkbox">
+                                    <label>
+                                          {{ Form::checkbox("mie",1,null,array('class'=>'desactivar','id'=>'mie')) }}        
+                                          Cerrado
+                                    </label>
+                              </div>
+                        </div>
+                        <div class="col-sm-5">
                               {{ Form::label('mie_ini','Miercoles inicio') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <span class="input-group-addon">
@@ -102,7 +126,7 @@
                                     <input type="text" class="form-control timeini" name="mie_ini" value="{{ Input::old('lun_ini')}}">
                               </div>                             
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                               {{ Form::label('mie_fin','Miercoles fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <input type="text" class="form-control timefin" name="mie_fin" value="{{ Input::old('lun_ini')}}">
@@ -113,7 +137,15 @@
                         </div>
                   </div>
                   <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-2">
+                              <div class="checkbox">
+                                    <label>
+                                          {{ Form::checkbox("jue",1,null,array('class'=>'desactivar','id'=>'jue')) }}         
+                                          Cerrado
+                                    </label>
+                              </div>
+                        </div>
+                        <div class="col-sm-5">
                               {{ Form::label('jue_ini','Jueves inicio') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <span class="input-group-addon">
@@ -122,7 +154,7 @@
                                     <input type="text" class="form-control timeini" name="jue_ini" value="{{ Input::old('lun_ini')}}">
                               </div>                             
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                               {{ Form::label('jue_fin','Jueves fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <input type="text" class="form-control timefin" name="jue_fin" value="{{ Input::old('lun_ini')}}">
@@ -133,7 +165,15 @@
                         </div>
                   </div>
                   <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-2">
+                              <div class="checkbox">
+                                    <label>
+                                          {{ Form::checkbox("vie",1,null,array('class'=>'desactivar','id'=>'vie')) }}        
+                                          Cerrado
+                                    </label>
+                              </div>
+                        </div>
+                        <div class="col-sm-5">
                               {{ Form::label('vie_ini','Viernes inicio') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <span class="input-group-addon">
@@ -142,7 +182,7 @@
                                     <input type="text" class="form-control timeini" name="vie_ini" value="{{ Input::old('lun_ini')}}">
                               </div>                             
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                               {{ Form::label('vie_fin','Viernes fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <input type="text" class="form-control timefin" name="vie_fin" value="{{ Input::old('lun_ini')}}">
@@ -153,7 +193,15 @@
                         </div>
                   </div>
                   <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-2">
+                              <div class="checkbox">
+                                    <label>
+                                          {{ Form::checkbox("sab",1,null,array('class'=>'desactivar','id'=>'sab')) }}       
+                                          Cerrado
+                                    </label>
+                              </div>
+                        </div>
+                        <div class="col-sm-5">
                               {{ Form::label('sab_ini','Sabado inicio') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <span class="input-group-addon">
@@ -162,7 +210,7 @@
                                     <input type="text" class="form-control timeini" name="sab_ini" value="{{ Input::old('lun_ini')}}">
                               </div>                              
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                               {{ Form::label('sab_fin','Sabado fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <input type="text" class="form-control timefin" name="sab_fin" value="{{ Input::old('lun_ini')}}">
@@ -173,7 +221,15 @@
                         </div>
                   </div>
                   <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-2">
+                              <div class="checkbox">
+                                    <label>
+                                          {{ Form::checkbox("dom",1,null,array('class'=>'desactivar','id'=>'dom')) }}        
+                                          Cerrado
+                                    </label>
+                              </div>
+                        </div>
+                        <div class="col-sm-5">
                               {{ Form::label('dom_ini','Domingo inicio') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <span class="input-group-addon">
@@ -182,7 +238,7 @@
                                     <input type="text" class="form-control timeini" name="dom_ini" value="{{ Input::old('lun_ini')}}">
                               </div>                             
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                               {{ Form::label('dom_fin','Domingo fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
                                     <input type="text" class="form-control timefin" name="dom_fin" value="{{ Input::old('lun_ini')}}">
@@ -354,7 +410,7 @@
       }
 </script>
 
-<script type="text/javascript">
+<script>
       $('.clockpicker').clockpicker();
 </script>
 
@@ -368,6 +424,18 @@
             valor = $('#fin').val();
 
             $(".timefin").val(valor);
+      });
+
+      $(".desactivar").click(function(e) {
+            var dia = $(this).attr('id');
+            if ($(this).prop('checked')) {
+                  $("input[name="+dia+"_ini]").prop('disabled',true);
+                  $("input[name="+dia+"_fin]").prop('disabled',true);
+            }else{
+                  $("input[name="+dia+"_ini]").prop('disabled',false);
+                  $("input[name="+dia+"_fin]").prop('disabled',false);
+            }
+
       });
 </script>
 @stop
