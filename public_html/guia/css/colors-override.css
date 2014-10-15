@@ -1496,6 +1496,7 @@ label {
   display: inline-block;
   margin-bottom: 5px;
   font-weight: bold;
+  color:#333333 !important;
 }
 input[type="search"] {
   -webkit-box-sizing: border-box;

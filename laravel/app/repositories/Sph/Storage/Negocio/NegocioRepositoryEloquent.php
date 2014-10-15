@@ -43,8 +43,8 @@ class NegocioRepositoryEloquent implements NegocioRepository
                   $horario = new HorarioNegocio($negocio_model);
                   $negocio->horario()->save($horario);
 
-                  /*$mas_info = new MasInfoNegocio($negocio_model);
-                  $negocio->masInfo()->save($mas_info);*/
+                  $mas_info = new MasInfoNegocio($negocio_model);
+                  $negocio->masInfo()->save($mas_info);
 
                   $negocio_especial = new Negocio_especial($negocio_model);
                   $negocio->especial()->save($negocio_especial);
@@ -101,9 +101,9 @@ class NegocioRepositoryEloquent implements NegocioRepository
 
                         $negocio->horario->fill($negocio_model);
                         $negocio->horario->save();
-                        /*
+                        
                         $negocio->masInfo->fill($negocio_model);
-                        $negocio->masInfo->save();*/
+                        $negocio->masInfo->save();
 
                         if (isset($negocio_model['nombre_imagen']))
                         {

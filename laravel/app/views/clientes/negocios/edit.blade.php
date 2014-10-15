@@ -25,25 +25,25 @@
             <div class="col-sm-6">
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("efectivo",$negocio->masInfo->efectivo) }}            
+                              {{ Form::checkbox("efectivo",true,$negocio->masInfo->efectivo) }}            
                               ¿Reciben pago en efectivo?
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>                              
-                              {{ Form::checkbox("tc",$negocio->masInfo->tc) }} 
+                              {{ Form::checkbox("tc",true,$negocio->masInfo->tc) }} 
                               ¿Reciben tarjetas de credito?
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("td",$negocio->masInfo->td) }}
+                              {{ Form::checkbox("td",true,$negocio->masInfo->td) }}
                               ¿Reciben tarjetas de debito?
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>                              
-                              {{ Form::checkbox("familiar",$negocio->masInfo->familiar) }}
+                              {{ Form::checkbox("familiar",true,$negocio->masInfo->familiar) }}
                               ¿Es un espacio familiar?
                         </label>
                   </div>
@@ -51,25 +51,25 @@
             <div class="col-sm-6">
                   <div class="checkbox">
                         <label>                              
-                              {{ Form::checkbox("estacionamiento",$negocio->masInfo->estacionamiento) }}                                               
+                              {{ Form::checkbox("estacionamiento",true,$negocio->masInfo->estacionamiento) }}                                               
                               ¿Cuenta con estacionamiento?
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("valet_parking",$negocio->masInfo->valet_parking) }}            
+                              {{ Form::checkbox("valet_parking",true,$negocio->masInfo->valet_parking) }}            
                               ¿Cuenta con valet parking?
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>                              
-                              {{ Form::checkbox("wifi",$negocio->masInfo->wifi) }}                 
+                              {{ Form::checkbox("wifi",true,$negocio->masInfo->wifi) }}                 
                               ¿Cuenta con wifi?
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("mascotas",$negocio->masInfo->mascotas) }}            
+                              {{ Form::checkbox("mascotas",true,$negocio->masInfo->mascotas) }}            
                               ¿Se permiten mascotas?
                         </label>
                   </div>
@@ -253,7 +253,7 @@
             </div>
             <div class="col-sm-4">
                   {{ Form::label('zona','Zona') }}
-                  {{ Form::select('zona', array(),$negocio->zona->id,array('class'=>'form-control', 'id'=>'zonas')) }}
+                  {{ Form::select('zona', array(),(count($negocio->zona))?$negocio->zona->id:null,array('class'=>'form-control', 'id'=>'zonas')) }}
             </div>
       </div>
       <div class="row">
@@ -263,7 +263,7 @@
             </div>
             <div class="col-sm-4">
                   {{ Form::label('subcategoria','subcategoria') }}
-                  {{ Form::select('subcategoria', array(),$negocio->subcategoria->id,array('class'=>'form-control', 'id'=>'subcats')) }}
+                  {{ Form::select('subcategoria', array(),(count($negocio->subcategoria))?$negocio->subcategoria->id:null,array('class'=>'form-control', 'id'=>'subcats')) }}
             </div>
       </div>
 
@@ -349,7 +349,7 @@
                         $("#zonas").empty();
                         for (i = 0; i < data.length; i++) {
                               resultado = data[i];
-                              if(resultado.id == {{$negocio->zona->id}}){
+                              if(resultado.id == {{(count($negocio->zona))?$negocio->zona->id:''}}){
                                     elemento = "<option value=" + resultado.id + " selected >" + resultado.zona + "</option>";
                               }else{
                                     elemento = "<option value=" + resultado.id + ">" + resultado.zona + "</option>";
@@ -368,7 +368,7 @@
                         $("#subcats").empty();
                         for (i = 0; i < data.length; i++) {
                               resultado = data[i];
-                              if(resultado.id == {{$negocio->subcategoria->id}}){
+                              if(resultado.id == {{(count($negocio->subcategoria))?$negocio->subcategoria->id:''}}){
                                     elemento = "<option value=" + resultado.id + " selected >" + resultado.subcategoria + "</option>";
                               }else{
                                     elemento = "<option value=" + resultado.id + ">" + resultado.subcategoria + "</option>";
