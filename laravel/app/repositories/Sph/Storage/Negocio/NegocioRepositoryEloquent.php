@@ -92,9 +92,14 @@ class NegocioRepositoryEloquent implements NegocioRepository
             {
                   $negocio->fill($negocio_model);
                   $negocio->categoria_id = $negocio_model['categoria'];
-                  $negocio->subcategoria_id = $negocio_model['subcategoria'];
+                  if(isset($negocio_model['subcategoria'])){
+                        $negocio->subcategoria_id = $negocio_model['subcategoria'];                        
+                  }
                   $negocio->estado_id = $negocio_model['estado'];
-                  $negocio->zona_id = $negocio_model['zona'];
+                  if(isset($negocio_model['zona'])){
+                        $negocio->zona_id = $negocio_model['zona'];      
+                  }
+                  
 
                   if ($negocio->save())
                   {
