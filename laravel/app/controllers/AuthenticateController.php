@@ -38,6 +38,8 @@ class AuthenticateController extends \BaseController
                   Session::put('credentials', $credentials);
                   Session::save();
 
+                  dd(Session::all());
+                  
                   $provider->authorize($credentials);
             }
             catch (Exception $e)
