@@ -114,7 +114,7 @@ abstract class Server
     public function authorize($temporaryIdentifier)
     {
         $url = $this->getAuthorizationUrl($temporaryIdentifier);
-
+        Log::error('authorize send authorization');
         return \Illuminate\Support\Facades\Redirect::away($url);        
     }
 
