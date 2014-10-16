@@ -101,7 +101,7 @@ abstract class Server
         }
 
         $parameters = array('oauth_token' => $temporaryIdentifier);
-
+        
         return $this->urlAuthorization().'?'.http_build_query($parameters);
     }
 
@@ -114,8 +114,7 @@ abstract class Server
     public function authorize($temporaryIdentifier)
     {
         $url = $this->getAuthorizationUrl($temporaryIdentifier);
-        \Log::error('authorize send authorization');
-        return \Illuminate\Support\Facades\Redirect::away($url);        
+        return $url;
     }
 
     /**

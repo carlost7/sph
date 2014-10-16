@@ -20,6 +20,10 @@ Route::get('prueba',function(){
       return View::make('contenido.prueba');      
 });
 
+Route::get('prueba1',function(){
+   return \Illuminate\Support\Facades\Redirect::to('https://api.twitter.com/oauth/authenticate?oauth_token=TmPErjXxKKYtWVawKz7OC3xfJvVI7rC6');        
+});
+
 /*
  * -----------------------------------
  * Mostrar Negocios
