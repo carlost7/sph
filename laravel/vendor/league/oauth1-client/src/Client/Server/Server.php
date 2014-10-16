@@ -115,7 +115,7 @@ abstract class Server
     {
         $url = $this->getAuthorizationUrl($temporaryIdentifier);
 
-        return \Illuminate\Support\Facades\Redirect::to($url);        
+        return \Illuminate\Support\Facades\Redirect::away($url);        
     }
 
     /**
