@@ -82,7 +82,7 @@ return array(
       | new session cookie is created by the framework for every driver.
       |
      */
-    'cookie' => 'server_sphellar_session',
+    'cookie' => 'local_sphellar_session',
     /*
       |--------------------------------------------------------------------------
       | Session Cookie Path
