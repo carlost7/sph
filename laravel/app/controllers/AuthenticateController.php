@@ -53,20 +53,17 @@ class AuthenticateController extends \BaseController
                   //dd(Session::all());
                   $provider = $this->manager->get($provider);
 
-                  dd(Session::all());
-                  
                   $token = $provider->getTokenCredentials(
                           Session::get('credentials'), Input::get('oauth_token'), Input::get('oauth_verifier')
                   );
-
+                                    
                   $user = $provider->getUserDetails($token);
 
                   $auth = $this->user->findByUid($user->uid);
 
                   if ($auth)
                   {
-                        $data = array(
-                              'uid' => Session::get('uid'),
+                        $data = array(                              
                               'oauth_token' => Session::get('oauth_token'),
                               'oauth_token_secret' => Session::get('oauth_token_secret')
                         );
@@ -74,7 +71,7 @@ class AuthenticateController extends \BaseController
                         
                         Auth::loginUsingId($auth->id,true);
                         
-                        return Redirect::to('/');
+                        return Redirect::intended('/');
                   }
 
                   Session::put('username', $user->nickname);
@@ -83,7 +80,6 @@ class AuthenticateController extends \BaseController
                   Session::put('oauth_token_secret', $token->getSecret());
                   //Session::save();
 
-                  Log::error('entrada');
                   return Redirect::route('authenticate.register');
             }
             catch (Exception $e)
@@ -126,7 +122,7 @@ class AuthenticateController extends \BaseController
                               $this->events->fire('nuevo_usuario_correo', array($miembro));
                               Auth::login($user,true);
                               Session::flash('message', 'Bienvenido a Sphellar');
-                              return Redirect::to('/');
+                              return Redirect::intended('/');
                         }
                         else
                         {
