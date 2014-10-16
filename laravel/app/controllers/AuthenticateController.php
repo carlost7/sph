@@ -51,9 +51,10 @@ class AuthenticateController extends \BaseController
             try
             {
                   //dd(Session::all());
-                  dd($provider);
                   $provider = $this->manager->get($provider);
 
+                  dd(Session::all());
+                  
                   $token = $provider->getTokenCredentials(
                           Session::get('credentials'), Input::get('oauth_token'), Input::get('oauth_verifier')
                   );
