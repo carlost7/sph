@@ -104,7 +104,7 @@ return array(
       | available to in your application. A sensible default has been set.
       |
      */
-    'domain' => "http://sphellar.com/mx/guia",
+    'domain' => null,
     /*
       |--------------------------------------------------------------------------
       | HTTPS Only Cookies
