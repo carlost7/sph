@@ -94,15 +94,15 @@
                               <div class="col-sm-4 form_buscador">
                                     <div class="form-group">
                                           <!-- {{ Form::label('estado', 'Estado') }} -->
-                                          {{ Form::text('estado',Session::get('tipolocal'),array('class'=>'form-control big-input','id'=>'local','placeholder'=>'Estado')) }}
-                                          <input type="hidden" value="" name="tipolocal" id='tipolocal'>                  
+                                          {{ Form::text('buscador_estado',Session::get('tipolocal'),array('class'=>'form-control big-input','id'=>'local','placeholder'=>'Estado')) }}
+                                          <input type="hidden" value="{{ Session::get('id_ubicacion') }}" name="id_ubicacion" id='id_ubicacion'>                  
                                     </div>                  
                               </div>
                               <div class="col-sm-4 form_buscador">
                                     <div class="form-group">
                                           <!-- {{ Form::label('categoria', 'Categoría') }} -->
-                                          {{ Form::text('categoria',Session::get('tipocat'),array('class'=>'form-control','id'=>'cat','placeholder'=>'Categoría')) }}
-                                          <input type="hidden" value="" name="tipocat" id='tipocat'>                  
+                                          {{ Form::text('buscador_categoria',Session::get('tipocat'),array('class'=>'form-control','id'=>'cat','placeholder'=>'Categoría')) }}
+                                          <input type="hidden" value="{{ Session::get('id_categoria') }}" name="id_categoria" id='id_categoria'>                  
                                     </div>         
                               </div>
                               <div class="col-sm-4">
@@ -153,27 +153,6 @@
                   </div><!--/.navbar-collapse -->
 
 
-                  <div class="container">
-
-
-
-
-
-                        <!-- <div class="navbar-header">
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                                      <span class="sr-only">Toggle navigation</span>
-                                      <span class="icon-bar"></span>
-                                      <span class="icon-bar"></span>
-                                      <span class="icon-bar"></span>
-                                </button>
-  
-                                {{ HTML::Link('/','Sphellar',array('class'=>'navbar-brand')) }}                    
-  
-                          </div> -->
-
-
-
-                  </div>
             </div>
             <div class="clearfix"></div>
             @if(Session::has('message'))

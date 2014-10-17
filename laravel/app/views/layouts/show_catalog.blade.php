@@ -45,6 +45,8 @@
                   </div>
             </div>
       </div>
+      <input type="hidden" value="" name="tipolocal" id='tipolocal'>
+      <input type="hidden" value="" name="tipocat" id='tipocat'>      
 </div>
 <div class="form-group center">
       <button type="submit" class="btn btn-primary btn_guia" id='search_catalog'>Buscar</button>      

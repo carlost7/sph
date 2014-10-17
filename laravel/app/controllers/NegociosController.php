@@ -67,8 +67,10 @@ class NegociosController extends \BaseController
               $lastQuery = end($querys);
               //dd($lastQuery); */
 
-            Session::set('tipolocal', Input::get('estado'));
-            Session::set('tipocat', Input::get('categoria'));
+            Session::set('buscador_estado', Input::get('buscador_estado'));
+            Session::set('buscador_categoria', Input::get('buscador_categoria'));
+            Session::set('id_ubicacion', Input::get('id_ubicacion'));
+            Session::set('id_categoria', Input::get('id_categoria'));            
 
             return View::make('contenido.negocios_index')->with(array('negocios' => $negocios, 'estados' => $estados, 'categorias' => $categorias));
       }

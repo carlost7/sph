@@ -1,4 +1,3 @@
-
 $(function() {
     $('#estados').change(function() {
         var estado_id = $("#estados").val();
@@ -48,4 +47,19 @@ $(function() {
        $("#form_catalog").attr("action",url).submit();
     });
 
+});
+
+
+$("#local").autocomplete({
+    serviceUrl: base_url + "/catalogo_zonas",
+    onSelect: function(suggestion) {
+        $("#id_ubicacion").val(suggestion.data);
+    }
+});
+
+$("#cat").autocomplete({
+    serviceUrl: base_url + "/catalogo_categorias",
+    onSelect: function(suggestion) {
+        $("#id_categoria").val(suggestion.data);
+    }
 });
