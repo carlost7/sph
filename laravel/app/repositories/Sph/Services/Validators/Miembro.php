@@ -18,10 +18,10 @@ class Miembro extends Validator
 
       public static $rules = array(
           "save" => array(
-              'username' => 'required|unique:miembros,username',
+              'username' => 'required',
           ),
           "update" => array(
-              'username' => 'unique:miembros,username',
+              'username' => 'required',
           ),
       );
 

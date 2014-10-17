@@ -19,7 +19,7 @@ class AuthenticateController extends \BaseController
             $this->manager = $manager;
             $this->user = $user;
             $this->miembro = $miembro;
-            $this->events = $events;            
+            $this->events = $events;
       }
 
       /**
@@ -31,16 +31,25 @@ class AuthenticateController extends \BaseController
       {
             try
             {
-                  $provider = $this->manager->get($provider);
+                  if ($provider == strtolower('twitter'))
+                  {
+                        $provider = $this->manager->get($provider);
 
-                  $credentials = $provider->getTemporaryCredentials();
+                        $credentials = $provider->getTemporaryCredentials();
 
-                  Session::put('credentials', $credentials);
-                  Session::save();
+                        dd($credentials);
+                        Session::put('credentials', $credentials);
+                        Session::save();
 
-                  return Redirect::to($provider->authorize($credentials));
-            }
-            catch (Exception $e)
+                        return Redirect::to($provider->authorize($credentials));
+                  }
+                  else
+                  {
+                        $provider = $this->manager->get($provider);
+                        //dd($provider);
+                        return Redirect::to($provider->getAuthorizationUrl());
+                  }
+            } catch (Exception $e)
             {
                   return App::abort(404);
             }
@@ -50,41 +59,64 @@ class AuthenticateController extends \BaseController
       {
             try
             {
-                  //dd(Session::all());
-                  $provider = $this->manager->get($provider);
-
-                  $token = $provider->getTokenCredentials(
-                          Session::get('credentials'), Input::get('oauth_token'), Input::get('oauth_verifier')
-                  );
-                                    
-                  $user = $provider->getUserDetails($token);
-
-                  $auth = $this->user->findByUid($user->uid);
-
-                  if ($auth)
+                  if ($provider == strtolower("twitter"))
                   {
-                        $data = array(                              
-                              'oauth_token' => Session::get('oauth_token'),
-                              'oauth_token_secret' => Session::get('oauth_token_secret')
+                        //dd(Session::all());
+                        $provider = $this->manager->get($provider);
+
+                        $token = $provider->getTokenCredentials(
+                                Session::get('credentials'), Input::get('oauth_token'), Input::get('oauth_verifier')
                         );
-                        $user = $this->user->update($auth->id,$data);
-                        
-                        Auth::loginUsingId($auth->id,true);
-                        
-                        return Redirect::intended('/');
+
+                        $user = $provider->getUserDetails($token);
+
+                        $auth = $this->user->findByUid($user->uid);
+
+                        if ($auth)
+                        {
+                              $data = array(
+                                  'oauth_token' => Session::get('oauth_token'),
+                                  'oauth_token_secret' => Session::get('oauth_token_secret')
+                              );
+                              $user = $this->user->update($auth->id, $data);
+
+                              Auth::loginUsingId($auth->id, true);
+
+                              return Redirect::intended('/');
+                        }
+
+                        Session::put('username', $user->nickname);
+                        Session::put('uid', $user->uid);
+                        Session::put('oauth_token', $token->getIdentifier());
+                        Session::put('oauth_token_secret', $token->getSecret());
+                        //Session::save();
+
+                        return Redirect::route('authenticate.register');
                   }
+                  else
+                  {
+                        $provider = $this->manager->get($provider);
 
-                  Session::put('username', $user->nickname);
-                  Session::put('uid', $user->uid);
-                  Session::put('oauth_token', $token->getIdentifier());
-                  Session::put('oauth_token_secret', $token->getSecret());
-                  //Session::save();
+                        $token = $provider->getAccessToken('authorization_code', array('code' => Input::get('code')));
+                        // Optional: Now you have a token you can look up a users profile data
+                        try
+                        {
 
-                  return Redirect::route('authenticate.register');
-            }
-            catch (Exception $e)
+                              // We got an access token, let's now get the user's details
+                              $userDetails = $provider->getUserDetails($token);
+
+                              // Use these details to create a new profile
+                              dd($userDetails);
+                        } catch (Exception $e)
+                        {
+
+                              // Failed to get user details
+                              dd($e);
+                        }
+                  }
+            } catch (Exception $e)
             {
-                  Log::error("Authenticate::callback ".$e->getMessage());
+                  Log::error("Authenticate::callback " . $e->getMessage());
                   return App::abort(404);
             }
       }
@@ -97,11 +129,11 @@ class AuthenticateController extends \BaseController
       public function store()
       {
             $data = array(
-                  'username' => Input::get('username'),
-                  'email' => Input::get('email'),
-                  'uid' => Session::get('uid'),
-                  'oauth_token' => Session::get('oauth_token'),
-                  'oauth_token_secret' => Session::get('oauth_token_secret')
+                'username' => Input::get('username'),
+                'email' => Input::get('email'),
+                'uid' => Session::get('uid'),
+                'oauth_token' => Session::get('oauth_token'),
+                'oauth_token_secret' => Session::get('oauth_token_secret')
             );
 
             $validateAuth = new \Sph\Services\Validators\Auth1($data, 'save');
@@ -120,7 +152,7 @@ class AuthenticateController extends \BaseController
                         if ($miembro)
                         {
                               $this->events->fire('nuevo_usuario_correo', array($miembro));
-                              Auth::login($user,true);
+                              Auth::login($user, true);
                               Session::flash('message', 'Bienvenido a Sphellar');
                               return Redirect::intended('/');
                         }

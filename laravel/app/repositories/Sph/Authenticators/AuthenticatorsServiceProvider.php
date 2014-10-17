@@ -4,6 +4,7 @@ namespace Sph\Authenticators;
 
 use Illuminate\Support\ServiceProvider;
 use League\OAuth1\Client\Server\Twitter;
+use League\OAuth2\Client\Provider\Facebook;
 
 /**
  * Description of AuthenticatorsServiceProvider
@@ -17,6 +18,7 @@ class AuthenticatorsServiceProvider extends ServiceProvider
       {
             $this->registerManager();
             $this->registerTwitterAuthenticator();
+            $this->registerFacebookAuthenticator();
       }
 
       /**
@@ -27,6 +29,7 @@ class AuthenticatorsServiceProvider extends ServiceProvider
       public function boot()
       {
             $this->app['auth.providers.manager']->set('twitter', $this->app['auth.providers.twitter']);
+            $this->app['auth.providers.manager']->set('facebook', $this->app['auth.providers.facebook']);
       }
 
       public function registerManager()
@@ -50,5 +53,15 @@ class AuthenticatorsServiceProvider extends ServiceProvider
                   ));
             });
       }
-
+      
+      public function registerFacebookAuthenticator()
+      {
+            $this->app['auth.providers.facebook'] = $this->app->share(function($app) {
+                  return new Facebook(array(
+                        'clientId' => $app['config']->get('auth.providers.facebook.clientId'),
+                        'clientSecret' => $app['config']->get('auth.providers.facebook.clientSecret'),
+                        'redirectUri' => $app['config']->get('auth.providers.facebook.redirectUri')
+                  ));
+            });
+      }
 }

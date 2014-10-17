@@ -19,13 +19,13 @@ class Auth1 extends Validator
       public static $rules = array(
             "save" => array(
                   'email' => 'email|unique:users,email',
-                  'uid' => 'required|unique:users,uid',
+                  //'uid' => 'required|unique:users',
                   'oauth_token' => 'required',
                   'oauth_token_secret' => 'required',
             ),
             "update" => array(
                   'email' => 'email',
-                  'uid' => 'required|unique:users',
+                  //'uid' => 'required|unique:users',
                   'oauth_token' => 'required',
                   'oauth_token_secret' => 'required',
             ),
