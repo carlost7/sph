@@ -11,6 +11,11 @@ return array(
             'clientId' => $_ENV['FACEBOOK_IDENTIFIER'],
             'clientSecret' => $_ENV['FACEBOOK_SECRET'],
             'redirectUri' => $_ENV['FACEBOOK_CALLBACK_URI']
+        ),
+        'google' => array(
+            'clientId' => $_ENV['GOOGLE_IDENTIFIER'],
+            'clientSecret' => $_ENV['GOOGLE_SECRET'],
+            'redirectUri' => $_ENV['GOOGLE_CALLBACK_URI']
         )
     )
 );

@@ -11,7 +11,7 @@
             </div>
             <div class="form-group">
                   {{ Form::label('email', 'Correo electrónico') }}
-                  {{ Form::text('email', Input::old('correo'), array('placeholder' => 'ejemplo@correo.com', 'class'=>'form-control')) }}
+                  {{ Form::text('email', $email, array('placeholder' => 'ejemplo@correo.com', 'class'=>'form-control')) }}
             </div>                        
             
             @include('layouts.show_form_errors')

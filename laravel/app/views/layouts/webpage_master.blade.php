@@ -12,7 +12,6 @@
             <meta name="description" content="">            
             <meta name="viewport" content="width=device-width, initial-scale=1">
             {{ HTML::script('js/vendor/modernizr-2.6.2-respond-1.1.0.min.js') }}
-            {{ HTML::script('js/tooltip.js') }}
             {{ HTML::style('css/bootstrap.css') }}
             {{ HTML::style('css/bootstrap-theme.css') }}
             {{ HTML::style('css/galeria/component_galeria.css') }}

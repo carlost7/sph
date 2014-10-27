@@ -21,13 +21,13 @@ class Auth1 extends Validator
                   'email' => 'email|unique:users,email',
                   'uid' => 'required|unique:users,uid',
                   'oauth_token' => 'required',
-                  'oauth_token_secret' => 'required',
+                  //'oauth_token_secret' => 'required',
             ),
             "update" => array(
                   'email' => 'email',
-                  'uid' => 'required|unique:users',
+                  //'uid' => 'required|unique:users',
                   'oauth_token' => 'required',
-                  'oauth_token_secret' => 'required',
+                  //'oauth_token_secret' => 'required',
             ),
       );
 

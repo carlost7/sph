@@ -111,11 +111,11 @@ class CurlMulti extends AbstractHasDispatcher implements CurlMultiInterface
         $this->perform();
         $exceptions = $this->exceptions;
         $successful = $this->successful;
-        $this->reset();
+        $this->reset();        
 
-        if ($exceptions) {
+        /*if ($exceptions) {
             $this->throwMultiException($exceptions, $successful);
-        }
+        }*/
     }
 
     public function count()
@@ -135,6 +135,7 @@ class CurlMulti extends AbstractHasDispatcher implements CurlMultiInterface
         $multiException = new MultiTransferException('Errors during multi transfer');
 
         while ($e = array_shift($exceptions)) {
+            \Log::error('throwMultiException'.print_r($exceptions,true));
             $multiException->addFailedRequestWithException($e['request'], $e['exception']);
         }
 
@@ -204,8 +205,7 @@ class CurlMulti extends AbstractHasDispatcher implements CurlMultiInterface
     protected function perform()
     {
         $event = new Event(array('curl_multi' => $this));
-
-        while ($this->requests) {
+        while ($this->requests) {                
             // Notify each request as polling
             $blocking = $total = 0;
             foreach ($this->requests as $request) {
@@ -217,13 +217,14 @@ class CurlMulti extends AbstractHasDispatcher implements CurlMultiInterface
                     ++$blocking;
                 }
             }
+            
             if ($blocking == $total) {
                 // Sleep to prevent eating CPU because no requests are actually pending a select call
                 usleep(500);
             } else {
                 $this->executeHandles();
             }
-        }
+        }        
     }
 
     /**

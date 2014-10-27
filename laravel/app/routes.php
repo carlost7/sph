@@ -16,13 +16,6 @@ Route::get('/', array(
     'as' => 'home'
 ));
 
-Route::get('prueba',function(){
-      return View::make('contenido.prueba');      
-});
-
-Route::get('prueba1',function(){
-   dd(Session::all());
-});
 
 /*
  * -----------------------------------

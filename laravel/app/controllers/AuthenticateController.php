@@ -37,7 +37,6 @@ class AuthenticateController extends \BaseController
 
                         $credentials = $provider->getTemporaryCredentials();
 
-                        dd($credentials);
                         Session::put('credentials', $credentials);
                         Session::save();
 
@@ -67,51 +66,141 @@ class AuthenticateController extends \BaseController
                         $token = $provider->getTokenCredentials(
                                 Session::get('credentials'), Input::get('oauth_token'), Input::get('oauth_verifier')
                         );
-
-                        $user = $provider->getUserDetails($token);
-
-                        $auth = $this->user->findByUid($user->uid);
-
-                        if ($auth)
+                        try
                         {
-                              $data = array(
-                                  'oauth_token' => Session::get('oauth_token'),
-                                  'oauth_token_secret' => Session::get('oauth_token_secret')
-                              );
-                              $user = $this->user->update($auth->id, $data);
+                              $user = $provider->getUserDetails($token);
 
-                              Auth::loginUsingId($auth->id, true);
+                              $auth = $this->user->findByUid($user->uid);
+                              //Si existe el usuario, solo lo loggea
+                              if ($auth)
+                              {
+                                    $data = array(
+                                        'oauth_token' => Session::get('oauth_token'),
+                                        'oauth_token_secret' => Session::get('oauth_token_secret')
+                                    );
+                                    $user = $this->user->update($auth->id, $data);
 
-                              return Redirect::intended('/');
+                                    Auth::loginUsingId($auth->id, true);
+
+                                    return Redirect::intended('/');
+                              }
+                              else
+                              {
+                                    //Si no existe lo manda a crear un nuevo usuario
+
+                                    Session::put('username', $user->name);
+                                    Session::put('uid', $user->uid);
+                                    Session::put('oauth_token', $token->getIdentifier());
+                                    Session::put('oauth_token_secret', $token->getSecret());
+                                    //Session::save();
+
+                                    return Redirect::route('authenticate.register');
+                              }
+                        } catch (Exception $e)
+                        {
+
+                              Session::flash("ocurrio un error, vuelve a intentarlo");
+                              Log::error('callback_facebook', print_r($e, true));
+                              return Redirect::to("/");
                         }
-
-                        Session::put('username', $user->nickname);
-                        Session::put('uid', $user->uid);
-                        Session::put('oauth_token', $token->getIdentifier());
-                        Session::put('oauth_token_secret', $token->getSecret());
-                        //Session::save();
-
-                        return Redirect::route('authenticate.register');
                   }
-                  else
+                  elseif ($provider == strtolower("facebook"))
                   {
                         $provider = $this->manager->get($provider);
+                        if (Input::get('error'))
+                        {
+
+                              Session::flash('error', 'Ocurrio un error o no le diste acceso a la aplicación');
+                              return Redirect::route('register.user');
+                        }
+
 
                         $token = $provider->getAccessToken('authorization_code', array('code' => Input::get('code')));
+
+
                         // Optional: Now you have a token you can look up a users profile data
                         try
                         {
 
                               // We got an access token, let's now get the user's details
                               $userDetails = $provider->getUserDetails($token);
+                              $auth = $this->user->findByUid($userDetails->uid);
 
-                              // Use these details to create a new profile
-                              dd($userDetails);
+                              if ($auth)
+                              {
+                                    $data = array(
+                                        'oauth_token' => Session::get('oauth_token'),
+                                        'oauth_token_secret' => Session::get('oauth_token_secret')
+                                    );
+                                    $user = $this->user->update($auth->id, $data);
+
+                                    Auth::loginUsingId($auth->id, true);
+
+                                    return Redirect::intended('/');
+                              }
+
+                              Session::put('username', $userDetails->name);
+                              Session::put('email', $userDetails->email);
+                              Session::put('uid', $userDetails->uid);
+                              Session::put('oauth_token', $token->accessToken);
+                              Session::put('oauth_token_secret', '');
+
+                              return Redirect::route('authenticate.register');
                         } catch (Exception $e)
                         {
 
-                              // Failed to get user details
-                              dd($e);
+                              Session::flash("ocurrio un error, vuelve a intentarlo");
+                              Log::error('callback_facebook', print_r($e, true));
+                              return Redirect::to("/");
+                        }
+                  }
+                  else
+                  {
+                        $provider = $this->manager->get($provider);
+                        if (Input::get('error'))
+                        {
+
+                              Session::flash('error', 'Ocurrio un error o no le diste acceso a la aplicación');
+                              return Redirect::route('register.user');
+                        }
+
+                        $token = $provider->getAccessToken('authorization_code', array('code' => Input::get('code')));
+
+
+                        // Optional: Now you have a token you can look up a users profile data
+                        try
+                        {
+
+                              // We got an access token, let's now get the user's details
+                              $userDetails = $provider->getUserDetails($token);
+                              $auth = $this->user->findByUid($userDetails->uid);
+
+                              if ($auth)
+                              {
+                                    $data = array(
+                                        'oauth_token' => Session::get('oauth_token'),
+                                        'oauth_token_secret' => Session::get('oauth_token_secret')
+                                    );
+                                    $user = $this->user->update($auth->id, $data);
+
+                                    Auth::loginUsingId($auth->id, true);
+
+                                    return Redirect::intended('/');
+                              }
+
+                              Session::put('username', $userDetails->name);
+                              Session::put('email', $userDetails->email);
+                              Session::put('uid', $userDetails->uid);
+                              Session::put('oauth_token', $token->accessToken);
+                              Session::put('oauth_token_secret', '');
+
+                              return Redirect::route('authenticate.register');
+                        } catch (Exception $e)
+                        {
+
+                              Session::flash("ocurrio un error, vuelve a intentarlo");
+                              Log::error('callback_facebook', print_r($e, true));
+                              return Redirect::to("/");
                         }
                   }
             } catch (Exception $e)
@@ -123,7 +212,7 @@ class AuthenticateController extends \BaseController
 
       public function register()
       {
-            return View::make('register.authenticate.user')->with('username', Session::get('username'));
+            return View::make('register.authenticate.user')->with(array('username' => Session::get('username'), 'email' => Session::get('email')));
       }
 
       public function store()

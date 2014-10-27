@@ -172,7 +172,7 @@ class Client extends AbstractHasDispatcher implements ClientInterface
     public function createRequest($method = 'GET', $uri = null, $headers = null, $body = null, array $options = array())
     {
         if (!$uri) {
-            $url = $this->getBaseUrl();
+            $url = $this->getBaseUrl();            
         } else {
             if (!is_array($uri)) {
                 $templateVars = null;
@@ -186,7 +186,7 @@ class Client extends AbstractHasDispatcher implements ClientInterface
                 $url = Url::factory($this->getBaseUrl())->combine($this->expandTemplate($uri, $templateVars));
             }
         }
-
+        
         // If default headers are provided, then merge them under any explicitly provided headers for the request
         if (count($this->defaultHeaders)) {
             if (!$headers) {
@@ -197,7 +197,6 @@ class Client extends AbstractHasDispatcher implements ClientInterface
                 $headers = $headers->toArray() + $this->defaultHeaders->toArray();
             }
         }
-
         return $this->prepareRequest($this->requestFactory->create($method, (string) $url, $headers, $body), $options);
     }
 
@@ -264,8 +263,9 @@ class Client extends AbstractHasDispatcher implements ClientInterface
     }
 
     public function post($uri = null, $headers = null, $postBody = null, array $options = array())
-    {
+    {          
         return $this->createRequest('POST', $uri, $headers, $postBody, $options);
+        
     }
 
     public function options($uri = null, array $options = array())
@@ -274,11 +274,10 @@ class Client extends AbstractHasDispatcher implements ClientInterface
     }
 
     public function send($requests)
-    {
+    {          
         if (!($requests instanceof RequestInterface)) {
             return $this->sendMultiple($requests);
         }
-
         try {
             /** @var $requests RequestInterface  */
             $this->getCurlMulti()->add($requests)->send();
@@ -405,7 +404,7 @@ class Client extends AbstractHasDispatcher implements ClientInterface
     protected function prepareRequest(RequestInterface $request, array $options = array())
     {
         $request->setClient($this)->setEventDispatcher(clone $this->getEventDispatcher());
-
+        
         if ($curl = $this->config[self::CURL_OPTIONS]) {
             $request->getCurlOptions()->overwriteWith(CurlHandle::parseCurlConfig($curl));
         }
@@ -426,7 +425,7 @@ class Client extends AbstractHasDispatcher implements ClientInterface
         if ($options) {
             $this->requestFactory->applyOptions($request, $options);
         }
-
+        
         $this->dispatch('client.create_request', array('client' => $this, 'request' => $request));
 
         return $request;

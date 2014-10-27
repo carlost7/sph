@@ -13,7 +13,7 @@ namespace Sph\Services\Validators;
  *
  * @author carlos
  */
-class Auth1 extends Validator
+class Auth2 extends Validator
 {
 
       public static $rules = array(
@@ -27,7 +27,7 @@ class Auth1 extends Validator
                   'email' => 'email',
                   //'uid' => 'required|unique:users',
                   'oauth_token' => 'required',
-                  'oauth_token_secret' => 'required',
+                  //'oauth_token_secret' => 'required',
             ),
       );
 

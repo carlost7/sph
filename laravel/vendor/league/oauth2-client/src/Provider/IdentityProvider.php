@@ -56,7 +56,6 @@ abstract class IdentityProvider
     public function getHttpClient()
     {
         $client = clone $this->httpClient;
-
         return $client;
     }
 
@@ -120,9 +119,9 @@ abstract class IdentityProvider
             'redirect_uri'  => $this->redirectUri,
             'grant_type'    => $grant,
         );
-
+        
         $requestParams = $grant->prepRequestParams($defaultParams, $params);
-
+        
         try {
             switch (strtoupper($this->method)) {
                 case 'GET':
@@ -134,11 +133,13 @@ abstract class IdentityProvider
                     $response = $request->getBody();
                     break;
                     // @codeCoverageIgnoreEnd
-                case 'POST':
-                    $client = $this->getHttpClient();
+                case 'POST':                      
+                    $client = $this->getHttpClient();                      
                     $client->setBaseUrl($this->urlAccessToken());
-                    $request = $client->post(null, null, $requestParams)->send();
-                    $response = $request->getBody();
+                    $post = $client->post(null, null, $requestParams);
+                    $request = $post->send();
+                    dd($request);
+                    $response = $request->getBody();                    
                     break;
                 // @codeCoverageIgnoreStart
                 default:
@@ -160,9 +161,9 @@ abstract class IdentityProvider
                 parse_str($response, $result);
                 break;
         }
-
+        dd($result);
         if (isset($result['error']) && ! empty($result['error'])) {
-            // @codeCoverageIgnoreStart
+            // @codeCoverageIgnoreStart              
             throw new IDPException($result);
             // @codeCoverageIgnoreEnd
         }

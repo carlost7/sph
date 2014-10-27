@@ -194,7 +194,6 @@ class Request extends AbstractMessage implements RequestInterface
         if (!$this->client) {
             throw new RuntimeException('A client must be set on the request');
         }
-
         return $this->client->send($this);
     }
 

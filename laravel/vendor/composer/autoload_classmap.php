@@ -3220,6 +3220,7 @@ return array(
     'Sph\\Authenticators\\Manager' => $baseDir . '/app/repositories/Sph/Authenticators/Manager.php',
     'Sph\\Services\\Validators\\Administrador' => $baseDir . '/app/repositories/Sph/Services/Validators/Administrador.php',
     'Sph\\Services\\Validators\\Auth1' => $baseDir . '/app/repositories/Sph/Services/Validators/Auth1.php',
+    'Sph\\Services\\Validators\\Auth2' => $baseDir . '/app/repositories/Sph/Services/Validators/Auth2.php',
     'Sph\\Services\\Validators\\BitacoraCliente' => $baseDir . '/app/repositories/Sph/Services/Validators/BitacoraCliente.php',
     'Sph\\Services\\Validators\\Catalogo' => $baseDir . '/app/repositories/Sph/Services/Validators/Catalogo.php',
     'Sph\\Services\\Validators\\Categoria' => $baseDir . '/app/repositories/Sph/Services/Validators/Categoria.php',
