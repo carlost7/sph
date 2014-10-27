@@ -40,6 +40,13 @@
                         <p class="list-group-item"><span class="label label-default info_detalle">Publicado:</span> {{ ($negocio->publicar) ? "Si" : "No" }}</p>
                   </div>
 
+                  <div class="list-group">
+                      <p class="list-group-item"><span class="label label-default info_detalle">Categoría</span>{{$negocio->categoria->categoria}}</p>
+                      <p class="list-group-item"><span class="label label-default info_detalle">Subcategoría</span>{{(count($negocio->subcategoria))?$negocio->subcategoria->subcategoria:""}}</p>
+                      <p class="list-group-item"><span class="label label-default info_detalle">Estado</span>{{$negocio->estado->estado}}</p>
+                      <p class="list-group-item"><span class="label label-default info_detalle">Zona</span>{{(count($negocio->zona))?$negocio->zona->zona:""}}</p>
+                  </div>
+                  
                   @if(count($negocio->masInfo))
                   <div class="list-group">  
                         <p class="list-group-item"><span class="label label-default">Acepta Efectivo:</span>{{ ($negocio->masInfo->efectivo)  ? "Si" : "No" }}</p>

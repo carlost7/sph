@@ -29,48 +29,58 @@ class NegociosController extends \BaseController
       {
             View::share('name', 'Negocios - Sphellar');
 
-            $tipocat = Input::get('tipocat');
-            $tipolocal = Input::get('tipolocal');
-
             $categorias = $this->categoria->all();
             $estados = $this->estado->all();
+            
+            /*
+             * Obtenemos el nombre de la categoria y estado a partir del campo 
+             */
+            /*
+            $nombre_ubicacion = Input::get('nombre_ubicacion');
+            Session::set('ubicacion', $nombre_ubicacion);
+            $nombre_categoria = Input::get('nombre_categoria');
+            Session::set('categoria', $nombre_categoria);
+            */
+            
+            $id_ubicacion = Input::get('id_ubicacion_form');
+            Session::set('id_ubicacion', $id_ubicacion);
+            $id_categoria = Input::get('id_categoria_form');
+            Session::set('id_categoria', $id_categoria);
 
-
-            $queryNegocios = \Negocio::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc');
-
-            if (isset($tipocat))
+            //Generamos el query para traer los datos de la base de datos
+            //Esto debe pasarse a un controller en algun momento
+            //negocios:
+            $queryNegocios = \Negocio::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc');
+            //Obtenemos los negocios que tengan categorias
+            if ($id_categoria != "")
             {
-                  $tipocat = explode("-", $tipocat);
-
-                  if (count($tipocat) > 1)
+                  //Separamos la categoria y la subcategoria
+                  $cat = explode("-", $id_categoria);
+                  if (count($cat) > 1)
                   {
-                        $queryNegocios = $queryNegocios->where('subcategoria_id', $tipocat[1]);
+                        //Agregamos la subcategoria
+                        $queryNegocios = $queryNegocios->where('subcategoria_id', $cat[1]);
                   }
-                  $queryNegocios = $queryNegocios->where('categoria_id', $tipocat[0]);
+
+                  //Agregamos la categoria
+                  $queryNegocios = $queryNegocios->where('categoria_id', $cat[0]);
             }
 
-            if ($tipolocal)
+            if ($id_ubicacion != "")
             {
-                  $tipolocal = explode("-", $tipolocal);
-
-                  if (count($tipolocal) > 1)
+                  $ubi = explode("-", $id_ubicacion);
+                  if (count($ubi) > 1)
                   {
-                        $queryNegocios = $queryNegocios->where('zona_id', $tipolocal[1]);
+                        $queryNegocios = $queryNegocios->where('zona_id', $ubi[1]);
                   }
-
-                  $queryNegocios = $queryNegocios->where('estado_id', $tipolocal[0]);
+                  $queryNegocios = $queryNegocios->where('estado_id', $ubi[0]);
             }
 
             $negocios = $queryNegocios->paginate(20);
-
+            
             /* $querys = DB::getQueryLog();
               $lastQuery = end($querys);
               //dd($lastQuery); */
-
-            Session::set('buscador_estado', Input::get('buscador_estado'));
-            Session::set('buscador_categoria', Input::get('buscador_categoria'));
-            Session::set('id_ubicacion', Input::get('id_ubicacion'));
-            Session::set('id_categoria', Input::get('id_categoria'));            
 
             return View::make('contenido.negocios_index')->with(array('negocios' => $negocios, 'estados' => $estados, 'categorias' => $categorias));
       }

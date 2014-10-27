@@ -25,7 +25,7 @@ class ContenidoController extends \BaseController
             $this->zona = $zona;
             $this->estado = $estado;
             $this->categoria = $categoria;
-            $this->subcategoria = $subcategoria;            
+            $this->subcategoria = $subcategoria;
       }
 
       /**
@@ -37,53 +37,64 @@ class ContenidoController extends \BaseController
       public function index()
       {
 
-            View::share('name','Guia - Sphellar');
-            
-            $tipocat = Input::get('tipocat');
-            $tipolocal = Input::get('tipolocal');
+            View::share('name', 'Guia - Sphellar');
+
+            /*
+             * We set the hidden and unhidden values of the search bar
+             */
+            $nombre_ubicacion = Input::get('nombre_ubicacion');
+
+            Session::set('ubicacion', $nombre_ubicacion);
+
+            $nombre_categoria = Input::get('nombre_categoria');
+            Session::set('categoria', $nombre_categoria);
+
+            $id_ubicacion = Input::get('id_ubicacion');
+
+            Session::set('id_ubicacion', $id_ubicacion);
+
+            $id_categoria = Input::get('id_categoria');
+
+            Session::set('id_categoria', $id_categoria);
 
 
-            $queryNegocios = \Negocio::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc');
-            $queryEventos = \Evento::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc');
-            if (isset($tipocat))
+            //Generamos el query para traer los datos de la base de datos
+            //Esto debe pasarse a un controller en algun momento
+            //negocios:
+            $queryNegocios = \Negocio::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc');
+            //Obtenemos los negocios que tengan categorias
+            if ($id_categoria != "")
             {
-                  $tipocat = explode("-", $tipocat);
-
-                  if (count($tipocat) > 1)
+                  //Separamos la categoria y la subcategoria
+                  $cat = explode("-", $id_categoria);
+                  if (count($cat) > 1)
                   {
-                        $queryNegocios = $queryNegocios->where('subcategoria_id', $tipocat[1]);
-                        $queryEventos = $queryEventos->where('subcategoria_id', $tipocat[1]);
+                        //Agregamos la subcategoria
+                        $queryNegocios = $queryNegocios->where('subcategoria_id', $cat[1]);
                   }
-                  $queryNegocios = $queryNegocios->where('categoria_id', $tipocat[0]);
-                  $queryEventos = $queryEventos->where('categoria_id', $tipocat[0]);
+
+                  //Agregamos la categoria
+                  $queryNegocios = $queryNegocios->where('categoria_id', $cat[0]);
             }
 
-            if ($tipolocal)
+            if ($id_ubicacion != "")
             {
-
-                  $tipolocal = explode("-", $tipolocal);
-
-
-                  if (count($tipolocal) > 1)
+                  $ubi = explode("-", $id_ubicacion);
+                  if (count($ubi) > 1)
                   {
-                        $queryNegocios = $queryNegocios->where('zona_id', $tipolocal[1]);
-                        $queryEventos = $queryEventos->where('zona_id', $tipolocal[1]);
+                        $queryNegocios = $queryNegocios->where('zona_id', $ubi[1]);
                   }
-
-
-                  $queryNegocios = $queryNegocios->where('estado_id', $tipolocal[0]);
-                  $queryEventos = $queryEventos->where('estado_id', $tipolocal[0]);
+                  $queryNegocios = $queryNegocios->where('estado_id', $ubi[0]);
             }
 
             $negocios = $queryNegocios->paginate(20);
-            $eventos = $queryEventos->take(10)->get();
-            /*$querys = DB::getQueryLog();
-            $lastQuery = end($querys);
-            //dd($lastQuery);*/
-            
-            Session::set('tipolocal',Input::get('estado'));
-            Session::set('tipocat',Input::get('categoria'));
-            
+            $eventos = array();
+
+            //$eventos = $queryEventos->take(10)->get();
+            /* $querys = DB::getQueryLog();
+              $lastQuery = end($querys);
+              dd($lastQuery);
+             */
             return View::make('contenido.index')->with(array('negocios' => $negocios, 'eventos' => $eventos));
       }
 
@@ -106,13 +117,11 @@ class ContenidoController extends \BaseController
 
             $suggestions = array();
 
-            foreach ($estados as $estado)
-            {
+            foreach ($estados as $estado) {
                   array_push($suggestions, array('value' => $estado->estado, 'data' => $estado->id));
             }
 
-            foreach ($zonas as $zona)
-            {
+            foreach ($zonas as $zona) {
                   array_push($suggestions, array('value' => $zona->estado->estado . " - " . $zona->zona, 'data' => $zona->estado->id . '-' . $zona->id));
             }
 
@@ -128,13 +137,11 @@ class ContenidoController extends \BaseController
 
             $suggestions = array();
 
-            foreach ($categorias as $categoria)
-            {
+            foreach ($categorias as $categoria) {
                   array_push($suggestions, array('value' => $categoria->categoria, 'data' => $categoria->id));
             }
 
-            foreach ($subcategorias as $subcategoria)
-            {
+            foreach ($subcategorias as $subcategoria) {
                   array_push($suggestions, array('value' => $subcategoria->categoria->categoria . " - " . $subcategoria->subcategoria, 'data' => $subcategoria->categoria->id . '-' . $subcategoria->id));
             }
 

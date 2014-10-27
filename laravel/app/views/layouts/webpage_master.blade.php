@@ -93,14 +93,14 @@
                               <div class="col-sm-4 form_buscador">
                                     <div class="form-group">
                                           <!-- {{ Form::label('estado', 'Estado') }} -->
-                                          {{ Form::text('buscador_estado',Session::get('tipolocal'),array('class'=>'form-control big-input','id'=>'local','placeholder'=>'Estado')) }}
+                                          {{ Form::text('nombre_ubicacion',Session::get('ubicacion'),array('class'=>'form-control big-input','id'=>'nombre_ubicacion','placeholder'=>'Estado')) }}
                                           <input type="hidden" value="{{ Session::get('id_ubicacion') }}" name="id_ubicacion" id='id_ubicacion'>                  
                                     </div>                  
                               </div>
                               <div class="col-sm-4 form_buscador">
                                     <div class="form-group">
                                           <!-- {{ Form::label('categoria', 'Categoría') }} -->
-                                          {{ Form::text('buscador_categoria',Session::get('tipocat'),array('class'=>'form-control','id'=>'cat','placeholder'=>'Categoría')) }}
+                                          {{ Form::text('nombre_categoria',Session::get('categoria'),array('class'=>'form-control','id'=>'nombre_categoria','placeholder'=>'Categoría')) }}
                                           <input type="hidden" value="{{ Session::get('id_categoria') }}" name="id_categoria" id='id_categoria'>                  
                                     </div>         
                               </div>
