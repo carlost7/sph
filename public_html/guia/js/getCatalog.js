@@ -50,14 +50,15 @@ $(function() {
 });
 
 
-$("#local").autocomplete({
+$("#nombre_ubicacion").autocomplete({
     serviceUrl: base_url + "/catalogo_zonas",
+    
     onSelect: function(suggestion) {
         $("#id_ubicacion").val(suggestion.data);
     }
 });
 
-$("#cat").autocomplete({
+$("#nombre_categoria").autocomplete({
     serviceUrl: base_url + "/catalogo_categorias",
     onSelect: function(suggestion) {
         $("#id_categoria").val(suggestion.data);

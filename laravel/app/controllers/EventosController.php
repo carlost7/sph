@@ -73,8 +73,8 @@ class EventosController extends \BaseController
               $lastQuery = end($querys);
               //dd($lastQuery); */
 
-            Session::set('tipolocal', Input::get('estado'));
-            Session::set('tipocat', Input::get('categoria'));
+            /*Session::set('tipolocal', Input::get('estado'));
+            Session::set('tipocat', Input::get('categoria'));*/
 
             return View::make('contenido.eventos_index')->with(array('eventos' => $eventos,'estados'=>$estados,'categorias'=>$categorias));
       }

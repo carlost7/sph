@@ -45,8 +45,8 @@
                   </div>
             </div>
       </div>
-      <input type="hidden" value="" name="tipolocal" id='tipolocal'>
-      <input type="hidden" value="" name="tipocat" id='tipocat'>      
+      <input type="hidden" value="{{Session::get('categoria_id')}}" name="id_categoria" id='id_categoria_form'>
+      <input type="hidden" value="{{Session::get('ubicacion_id')}}" name="id_ubicacion" id='id_ubicacion_form'>      
 </div>
 <div class="form-group center">
       <button type="submit" class="btn btn-primary btn_guia" id='search_catalog'>Buscar</button>      
