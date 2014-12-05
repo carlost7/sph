@@ -13,7 +13,9 @@
         "doctrine/dbal":"dev-master",
         "league/oauth1-client": "~1.0",
         "league/oauth2-client": "~0.3",
-        "kevbaldwyn/image":"dev-master"
+        "kevbaldwyn/image":"dev-master",
+        "laravelbook/ardent": "~2.4"
+        
     },
     "autoload": {
         "classmap": [
