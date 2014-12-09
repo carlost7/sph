@@ -4,26 +4,22 @@
  * Modelo de BD para guardar los datos de las imagenes
  */
 
-class Imagen extends \Eloquent
-{
-      
-      protected $table = 'imagenes';
+use LaravelBook\Ardent\Ardent;
 
-      protected $fillable = ['path', 'nombre', 'alt'];
+class Imagen extends Ardent {
 
-      /*
-       * le pertenece a diferente tablas
-       */
-      public function imageable()
-      {
-            return $this->morphTo();
-      }
-      
-      /*
-       * Una imagen le corresponde a un usuario;
-       */
-      public function cliente(){
-            return $this->hasOne('Cliente');
-      }
+      protected $table                      = 'imagenes';
+      protected $fillable                   = ['path', 'nombre', 'alt'];
+      public $autoHydrateEntityFromInput    = true;
+      public $forceEntityHydrationFromInput = true;
+      public $autoPurgeRedundantAttributes  = true;
+      public static $rules                  = array(
+          'nombre' => 'required',
+          'alt'    => 'required',
+          'imagen' => 'image|max:600'
+      );
+      public static $relationsData          = array(
+          'masInfo' => array(self::MORPH_TO),
+      );
 
 }

@@ -12,4 +12,8 @@ Event::listen('pago_cancelado', 'PagosListener@avisar_cancelacion');
 
 Event::listen('enviar_codigo', 'CodigosListener@enviar_codigo');
 
-Event::listen('nuevo_usuario_correo','CorreosListener@enviar_correo_nuevo_usuario');
+Event::listen('nuevo_usuario_correo', 'CorreosListener@enviar_correo_nuevo_usuario');
+
+Event::listen('negocio.created', 'PagosListener@store');
+Event::listen('evento.created', 'PagosListener@store');
+Event::listen('promocion.created', 'PagosListener@store');

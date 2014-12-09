@@ -69,6 +69,7 @@ return array(
     ),
     "unique" => "The :attribute has already been taken.",
     "url" => "The :attribute format is invalid.",
+    "boolean" => "The :attribute field must be a valid boolean value.",
     /*
       |--------------------------------------------------------------------------
       | Custom Validation Language Lines

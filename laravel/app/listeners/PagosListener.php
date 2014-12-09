@@ -17,6 +17,20 @@ class PagosListener
             $this->pago = $pago;
       }
 
+      public function store($object){
+            
+      }
+      
+      public function update($object){
+            
+      }
+      
+      
+      public function delete($object){
+            
+      }
+      
+      
       /*
        * publica el contenido automaticamente en la aplicacion y envia un correo al usuario con sus datos
        */
