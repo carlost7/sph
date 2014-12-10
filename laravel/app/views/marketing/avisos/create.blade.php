@@ -4,7 +4,7 @@
 
 <h2>Crear Evento</h2>
 
-{{ Form::open(array('route'=>'clientes_eventos.store')) }}
+{{ Form::open(array('route'=>'publicar.clientes_eventos.store')) }}
 
 <div class="form-group">
       {{ Form::label('nombre', 'Nombre') }}

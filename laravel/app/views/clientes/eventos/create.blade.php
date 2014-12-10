@@ -4,7 +4,7 @@
 
 <h2>Crear Evento</h2>
 
-{{ Form::open(array('route'=>'clientes_eventos.store','files'=>true)) }}
+{{ Form::open(array('route'=>'publicar.clientes_eventos.store','files'=>true)) }}
 
 <div class="form-group">
       <div class="row">

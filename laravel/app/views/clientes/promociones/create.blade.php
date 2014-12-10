@@ -5,7 +5,7 @@
 <h2>Crear Promociones</h2>
 
 @if($negocios->count())
-{{ Form::open(array('route'=>'clientes_promociones.store','files'=>true)) }}
+{{ Form::open(array('route'=>'publicar.clientes_promociones.store','files'=>true)) }}
 
 <div class="form-group">
       {{ Form::label('negocio','Negocio') }}

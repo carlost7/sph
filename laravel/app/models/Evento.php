@@ -1,129 +1,51 @@
 <?php
 
+use LaravelBook\Ardent\Ardent;
+
 /*
  * Modelo de Bd que guardará los datos de eventos que el cliente suba
  */
 
-class Evento extends \Eloquent
+class Evento extends Ardent
 {
 
+      public static $rules = array(
+            'nombre' => 'required',
+            'fecha_inicio' => array('required', 'after:Carbon\Carbon::now()'),
+            'fecha_fin' => 'required|date|after:fecha_inicio',
+            'hora_inicio' => array('regex:/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/'),
+            'hora_fin' => array('regex:/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/'),
+            'lugar' => 'required',
+            'direccion' => 'required',
+            'descripcion' => 'required|min:30|max:500',
+            'telefono' => 'required',
+            'mapa' => '',
+            'email' => 'email',
+            'web' => 'url'
+      );
       protected $table = 'eventos';
-      protected $fillable = ['nombre', 'fecha_inicio', 'fecha_fin', 'hora_inicio', 'hora_fin', 'lugar', 'direccion', 'descripcion', 'telefono'];
-
-      /*
-       * Un evento tiene mas informacion
-       */
-
-      public function masInfo()
-      {
-            return $this->hasOne('MasInfoEvento');
-      }
-
-      /*
-       * Un evento le pertenece a un cliente
-       */
-
-      public function cliente()
-      {
-            return $this->belongsTo('Cliente');
-      }
-
-      /*
-       * Un evento tiene campos especiales
-       */
-
-      public function especial()
-      {
-            return $this->hasOne('Evento_especial', 'evento_id', 'id');
-      }
-
-      /*
-       * Un evento genera un pago
-       */
-
-      public function pago()
-      {
-            return $this->morphOne('Pago', 'pagable');
-      }
-
-      /*
-       * Un evento genera un aviso
-       */
-
-      public function aviso()
-      {
-            return $this->morphOne('Aviso_cliente', 'avisable');
-      }
-
-      /*
-       * Un evento tiene un estado
-       */
-
-      public function estado()
-      {
-            return $this->belongsTO('Estado');
-      }
-
-      /*
-       * Un evento tiene una zona
-       */
-
-      public function zona()
-      {
-            return $this->belongsTO('Zona');
-      }
-
-      /*
-       * Un evento tiene una categoria
-       */
-
-      public function categoria()
-      {
-            return $this->belongsTO('Categoria');
-      }
-
-      /*
-       * Un evento tiene una subcategoria
-       */
-
-      public function subcategoria()
-      {
-            return $this->belongsTO('Subcategoria');
-      }
-
-      /*
-       * tiene diferentes imagenes
-       */
-
-      public function imagen()
-      {
-            return $this->morphOne('Imagen', 'imageable');
-      }
-
-      /*
-       * tiene diferentes ranks
-       */
-
-      public function ranks()
-      {
-            return $this->hasMany('RankEvento');
-      }
+      protected $fillable = ['nombre', 'fecha_inicio', 'fecha_fin', 'hora_inicio', 'hora_fin', 'lugar', 'direccion', 'descripcion', 'telefono', 'mapa', 'email', 'web'];
+      public $autoHydrateEntityFromInput = true;
+      public $forceEntityHydrationFromInput = true;
+      public $autoPurgeRedundantAttributes = true;
+      public static $relationsData = array(
+            'masInfo' => array(self::HAS_ONE, 'MasInfoEvento'),
+            'ranks' => array(self::HAS_MANY, 'Ranks'),
+            'cliente' => array(self::BELONGS_TO, 'Cliente'),
+            'estado' => array(self::BELONGS_TO, 'Estado'),
+            'zona' => array(self::BELONGS_TO, 'Zona'),
+            'categoria' => array(self::BELONGS_TO, 'Categoria'),
+            'subcategoria' => array(self::BELONGS_TO, 'Subcategoria'),
+            'pago' => array(self::MORPH_ONE, 'Pago', 'name' => 'pagable'),
+            'aviso' => array(self::MORPH_ONE, 'Aviso_cliente', 'avisable'),
+            'imagenes' => array(self::MORPH_MANY, 'Imagen', 'name' => 'imageable'),
+            'comentarios' => array(self::MORPH_MANY, 'Comentario', 'name' => 'comentable'),
+            'topics' => array(self::MORPH_MANY, 'Comentario', 'name' => 'topic'),
+      );
 
       public function miembros()
       {
             return $this->hasManyThrough('RankEvento', 'Miembro');
-      }
-
-      public function comentarios()
-      {
-
-            return $this->morphMany('Comentario', 'comentable');
-      }
-      
-      public function topics()
-      {
-
-            return $this->morphMany('Comentario', 'topic');
       }
 
 }

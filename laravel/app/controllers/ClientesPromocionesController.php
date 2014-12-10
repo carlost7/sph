@@ -1,20 +1,13 @@
 <?php
 
-use Sph\Storage\Promocion\PromocionRepository as Promocion;
-use Sph\Storage\Pago\PagoRepository as Pago;
-use Carbon\Carbon;
+use Illuminate\Events\Dispatcher;
 
 class clientesPromocionesController extends \BaseController
 {
-
-      protected $promocion;
-      protected $pago;
-
-      public function __construct(Promocion $promocion, Pago $pago)
+      public function __construct()
       {
             parent::__construct();
-            $this->promocion = $promocion;
-            $this->pago = $pago;
+            $this->events = new Dispatcher;
             View::share('section', 'Promocion');
       }
 
@@ -27,7 +20,7 @@ class clientesPromocionesController extends \BaseController
       {
             $promociones = Auth::user()->userable->promociones;
 
-            return View::make('clientes.promociones.index')->with("promociones", $promociones);
+            return View::make('clientes.promociones.index', compact('promociones'));
       }
 
       /**
@@ -39,7 +32,7 @@ class clientesPromocionesController extends \BaseController
       {
             $negocios = Auth::user()->userable->negocios;
 
-            return View::make('clientes.promociones.create')->with('negocios', $negocios);
+            return View::make('clientes.promociones.create', compact("negocios"));
       }
 
       /**
@@ -49,74 +42,29 @@ class clientesPromocionesController extends \BaseController
        */
       public function store()
       {
-            $validatorPromocion = new Sph\Services\Validators\Promocion(Input::all(), 'save');
-            $validatorPublicacion = new Sph\Services\Validators\Publicacion(Input::all(), 'save');
-            $input = array('imagen' => Input::File('imagen'));
-            $validatorImagen = new Sph\Services\Validators\Imagen(Input::all(), 'save');
-
-            if ($validatorPromocion->passes() & $validatorImagen->passes() & $validatorPublicacion->passes())
+            $negocio = Negocio::find(Input::get('negocio_id'));
+            if (Auth::user()->userable->id !== $negocio->cliente->id)
             {
-                  $promocion_model = Input::all();
-                  $promocion_model = array_add($promocion_model, 'publicar', false);
-                  if ($input['imagen'])
-                  {
-                        //Obtener datos de la imagen
-                        $path = Config::get('params.path_user_images').strval(Auth::user()->id) . '/';
-                        $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
-                        $promocion_model = array_add($promocion_model, 'path', $path);
-                        $promocion_model = array_add($promocion_model, 'nombre_imagen', $nombre);
-                  }
-                  $promocion = $this->promocion->create($promocion_model);
-                  if (isset($promocion))
-                  {
-
-                        if ($input['imagen'])
-                        {
-                              //Guardar la imagen; 
-                              $path = Config::get('params.usrimg') . $path;
-                              try
-                              {
-                                    $input['imagen']->move($path, $nombre);
-                              } catch (Exception $e)
-                              {
-                                    Log::error('MiembrosController.edit: ' . $e . get_message());
-                              }
-                        }
-
-
-
-                        $pago_model = array(
-                            'nombre' => 'Publicación de promoción',
-                            'descripcion' => Input::get('nombre'),
-                            'monto' => Config::get('costos.promocion.' . Input::get('tiempo_publicacion')),
-                            'client' => Auth::user()->userable,
-                        );
-                        $pago = $this->pago->create($pago_model);
-                        if (isset($pago))
-                        {
-                              if ($this->promocion->agregar_pago($promocion, $pago))
-                              {
-                                    Session::flash('message', 'Promoción agregada con éxito');
-                                    return Redirect::route('clientes_promociones.index');
-                              }
-                        }
-                        Session::flash('error', 'Error al agregar el pago');
-                  }
-                  else
-                  {
-                        Session::flash('error', 'Error al agregar la promoción');
-                  }
+                  Session::flash('error', 'La promoción no pertenece al usuario actual');
+                  return Redirect::back();
             }
+            $promocion = new Promocion;
+            $promocion->publicar = false;
+            $promocion->cliente()->associate(Auth::user()->userable);
+            $promocion->negocio()->associate($negocio);
 
-            $promociones_messages = ($validatorPromocion->getErrors() != null) ? $validatorPromocion->getErrors()->all() : array();
-            $imagen_messages = ($validatorImagen->getErrors() != null) ? $validatorImagen->getErrors()->all() : array();
-            $publicacion_messages = ($validatorPublicacion->getErrors() != null) ? $validatorPublicacion->getErrors()->all() : array();
+            if ($promocion->save())
+            {
+                  $this->events->fire('promocion.created', array($promocion));
 
-            $validationMessages = array_merge_recursive(
-                    $promociones_messages, $imagen_messages, $publicacion_messages
-            );
-
-            return Redirect::back()->withErrors($validationMessages)->withInput();
+                  Session::flash('message', "Promoción creada con exito");
+                  return Redirect::route('publicar.clientes_imagenes.index', array(get_class($promocion), $promocion->id));
+            }
+            else
+            {
+                  Session::flash('error', 'No se pudo guardar la promocion, intentelo de nuevo');
+                  return Redirect::back()->withInput();
+            }
       }
 
       /**
@@ -135,7 +83,7 @@ class clientesPromocionesController extends \BaseController
                   return Redirect::back();
             }
 
-            return View::make('clientes.promociones.show')->with('promocion', $promocion);
+            return View::make('clientes.promociones.show', compact('promocion'));
       }
 
       /**
@@ -147,7 +95,7 @@ class clientesPromocionesController extends \BaseController
       public function edit($id)
       {
             $negocios = Auth::user()->userable->negocios;
-            $promocion = $this->promocion->find($id);
+            $promocion = Promocion::find($id);
 
             if (Auth::user()->userable->id !== $promocion->negocio->cliente->id)
             {
@@ -162,17 +110,20 @@ class clientesPromocionesController extends \BaseController
             }
             else
             {
-                  if($promocion->pago->pagado){
+                  if ($promocion->pago->pagado)
+                  {
                         $editar_publicacion = false;
-                  }else{
+                  }
+                  else
+                  {
                         $editar_publicacion = true;
-                  }                  
+                  }
             }
 
             return View::make('clientes.promociones.edit')->with(
                             array('promocion' => $promocion,
-                                'negocios' => $negocios,
-                                'editar_publicacion' => $editar_publicacion)
+                                  'negocios' => $negocios,
+                                  'editar_publicacion' => $editar_publicacion)
             );
       }
 
@@ -184,77 +135,24 @@ class clientesPromocionesController extends \BaseController
        */
       public function update($id)
       {
-            $promocion = $this->promocion->find($id);
+            $promocion = Promocion::find($id);
 
             if (Auth::user()->userable->id !== $promocion->negocio->cliente->id)
             {
                   Session::flash('error', 'La promoción no pertenece al usuario actual');
                   return Redirect::back();
             }
-
-            $validatorPromocion = new Sph\Services\Validators\Promocion(Input::all(), 'update');
-            $validatorPublicacion = new Sph\Services\Validators\Publicacion(Input::all(), 'update');
-            $input = array('imagen' => Input::File('imagen'));
-            $validatorImagen = new Sph\Services\Validators\Imagen(Input::all(), 'update');
-
-            if ($validatorPromocion->passes() & $validatorImagen->passes() & $validatorPublicacion->passes())
+            
+            if ($promocion->updateUniques())
             {
-                  $promocion_model = Input::all();
-
-                  //Obtener imagen
-                  if ($input['imagen'] && !$promocion->imagen)
-                  {
-                        //Obtener datos de la imagen
-                        $path = strval(Auth::user()->id) . '/';
-                        $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
-                        $promocion_model = array_add($promocion_model, 'path', $path);
-                        $promocion_model = array_add($promocion_model, 'nombre_imagen', $nombre);
-                  }
-
-                  $promocion = $this->promocion->update($id, $promocion_model);
-                  if (isset($promocion))
-                  {
-                        if ($input['imagen'])
-                        {
-                              //Guardar la imagen; 
-                              $path = Config::get('params.usrimg') . $promocion->imagen->path;
-                              $nombre = $promocion->imagen->nombre;
-                              try
-                              {
-                                    $input['imagen']->move($path, $nombre);
-                              } catch (Exception $e)
-                              {
-                                    Log::error('MiembrosController.edit: ' . $e . get_message());
-                              }
-                        }
-
-                        
-                        if (Input::get('modificar_publicacion'))
-                        {                        
-                              $pago_model = array(
-                                  'monto' => Config::get('costos.promocion.' . Input::get('tiempo_publicacion')),
-                                  'pagado' => false,
-                              );
-                              
-                              $pago = $this->pago->update($promocion->pago->id,$pago_model);                              
-                              
-                        }
-                        
-                        Session::flash('message', 'Promoción editada con éxito');
-                        return Redirect::route('clientes_promociones.index');
-                  }
-                  else
-                  {
-                        Session::flash('error', 'Error al agregar la promoción');
-                  }
+                  Session::flash('message', "Promoción editada con exito");
+                  return Redirect::route('publicar.clientes_promociones.index', array(get_class($promocion), $promocion->id));
             }
-            $promocion_messages = ($validatorPromocion->getErrors() != null) ? $validatorPromocion->getErrors()->all() : array();
-            $imagen_messages = ($validatorImagen->getErrors() != null) ? $validatorImagen->getErrors()->all() : array();
-            $publicacion_messages = ($validatorPublicacion->getErrors() != null) ? $validatorPublicacion->getErrors()->all() : array();
-
-            $validationMessages = array_merge_recursive($promocion_messages, $imagen_messages, $publicacion_messages);
-
-            return Redirect::back()->withErrors($validationMessages)->withInput();
+            else
+            {
+                  Session::flash('error', 'No se pudo guardar la promocion, intentelo de nuevo');
+                  return Redirect::back()->withInput();
+            }
       }
 
       /**
@@ -265,7 +163,7 @@ class clientesPromocionesController extends \BaseController
        */
       public function destroy($id)
       {
-            $promocion = $this->promocion->find($id);
+            $promocion = Promocion::find($id);
 
             if (Auth::user()->userable->id !== $promocion->negocio->cliente->id)
             {
@@ -273,7 +171,7 @@ class clientesPromocionesController extends \BaseController
                   return Redirect::back();
             }
 
-            if ($this->promocion->delete($id))
+            if ($promocion->delete($id))
             {
                   Session::flash('message', 'Promocion eliminada');
             }

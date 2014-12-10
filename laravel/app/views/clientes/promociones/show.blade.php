@@ -4,7 +4,7 @@
 @if($promocion)
 <div class="col-xs-12">
       <ul class="nav nav-pills">            
-            <li>{{ HTML::linkRoute('clientes_promociones.edit','Editar promoción',$promocion->id) }}</li>            
+            <li>{{ HTML::linkRoute('publicar.clientes_promociones.edit','Editar promoción',$promocion->id) }}</li>            
       </ul>
 </div>
 

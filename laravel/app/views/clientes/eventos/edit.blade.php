@@ -4,7 +4,7 @@
 @if($evento)
 <h2>Editar: {{ $evento->nombre }}</h2>
 
-{{ Form::model($evento, array('route' => array('clientes_eventos.update', $evento->id), 'method' => 'PUT','files'=>true)) }}
+{{ Form::model($evento, array('route' => array('publicar.clientes_eventos.update', $evento->id), 'method' => 'PUT','files'=>true)) }}
 
 <div class="form-group">
       {{ Form::label('nombre', 'Nombre') }}

@@ -4,7 +4,7 @@
 
 <h2>Crear Negocio</h2>
 
-{{ Form::open(array('route'=>'clientes_negocios.store', 'files'=>true)) }}
+{{ Form::open(array('route'=>'publicar.clientes_negocios.store', 'files'=>true)) }}
 
 <div class="form-group">
       <div class="row">
