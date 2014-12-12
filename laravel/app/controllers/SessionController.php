@@ -40,7 +40,7 @@ class SessionController extends \BaseController
                   switch (Auth::user()->userable_type)
                   {
                         case 'Cliente':
-                              return Redirect::intended(route('clientes.index'));
+                              return Redirect::intended(route('publicar.cliente.index'));
                               break;
                         case 'Marketing':
                               return Redirect::intended(route('marketing.index'));

@@ -35,6 +35,7 @@ return array(
     'LaravelBook\\Ardent' => array($vendorDir . '/laravelbook/ardent/src'),
     'KevBaldwyn\\Image' => array($vendorDir . '/kevbaldwyn/image/src'),
     'Jeremeamia\\SuperClosure' => array($vendorDir . '/jeremeamia/SuperClosure/src'),
+    'Imagine' => array($vendorDir . '/imagine/imagine/lib'),
     'Imagecow' => array($vendorDir . '/imagecow/imagecow'),
     'Illuminate' => array($vendorDir . '/laravel/framework/src'),
     'Guzzle\\Tests' => array($vendorDir . '/guzzle/guzzle/tests'),

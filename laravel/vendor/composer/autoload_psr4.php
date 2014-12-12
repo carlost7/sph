@@ -10,4 +10,6 @@ return array(
     'League\\OAuth2\\Client\\' => array($vendorDir . '/league/oauth2-client/src'),
     'League\\OAuth1\\' => array($vendorDir . '/league/oauth1-client/src'),
     'LeagueTest\\OAuth2\\Client\\' => array($vendorDir . '/league/oauth2-client/test/src'),
+    'Codesleeve\\Stapler\\' => array($vendorDir . '/codesleeve/stapler/src'),
+    'Codesleeve\\LaravelStapler\\' => array($vendorDir . '/codesleeve/laravel-stapler/src'),
 );

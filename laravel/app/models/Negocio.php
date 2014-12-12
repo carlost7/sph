@@ -5,8 +5,24 @@
  */
 
 use LaravelBook\Ardent\Ardent;
+use Codesleeve\Stapler\ORM\StaplerableInterface;
+use Codesleeve\Stapler\ORM\EloquentTrait;
 
-class Negocio extends Ardent {
+class Negocio extends Ardent implements StaplerableInterface {
+      
+      use EloquentTrait;
+      
+      public function __construct(array $attributes = array())
+      {
+            $this->hasAttachedFile('imagen', [
+                'styles' => [
+                    'medium' => '250x250',
+                    'thumb'  => '100x100'
+                ]
+            ]);
+
+            parent::__construct($attributes);
+      }
 
       public static $rules                  = array(
           'nombre'      => 'required',
@@ -19,7 +35,7 @@ class Negocio extends Ardent {
                 'long'        => 'required', */
       );
       protected $table                      = 'negocios';
-      protected $fillable                   = ['nombre', 'direccion', 'telefono', 'descripcion', 'email', 'webpage', 'lat', 'long'];
+      protected $fillable                   = ['nombre', 'direccion', 'telefono', 'descripcion', 'email', 'webpage', 'lat', 'long','imagen'];
       public $autoHydrateEntityFromInput    = true;
       public $forceEntityHydrationFromInput = true;
       public $autoPurgeRedundantAttributes  = true;
@@ -28,6 +44,7 @@ class Negocio extends Ardent {
           'horario'      => array(self::HAS_ONE, 'HorarioNegocio'),
           'promociones'  => array(self::HAS_MANY, 'Promociones'),
           'ranks'        => array(self::HAS_MANY, 'Ranks'),
+          'imagenes'     => array(self::HAS_MANY, 'NegocioImagen'),
           'estado'       => array(self::BELONGS_TO, 'Estado'),
           'zona'         => array(self::BELONGS_TO, 'Zona'),
           'categoria'    => array(self::BELONGS_TO, 'Categoria'),
@@ -37,7 +54,6 @@ class Negocio extends Ardent {
           'aviso'        => array(self::MORPH_ONE, 'Aviso_cliente', 'avisable'),
           'comentarios'  => array(self::MORPH_MANY, 'Comentario', 'name' => 'comentable'),
           'topics'       => array(self::MORPH_MANY, 'Comentario', 'name' => 'topic'),
-          'imagenes'     => array(self::MORPH_MANY, 'Imagen', 'name' => 'imageable'),
       );
 
       public function miembros()
@@ -52,5 +68,6 @@ class Negocio extends Ardent {
                   return false;
             }
       }
+
 
 }

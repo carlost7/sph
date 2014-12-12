@@ -5,7 +5,7 @@
 <h2>Editar Cuenta</h2>
 
 
-{{ Form::model($cliente, array('route'=>'clientes.update')) }}
+{{ Form::model($cliente, array('route'=>'publicar.cliente.update')) }}
 
 <div class="row">
       <div class="form-group col-sm-6">

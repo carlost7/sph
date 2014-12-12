@@ -464,13 +464,19 @@
       </div>
 
 </div>
-
+<div class="form-group">
+      <div class="row">
+            <div class="col-sm-12">
+                  {{ Form::label('imagen','Agregar imagen de negocio 250px * 250px') }}
+                  {{ Form::file('imagen') }}
+            </div>
+      </div>
+</div>
 
 {{ Form::hidden('add_images',false,array('id'=>'addimg')) }}      
 @include('layouts.show_form_errors')
 <div class="form-group">
-      <button type="submit" class="btn btn-primary">Crear negocio</button>
-      <button type="submit" class="btn btn-primary" onclick="$('#addimg').val('1')">Agregar Imagenes</button>
+      <button type="submit" class="btn btn-primary">Crear negocio</button>      
 </div>        
 
 {{ Form::close() }}

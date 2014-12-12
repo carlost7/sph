@@ -98,7 +98,7 @@ class clientesNegociosController extends \BaseController
                   $this->events->fire('negocio.created',array($negocio));
                   
                   Session::flash('message', "Negocio creado con exito");
-                  return Redirect::route('publicar.clientes_imagenes.index',array(get_class($negocio),$negocio->id));
+                  return Redirect::route('publicar.clientes_negocio_imagenes.index',array($negocio->id));
             }
             else
             {
@@ -122,7 +122,7 @@ class clientesNegociosController extends \BaseController
                   return Redirect::back();
             }
 
-            return View::make('clientes.negocios.show', compact($negocio));
+            return View::make('clientes.negocios.show', compact("negocio"));
       }
 
       /**

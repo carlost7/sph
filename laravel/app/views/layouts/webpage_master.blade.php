@@ -28,21 +28,6 @@
             </script>
       </head>
       <body>
-            <!-- Google Tag Manager -->
-            <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-NBKFNQ"
-                              height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-            <script>(function(w, d, s, l, i) {
-                        w[l] = w[l] || [];
-                        w[l].push({'gtm.start':
-                                      new Date().getTime(), event: 'gtm.js'});
-                        var f = d.getElementsByTagName(s)[0],
-                                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-                        j.async = true;
-                        j.src =
-                                '//www.googletagmanager.com/gtm.js?id=' + i + dl;
-                        f.parentNode.insertBefore(j, f);
-                  })(window, document, 'script', 'dataLayer', 'GTM-NBKFNQ');</script>
-            <!-- End Google Tag Manager -->
             <!--[if lt IE 7]>
                 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
             <![endif]-->
@@ -55,7 +40,7 @@
 
                         <ul class="menuHEADER">
                              
-                             <li><a href="http://sphellar.com/mx/"><img alt="sphellar" src="http://sphellar.com/mx/images/logo.png"></a></li>
+                             <li><a href="http://sphellar.com/mx/"><img alt="sphellar" src="http://www.sphellar.com/mx/wp-content/uploads/2014/11/logo.png"></a></li>
 
                               <li><a href="http://sphellar.com/mx/destinos.html">DESTINOS</a></li>
                               <li><a href="http://sphellar.com/mx/cultura.html">CULTURA</a>
@@ -127,7 +112,7 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuario <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                           @if(Auth::user()->userable_type === 'Cliente')
-                                          <li>{{ HTML::linkRoute('clientes.index','Publicar') }}</li> 
+                                          <li>{{ HTML::linkRoute('publicar.cliente.index','Publicar') }}</li> 
                                           @elseif(Auth::user()->userable_type === 'Administrador')
                                           <li>{{ HTML::linkRoute('administradores.index','Administradores') }}</li> 
                                           @elseif(Auth::user()->userable_type === 'Marketing')

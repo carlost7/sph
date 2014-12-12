@@ -1,6 +1,6 @@
 <?php
 
-use Sph\Storage\Pago\PagoRepository as Pago;
+use Sph\Storage\Pago\PagoRepository;
 
 /**
  * Description of PagosListener
@@ -12,7 +12,7 @@ class PagosListener
 
       protected $pago;
 
-      public function __construct(Pago $pago)
+      public function __construct(PagoRepository $pago)
       {
             $this->pago = $pago;
       }
@@ -20,11 +20,13 @@ class PagosListener
       public function store($object)
       {
             $pago = new Pago;
-
             $pago->nombre = 'Publicación de Negocio';
             $pago->descripcion = $object->nombre;
-            $pago->client = Auth::user()->userable;
             $pago->monto = Config::get('costos.'.  get_class($object));
+            $pago->pagado = false;
+            $pago->metodo = "";
+            $pago->status = "inicio";
+            $pago->cliente()->associate(Auth::user()->userable);
 
             if($object->pago()->save($pago)){
                   return true;
