@@ -160,19 +160,21 @@ class clientesNegociosController extends \BaseController
             {
                   Session::flash('error', 'El negocio no pertenece al usuario actual');
                   return Redirect::back();
-            }
 
+            }
+            
+            
             $estado = Estado::find(Input::get('estado_id'));
             $zona = (Input::get('zona_id')) ? Zona::find(Input::get('zona_id')) : null;
             $categoria = Categoria::find(Input::get('categoria_id'));
             $subcategoria = (Input::get('subcategoria_id')) ? Subcategoria::find(5000) : null;
-
+            
             if (!count($estado) || !count($categoria))
             {
                   Session::flash('error', "Debe elegir un Estado y una Categoría");
-                  Redirect::back()->withInput()->withErrors();
+                  Redirect::back()->withInput();
             }
-
+            
             $negocio->estado()->associate($estado);
             if (isset($zona))
             {
@@ -185,23 +187,32 @@ class clientesNegociosController extends \BaseController
             }
             $negocio->cliente()->associate(Auth::user()->userable);
 
+            
             if (!$negocio->validate())
             {
                   return Redirect::back()->withInput()->withErrors($negocio->errors());
-            }
-            if (!$masInfo->validate())
+            }            
+            
+            if (!$negocio->masInfo->validate())
             {
-                  return Redirect::back()->withInput()->withErrors($masInfo->errors());
+                  return Redirect::back()->withInput()->withErrors($negocio->masInfo->errors());
             }
-            if (!$horario->validate())
+            
+            if (!$negocio->horario->validate())
             {
-                  return Redirect::back()->withInput()->withErrors($horario->errors());
+                  dd($negocio->horario);
+                  return Redirect::back()->withInput()->withErrors($negocio->horario->errors());
             }
 
+            
+            dd($negocio);
             //Guardamos el negocio
             if ($negocio->updateUniques())
             {
 
+                  dd($negocio->masInfo);
+                  dd($negocio->horario);
+                  
                   $negocio->masInfo()->updateUniques($masInfo);
                   $negocio->horario()->updateUniques($horario);
 

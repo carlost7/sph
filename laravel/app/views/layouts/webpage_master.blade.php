@@ -20,7 +20,6 @@
             {{ HTML::style('css/bootstrap-datetimepicker.min.css') }}
             {{ HTML::style('css/autocomplete.css') }}
             {{ HTML::style('css/main.css') }}     
-
             <link href='http://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300,100,200' rel='stylesheet' type='text/css'>
             <link rel="shortcut icon" href="{{ asset('img/default.png') }}">
             <script>
@@ -39,8 +38,8 @@
                   <div id="contenedorHEADER">
 
                         <ul class="menuHEADER">
-                             
-                             <li><a href="http://sphellar.com/mx/"><img alt="sphellar" src="http://www.sphellar.com/mx/wp-content/uploads/2014/11/logo.png"></a></li>
+
+                              <li><a href="http://sphellar.com/mx/"><img alt="sphellar" src="http://www.sphellar.com/mx/wp-content/uploads/2014/11/logo.png"></a></li>
 
                               <li><a href="http://sphellar.com/mx/destinos.html">DESTINOS</a></li>
                               <li><a href="http://sphellar.com/mx/cultura.html">CULTURA</a>
@@ -161,7 +160,7 @@
             {{ HTML::script('js/vendor/jquery.autocomplete.js') }}
             {{ HTML::script('js/main.js') }}
             {{ HTML::script('js/getCatalog.js') }}
-            
+
             @section('scripts')
             @show
       </body>

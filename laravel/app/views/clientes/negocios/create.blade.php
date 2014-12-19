@@ -39,7 +39,7 @@
 </div>
 <div class="form-group">
       {{ Form::label('direccion', 'Dirección') }}
-      {{ Form::text('direccion', Input::old('direccion'), array('placeholder' => 'dirección', 'class'=>'form-control')) }}
+      {{ Form::text('direccion', Input::old('direccion'), array('placeholder' => 'dirección', 'class'=>'form-control','id'=>'address')) }}
 </div>   
 <div class="form-group">
       {{ Form::label('webpage', 'Página web') }}            
@@ -55,12 +55,17 @@
 </div>
 <div class="form-group">      
       <div class="row">
-            <div class="col-sm-6">                  
+            <div class="col-sm-12">
+                  <div class="row">
+                        <div class="col-sm-12">
+                              {{ Form::label('horario','Horarios') }}
+                        </div>
+                  </div>
                   <div class="row">
                         <div class="col-sm-2">
                               <div class="checkbox">
                                     <label>
-                                          {{ Form::checkbox("lun",1,null,array('class'=>'desactivar','id'=>'lun')) }}
+                                          {{ Form::checkbox("lun",1,(Input::old('lun_ini') == "00:00:00")?true:false,array('class'=>'desactivar','id'=>'lun')) }}
                                           Cerrado
                                     </label>
                               </div>
@@ -68,16 +73,16 @@
                         <div class="col-sm-5">
                               {{ Form::label('lun_ini','Lunes inicio') }}
                               <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control timeini" name="lun_ini" id="ini" value="{{ (Input::old('lun_ini') == null)?"":date('H:i',strtotime(Input::old('lun_ini')))}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
-                                    <input type="text" class="form-control" name="lun_ini" id="ini" value="{{ Input::old('lun_ini')}}">
                               </div>
                         </div>
                         <div class="col-sm-5">
                               {{ Form::label('lun_fin','Lunes fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control" name="lun_fin" id="fin" value="{{ Input::old('lun_ini')}}">
+                                    <input type="text" class="form-control timefin" name="lun_ini" id="fin" value="{{ (Input::old('lun_fin') == null)?"":date('H:i',strtotime(Input::old('lun_fin')))}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -88,7 +93,7 @@
                         <div class="col-sm-2">
                               <div class="checkbox">
                                     <label>
-                                          {{ Form::checkbox("mar",1,null,array('class'=>'desactivar','id'=>'mar')) }}
+                                          {{ Form::checkbox("mar",1,(Input::old('mar_ini') == "00:00:00")?true:false,array('class'=>'desactivar','id'=>'mar')) }}
                                           Cerrado
                                     </label>
                               </div>
@@ -96,16 +101,16 @@
                         <div class="col-sm-5">
                               {{ Form::label('mar_ini','Martes inicio') }}
                               <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control timeini" name="mar_ini" value="{{ (Input::old('lun_ini') == null)?"":date('H:i',strtotime(Input::old('lun_ini')))}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
-                                    <input type="text" class="form-control timeini" name="mar_ini" value="{{ Input::old('lun_ini')}}">
                               </div>                             
                         </div>
                         <div class="col-sm-5">
                               {{ Form::label('mar_fin','Martes fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control timefin" name="mar_fin" value="{{ Input::old('lun_ini')}}">
+                                    <input type="text" class="form-control timefin" name="mar_ini" value="{{ (Input::old('mar_fin') == null)?"":date('H:i',strtotime(Input::old('mar_fin')))}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -116,7 +121,7 @@
                         <div class="col-sm-2">
                               <div class="checkbox">
                                     <label>
-                                          {{ Form::checkbox("mie",1,null,array('class'=>'desactivar','id'=>'mie')) }}        
+                                          {{ Form::checkbox("mie",1,((Input::old('mie_ini') == "00:00:00"))?true:false,array('class'=>'desactivar','id'=>'mie')) }}
                                           Cerrado
                                     </label>
                               </div>
@@ -124,29 +129,27 @@
                         <div class="col-sm-5">
                               {{ Form::label('mie_ini','Miercoles inicio') }}
                               <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control timeini" name="mie_ini" value="{{ (Input::old('mie_ini') == null)?"":date('H:i',strtotime(Input::old('mie_ini')))}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
-                                    <input type="text" class="form-control timeini" name="mie_ini" value="{{ Input::old('lun_ini')}}">
                               </div>                             
                         </div>
                         <div class="col-sm-5">
                               {{ Form::label('mie_fin','Miercoles fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control timefin" name="mie_fin" value="{{ Input::old('lun_ini')}}">
+                                    <input type="text" class="form-control timefin" name="mie_ini" value="{{ (Input::old('mie_fin') == null)?"":date('H:i',strtotime(Input::old('mie_fin')))}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
                               </div>                              
                         </div>
                   </div>
-            </div>
-            <div class="col-sm-6">                  
                   <div class="row">
                         <div class="col-sm-2">
                               <div class="checkbox">
                                     <label>
-                                          {{ Form::checkbox("jue",1,null,array('class'=>'desactivar','id'=>'jue')) }}         
+                                          {{ Form::checkbox("jue",1,(Input::old('jue_ini') == "00:00:00")?true:false,array('class'=>'desactivar','id'=>'jue')) }}
                                           Cerrado
                                     </label>
                               </div>
@@ -154,16 +157,16 @@
                         <div class="col-sm-5">
                               {{ Form::label('jue_ini','Jueves inicio') }}
                               <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control timeini" name="jue_ini" value="{{ (Input::old('jue_ini') == null)?"":date('H:i',strtotime(Input::old('jue_ini')))}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
-                                    <input type="text" class="form-control timeini" name="jue_ini" value="{{ Input::old('lun_ini')}}">
                               </div>                             
                         </div>
                         <div class="col-sm-5">
                               {{ Form::label('jue_fin','Jueves fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control timefin" name="jue_fin" value="{{ Input::old('lun_ini')}}">
+                                    <input type="text" class="form-control timefin" name="jue_ini" value="{{ (Input::old('jue_fin') == null)?"":date('H:i',strtotime(Input::old('jue_fin')))}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -174,7 +177,7 @@
                         <div class="col-sm-2">
                               <div class="checkbox">
                                     <label>
-                                          {{ Form::checkbox("vie",1,null,array('class'=>'desactivar','id'=>'vie')) }}        
+                                          {{ Form::checkbox("vie",1,(Input::old('vie_ini') == "00:00:00")?true:false,array('class'=>'desactivar','id'=>'vie')) }}
                                           Cerrado
                                     </label>
                               </div>
@@ -182,16 +185,16 @@
                         <div class="col-sm-5">
                               {{ Form::label('vie_ini','Viernes inicio') }}
                               <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control timeini" name="vie_ini" value="{{ (Input::old('vie_ini') == null)?"":date('H:i',strtotime(Input::old('vie_ini')))}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
-                                    <input type="text" class="form-control timeini" name="vie_ini" value="{{ Input::old('lun_ini')}}">
                               </div>                             
                         </div>
                         <div class="col-sm-5">
                               {{ Form::label('vie_fin','Viernes fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control timefin" name="vie_fin" value="{{ Input::old('lun_ini')}}">
+                                    <input type="text" class="form-control timefin" name="vie_ini" value="{{ (Input::old('vie_fin') == null)?"":date('H:i',strtotime(Input::old('vie_fin')))}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -202,7 +205,7 @@
                         <div class="col-sm-2">
                               <div class="checkbox">
                                     <label>
-                                          {{ Form::checkbox("sab",1,null,array('class'=>'desactivar','id'=>'sab')) }}       
+                                          {{ Form::checkbox("sab",1,(Input::old('sab_ini') == "00:00:00")?true:false,array('class'=>'desactivar','id'=>'sab')) }}
                                           Cerrado
                                     </label>
                               </div>
@@ -210,16 +213,16 @@
                         <div class="col-sm-5">
                               {{ Form::label('sab_ini','Sabado inicio') }}
                               <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control timeini" name="sab_ini" value="{{ (Input::old('sab_ini') == null)?"":date('H:i',strtotime(Input::old('sab_ini')))}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
-                                    <input type="text" class="form-control timeini" name="sab_ini" value="{{ Input::old('lun_ini')}}">
                               </div>                              
                         </div>
                         <div class="col-sm-5">
                               {{ Form::label('sab_fin','Sabado fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control timefin" name="sab_fin" value="{{ Input::old('lun_ini')}}">
+                                    <input type="text" class="form-control timefin" name="sab_ini" value="{{ (Input::old('sab_fin') == null)?"":date('H:i',strtotime(Input::old('sab_fin')))}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -230,7 +233,7 @@
                         <div class="col-sm-2">
                               <div class="checkbox">
                                     <label>
-                                          {{ Form::checkbox("dom",1,null,array('class'=>'desactivar','id'=>'dom')) }}        
+                                          {{ Form::checkbox("dom",1,(Input::old('dom_ini') == "00:00:00")?true:false,array('class'=>'desactivar','id'=>'dom')) }}
                                           Cerrado
                                     </label>
                               </div>
@@ -238,16 +241,16 @@
                         <div class="col-sm-5">
                               {{ Form::label('dom_ini','Domingo inicio') }}
                               <div class="input-group clockpicker" data-autoclose="true">
+                                    <input type="text" class="form-control timeini" name="dom_ini" value="{{ (Input::old('dom_ini') == null)?"":date('H:i',strtotime(Input::old('dom_ini')))}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
-                                    <input type="text" class="form-control timeini" name="dom_ini" value="{{ Input::old('lun_ini')}}">
                               </div>                             
                         </div>
                         <div class="col-sm-5">
                               {{ Form::label('dom_fin','Domingo fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control timefin" name="dom_fin" value="{{ Input::old('lun_ini')}}">
+                                    <input type="text" class="form-control timefin" name="dom_ini" value="{{ (Input::old('dom_fin') == null)?"":date('H:i',strtotime(Input::old('dom_fin')))}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -257,7 +260,6 @@
             </div>            
       </div>
 </div>
-
 <div class="form-group">
       <div class="row">
             <div class="col-sm-6">
@@ -462,7 +464,6 @@
                   </div>
             </div>
       </div>
-
 </div>
 <div class="form-group">
       <div class="row">
@@ -473,7 +474,13 @@
       </div>
 </div>
 
-{{ Form::hidden('add_images',false,array('id'=>'addimg')) }}      
+<div class="form-group">
+      {{ Form::hidden('lat',Input::old('lat'),array('id'=>'map-lat')) }}
+      {{ Form::hidden('long',Input::old('long'),array('id'=>'map-lng')) }}
+      <button type="button" class=" btn btn-primary" onclick="searchPlace()">Usar campo dirección</button><div class="address_error" id="address_error"></div>
+      <div id="map-canvas"></div>      
+      <div id="transparente"></div>      
+</div>
 @include('layouts.show_form_errors')
 <div class="form-group">
       <button type="submit" class="btn btn-primary">Crear negocio</button>      
@@ -487,28 +494,6 @@
 {{ HTML::script('js/vendor/bootstrap-file-input.js') }}
 {{ HTML::script('js/vendor/bootstrap-clockpicker.min.js') }}
 
-
-<script>
-      $('.file-inputs').bootstrapFileInput();
-
-      $(function () {
-            $('#uploadFile').on("change", function () {
-                  var files = !!this.files ? this.files : [];
-                  if (!files.length || !window.FileReader)
-                        return; // no file selected, or no FileReader support
-
-                  if (/^image/.test(files[0].type)) { // only image file
-                        var reader = new FileReader(); // instance of the FileReader
-                        reader.readAsDataURL(files[0]); // read the local file
-
-                        reader.onloadend = function () { // set image data as background of div
-                              $("#imagepreview").css("background-image", "url(" + this.result + ")");
-                        }
-                  }
-            });
-      });
-
-</script>
 
 <script>
       $(document).ready(function () {
@@ -576,4 +561,99 @@
 
       });
 </script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+<script type="text/javascript">
+      var map;
+      var markers = [];
+      
+      
+      function initialize() {
+
+            var mapOptions = {
+                  center: {lat: 19.43938462939674, lng: -99.13208094891161},
+                  zoom: 16
+            };
+
+            map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+<?php
+if (Input::old('lat') == null || Input::old('long') == null)
+{
+      ?>
+            // Try HTML5 geolocation
+            if (navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition(function (position) {
+                        pos = new google.maps.LatLng(position.coords.latitude,
+                                position.coords.longitude);
+                                map.setCenter(pos);
+
+                  }, function () {
+                        handleNoGeolocation(true);
+                  });
+            } else {
+                  // Browser doesn't support Geolocation
+                  handleNoGeolocation(false);
+            }
+      <?php
+}
+else
+{
+      ?>
+            var lat = {{Input::old('lat')}};
+            var lng = {{Input::old('long')}};
+            pos = new google.maps.LatLng(lat, lng);
+            map.setCenter(pos);
+            var marker = new google.maps.Marker({
+                  position: pos,
+                  map: map
+            });
+      <?php
+}
+?>
+            
+            google.maps.event.addListener(map, 'click', function (event) {
+                  placeMarker(event.latLng);
+            });
+
+      }
+
+      function placeMarker(location) {
+            $("#map-lat").val(location.lat());
+            $("#map-lng").val(location.lng());
+            
+            if(markers.length){
+                  markers[0].setMap(null);
+                  markers = [];
+            }
+            
+            var marker = new google.maps.Marker({
+                  position: location,
+                  map: map
+            });
+            markers.push(marker);
+            map.setCenter(location);
+      }
+      
+      function searchPlace(){
+            
+            geocoder = new google.maps.Geocoder();
+            
+            $("#address_error").html("");
+
+            var address = $('#address').val();
+            geocoder.geocode( { 'address': address}, function(results, status) {
+                  if (status == google.maps.GeocoderStatus.OK) {
+                        //In this case it creates a marker, but you can get the lat and lng from the location.LatLng
+                        map.setCenter(results[0].geometry.location);                        
+                  } else {
+                        $("#address_error").html("no se encontró ningún lugar");
+                  }
+            });
+      }
+            
+      
+      google.maps.event.addDomListener(window, 'load', initialize);
+
+
+</script>
+
 @stop

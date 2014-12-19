@@ -20,7 +20,7 @@ class clientesEventosController extends \BaseController
       public function index()
       {
             $eventos = Auth::user()->userable->eventos;
-            return View::make('publicar.clientes.eventos.index', compact("eventos"));
+            return View::make('clientes.eventos.index', compact("eventos"));
       }
 
       /**

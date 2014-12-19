@@ -24,6 +24,11 @@
             @foreach($imagenes as $imagen)
             <div class="col-sm-3">
                   <img src="{{ URL::to("/").$imagen->imagen->url('medium')}}">
+
+                  {{ Form::open(array('route' => array('publicar.clientes_negocio_imagenes.destroy',$negocio->id,$imagen->id),'method'=>'DELETE')) }}            
+                  
+                  <p class="text-right">{{ Form::submit('eliminar', array('class' => 'btn btn-sm btn-danger')) }} </p>
+                  {{ Form::close() }}                        
             </div>      
             @endforeach
       </div>

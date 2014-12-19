@@ -112,12 +112,6 @@
       {{ Form::text('email', Input::old('email') ,array('placeholder'=>'correo electrónico','class'=>'form-control')) }}
 </div>        
 <div class="form-group">
-      {{ Form::label('mapa', 'Mapa') }}            
-      {{ Form::hidden('mapa',Input::old('mapa'),array('id'=>'latlng')) }}
-
-      {{ $mapa['html'] }}      
-</div>        
-<div class="form-group">
       <div class="row">
             <div class="col-sm-12">
                   {{ Form::label('publicacion','Publicar contenido') }}
@@ -204,7 +198,6 @@
 {{ HTML::script('js/vendor/bootstrap-file-input.js') }}
 {{ HTML::script('js/vendor/bootstrap-clockpicker.min.js') }}
 
-{{ $mapa['js'] }}
 <script type="text/javascript">
 
       $('#datetimepicker1').datetimepicker({

@@ -9,9 +9,9 @@ use Codesleeve\Stapler\ORM\StaplerableInterface;
 use Codesleeve\Stapler\ORM\EloquentTrait;
 
 class Negocio extends Ardent implements StaplerableInterface {
-      
+
       use EloquentTrait;
-      
+
       public function __construct(array $attributes = array())
       {
             $this->hasAttachedFile('imagen', [
@@ -31,11 +31,11 @@ class Negocio extends Ardent implements StaplerableInterface {
           'descripcion' => 'required|min:30|max:500',
           'email'       => 'required|email',
           'webpage'     => 'required|url',
-              /* 'lat'         => 'required',
-                'long'        => 'required', */
+          'lat'         => 'numeric',
+          'long'        => 'numeric',
       );
       protected $table                      = 'negocios';
-      protected $fillable                   = ['nombre', 'direccion', 'telefono', 'descripcion', 'email', 'webpage', 'lat', 'long','imagen'];
+      protected $fillable                   = ['nombre', 'direccion', 'telefono', 'descripcion', 'email', 'webpage', 'lat', 'long', 'imagen'];
       public $autoHydrateEntityFromInput    = true;
       public $forceEntityHydrationFromInput = true;
       public $autoPurgeRedundantAttributes  = true;
@@ -68,6 +68,5 @@ class Negocio extends Ardent implements StaplerableInterface {
                   return false;
             }
       }
-
 
 }

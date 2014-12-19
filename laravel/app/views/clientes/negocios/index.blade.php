@@ -27,6 +27,9 @@
             <p class="text-right">
                   {{ HTML::linkRoute('publicar.clientes_negocios.edit','editar',$negocio->id,array('class'=>'btn btn-sm btn-info')) }}       
             </p>
+            <p class="text-right">
+                  {{ HTML::linkRoute('publicar.clientes_negocio_imagenes.index','editar imagenes',$negocio->id,array('class'=>'btn btn-sm btn-info')) }}       
+            </p>
 
             {{ Form::open(array('route' => array('publicar.clientes_negocios.destroy',$negocio->id))) }}            
             {{ Form::hidden('_method', 'DELETE') }}            

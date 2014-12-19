@@ -59,64 +59,30 @@ class ClientesNegociosImagenesController extends \BaseController {
       }
 
       /**
-       * Display the specified clientesimagenesnegocio.
-       *
-       * @param  int  $id
-       * @return Response
-       */
-      public function show($id)
-      {
-            $clientesimagenesnegocio = Clientesimagenesnegocio::findOrFail($id);
-
-            return View::make('clientesimagenesnegocios.show', compact('clientesimagenesnegocio'));
-      }
-
-      /**
-       * Show the form for editing the specified clientesimagenesnegocio.
-       *
-       * @param  int  $id
-       * @return Response
-       */
-      public function edit($id)
-      {
-            $clientesimagenesnegocio = Clientesimagenesnegocio::find($id);
-
-            return View::make('clientesimagenesnegocios.edit', compact('clientesimagenesnegocio'));
-      }
-
-      /**
-       * Update the specified clientesimagenesnegocio in storage.
-       *
-       * @param  int  $id
-       * @return Response
-       */
-      public function update($id)
-      {
-            $clientesimagenesnegocio = Clientesimagenesnegocio::findOrFail($id);
-
-            $validator = Validator::make($data      = Input::all(), Clientesimagenesnegocio::$rules);
-
-            if ($validator->fails())
-            {
-                  return Redirect::back()->withErrors($validator)->withInput();
-            }
-
-            $clientesimagenesnegocio->update($data);
-
-            return Redirect::route('clientesimagenesnegocios.index');
-      }
-
-      /**
        * Remove the specified clientesimagenesnegocio from storage.
        *
        * @param  int  $id
        * @return Response
        */
-      public function destroy($id)
+      public function destroy($negocio_id,$id)
       {
-            Clientesimagenesnegocio::destroy($id);
-
-            return Redirect::route('clientesimagenesnegocios.index');
+            $negocio = Negocio::find($negocio_id);
+            
+            if (Auth::user()->userable->id !== $negocio->cliente->id)
+            {
+                  Session::flash('error', 'El negocio no pertenece al usuario actual');
+                  return Redirect::back();
+            }
+            
+            $imagen = NegocioImagen::find($id);
+            
+            if($imagen->delete()){
+                  Session::flash("message",'Imagen eliminada');
+            }else{
+                  Session::flash("error",'Error al borrar la imagen');
+            }
+            
+            return Redirect::route('publicar.clientes_negocio_imagenes.index',array($negocio->id));
       }
 
 }

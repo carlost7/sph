@@ -33,4 +33,5 @@ class HorarioNegocio extends Ardent {
           'negocio' => array(self::BELONGS_TO, 'Negocio'),
       );
 
+      
 }

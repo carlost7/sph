@@ -16,9 +16,6 @@ Route::get('/', array(
     'as'   => 'home'
 ));
 
-
-
-
 /*
  * -----------------------------------
  * Mostrar Negocios
@@ -189,7 +186,6 @@ Route::group(array('before' => 'auth'), function() {
 
             Route::resource('cliente', 'ClientesController');
 
-
             /*
              * *************************
              *    Negocios de Cliente
@@ -205,16 +201,8 @@ Route::group(array('before' => 'auth'), function() {
             
             Route::get('clientes/negocios/imagenes/{negocio_id}', array('as'   => 'publicar.clientes_negocio_imagenes.index',
                 'uses' => 'ClientesNegociosImagenesController@index'));
-            Route::get('clientes/negocios/imagenes/{negocio_id}/create', array('as'   => 'publicar.clientes_negocio_imagenes.create',
-                'uses' => 'ClientesNegociosImagenesController@create'));
             Route::post('clientes/negocios/imagenes/{negocio_id}', array('as'   => 'publicar.clientes_negocio_imagenes.store',
-                'uses' => 'ClientesNegociosImagenesController@store'));
-            Route::get('clientes/negocios/imagenes/{negocio_id}/{id}', array('as'   => 'publicar.clientes_negocio_imagenes.show',
-                'uses' => 'ClientesNegociosImagenesController@show'));
-            Route::get('clientes/negocios/imagenes/{negocio_id}/{id}/edit', array('as'   => 'publicar.clientes_negocio_imagenes.edit',
-                'uses' => 'ClientesNegociosImagenesController@edit'));
-            Route::put('clientes/negocios/imagenes/{negocio_id}/{id}', array('as'   => 'publicar.clientes_negocio_imagenes.update',
-                'uses' => 'ClientesNegociosImagenesController@update'));
+                'uses' => 'ClientesNegociosImagenesController@store'));            
             Route::delete('clientes/negocios/imagenes/{negocio_id}/{id}', array('as'   => 'publicar.clientes_negocio_imagenes.destroy',
                 'uses' => 'ClientesNegociosImagenesController@destroy'));
 
