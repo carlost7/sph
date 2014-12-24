@@ -50,7 +50,7 @@ class clientesNegociosController extends \BaseController
             $estado = Estado::find(Input::get('estado_id'));
             $zona = (Input::get('zona_id')) ? Zona::find(Input::get('zona_id')) : null;
             $categoria = Categoria::find(Input::get('categoria_id'));
-            $subcategoria = (Input::get('subcategoria_id')) ? Subcategoria::find(5000) : null;
+            $subcategoria = (Input::get('subcategoria_id')) ? Subcategoria::find(Input::get('subcategoria_id')) : null;
 
             if (!count($estado) || !count($categoria))
             {
@@ -198,26 +198,50 @@ class clientesNegociosController extends \BaseController
                   return Redirect::back()->withInput()->withErrors($negocio->masInfo->errors());
             }
             
+            if(Input::get('lun')){
+                  $negocio->horario->lun_ini = null;
+                  $negocio->horario->lun_fin = null;
+            }
+            if(Input::get('mar')){
+                  $negocio->horario->mar_ini = null;
+                  $negocio->horario->mar_fin = null;
+            }            
+            if(Input::get('mie')){
+                  $negocio->horario->mie_ini = null;
+                  $negocio->horario->mie_fin = null;
+            }
+            if(Input::get('jue')){
+                  $negocio->horario->jue_ini = null;
+                  $negocio->horario->jue_fin = null;
+            }            
+            if(Input::get('vie')){
+                  $negocio->horario->vie_ini = null;
+                  $negocio->horario->vie_fin = null;
+            }            
+            if(Input::get('sab')){
+                  $negocio->horario->sab_ini = null;
+                  $negocio->horario->sab_fin = null;
+            }
+            if(Input::get('dom')){
+                  $negocio->horario->dom_ini = null;
+                  $negocio->horario->dom_fin = null;
+            }            
+            
             if (!$negocio->horario->validate())
             {
-                  dd($negocio->horario);
                   return Redirect::back()->withInput()->withErrors($negocio->horario->errors());
             }
 
             
-            dd($negocio);
             //Guardamos el negocio
             if ($negocio->updateUniques())
             {
 
-                  dd($negocio->masInfo);
-                  dd($negocio->horario);
-                  
-                  $negocio->masInfo()->updateUniques($masInfo);
-                  $negocio->horario()->updateUniques($horario);
+                  $negocio->masInfo->updateUniques();
+                  $negocio->horario->updateUniques();
 
                   Session::flash('message', "Negocio editado con exito");
-                  return Redirect::route('clientes_negocios.index');
+                  return Redirect::route('publicar.clientes_negocios.index');
             }
             else
             {

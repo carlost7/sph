@@ -82,7 +82,7 @@
                         <div class="col-sm-5">
                               {{ Form::label('lun_fin','Lunes fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control timefin" name="lun_ini" id="fin" value="{{ (Input::old('lun_fin') == null)?"":date('H:i',strtotime(Input::old('lun_fin')))}}">
+                                    <input type="text" class="form-control timefin" name="lun_fin" id="fin" value="{{ (Input::old('lun_fin') == null)?"":date('H:i',strtotime(Input::old('lun_fin')))}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -110,7 +110,7 @@
                         <div class="col-sm-5">
                               {{ Form::label('mar_fin','Martes fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control timefin" name="mar_ini" value="{{ (Input::old('mar_fin') == null)?"":date('H:i',strtotime(Input::old('mar_fin')))}}">
+                                    <input type="text" class="form-control timefin" name="mar_fin" value="{{ (Input::old('mar_fin') == null)?"":date('H:i',strtotime(Input::old('mar_fin')))}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -138,7 +138,7 @@
                         <div class="col-sm-5">
                               {{ Form::label('mie_fin','Miercoles fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control timefin" name="mie_ini" value="{{ (Input::old('mie_fin') == null)?"":date('H:i',strtotime(Input::old('mie_fin')))}}">
+                                    <input type="text" class="form-control timefin" name="mie_fin" value="{{ (Input::old('mie_fin') == null)?"":date('H:i',strtotime(Input::old('mie_fin')))}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -166,7 +166,7 @@
                         <div class="col-sm-5">
                               {{ Form::label('jue_fin','Jueves fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control timefin" name="jue_ini" value="{{ (Input::old('jue_fin') == null)?"":date('H:i',strtotime(Input::old('jue_fin')))}}">
+                                    <input type="text" class="form-control timefin" name="jue_fin" value="{{ (Input::old('jue_fin') == null)?"":date('H:i',strtotime(Input::old('jue_fin')))}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -194,7 +194,7 @@
                         <div class="col-sm-5">
                               {{ Form::label('vie_fin','Viernes fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control timefin" name="vie_ini" value="{{ (Input::old('vie_fin') == null)?"":date('H:i',strtotime(Input::old('vie_fin')))}}">
+                                    <input type="text" class="form-control timefin" name="vie_fin" value="{{ (Input::old('vie_fin') == null)?"":date('H:i',strtotime(Input::old('vie_fin')))}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -222,7 +222,7 @@
                         <div class="col-sm-5">
                               {{ Form::label('sab_fin','Sabado fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control timefin" name="sab_ini" value="{{ (Input::old('sab_fin') == null)?"":date('H:i',strtotime(Input::old('sab_fin')))}}">
+                                    <input type="text" class="form-control timefin" name="sab_fin" value="{{ (Input::old('sab_fin') == null)?"":date('H:i',strtotime(Input::old('sab_fin')))}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -250,7 +250,7 @@
                         <div class="col-sm-5">
                               {{ Form::label('dom_fin','Domingo fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control timefin" name="dom_ini" value="{{ (Input::old('dom_fin') == null)?"":date('H:i',strtotime(Input::old('dom_fin')))}}">
+                                    <input type="text" class="form-control timefin" name="dom_fin" value="{{ (Input::old('dom_fin') == null)?"":date('H:i',strtotime(Input::old('dom_fin')))}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -265,91 +265,44 @@
             <div class="col-sm-6">
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("tc",true,Input::old("tc")) }} tc 
+                              <input type="hidden" name="tc" value="0" />{{ Form::checkbox("tc",true,Input::old("tc")) }} tc 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("td",true,Input::old("td")) }} td 
+                              <input type="hidden" name="td" value="0" />{{ Form::checkbox("td",true,Input::old("td")) }} td 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("estacionamiento",true,Input::old("estacionamiento")) }} estacionamiento 
+                              <input type="hidden" name="estacionamiento" value="0" />{{ Form::checkbox("estacionamiento",true,Input::old("estacionamiento")) }} estacionamiento 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("valet",true,Input::old("valet")) }} valet 
+                              <input type="hidden" name="valet" value="0" />{{ Form::checkbox("valet",true,Input::old("valet")) }} valet 
                         </label>
                   </div>
             </div>
             <div class="col-sm-6">
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("envio_domicilio",true,Input::old("envio_domicilio")) }} envio_domicilio 
+                              <input type="hidden" name="envio_domicilio" value="0" />{{ Form::checkbox("envio_domicilio",true,Input::old("envio_domicilio")) }} envio_domicilio 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("wifi",true,Input::old("wifi")) }} wifi 
+                              <input type="hidden" name="wifi" value="0" />{{ Form::checkbox("wifi",true,Input::old("wifi")) }} wifi 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("paqueteria",true,Input::old("paqueteria")) }} paqueteria 
+                              <input type="hidden" name="paqueteria" value="0" />{{ Form::checkbox("paqueteria",true,Input::old("paqueteria")) }} paqueteria 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("mascotas",true,Input::old("mascotas")) }} mascotas 
-                        </label>
-                  </div>
-            </div>
-      </div>
-      <div class="row">
-
-            <div class="col-sm-6">
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox("barra_libre",true,Input::old("barra_libre")) }} barra_libre 
-                        </label>
-                  </div>
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox("formal",true,Input::old("formal")) }} formal 
-                        </label>
-                  </div>
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox("camara_perm",true,Input::old("camara_perm")) }} camara_perm 
-                        </label>
-                  </div>
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox("restaurante",true,Input::old("restaurante")) }} restaurante 
-                        </label>
-                  </div>                  
-            </div>
-            <div class="col-sm-6">
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox("solo_mujeres",true,Input::old("solo_mujeres")) }} solo_mujeres 
-                        </label>
-                  </div>
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox("solo_hombres",true,Input::old("solo_hombres")) }} solo_hombres 
-                        </label>
-                  </div>
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox("personalizado",true,Input::old("personalizado")) }} personalizado 
-                        </label>
-                  </div>
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox("taller",true,Input::old("taller")) }} taller 
+                              <input type="hidden" name="mascotas" value="0" />{{ Form::checkbox("mascotas",true,Input::old("mascotas")) }} mascotas 
                         </label>
                   </div>
             </div>
@@ -359,44 +312,91 @@
             <div class="col-sm-6">
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("clases_extra",true,Input::old("clases_extra")) }} clases_extra 
+                              <input type="hidden" name="barra_libre" value="0" />{{ Form::checkbox("barra_libre",true,Input::old("barra_libre")) }} barra_libre 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("informacion",true,Input::old("informacion")) }} informacion 
+                              <input type="hidden" name="formal" value="0" />{{ Form::checkbox("formal",true,Input::old("formal")) }} formal 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("lavanderia",true,Input::old("lavanderia")) }} lavanderia 
+                              <input type="hidden" name="camara_perm" value="0" />{{ Form::checkbox("camara_perm",true,Input::old("camara_perm")) }} camara_perm 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("gimnasio",true,Input::old("gimnasio")) }} gimnasio 
+                              <input type="hidden" name="restaurante" value="0" />{{ Form::checkbox("restaurante",true,Input::old("restaurante")) }} restaurante 
                         </label>
                   </div>                  
             </div>
             <div class="col-sm-6">
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("restaurante",true,Input::old("restaurante")) }} restaurante 
+                              <input type="hidden" name="solo_mujeres" value="0" />{{ Form::checkbox("solo_mujeres",true,Input::old("solo_mujeres")) }} solo_mujeres 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("membresia",true,Input::old("membresia")) }} membresia 
+                              <input type="hidden" name="solo_hombres" value="0" />{{ Form::checkbox("solo_hombres",true,Input::old("solo_hombres")) }} solo_hombres 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("cafeteria",true,Input::old("cafeteria")) }} cafeteria 
+                              <input type="hidden" name="personalizado" value="0" />{{ Form::checkbox("personalizado",true,Input::old("personalizado")) }} personalizado 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("pension",true,Input::old("pension")) }} pension 
+                              <input type="hidden" name="taller" value="0" />{{ Form::checkbox("taller",true,Input::old("taller")) }} taller 
+                        </label>
+                  </div>
+            </div>
+      </div>
+      <div class="row">
+
+            <div class="col-sm-6">
+                  <div class="checkbox">
+                        <label>
+                              <input type="hidden" name="clases_extra" value="0" />{{ Form::checkbox("clases_extra",true,Input::old("clases_extra")) }} clases_extra 
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>
+                              <input type="hidden" name="informacion" value="0" />{{ Form::checkbox("informacion",true,Input::old("informacion")) }} informacion 
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>
+                              <input type="hidden" name="lavanderia" value="0" />{{ Form::checkbox("lavanderia",true,Input::old("lavanderia")) }} lavanderia 
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>
+                              <input type="hidden" name="gimnasio" value="0" />{{ Form::checkbox("gimnasio",true,Input::old("gimnasio")) }} gimnasio 
+                        </label>
+                  </div>                  
+            </div>
+            <div class="col-sm-6">
+                  <div class="checkbox">
+                        <label>
+                              <input type="hidden" name="restaurante" value="0" />{{ Form::checkbox("restaurante",true,Input::old("restaurante")) }} restaurante 
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>
+                              <input type="hidden" name="membresia" value="0" />{{ Form::checkbox("membresia",true,Input::old("membresia")) }} membresia 
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>
+                              <input type="hidden" name="cafeteria" value="0" />{{ Form::checkbox("cafeteria",true,Input::old("cafeteria")) }} cafeteria 
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>
+                              <input type="hidden" name="pension" value="0" />{{ Form::checkbox("pension",true,Input::old("pension")) }} pension 
                         </label>
                   </div>                  
             </div>
@@ -406,22 +406,22 @@
             <div class="col-sm-6">
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("cambios",true,Input::old("cambios")) }} cambios 
+                              <input type="hidden" name="cambios" value="0" />{{ Form::checkbox("cambios",true,Input::old("cambios")) }} cambios 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("devoluciones",true,Input::old("devoluciones")) }} devoluciones 
+                              <input type="hidden" name="devoluciones" value="0" />{{ Form::checkbox("devoluciones",true,Input::old("devoluciones")) }} devoluciones 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("bicicleta",true,Input::old("bicicleta")) }} bicicleta 
+                              <input type="hidden" name="bicicleta" value="0" />{{ Form::checkbox("bicicleta",true,Input::old("bicicleta")) }} bicicleta 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("alcohol",true,Input::old("alcohol")) }} alcohol 
+                              <input type="hidden" name="alcohol" value="0" />{{ Form::checkbox("alcohol",true,Input::old("alcohol")) }} alcohol 
                         </label>
                   </div>                  
             </div>
@@ -429,22 +429,22 @@
 
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("familiar",true,Input::old("familiar")) }} familiar 
+                              <input type="hidden" name="familiar" value="0" />{{ Form::checkbox("familiar",true,Input::old("familiar")) }} familiar 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("cita",true,Input::old("cita")) }} cita 
+                              <input type="hidden" name="cita" value="0" />{{ Form::checkbox("cita",true,Input::old("cita")) }} cita 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("pagos_diferidos",true,Input::old("pagos_diferidos")) }} pagos_diferidos 
+                              <input type="hidden" name="pagos_diferidos" value="0" />{{ Form::checkbox("pagos_diferidos",true,Input::old("pagos_diferidos")) }} pagos_diferidos 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("facturacion",true,Input::old("facturacion")) }} facturacion 
+                              <input type="hidden" name="facturacion" value="0" />{{ Form::checkbox("facturacion",true,Input::old("facturacion")) }} facturacion 
                         </label>
                   </div>
             </div>
@@ -454,12 +454,12 @@
 
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("mensajeria",true,Input::old("mensajeria")) }} mensajeria 
+                              <input type="hidden" name="mensajeria" value="0" />{{ Form::checkbox("mensajeria",true,Input::old("mensajeria")) }} mensajeria 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("internacional",true,Input::old("internacional")) }} internacional 
+                              <input type="hidden" name="internacional" value="0" />{{ Form::checkbox("internacional",true,Input::old("internacional")) }} internacional 
                         </label>
                   </div>
             </div>

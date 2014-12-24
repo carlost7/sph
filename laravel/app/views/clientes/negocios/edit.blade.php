@@ -55,91 +55,44 @@
             <div class="col-sm-6">
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("tc",true,$negocio->masInfo->tc) }} tc 
+                              <input type="hidden" name="tc" value="0" />{{ Form::checkbox("tc",true,$negocio->masInfo->tc) }} tc 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("td",true,$negocio->masInfo->td) }} td 
+                              <input type="hidden" name="td" value="0" />{{ Form::checkbox("td",true,$negocio->masInfo->td) }} td 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("estacionamiento",true,$negocio->masInfo->estacionamiento) }} estacionamiento 
+                              <input type="hidden" name="estacionamiento" value="0" />{{ Form::checkbox("estacionamiento",true,$negocio->masInfo->estacionamiento) }} estacionamiento 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("valet",true,$negocio->masInfo->valet) }} valet 
+                              <input type="hidden" name="valet" value="0" />{{ Form::checkbox("valet",true,$negocio->masInfo->valet) }} valet 
                         </label>
                   </div>
             </div>
             <div class="col-sm-6">
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("envio_domicilio",true,$negocio->masInfo->envio_domicilio) }} envio_domicilio 
+                              <input type="hidden" name="envio_domicilio" value="0" />{{ Form::checkbox("envio_domicilio",true,$negocio->masInfo->envio_domicilio) }} envio_domicilio 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("wifi",true,$negocio->masInfo->wifi) }} wifi 
+                              <input type="hidden" name="wifi" value="0" />{{ Form::checkbox("wifi",true,$negocio->masInfo->wifi) }} wifi 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("paqueteria",true,$negocio->masInfo->paqueteria) }} paqueteria 
+                              <input type="hidden" name="paqueteria" value="0" />{{ Form::checkbox("paqueteria",true,$negocio->masInfo->paqueteria) }} paqueteria 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("mascotas",true,$negocio->masInfo->mascotas) }} mascotas 
-                        </label>
-                  </div>
-            </div>
-      </div>
-      <div class="row">
-
-            <div class="col-sm-6">
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox("barra_libre",true,$negocio->masInfo->barra_libre) }} barra_libre 
-                        </label>
-                  </div>
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox("formal",true,$negocio->masInfo->formal) }} formal 
-                        </label>
-                  </div>
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox("camara_perm",true,$negocio->masInfo->camara_perm) }} camara_perm 
-                        </label>
-                  </div>
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox("restaurante",true,$negocio->masInfo->restaurante) }} restaurante 
-                        </label>
-                  </div>                  
-            </div>
-            <div class="col-sm-6">
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox("solo_mujeres",true,$negocio->masInfo->solo_mujeres) }} solo_mujeres 
-                        </label>
-                  </div>
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox("solo_hombres",true,$negocio->masInfo->solo_hombres) }} solo_hombres 
-                        </label>
-                  </div>
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox("personalizado",true,$negocio->masInfo->personalizado) }} personalizado 
-                        </label>
-                  </div>
-                  <div class="checkbox">
-                        <label>
-                              {{ Form::checkbox("taller",true,$negocio->masInfo->taller) }} taller 
+                              <input type="hidden" name="mascotas" value="0" />{{ Form::checkbox("mascotas",true,$negocio->masInfo->mascotas) }} mascotas 
                         </label>
                   </div>
             </div>
@@ -149,44 +102,91 @@
             <div class="col-sm-6">
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("clases_extra",true,$negocio->masInfo->clases_extra) }} clases_extra 
+                              <input type="hidden" name="barra_libre" value="0" />{{ Form::checkbox("barra_libre",true,$negocio->masInfo->barra_libre) }} barra_libre 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("informacion",true,$negocio->masInfo->informacion) }} informacion 
+                              <input type="hidden" name="formal" value="0" />{{ Form::checkbox("formal",true,$negocio->masInfo->formal) }} formal 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("lavanderia",true,$negocio->masInfo->lavanderia) }} lavanderia 
+                              <input type="hidden" name="camara_perm" value="0" />{{ Form::checkbox("camara_perm",true,$negocio->masInfo->camara_perm) }} camara_perm 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("gimnasio",true,$negocio->masInfo->gimnasio) }} gimnasio 
+                              <input type="hidden" name="restaurante" value="0" />{{ Form::checkbox("restaurante",true,$negocio->masInfo->restaurante) }} restaurante 
                         </label>
                   </div>                  
             </div>
             <div class="col-sm-6">
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("restaurante",true,$negocio->masInfo->restaurante) }} restaurante 
+                              <input type="hidden" name="solo_mujeres" value="0" />{{ Form::checkbox("solo_mujeres",true,$negocio->masInfo->solo_mujeres) }} solo_mujeres 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("membresia",true,$negocio->masInfo->membresia) }} membresia 
+                              <input type="hidden" name="solo_hombres" value="0" />{{ Form::checkbox("solo_hombres",true,$negocio->masInfo->solo_hombres) }} solo_hombres 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("cafeteria",true,$negocio->masInfo->cafeteria) }} cafeteria 
+                              <input type="hidden" name="personalizado" value="0" />{{ Form::checkbox("personalizado",true,$negocio->masInfo->personalizado) }} personalizado 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("pension",true,$negocio->masInfo->pension) }} pension 
+                              <input type="hidden" name="taller" value="0" />{{ Form::checkbox("taller",true,$negocio->masInfo->taller) }} taller 
+                        </label>
+                  </div>
+            </div>
+      </div>
+      <div class="row">
+
+            <div class="col-sm-6">
+                  <div class="checkbox">
+                        <label>
+                              <input type="hidden" name="clases_extra" value="0" />{{ Form::checkbox("clases_extra",true,$negocio->masInfo->clases_extra) }} clases_extra 
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>
+                              <input type="hidden" name="informacion" value="0" />{{ Form::checkbox("informacion",true,$negocio->masInfo->informacion) }} informacion 
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>
+                              <input type="hidden" name="lavanderia" value="0" />{{ Form::checkbox("lavanderia",true,$negocio->masInfo->lavanderia) }} lavanderia 
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>
+                              <input type="hidden" name="gimnasio" value="0" />{{ Form::checkbox("gimnasio",true,$negocio->masInfo->gimnasio) }} gimnasio 
+                        </label>
+                  </div>                  
+            </div>
+            <div class="col-sm-6">
+                  <div class="checkbox">
+                        <label>
+                              <input type="hidden" name="restaurante" value="0" />{{ Form::checkbox("restaurante",true,$negocio->masInfo->restaurante) }} restaurante 
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>
+                              <input type="hidden" name="membresia" value="0" />{{ Form::checkbox("membresia",true,$negocio->masInfo->membresia) }} membresia 
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>
+                              <input type="hidden" name="cafeteria" value="0" />{{ Form::checkbox("cafeteria",true,$negocio->masInfo->cafeteria) }} cafeteria 
+                        </label>
+                  </div>
+                  <div class="checkbox">
+                        <label>
+                              <input type="hidden" name="pension" value="0" />{{ Form::checkbox("pension",true,$negocio->masInfo->pension) }} pension 
                         </label>
                   </div>                  
             </div>
@@ -196,22 +196,22 @@
             <div class="col-sm-6">
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("cambios",true,$negocio->masInfo->cambios) }} cambios 
+                              <input type="hidden" name="cambios" value="0" />{{ Form::checkbox("cambios",true,$negocio->masInfo->cambios) }} cambios 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("devoluciones",true,$negocio->masInfo->devoluciones) }} devoluciones 
+                              <input type="hidden" name="devoluciones" value="0" />{{ Form::checkbox("devoluciones",true,$negocio->masInfo->devoluciones) }} devoluciones 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("bicicleta",true,$negocio->masInfo->bicicleta) }} bicicleta 
+                              <input type="hidden" name="bicicleta" value="0" />{{ Form::checkbox("bicicleta",true,$negocio->masInfo->bicicleta) }} bicicleta 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("alcohol",true,$negocio->masInfo->alcohol) }} alcohol 
+                              <input type="hidden" name="alcohol" value="0" />{{ Form::checkbox("alcohol",true,$negocio->masInfo->alcohol) }} alcohol 
                         </label>
                   </div>                  
             </div>
@@ -219,22 +219,22 @@
 
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("familiar",true,$negocio->masInfo->familiar) }} familiar 
+                              <input type="hidden" name="familiar" value="0" />{{ Form::checkbox("familiar",true,$negocio->masInfo->familiar) }} familiar 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("cita",true,$negocio->masInfo->cita) }} cita 
+                              <input type="hidden" name="cita" value="0" />{{ Form::checkbox("cita",true,$negocio->masInfo->cita) }} cita 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("pagos_diferidos",true,$negocio->masInfo->pagos_diferidos) }} pagos_diferidos 
+                              <input type="hidden" name="pagos_diferidos" value="0" />{{ Form::checkbox("pagos_diferidos",true,$negocio->masInfo->pagos_diferidos) }} pagos_diferidos 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("facturacion",true,$negocio->masInfo->facturacion) }} facturacion 
+                              <input type="hidden" name="facturacion" value="0" />{{ Form::checkbox("facturacion",true,$negocio->masInfo->facturacion) }} facturacion 
                         </label>
                   </div>
             </div>
@@ -244,12 +244,12 @@
 
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("mensajeria",true,$negocio->masInfo->mensajeria) }} mensajeria 
+                              <input type="hidden" name="mensajeria" value="0" />{{ Form::checkbox("mensajeria",true,$negocio->masInfo->mensajeria) }} mensajeria 
                         </label>
                   </div>
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox("internacional",true,$negocio->masInfo->internacional) }} internacional 
+                              <input type="hidden" name="internacional" value="0" />{{ Form::checkbox("internacional",true,$negocio->masInfo->internacional) }} internacional 
                         </label>
                   </div>
             </div>
@@ -269,7 +269,7 @@
                         <div class="col-sm-2">
                               <div class="checkbox">
                                     <label>
-                                          {{ Form::checkbox("lun",1,($negocio->horario->lun_ini == "00:00:00")?true:false,array('class'=>'desactivar','id'=>'lun')) }}
+                                          {{ Form::checkbox("lun",1,($negocio->horario->lun_ini == null )?true:false,array('class'=>'desactivar','id'=>'lun')) }}
                                           Cerrado
                                     </label>
                               </div>
@@ -280,13 +280,13 @@
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
-                                    <input type="text" class="form-control" name="lun_ini" value="{{ date('H:i',strtotime($negocio->horario->lun_ini))}}">
+                                    <input type="text" class="form-control" name="lun_ini" value="{{$negocio->horario->lun_ini}}">
                               </div>
                         </div>
                         <div class="col-sm-5">
                               {{ Form::label('lun_fin','Lunes fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control" name="lun_fin" value="{{ date('H:i',strtotime($negocio->horario->lun_fin))}}">
+                                    <input type="text" class="form-control" name="lun_fin" value="{{ $negocio->horario->lun_fin}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -297,7 +297,7 @@
                         <div class="col-sm-2">
                               <div class="checkbox">
                                     <label>
-                                          {{ Form::checkbox("mar",1,($negocio->horario->mar_ini == "00:00:00")?true:false,array('class'=>'desactivar','id'=>'mar')) }}
+                                          {{ Form::checkbox("mar",1,($negocio->horario->mar_ini == null)?true:false,array('class'=>'desactivar','id'=>'mar')) }}
                                           Cerrado
                                     </label>
                               </div>
@@ -308,13 +308,13 @@
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
-                                    <input type="text" class="form-control" name="mar_ini" value="{{ date('H:i',strtotime($negocio->horario->lun_ini))}}">
+                                    <input type="text" class="form-control" name="mar_ini" value="{{ $negocio->horario->mar_ini}}">
                               </div>                             
                         </div>
                         <div class="col-sm-5">
                               {{ Form::label('mar_fin','Martes fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control" name="mar_fin" value="{{ date('H:i',strtotime($negocio->horario->mar_fin))}}">
+                                    <input type="text" class="form-control" name="mar_fin" value="{{ $negocio->horario->mar_fin}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -325,7 +325,7 @@
                         <div class="col-sm-2">
                               <div class="checkbox">
                                     <label>
-                                          {{ Form::checkbox("mie",1,(($negocio->horario->mie_ini == "00:00:00"))?true:false,array('class'=>'desactivar','id'=>'mie')) }}
+                                          {{ Form::checkbox("mie",1,(($negocio->horario->mie_ini == null))?true:false,array('class'=>'desactivar','id'=>'mie')) }}
                                           Cerrado
                                     </label>
                               </div>
@@ -336,13 +336,13 @@
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
-                                    <input type="text" class="form-control" name="mie_ini" value="{{ date('H:i',strtotime($negocio->horario->mie_ini))}}">
+                                    <input type="text" class="form-control" name="mie_ini" value="{{ $negocio->horario->mie_ini}}">
                               </div>                             
                         </div>
                         <div class="col-sm-5">
                               {{ Form::label('mie_fin','Miercoles fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control" name="mie_fin" value="{{ date('H:i',strtotime($negocio->horario->mie_fin))}}">
+                                    <input type="text" class="form-control" name="mie_fin" value="{{ $negocio->horario->mie_fin}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -353,7 +353,7 @@
                         <div class="col-sm-2">
                               <div class="checkbox">
                                     <label>
-                                          {{ Form::checkbox("jue",1,($negocio->horario->jue_ini == "00:00:00")?true:false,array('class'=>'desactivar','id'=>'jue')) }}
+                                          {{ Form::checkbox("jue",1,($negocio->horario->jue_ini == null)?true:false,array('class'=>'desactivar','id'=>'jue')) }}
                                           Cerrado
                                     </label>
                               </div>
@@ -364,13 +364,13 @@
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
-                                    <input type="text" class="form-control" name="jue_ini" value="{{ date('H:i',strtotime($negocio->horario->jue_ini))}}">
+                                    <input type="text" class="form-control" name="jue_ini" value="{{ $negocio->horario->jue_ini}}">
                               </div>                             
                         </div>
                         <div class="col-sm-5">
                               {{ Form::label('jue_fin','Jueves fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control" name="jue_fin" value="{{ date('H:i',strtotime($negocio->horario->jue_fin))}}">
+                                    <input type="text" class="form-control" name="jue_fin" value="{{ $negocio->horario->jue_fin}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -381,7 +381,7 @@
                         <div class="col-sm-2">
                               <div class="checkbox">
                                     <label>
-                                          {{ Form::checkbox("vie",1,($negocio->horario->vie_ini == "00:00:00")?true:false,array('class'=>'desactivar','id'=>'vie')) }}
+                                          {{ Form::checkbox("vie",1,($negocio->horario->vie_ini == null)?true:false,array('class'=>'desactivar','id'=>'vie')) }}
                                           Cerrado
                                     </label>
                               </div>
@@ -392,13 +392,13 @@
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
-                                    <input type="text" class="form-control" name="vie_ini" value="{{ date('H:i',strtotime($negocio->horario->vie_ini))}}">
+                                    <input type="text" class="form-control" name="vie_ini" value="{{ $negocio->horario->vie_ini}}">
                               </div>                             
                         </div>
                         <div class="col-sm-5">
                               {{ Form::label('vie_fin','Viernes fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control" name="vie_fin" value="{{ date('H:i',strtotime($negocio->horario->vie_fin))}}">
+                                    <input type="text" class="form-control" name="vie_fin" value="{{ $negocio->horario->vie_fin}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -409,7 +409,7 @@
                         <div class="col-sm-2">
                               <div class="checkbox">
                                     <label>
-                                          {{ Form::checkbox("sab",1,($negocio->horario->sab_ini == "00:00:00")?true:false,array('class'=>'desactivar','id'=>'sab')) }}
+                                          {{ Form::checkbox("sab",1,($negocio->horario->sab_ini == null)?true:false,array('class'=>'desactivar','id'=>'sab')) }}
                                           Cerrado
                                     </label>
                               </div>
@@ -420,13 +420,13 @@
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
-                                    <input type="text" class="form-control" name="sab_ini" value="{{ date('H:i',strtotime($negocio->horario->sab_ini))}}">
+                                    <input type="text" class="form-control" name="sab_ini" value="{{ $negocio->horario->sab_ini}}">
                               </div>                              
                         </div>
                         <div class="col-sm-5">
                               {{ Form::label('sab_fin','Sabado fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control" name="sab_fin" value="{{ date('H:i',strtotime($negocio->horario->sab_fin))}}">
+                                    <input type="text" class="form-control" name="sab_fin" value="{{ $negocio->horario->sab_fin}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -437,7 +437,7 @@
                         <div class="col-sm-2">
                               <div class="checkbox">
                                     <label>
-                                          {{ Form::checkbox("dom",1,($negocio->horario->dom_ini == "00:00:00")?true:false,array('class'=>'desactivar','id'=>'dom')) }}
+                                          {{ Form::checkbox("dom",1,($negocio->horario->dom_ini == null)?true:false,array('class'=>'desactivar','id'=>'dom')) }}
                                           Cerrado
                                     </label>
                               </div>
@@ -448,13 +448,13 @@
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
-                                    <input type="text" class="form-control" name="dom_ini" value="{{ date('H:i',strtotime($negocio->horario->dom_ini))}}">
+                                    <input type="text" class="form-control" name="dom_ini" value="{{ $negocio->horario->dom_ini}}">
                               </div>                             
                         </div>
                         <div class="col-sm-5">
                               {{ Form::label('dom_fin','Domingo fin') }}
                               <div class="input-group clockpicker" data-autoclose="true">
-                                    <input type="text" class="form-control" name="dom_fin" value="{{ date('H:i',strtotime($negocio->horario->dom_fin))}}">
+                                    <input type="text" class="form-control" name="dom_fin" value="{{ $negocio->horario->dom_fin}}">
                                     <span class="input-group-addon">
                                           <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -548,7 +548,9 @@
             var dia = $(this).attr('id');
             if ($(this).prop('checked')) {
                   $("input[name=" + dia + "_ini]").prop('disabled', true);
+                  $("input[name=" + dia + "_ini]").val('');
                   $("input[name=" + dia + "_fin]").prop('disabled', true);
+                  $("input[name=" + dia + "_fin]").val('');
             } else{
                   $("input[name=" + dia + "_ini]").prop('disabled', false);
                   $("input[name=" + dia + "_fin]").prop('disabled', false);

@@ -12,10 +12,10 @@
         "fzaninotto/faker": "dev-master",
         "doctrine/dbal":"dev-master",
         "league/oauth1-client": "~1.0",
-        "league/oauth2-client": "~0.3",
-        "kevbaldwyn/image":"dev-master",
+        "league/oauth2-client": "~0.3",        
         "laravelbook/ardent": "~2.4",
-        "codesleeve/laravel-stapler": "~1.0"
+        "codesleeve/laravel-stapler": "~1.0",
+        "intervention/imagecache": "2.*"
         
     },
     "autoload": {

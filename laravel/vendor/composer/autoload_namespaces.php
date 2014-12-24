@@ -33,7 +33,6 @@ return array(
     'Net' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'Math' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'LaravelBook\\Ardent' => array($vendorDir . '/laravelbook/ardent/src'),
-    'KevBaldwyn\\Image' => array($vendorDir . '/kevbaldwyn/image/src'),
     'Jeremeamia\\SuperClosure' => array($vendorDir . '/jeremeamia/SuperClosure/src'),
     'Imagine' => array($vendorDir . '/imagine/imagine/lib'),
     'Imagecow' => array($vendorDir . '/imagecow/imagecow'),

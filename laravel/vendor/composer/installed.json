@@ -3099,57 +3099,6 @@
         ]
     },
     {
-        "name": "kevbaldwyn/image",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/kevbaldwyn/image.git",
-            "reference": "d8754577fd0022d7e70446ec098497201b149fbd"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/kevbaldwyn/image/zipball/d8754577fd0022d7e70446ec098497201b149fbd",
-            "reference": "d8754577fd0022d7e70446ec098497201b149fbd",
-            "shasum": ""
-        },
-        "require": {
-            "aws/aws-sdk-php": "2.x",
-            "imagecow/imagecow": "1.*",
-            "php": ">=5.3.0"
-        },
-        "require-dev": {
-            "mockery/mockery": "dev-master"
-        },
-        "suggest": {
-            "illuminate/support": "If using this package with Laravel > 4, you will need to install Illuminate Support. If Laravel is already installed this will already be available."
-        },
-        "time": "2014-08-12 08:16:21",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "KevBaldwyn\\Image": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "authors": [
-            {
-                "name": "Kevin Baldwyn",
-                "email": "kevin@purepixel.co.uk"
-            }
-        ],
-        "description": "A Laravel 4 package to aid generating automatically resized images on the fly and generating responsive images.",
-        "keywords": [
-            "Laravel 4",
-            "image",
-            "imagecow",
-            "laravel",
-            "resize",
-            "responsive"
-        ]
-    },
-    {
         "name": "laravelbook/ardent",
         "version": "v2.4.2",
         "version_normalized": "2.4.2.0",
@@ -3369,6 +3318,119 @@
             "s3",
             "stapler",
             "upload"
+        ]
+    },
+    {
+        "name": "intervention/image",
+        "version": "2.0.16",
+        "version_normalized": "2.0.16.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Intervention/image.git",
+            "reference": "b5350f62f59f8fa24f5d9c1ffbd094a7fd91c0e3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Intervention/image/zipball/b5350f62f59f8fa24f5d9c1ffbd094a7fd91c0e3",
+            "reference": "b5350f62f59f8fa24f5d9c1ffbd094a7fd91c0e3",
+            "shasum": ""
+        },
+        "require": {
+            "ext-fileinfo": "*",
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.9.2",
+            "phpunit/phpunit": "3.*"
+        },
+        "suggest": {
+            "ext-gd": "to use GD library based image processing.",
+            "ext-imagick": "to use Imagick based image processing.",
+            "intervention/imagecache": "Caching extension for the Intervention Image library"
+        },
+        "time": "2014-12-20 14:14:38",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Intervention\\Image\\": "src/Intervention/Image"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Oliver Vogel",
+                "email": "oliver@olivervogel.net",
+                "homepage": "http://olivervogel.net/"
+            }
+        ],
+        "description": "Image handling and manipulation library with support for Laravel integration",
+        "homepage": "http://image.intervention.io/",
+        "keywords": [
+            "gd",
+            "image",
+            "imagick",
+            "laravel",
+            "thumbnail",
+            "watermark"
+        ]
+    },
+    {
+        "name": "intervention/imagecache",
+        "version": "2.0.6",
+        "version_normalized": "2.0.6.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Intervention/imagecache.git",
+            "reference": "1380a7a864bb3170b6f88276ff1b901902ef180d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Intervention/imagecache/zipball/1380a7a864bb3170b6f88276ff1b901902ef180d",
+            "reference": "1380a7a864bb3170b6f88276ff1b901902ef180d",
+            "shasum": ""
+        },
+        "require": {
+            "illuminate/cache": "~4|~5",
+            "illuminate/filesystem": "~4|~5",
+            "intervention/image": "~2,>=2.0.7",
+            "jeremeamia/superclosure": "1.*",
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "mockery/mockery": "0.9.*",
+            "phpunit/phpunit": "3.*"
+        },
+        "time": "2014-11-10 18:57:02",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Intervention\\Image\\": "src/Intervention/Image"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Oliver Vogel",
+                "email": "oliver@olivervogel.net",
+                "homepage": "http://olivervogel.net/"
+            }
+        ],
+        "description": "Caching extension for the Intervention Image Class",
+        "homepage": "http://image.intervention.io",
+        "keywords": [
+            "cache",
+            "gd",
+            "image",
+            "imagick",
+            "laravel"
         ]
     }
 ]

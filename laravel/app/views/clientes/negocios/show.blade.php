@@ -11,7 +11,7 @@
 
 
 <h2>{{ $negocio->nombre }}</h2>
-@if(count($negocio->imagen))
+@if($negocio->image_file_name)
 <img src="{{ URL::to("/").$negocio->imagen->url('medium')}}">
 @endif
 <div class="list-group">  
@@ -65,13 +65,13 @@
 
 @if(count($negocio->horario))
 <div class="list-group">  
-      <p class="list-group-item"><span class="label label-default">Lunes:</span>    {{ date('H:i',strtotime($negocio->horario->lun_ini)).' - '.date('H:i',strtotime($negocio->horario->lun_fin)) }}</p>
-      <p class="list-group-item"><span class="label label-default">Martes:</span>   {{ date('H:i',strtotime($negocio->horario->mar_ini)).' - '.date('H:i',strtotime($negocio->horario->mar_fin)) }}</p>
-      <p class="list-group-item"><span class="label label-default">Miércoles:</span>{{ date('H:i',strtotime($negocio->horario->mie_ini)).' - '.date('H:i',strtotime($negocio->horario->mie_fin)) }}</p>
-      <p class="list-group-item"><span class="label label-default">Jueves:</span>   {{ date('H:i',strtotime($negocio->horario->jue_ini)).' - '.date('H:i',strtotime($negocio->horario->jue_fin)) }}</p>
-      <p class="list-group-item"><span class="label label-default">Viernes:</span>  {{ date('H:i',strtotime($negocio->horario->vie_ini)).' - '.date('H:i',strtotime($negocio->horario->vie_fin)) }}</p>
-      <p class="list-group-item"><span class="label label-default">Sábado:</span>   {{ date('H:i',strtotime($negocio->horario->sab_ini)).' - '.date('H:i',strtotime($negocio->horario->sab_fin)) }}</p>
-      <p class="list-group-item"><span class="label label-default">Domingo:</span>  {{ date('H:i',strtotime($negocio->horario->dom_ini)).' - '.date('H:i',strtotime($negocio->horario->dom_fin)) }}</p>
+      <p class="list-group-item"><span class="label label-default">Lunes:</span>    {{ $negocio->horario->lun_ini.' - '.$negocio->horario->lun_fin }}</p>
+      <p class="list-group-item"><span class="label label-default">Martes:</span>   {{ $negocio->horario->mar_ini.' - '.$negocio->horario->mar_fin }}</p>
+      <p class="list-group-item"><span class="label label-default">Miércoles:</span>{{ $negocio->horario->mie_ini.' - '.$negocio->horario->mie_fin }}</p>
+      <p class="list-group-item"><span class="label label-default">Jueves:</span>   {{ $negocio->horario->jue_ini.' - '.$negocio->horario->jue_fin }}</p>
+      <p class="list-group-item"><span class="label label-default">Viernes:</span>  {{ $negocio->horario->vie_ini.' - '.$negocio->horario->vie_fin }}</p>
+      <p class="list-group-item"><span class="label label-default">Sábado:</span>   {{ $negocio->horario->sab_ini.' - '.$negocio->horario->sab_fin }}</p>
+      <p class="list-group-item"><span class="label label-default">Domingo:</span>  {{ $negocio->horario->dom_ini.' - '.$negocio->horario->dom_fin }}</p>
 </div>
 @endif
 @if(isset($negocio->lat) && isset($negocio->long))      

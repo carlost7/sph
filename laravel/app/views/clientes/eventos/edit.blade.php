@@ -152,23 +152,7 @@
             </div>
       </div>
 </div>
-<div class="form-group">
-      <div class="row">
-            <div class="col-sm-12">
-                  {{ Form::label('imagen','Imágen') }}
-                  <input type="file" name="imagen" id='uploadFile' title="Seleccionar" class="file-inputs" data-filename-placement="inside">
-                  @if($evento->imagen)
-                  <div id="imagepreview" class="imagepreview" style="background-image: url({{ Config::get('params.path_serve_image_transform').Image::path($evento->imagen->path.$evento->imagen->nombre,'resizeCrop',250,250,'left','top') }})"></div>
-                  {{ Form::label('alt','Descripción') }}
-                  {{ Form::text('alt',$evento->imagen->alt,array('placeholder' => 'descripción', 'class'=>'form-control')) }}
-                  @else
-                  <div id="imagepreview" class="imagepreview"></div>
-                  {{ Form::label('alt','Descripción') }}
-                  {{ Form::text('alt',null,array('placeholder' => 'descripción', 'class'=>'form-control')) }}
-                  @endif
-            </div>      
-      </div>
-</div>
+<!-- CAJV Agregar imagen -->
 <div class="form-group">
       {{ Form::label('web', 'Página web') }}            
       {{ Form::text('web', ($evento->especial) ? $evento->especial->web : '' ,array('placeholder'=>'página web','class'=>'form-control')) }}

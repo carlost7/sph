@@ -109,8 +109,8 @@ return array(
         'Way\Generators\GeneratorsServiceProvider',
         'Appitventures\Phpgmaps\PhpgmapsServiceProvider',
         'Sph\Authenticators\AuthenticatorsServiceProvider',
-        'KevBaldwyn\Image\Providers\Laravel\ImageServiceProvider',
-        'Codesleeve\LaravelStapler\LaravelStaplerServiceProvider'
+        'Codesleeve\LaravelStapler\LaravelStaplerServiceProvider',
+        'Intervention\Image\ImageServiceProvider'
     ),
     /*
       |--------------------------------------------------------------------------
@@ -173,6 +173,6 @@ return array(
         'Validator'         => 'Illuminate\Support\Facades\Validator',
         'View'              => 'Illuminate\Support\Facades\View',
         'Gmaps'             => 'Appitventures\Phpgmaps\Facades\Phpgmaps',
-        'Image'             => 'KevBaldwyn\Image\Providers\Laravel\Facades\Image'
+        'Image'             => 'Intervention\Image\Facades\Image'
     ),
 );
