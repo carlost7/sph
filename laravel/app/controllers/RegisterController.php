@@ -115,7 +115,7 @@ class RegisterController extends \BaseController
                               Auth::login($cliente->user);
                               Session::flash("message", 'Activación exitosa');
 
-                              return Redirect::route('clientes.index');
+                              return Redirect::route('publicar.cliente.index');
                         }
                   }
                   else

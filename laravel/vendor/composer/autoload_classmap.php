@@ -16,6 +16,7 @@ return array(
     'AddRankToComentarios' => $baseDir . '/app/database/migrations/2014_10_06_112324_add_rank_to_comentarios.php',
     'AddRankToEventosTable' => $baseDir . '/app/database/migrations/2014_09_08_121529_add_rank_to_eventos_table.php',
     'AddRankToNegociosTable' => $baseDir . '/app/database/migrations/2014_09_08_121340_add_rank_to_negocios_table.php',
+    'AddSpecialToNegocios' => $baseDir . '/app/database/migrations/2014_12_25_232703_add_special_to_negocios.php',
     'AddTopicToComentarios' => $baseDir . '/app/database/migrations/2014_10_09_190307_add_topic_to_comentarios.php',
     'AddUsersTableAddOauthColumns' => $baseDir . '/app/database/migrations/2014_09_14_020749_add_users_table_add_oauth_columns.php',
     'AddUsuarioIdToComentarios' => $baseDir . '/app/database/migrations/2014_10_06_140836_add_usuario_id_to_comentarios.php',

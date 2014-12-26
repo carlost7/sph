@@ -51,7 +51,7 @@ class Negocio extends Ardent implements StaplerableInterface {
           'subcategoria' => array(self::BELONGS_TO, 'Subcategoria'),
           'cliente'      => array(self::BELONGS_TO, 'Cliente'),
           'pago'         => array(self::MORPH_ONE, 'Pago', 'name' => 'pagable'),
-          'aviso'        => array(self::MORPH_ONE, 'Aviso_cliente', 'avisable'),
+          'aviso'        => array(self::MORPH_ONE, 'Aviso_cliente', 'name'=>'avisable'),
           'comentarios'  => array(self::MORPH_MANY, 'Comentario', 'name' => 'comentable'),
           'topics'       => array(self::MORPH_MANY, 'Comentario', 'name' => 'topic'),
       );

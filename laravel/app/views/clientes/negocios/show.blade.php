@@ -11,7 +11,7 @@
 
 
 <h2>{{ $negocio->nombre }}</h2>
-@if($negocio->image_file_name)
+@if($negocio->imagen_file_name != "")
 <img src="{{ URL::to("/").$negocio->imagen->url('medium')}}">
 @endif
 <div class="list-group">  

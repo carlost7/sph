@@ -553,7 +553,9 @@
             var dia = $(this).attr('id');
             if ($(this).prop('checked')) {
                   $("input[name=" + dia + "_ini]").prop('disabled', true);
+                  $("input[name=" + dia + "_ini]").val('');
                   $("input[name=" + dia + "_fin]").prop('disabled', true);
+                  $("input[name=" + dia + "_fin]").val('');
             } else {
                   $("input[name=" + dia + "_ini]").prop('disabled', false);
                   $("input[name=" + dia + "_fin]").prop('disabled', false);

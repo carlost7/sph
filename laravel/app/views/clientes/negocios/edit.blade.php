@@ -617,6 +617,7 @@ else
                   position: pos,
                   map: map
             });
+            markers.push(marker);
       <?php
 }
 ?>

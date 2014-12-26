@@ -20,10 +20,6 @@ class CreateNegociosTable extends Migration
                   $table->string('telefono');
                   $table->string('direccion');
                   $table->text('descripcion');                                    
-                  $table->text('email');                                    
-                  $table->text('webpage');                                    
-                  $table->double('lat');                                    
-                  $table->double('long');                                    
                   $table->double('likes')->default(0.0);
                   $table->boolean('publicar');
                   $table->boolean('is_especial');
