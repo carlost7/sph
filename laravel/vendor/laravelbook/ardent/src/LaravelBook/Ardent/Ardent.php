@@ -708,7 +708,7 @@ abstract class Ardent extends Model {
     protected function performSave(array $options) {
 
         if ($this->autoPurgeRedundantAttributes) {
-            $this->attributes = $this->purgeArray($this->getAttributes());
+              $this->attributes = $this->purgeArray($this->getAttributes());
         }
 
         if ($this->autoHashPasswordAttributes) {

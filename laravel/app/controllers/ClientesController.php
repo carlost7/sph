@@ -52,7 +52,8 @@ class ClientesController extends \BaseController
             if ($validateUser->passes() & $validateClient->passes())
             {
                   $user_model = array();
-                  if ("" !== Input::get('password'))
+                  $password = Input::get('password');
+                  if ($password != "")
                   {
                         $user_model = array_add($user_model, "password", Input::get('password'));
                   }

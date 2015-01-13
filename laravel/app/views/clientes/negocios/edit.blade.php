@@ -5,6 +5,8 @@
 @if($negocio)
 <h2>Editar: {{ $negocio->nombre }}</h2>
 
+@include('layouts.show_form_errors')
+
 {{ Form::model($negocio, array('route' => array('publicar.clientes_negocios.update', $negocio->id), 'method' => 'PUT','files'=>true)) }}
 
 <div class="form-group">
@@ -480,7 +482,7 @@
       <div id="transparente"></div>      
 </div>
 
-@include('layouts.show_form_errors')
+
 
 <div class="form-group">
       <button type="submit" class="btn btn-primary">Editar negocio</button>

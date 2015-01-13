@@ -2,8 +2,7 @@
 
 use Illuminate\Events\Dispatcher;
 
-class clientesEventosController extends \BaseController
-{
+class clientesEventosController extends \BaseController {
 
       public function __construct()
       {
@@ -31,7 +30,7 @@ class clientesEventosController extends \BaseController
       public function create()
       {
             $categorias = Categoria::all();
-            $estados = Estado::all();
+            $estados    = Estado::all();
 
             return View::make('clientes.eventos.create', compact("categorias", "estados"));
       }
@@ -47,22 +46,26 @@ class clientesEventosController extends \BaseController
              * Buscamos los estados, zonas, categorias, y subcategorias
              */
 
-            $estado = Estado::find(Input::get('estado_id'));
-            $zona = (Input::get('zona_id')) ? Zona::find(Input::get('zona_id')) : null;
-            $categoria = Categoria::find(Input::get('categoria_id'));
-            $subcategoria = (Input::get('subcategoria_id')) ? Subcategoria::find(5000) : null;
+            $estado       = Estado::find(Input::get('estado_id'));
+            $zona         = (Input::get('zona_id')) ? Zona::find(Input::get('zona_id')) : null;
+            $categoria    = Categoria::find(Input::get('categoria_id'));
+            $subcategoria = (Input::get('subcategoria_id')) ? Subcategoria::find(Input::get('subcategoria_id')) : null;
 
             if (!count($estado) || !count($categoria))
             {
                   Session::flash('error', "Debe elegir un Estado y una Categoría");
-                  Redirect::back()->withInput()->withErrors();
+                  Redirect::back()->withInput();
             }
 
-            $evento = new Evento;
+            $evento  = new Evento;
             $masInfo = new MasInfoEvento;
 
-            $evento->publicar = false;
+            $evento->publicar           = false;
+            $evento->publicacion_inicio = Input::get('publicacion_inicio');
+            $evento->publicacion_fin    = Input::get('publicacion_fin');
+
             $evento->estado()->associate($estado);
+
             if (isset($zona))
             {
                   $evento->zona()->associate($zona);
@@ -82,16 +85,15 @@ class clientesEventosController extends \BaseController
             {
                   return Redirect::back()->withInput()->withErrors($masInfo->errors());
             }
+
             //Guardamos el evento
             if ($evento->save())
             {
 
                   $evento->masInfo()->save($masInfo);
 
-                  $this->events->fire('evento.created', array($evento));
-
                   Session::flash('message', "Evento creado con exito");
-                  return Redirect::route('publicar.clientes_imagenes.index', array(get_class($evento), $evento->id));
+                  return Redirect::route('publicar.clientes_evento_imagenes.index', array($evento->id));
             }
             else
             {
@@ -109,7 +111,7 @@ class clientesEventosController extends \BaseController
                   return Redirect::back();
             }
 
-            return View::make('clientes.eventos.show', compact($evento));
+            return View::make('clientes.eventos.show', compact("evento"));
       }
 
       /**
@@ -120,18 +122,40 @@ class clientesEventosController extends \BaseController
        */
       public function edit($id)
       {
-            $evento = $this->evento->find($id);
+            $evento = Evento::find($id);
             if (Auth::user()->userable->id !== $evento->cliente->id)
             {
                   Session::flash('error', 'El evento no pertenece al usuario actual');
                   return Redirect::back();
             }
 
+            if (\Carbon\Carbon::now()->gte($evento->publicacion_inicio))
+            {
+                  $editar_publicacion = false;
+            }
+            else
+            {
+                  if (count($evento->pago))
+                  {
+                        if ($evento->pago->pagado)
+                        {
+                              $editar_publicacion = false;
+                        }
+                        else
+                        {
+                              $editar_publicacion = true;
+                        }
+                  }
+                  else
+                  {
+                        $editar_publicacion = true;
+                  }
+            }
 
             $categorias = Categoria::all();
-            $estados = Estado::all();
+            $estados    = Estado::all();
 
-            return View::make('clientes.eventos.edit', compact("estados", "categorias", "evento"));
+            return View::make('clientes.eventos.edit', compact("estados", "categorias", "evento", "editar_publicacion"));
       }
 
       /**
@@ -149,20 +173,18 @@ class clientesEventosController extends \BaseController
                   return Redirect::back();
             }
 
-            $estado = Estado::find(Input::get('estado_id'));
-            $zona = (Input::get('zona_id')) ? Zona::find(Input::get('zona_id')) : null;
-            $categoria = Categoria::find(Input::get('categoria_id'));
+            $estado       = Estado::find(Input::get('estado_id'));
+            $zona         = (Input::get('zona_id')) ? Zona::find(Input::get('zona_id')) : null;
+            $categoria    = Categoria::find(Input::get('categoria_id'));
             $subcategoria = (Input::get('subcategoria_id')) ? Subcategoria::find(5000) : null;
-            $masInfo = new MasInfoEvento;
             if (!count($estado) || !count($categoria))
             {
                   Session::flash('error', "Debe elegir un Estado y una Categoría");
-                  Redirect::back()->withInput()->withErrors();
+                  Redirect::back()->withInput();
             }
 
             $evento->estado()->associate($estado);
-            if (isset($zona))
-            {
+            if (isset($zona))            {
                   $evento->zona()->associate($zona);
             }
             $evento->categoria()->associate($categoria);
@@ -176,19 +198,19 @@ class clientesEventosController extends \BaseController
             {
                   return Redirect::back()->withInput()->withErrors($evento->errors());
             }
-            if (!$masInfo->validate())
+            if (!$evento->masInfo->validate())
             {
-                  return Redirect::back()->withInput()->withErrors($masInfo->errors());
+                  return Redirect::back()->withInput()->withErrors($evento->masInfo->errors());
             }
-            
+
             //Guardamos el evento
             if ($evento->updateUniques())
             {
 
-                  $evento->masInfo()->updateUniques($masInfo);
-                  
+                  $evento->masInfo->updateUniques();
+
                   Session::flash('message', "Evento editado con exito");
-                  return Redirect::route('clientes_eventos.index');
+                  return Redirect::route('publicar.clientes_eventos.index');
             }
             else
             {

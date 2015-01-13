@@ -4,6 +4,8 @@
 
 <h2>Crear Negocio</h2>
 
+@include('layouts.show_form_errors')
+
 {{ Form::open(array('route'=>'publicar.clientes_negocios.store', 'files'=>true)) }}
 
 <div class="form-group">
@@ -473,7 +475,6 @@
             </div>
       </div>
 </div>
-
 <div class="form-group">
       {{ Form::hidden('lat',Input::old('lat'),array('id'=>'map-lat')) }}
       {{ Form::hidden('long',Input::old('long'),array('id'=>'map-lng')) }}
@@ -481,7 +482,7 @@
       <div id="map-canvas"></div>      
       <div id="transparente"></div>      
 </div>
-@include('layouts.show_form_errors')
+
 <div class="form-group">
       <button type="submit" class="btn btn-primary">Crear negocio</button>      
 </div>        

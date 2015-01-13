@@ -1,36 +1,23 @@
 <?php
 
-use Sph\Storage\Comentario\ComentarioRepository as Comentario;
-use Sph\Storage\Negocio\NegocioRepository as Negocio;
-use Sph\Storage\Evento\EventoRepository as Evento;
-
 class ClientesComentariosController extends \BaseController
 {
 
-      protected $comentario;
-      protected $negocio;
-      protected $evento;
-
-      public function __construct(Comentario $comentario, Negocio $negocio, Evento $evento)
+      public function __construct()
       {
             parent::__construct();
-
-            $this->comentario = $comentario;
-            $this->negocio = $negocio;
-            $this->evento = $evento;
             View::share('section', 'Cliente');
       }
 
       public function index()
       {
             $id = Input::get('id');
-            $clase = strtolower(Input::get('clase'));
+            $clase = Input::get('clase');
 
             if (isset($id) && isset($clase))
             {
-                  $objeto = $this->$clase->find($id);
+                  $objeto = $clase::find($id);                  
                   $comentarios = $objeto->comentarios;
-
                   View::share('section', Input::get('clase'));
 
                   return View::make('clientes.comentarios.index')->with(array('comentarios' => $comentarios, 'objeto' => $objeto));
@@ -51,7 +38,7 @@ class ClientesComentariosController extends \BaseController
       public function store()
       {
             $id = Input::get('id');
-            $clase = strtolower(Input::get('clase'));
+            $clase = Input::get('clase');
             $resultado = array();
 
             if (!isset($id) || !isset($clase))
@@ -61,7 +48,7 @@ class ClientesComentariosController extends \BaseController
                   return Response::json($resultado);
             }
 
-            $objeto = $this->$clase->find($id);
+            $objeto = $clase::find($id);
 
             if (isset($objeto))
             {
@@ -87,7 +74,7 @@ class ClientesComentariosController extends \BaseController
                               $comentario_model = array_add($comentario_model, 'topic_type', get_class($objeto));
                         }
 
-                        $comentario = $this->comentario->create($comentario_model);
+                        $comentario = newComentario::create($comentario_model);
                         if (isset($comentario))
                         {
                               $status = "exito";
@@ -120,7 +107,7 @@ class ClientesComentariosController extends \BaseController
        */
       public function update($id)
       {
-            $comentario = $this->comentario->find($id);
+            $comentario = Comentario::find($id);
             $resultado = array();
 
             if (isset($comentario) && $comentario->usuario->id == Auth::user()->id)
@@ -165,7 +152,7 @@ class ClientesComentariosController extends \BaseController
       {
             $resultado = array();
 
-            $comentario = $this->comentario->find($id);
+            $comentario = Comentario::find($id);
 
             if (isset($comentario))
             {
@@ -173,7 +160,7 @@ class ClientesComentariosController extends \BaseController
                   //Si el topic pertenece al usuario entonces lo eliminar
                   if ($objeto->cliente->user->id == Auth::user()->id)
                   {
-                        if ($this->comentario->delete($id))
+                        if (Comentario::delete($id))
                         {
                               $resultado = array_add($resultado, "status", true);
                         }

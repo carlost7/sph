@@ -50,7 +50,7 @@ class PagosController extends \BaseController
             {
                   $pagos = Auth::user()->userable->pagos->filter(function($pago)
                   {
-                        return $pago->pagado == false;
+                        return $pago->pagado === false;
                   });
 
                   foreach ($pagos as $pago)

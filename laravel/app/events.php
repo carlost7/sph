@@ -17,3 +17,5 @@ Event::listen('nuevo_usuario_correo', 'CorreosListener@enviar_correo_nuevo_usuar
 Event::listen('negocio.created', 'PagosListener@store');
 Event::listen('evento.created', 'PagosListener@store');
 Event::listen('promocion.created', 'PagosListener@store');
+
+Event::listen('evento.updated', 'PagosListener@update');

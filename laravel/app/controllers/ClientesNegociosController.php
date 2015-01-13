@@ -55,7 +55,7 @@ class clientesNegociosController extends \BaseController
             if (!count($estado) || !count($categoria))
             {
                   Session::flash('error', "Debe elegir un Estado y una Categoría");
-                  Redirect::back()->withInput()->withErrors();
+                  Redirect::back()->withInput();
             }
 
             $negocio = new Negocio;
@@ -64,6 +64,7 @@ class clientesNegociosController extends \BaseController
 
             $negocio->publicar = false;
             $negocio->estado()->associate($estado);
+            
             if (isset($zona))
             {
                   $negocio->zona()->associate($zona);
@@ -95,8 +96,6 @@ class clientesNegociosController extends \BaseController
                   $negocio->masInfo()->save($masInfo);
                   $negocio->horario()->save($horario);
 
-                  $this->events->fire('negocio.created',array($negocio));
-                  
                   Session::flash('message', "Negocio creado con exito");
                   return Redirect::route('publicar.clientes_negocio_imagenes.index',array($negocio->id));
             }

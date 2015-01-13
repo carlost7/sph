@@ -215,6 +215,13 @@ Route::group(array('before' => 'auth'), function() {
              */
 
             Route::resource('clientes_eventos', 'clientesEventosController');
+            
+            Route::get('clientes/eventos/imagenes/{evento_id}', array('as'   => 'publicar.clientes_evento_imagenes.index',
+                'uses' => 'ClientesEventosImagenesController@index'));
+            Route::post('clientes/eventos/imagenes/{evento_id}', array('as'   => 'publicar.clientes_evento_imagenes.store',
+                'uses' => 'ClientesEventosImagenesController@store'));            
+            Route::delete('clientes/eventos/imagenes/{evento_id}/{id}', array('as'   => 'publicar.clientes_evento_imagenes.destroy',
+                'uses' => 'ClientesEventosImagenesController@destroy'));
 
 
             /*

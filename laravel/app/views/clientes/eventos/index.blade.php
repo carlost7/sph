@@ -28,6 +28,9 @@
             <p class="text-right">
                   {{ HTML::linkRoute('publicar.clientes_eventos.edit','editar',$evento->id,array('class'=>'btn btn-sm btn-info')) }}
             </p>
+            <p class="text-right">
+                  {{ HTML::linkRoute('publicar.clientes_evento_imagenes.index','editar imagenes',$evento->id,array('class'=>'btn btn-sm btn-info')) }}       
+            </p>
 
 
             {{ Form::open(array('route' => array('publicar.clientes_eventos.destroy',$evento->id))) }}            

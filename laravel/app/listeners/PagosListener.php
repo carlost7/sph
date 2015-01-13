@@ -7,8 +7,7 @@ use Sph\Storage\Pago\PagoRepository;
  *
  * @author carlos
  */
-class PagosListener
-{
+class PagosListener {
 
       protected $pago;
 
@@ -19,25 +18,80 @@ class PagosListener
 
       public function store($object)
       {
-            $pago = new Pago;
-            $pago->nombre = 'Publicación de Negocio';
+            $pago              = new Pago;
+            $pago->nombre      = 'Publicación de Contenido en Sphellar';
             $pago->descripcion = $object->nombre;
-            $pago->monto = Config::get('costos.'.  get_class($object));
+            if (get_class($object) !== "Evento")
+            {
+                  $pago->monto = Config::get('costos.' . get_class($object));
+            }
+            else
+            {
+                  $pago->monto = Config::get('costos.' . get_class($object) . "." . $object->tiempo_publicacion);
+            }
             $pago->pagado = false;
             $pago->metodo = "";
             $pago->status = "inicio";
             $pago->cliente()->associate(Auth::user()->userable);
 
-            if($object->pago()->save($pago)){
+            if ($object->pago()->save($pago))
+            {
                   return true;
-            }else{
+            }
+            else
+            {
                   return false;
             }
       }
 
       public function update($object)
       {
-            
+            //si es gratis, elimina el pago 
+            if ($object->tiempo_publicacion == 0)
+            {
+                  if (count($object->pago))
+                  {
+                        $object->pago->delete();
+                  }
+            }
+            else
+            {
+
+                  if (count($object->pago))
+                  {
+                        //si es de paga agrega el pago
+                        $object->pago->monto  = Config::get('costos.evento.' . Input::get('tiempo_publicacion'));
+                        $object->pago->pagado = false;
+                        if ($object->pago->save())
+                        {
+                              return true;
+                        }
+                        else
+                        {
+                              return false;
+                        }
+                  }
+                  else
+                  {
+                        //Crear Pago de servicios
+                        $pago              = new Pago;
+                        $pago->nombre      = 'Publicación de Contenido en Sphellar';
+                        $pago->descripcion = $object->nombre;
+                        $pago->monto       = Config::get('costos.' . get_class($object));
+                        $pago->pagado      = false;
+                        $pago->metodo      = "";
+                        $pago->status      = "inicio";
+                        $pago->cliente()->associate(Auth::user()->userable);
+                        if ($object->pago()->save($pago))
+                        {
+                              return true;
+                        }
+                        else
+                        {
+                              return false;
+                        }
+                  }
+            }
       }
 
       public function delete($object)
