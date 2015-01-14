@@ -1,5 +1,5 @@
 jQuery(function() {
-    jQuery('#estados').change(function() {
+    jQuery('#estados').change(function() {          
         var estado_id = jQuery("#estados").val();
         url = base_url + "/obtener_zona/" + estado_id;
         jQuery.get(url).done(function(data) {
@@ -15,7 +15,7 @@ jQuery(function() {
             }
         });
     }).trigger('change');
-    jQuery('#categorias').change(function() {
+    jQuery('#categorias').change(function() {          
         var categoria_id = jQuery("#categorias").val();
         url = base_url + "/obtener_subcategoria/" + categoria_id;
         jQuery.get(url).done(function(data) {
