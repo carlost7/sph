@@ -1,9 +1,9 @@
-$(function() {
-    $('#estados').change(function() {
-        var estado_id = $("#estados").val();
+jQuery(function() {
+    jQuery('#estados').change(function() {
+        var estado_id = jQuery("#estados").val();
         url = base_url + "/obtener_zona/" + estado_id;
-        $.get(url).done(function(data) {
-            $("#zonas").empty();
+        jQuery.get(url).done(function(data) {
+            jQuery("#zonas").empty();
             for (i = 0; i < data.length; i++) {
                 resultado = data[i];
                 if (resultado.id === '{{""}}') {
@@ -11,15 +11,15 @@ $(function() {
                 } else {
                     elemento = "<option value=" + resultado.id + ">" + resultado.zona + "</option>";
                 }
-                $("#zonas").append(elemento);
+                jQuery("#zonas").append(elemento);
             }
         });
     }).trigger('change');
-    $('#categorias').change(function() {
-        var categoria_id = $("#categorias").val();
+    jQuery('#categorias').change(function() {
+        var categoria_id = jQuery("#categorias").val();
         url = base_url + "/obtener_subcategoria/" + categoria_id;
-        $.get(url).done(function(data) {
-            $("#subcats").empty();
+        jQuery.get(url).done(function(data) {
+            jQuery("#subcats").empty();
             for (i = 0; i < data.length; i++) {
                 resultado = data[i];
                 if (resultado.id === '{{""}}') {
@@ -27,40 +27,40 @@ $(function() {
                 } else {
                     elemento = "<option value=" + resultado.id + ">" + resultado.subcategoria + "</option>";
                 }
-                $("#subcats").append(elemento);
+                jQuery("#subcats").append(elemento);
             }
         });
     }).trigger('change');
 
 
-    $("#search_catalog").click(function(e){
+    jQuery("#search_catalog").click(function(e){
        e.preventDefault();
-       if( $("#busca_negocio").is(':checked') && $("#busca_cartelera").is(':checked') ){
+       if( jQuery("#busca_negocio").is(':checked') && jQuery("#busca_cartelera").is(':checked') ){
            url = base_url;
-       }else if($("#busca_negocio").is(':checked')){
+       }else if(jQuery("#busca_negocio").is(':checked')){
            url = base_url+'/negocios';
-       }else if($("#busca_cartelera").is(':checked')){
+       }else if(jQuery("#busca_cartelera").is(':checked')){
            url = base_url+'/cartelera';
        }else{
            url = base_url;
        }
-       $("#form_catalog").attr("action",url).submit();
+       jQuery("#form_catalog").attr("action",url).submit();
     });
 
 });
 
 
-$("#nombre_ubicacion").autocomplete({
+jQuery("#nombre_ubicacion").autocomplete({
     serviceUrl: base_url + "/catalogo_zonas",
     
     onSelect: function(suggestion) {
-        $("#id_ubicacion").val(suggestion.data);
+        jQuery("#id_ubicacion").val(suggestion.data);
     }
 });
 
-$("#nombre_categoria").autocomplete({
+jQuery("#nombre_categoria").autocomplete({
     serviceUrl: base_url + "/catalogo_categorias",
     onSelect: function(suggestion) {
-        $("#id_categoria").val(suggestion.data);
+        jQuery("#id_categoria").val(suggestion.data);
     }
 });

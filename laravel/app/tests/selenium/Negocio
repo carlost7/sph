@@ -39,7 +39,7 @@
 <tr>
 	<td>select</td>
 	<td>id=zonas</td>
-	<td>label=voluptas</td>
+	<td>label=magnam</td>
 </tr>
 <tr>
 	<td>select</td>
@@ -346,7 +346,6 @@
 	<td>xpath=(//a[contains(text(),'Negocios')])[3]</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>
