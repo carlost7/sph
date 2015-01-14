@@ -49,7 +49,7 @@ jQuery(function () {
 
 });
 
-Jquery(document).ready(function () {
+jQuery(document).ready(function () {
       jQuery("#nombre_ubicacion").autocomplete({
             serviceUrl: base_url + "/catalogo_zonas",
             onSelect: function (suggestion) {
