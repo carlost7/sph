@@ -54,6 +54,7 @@ jQuery("#nombre_ubicacion").autocomplete({
     serviceUrl: base_url + "/catalogo_zonas",
     
     onSelect: function(suggestion) {
+        alert(suggestion.data);
         jQuery("#id_ubicacion").val(suggestion.data);
     }
 });
@@ -61,6 +62,7 @@ jQuery("#nombre_ubicacion").autocomplete({
 jQuery("#nombre_categoria").autocomplete({
     serviceUrl: base_url + "/catalogo_categorias",
     onSelect: function(suggestion) {
+        alert(suggestion.data);
         jQuery("#id_categoria").val(suggestion.data);
     }
 });
