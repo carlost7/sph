@@ -50,7 +50,7 @@ class PagosController extends \BaseController
             {
                   $pagos = Auth::user()->userable->pagos->filter(function($pago)
                   {
-                        return $pago->pagado === false;
+                        return $pago->pagado == false;
                   });
 
                   foreach ($pagos as $pago)
@@ -67,7 +67,7 @@ class PagosController extends \BaseController
                         array_push($items, $item);
                   }
             }
-
+            
             if(Config::get('params.prueba_pago')){
                   $referer = Url::route('obtener_pago_prueba');
             }else{

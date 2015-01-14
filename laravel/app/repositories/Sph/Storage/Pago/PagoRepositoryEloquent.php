@@ -89,16 +89,7 @@ class PagoRepositoryEloquent implements PagoRepository
 
       public function publicar_contenido($pago)
       {
-            $pago->pagable->publicar = true;            
-            $pago->pagable->is_activo = true;
-            if(get_class($pago->pagable)!='Promocion'){
-                  $pago->pagable->is_especial = true;
-            }            
             
-            if ($pago->pagable->save())
-            {
-                  return true;
-            }
       }
 
       /*
@@ -112,6 +103,9 @@ class PagoRepositoryEloquent implements PagoRepository
             {
                   $pagado = true;
             }
+            
+            dd(Pago::whereIn('id',$ids));
+            
             if (Pago::whereIn('id', $ids)->update(array(
                         'status' => $status, 'metodo' => 'mercado_pago', 'pagado' => $pagado
                     )))
