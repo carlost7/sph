@@ -234,6 +234,8 @@ class clientesEventosController extends \BaseController {
                   return Redirect::back();
             }
 
+            $evento->pago->delete();
+            
             if ($evento->delete())
             {
                   Session::flash('message', 'Evento eliminado');
@@ -245,39 +247,5 @@ class clientesEventosController extends \BaseController {
 
             return Redirect::route('publicar.clientes_eventos.index');
       }
-
-      /*
-       * Funcion que le permite al usuario activar su evento nuevamente
-       * 
-       */
-
-      public function activar($id)
-      {
-            $evento = $this->evento->find($id);
-            if (Auth::user()->userable->id !== $evento->cliente->id)
-            {
-                  Session::flash('error', 'El evento no pertenece al usuario actual');
-                  return Redirect::back();
-            }
-
-            $evento = $this->evento->find($id);
-            if ($evento->cliente->id == Auth::user()->userable->id)
-            {
-                  if ($this->evento->activar($id))
-                  {
-                        Session::flash('message', 'Activación correcta');
-                        return Redirect::route('clientes_eventos.index');
-                  }
-                  else
-                  {
-                        Session::flash('error', 'El evento no pertenece al usuario');
-                  }
-            }
-            else
-            {
-                  Session::flash('error', 'El evento no pertenece al usuario');
-            }
-            return Redirect::back();
-      }
-
+      
 }

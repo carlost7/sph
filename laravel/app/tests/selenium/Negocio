@@ -38,11 +38,6 @@
 </tr>
 <tr>
 	<td>select</td>
-	<td>id=zonas</td>
-	<td>label=magnam</td>
-</tr>
-<tr>
-	<td>select</td>
 	<td>id=categorias</td>
 	<td>label=Centros Comerciales</td>
 </tr>
@@ -50,11 +45,6 @@
 	<td>click</td>
 	<td>css=#categorias &gt; option[value=&quot;8&quot;]</td>
 	<td></td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>id=subcats</td>
-	<td>label=rerum</td>
 </tr>
 <tr>
 	<td>type</td>
