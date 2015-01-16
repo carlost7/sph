@@ -4,6 +4,8 @@ jQuery(function () {
             url = base_url + "/obtener_zona/" + estado_id;
             jQuery.get(url).done(function (data) {
                   jQuery("#zonas").empty();
+                  elemento = "<option value=''></option>";
+                  jQuery("#zonas").append(elemento);                  
                   for (i = 0; i < data.length; i++) {
                         resultado = data[i];
                         if (resultado.id === '{{""}}') {
@@ -20,6 +22,8 @@ jQuery(function () {
             url = base_url + "/obtener_subcategoria/" + categoria_id;
             jQuery.get(url).done(function (data) {
                   jQuery("#subcats").empty();
+                  elemento = "<option value=''></option>";
+                  jQuery("#subcats").append(elemento);
                   for (i = 0; i < data.length; i++) {
                         resultado = data[i];
                         if (resultado.id === '{{""}}') {
