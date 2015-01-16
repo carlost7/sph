@@ -12,7 +12,8 @@ class PagosListener {
             $pago              = new Pago;
             $pago->nombre      = 'Publicación de Contenido en Sphellar';
             $pago->descripcion = $object->nombre;
-            if (get_class($object) !== "Evento")
+
+            if (get_class($object) == "Negocio")
             {
                   $pago->monto = Config::get('costos.' . get_class($object));
             }
@@ -35,6 +36,7 @@ class PagosListener {
             }
       }
 
+      //Este método solo funciona para eventos
       public function update($object)
       {
             //si es gratis, elimina el pago 
@@ -85,11 +87,6 @@ class PagosListener {
             }
       }
 
-      public function delete($object)
-      {
-            
-      }
-
       /*
        * publica el contenido automaticamente en la aplicacion y envia un correo al usuario con sus datos
        */
@@ -97,14 +94,19 @@ class PagosListener {
       public function publicar_contenido(array $ids)
       {
             foreach ($ids as $id) {
-                  $pago                     = Pago::find($id);
-                  
+                  $pago = Pago::find($id);
+
                   //Obtenemos el objeto a publicar
-                  $object                   = $pago->pagable;
-                  $object->publicar         = true;
+                  $object           = $pago->pagable;
+                  $object->publicar = true;
+                  if (get_class($object) != "Promocion")
+                  {
+                        $object->is_especial = true;
+                  }
+                  $object->is_activo = true;
                   $object->validate();
                   if ($object->updateUniques())
-                  {                                    
+                  {
                         return true;
                   }
             }

@@ -20,18 +20,7 @@ class AvisoClienteRepositoryEloquent implements AvisoClienteRepository
       public function create(array $aviso_model)
       {
 
-            $aviso = new Aviso_cliente();
-            $aviso->cliente_id = $aviso_model['client']->id;
-            $aviso->avisable_type = get_class($aviso_model['object']);
-            $aviso->avisable_id = $aviso_model['object']->id;
-            if ($aviso->save())
-            {
-                  return $aviso;
-            }
-            else
-            {
-                  return null;
-            }
+            
       }
 
       public function delete($id)

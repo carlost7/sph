@@ -198,11 +198,11 @@ Route::group(array('before' => 'auth'), function() {
 
 
             Route::resource('clientes_negocios', 'clientesNegociosController');
-            
+
             Route::get('clientes/negocios/imagenes/{negocio_id}', array('as'   => 'publicar.clientes_negocio_imagenes.index',
                 'uses' => 'ClientesNegociosImagenesController@index'));
             Route::post('clientes/negocios/imagenes/{negocio_id}', array('as'   => 'publicar.clientes_negocio_imagenes.store',
-                'uses' => 'ClientesNegociosImagenesController@store'));            
+                'uses' => 'ClientesNegociosImagenesController@store'));
             Route::delete('clientes/negocios/imagenes/{negocio_id}/{id}', array('as'   => 'publicar.clientes_negocio_imagenes.destroy',
                 'uses' => 'ClientesNegociosImagenesController@destroy'));
 
@@ -215,11 +215,11 @@ Route::group(array('before' => 'auth'), function() {
              */
 
             Route::resource('clientes_eventos', 'clientesEventosController');
-            
+
             Route::get('clientes/eventos/imagenes/{evento_id}', array('as'   => 'publicar.clientes_evento_imagenes.index',
                 'uses' => 'ClientesEventosImagenesController@index'));
             Route::post('clientes/eventos/imagenes/{evento_id}', array('as'   => 'publicar.clientes_evento_imagenes.store',
-                'uses' => 'ClientesEventosImagenesController@store'));            
+                'uses' => 'ClientesEventosImagenesController@store'));
             Route::delete('clientes/eventos/imagenes/{evento_id}/{id}', array('as'   => 'publicar.clientes_evento_imagenes.destroy',
                 'uses' => 'ClientesEventosImagenesController@destroy'));
 

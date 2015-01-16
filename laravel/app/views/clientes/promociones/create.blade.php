@@ -8,8 +8,8 @@
 {{ Form::open(array('route'=>'publicar.clientes_promociones.store','files'=>true)) }}
 
 <div class="form-group">
-      {{ Form::label('negocio','Negocio') }}
-      {{ Form::select('negocio', $negocios->lists('nombre','id'),null,array('class'=>'form-control','id'=>'negocios')) }}
+      {{ Form::label('negocio_id','Negocio') }}
+      {{ Form::select('negocio_id', $negocios->lists('nombre','id'),null,array('class'=>'form-control','id'=>'negocios')) }}
 </div>
 
 <div class="form-group">
@@ -39,15 +39,13 @@
       </div>
 </div>
 <div class="form-group">
-
-      {{ Form::label('imagen','Imágen') }}
-      <input type="file" name="imagen" id='uploadFile' title="Seleccionar" class="file-inputs" data-filename-placement="inside">
-      <div id="imagepreview" class="imagepreview"></div>
-      {{ Form::label('alt','Texto alternativo') }}
-      {{ Form::text('alt',Input::old('alt'),array('placeholder' => 'Texto alternativo', 'class'=>'form-control')) }}
-
+      <div class="row">
+            <div class="col-sm-12">
+                  {{ Form::label('imagen','Agregar imagen de negocio 250px * 250px') }}
+                  {{ Form::file('imagen') }}
+            </div>
+      </div>
 </div>
-
 <div class="form-group">
       <div class="row">
             <div class="col-sm-12">
@@ -75,7 +73,7 @@
       <div class="row">
             <div class="col-sm-12">
                   {{ Form::label('vigencia','Vigencia de la publicación') }}
-                  <p>Elige el tiempo en que quieres que tu publicación este activa en la página, si eliges la publicación gratuita solo podrá mostrarse 2 semanas y los miembros no tendran posibilidad de ver el mapa o darle like a tu evento</p>
+                  <p>Elige el tiempo en que quieres que tu publicación este activa en la página</p>
             </div>
       </div>      
       <div class="row">

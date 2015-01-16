@@ -42,23 +42,27 @@ class clientesPromocionesController extends \BaseController
        */
       public function store()
       {
+            
             $negocio = Negocio::find(Input::get('negocio_id'));
             if (Auth::user()->userable->id !== $negocio->cliente->id)
             {
                   Session::flash('error', 'La promoción no pertenece al usuario actual');
                   return Redirect::back();
             }
+            
             $promocion = new Promocion;
-            $promocion->publicar = false;
-            $promocion->cliente()->associate(Auth::user()->userable);
+            $promocion->publicar = false;            
             $promocion->negocio()->associate($negocio);
+            
+            if (!$promocion->validate())
+            {
+                  return Redirect::back()->withInput()->withErrors($promocion->errors());
+            }
 
             if ($promocion->save())
             {
-                  $this->events->fire('promocion.created', array($promocion));
-
                   Session::flash('message', "Promoción creada con exito");
-                  return Redirect::route('publicar.clientes_imagenes.index', array(get_class($promocion), $promocion->id));
+                  return Redirect::route("publicar.clientes_promociones.index");
             }
             else
             {
@@ -75,7 +79,7 @@ class clientesPromocionesController extends \BaseController
        */
       public function show($id)
       {
-            $promocion = $this->promocion->find($id);
+            $promocion = Promocion::find($id);
 
             if (Auth::user()->userable->id !== $promocion->negocio->cliente->id)
             {
@@ -103,8 +107,8 @@ class clientesPromocionesController extends \BaseController
                   return Redirect::back();
             }
 
-            $inicio = new Carbon($promocion->publicacion_inicio);
-            if (Carbon::now()->gte($inicio))
+            $inicio = new Carbon\Carbon($promocion->publicacion_inicio);
+            if (Carbon\Carbon::now()->gte($inicio))
             {
                   $editar_publicacion = false;
             }
@@ -171,6 +175,8 @@ class clientesPromocionesController extends \BaseController
                   return Redirect::back();
             }
 
+            $promocion->pago()->delete();
+            
             if ($promocion->delete($id))
             {
                   Session::flash('message', 'Promocion eliminada');
@@ -179,7 +185,7 @@ class clientesPromocionesController extends \BaseController
             {
                   Session::flash('error', 'No se pudo eliminar la promoción');
             }
-            return Redirect::route('clientes_promociones.index');
+            return Redirect::route('publicar.clientes_promociones.index');
       }
 
 }
