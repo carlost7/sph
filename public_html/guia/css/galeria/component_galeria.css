@@ -172,7 +172,7 @@ code {
 	width: 100%;
 	height: 100%;
 	position: absolute;
-	visibility: hidden;
+	//visibility: hidden;
 	-webkit-perspective: 1600px;
 	perspective: 1600px;
 }

@@ -46,37 +46,7 @@
 
 </section>
 
-
-<!-- PUBLICIDAD BANNER CHICOS (3) -->
-
-<section id="publicidad_tres">
-
-      <article class="publi">
-
-            <a href="http://sphellar.com/mx/cultura/arte/23-el-poder-de-las-tormentas-en-la-fotografia-de-mike-olbinski.html" target="new">
-                  {{HTML::image('img/publicidad/cuadro_1default.jpg','Publicidad uno')}} 
-            </a>
-
-      </article>
-
-      <article class="publi">
-
-            <a href="http://sphellar.com/mx/cultura/22-los-4-alimentos-mas-caros-del-mundo.html" target="new">
-                  {{HTML::image('img/publicidad/cuadro_2default.jpg','Publicidad uno')}} 
-            </a>
-
-      </article>
-
-      <article class="publi">
-
-            <a href="http://sphellar.com/mx/cultura/literatura/21-encuentros-literarios-en-el-hay-festival-xalapa.html" target="new">
-                  {{HTML::image('img/publicidad/cuadro_3default.jpg','Publicidad uno')}} 
-            </a>
-
-      </article>
-
-</section>
-
+@include("layouts.show_last_posts")
 
 <!-- CONTENIDO DE NEGOCIOS Y EVENTOS -->
 
@@ -173,6 +143,8 @@
 
 
 @section('scripts')
+
+{{ HTML::script('js/latest_posts.js') }}
 
 <script>
       $(function () {
