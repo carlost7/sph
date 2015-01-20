@@ -10,8 +10,7 @@ namespace Sph\Storage\Pago;
 use Pago;
 use Codigo;
 
-class PagoRepositoryEloquent implements PagoRepository
-{
+class PagoRepositoryEloquent implements PagoRepository {
 
       public function all()
       {
@@ -21,7 +20,7 @@ class PagoRepositoryEloquent implements PagoRepository
       public function create(array $pago_model)
       {
 
-            $pago = new Pago($pago_model);
+            $pago             = new Pago($pago_model);
             $pago->cliente_id = $pago_model['client']->id;
             if ($pago->save())
             {
@@ -74,8 +73,8 @@ class PagoRepositoryEloquent implements PagoRepository
 
       public function usar_codigo($id, $codigo_model)
       {
-            $codigo = Codigo::find($id);
-            $codigo->usado = $codigo_model['usado'];
+            $codigo             = Codigo::find($id);
+            $codigo->usado      = $codigo_model['usado'];
             $codigo->cliente_id = $codigo_model['client']->id;
             if ($codigo->save())
             {
@@ -103,9 +102,7 @@ class PagoRepositoryEloquent implements PagoRepository
             {
                   $pagado = true;
             }
-            
-            dd(Pago::whereIn('id',$ids));
-            
+
             if (Pago::whereIn('id', $ids)->update(array(
                         'status' => $status, 'metodo' => 'mercado_pago', 'pagado' => $pagado
                     )))

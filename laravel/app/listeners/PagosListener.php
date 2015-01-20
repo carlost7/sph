@@ -94,25 +94,28 @@ class PagosListener {
       public function publicar_contenido(array $ids)
       {
             foreach ($ids as $id) {
+
                   $pago = Pago::find($id);
 
-                  //Obtenemos el objeto a publicar
-                  $object           = $pago->pagable;
-                  $object->publicar = true;
-                  if (get_class($object) != "Promocion")
+                  if ($pago != null)
                   {
-                        $object->is_especial = true;
-                  }
-                  $object->is_activo = true;
-                  $object->validate();
-                  if ($object->updateUniques())
-                  {
-                        return true;
+                        //Obtenemos el objeto a publicar
+                        $object           = $pago->pagable;
+                        $object->publicar = true;
+                        if (get_class($object) != "Promocion")
+                        {
+                              $object->is_especial = true;
+                        }
+                        $object->is_activo = true;
+                        $object->validate();
+                        $object->updateUniques();
                   }
             }
 
-            Mail::queue('emails.publicacion_contenido_pago', array(), function($message) use ($pago) {
-                  $message->to($pago->cliente->user->email, $pago->cliente->nombre)->subject('Publicación de contenido en Sphellar');
+            $email = $pago->cliente->user->email;
+            $nombre = $pago->cliente->nombre;
+            Mail::queue('emails.publicacion_contenido_pago', array(), function($message) use ($email,$nombre) {
+                  $message->to($email, $nombre)->subject('Publicación de contenido en Sphellar');
             });
       }
 

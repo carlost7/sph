@@ -131,8 +131,8 @@ class PagosController extends \BaseController
                         $external_reference = $response['external_reference'];
                         $status = $response['status'];
 
-                        $ids = explode("-", $external_reference);
-
+                        $ids = explode("-", rtrim($external_reference,"-"));
+                        
                         if ($this->pago->update_status($ids, $status))
                         {
                               switch ($status)
@@ -218,7 +218,7 @@ class PagosController extends \BaseController
                               $external_reference = $response['collection']['external_reference'];
                               $status = $response['collection']['status'];
 
-                              $ids = explode("-", $external_reference);
+                              $ids = explode("-", rtrim($external_reference,"-"));
 
                               if ($this->pago->update_status($ids, $status))
                               {

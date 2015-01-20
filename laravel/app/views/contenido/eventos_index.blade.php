@@ -6,7 +6,7 @@
 
             <section class="invisible_interna color">
 
-                  <a href="{{ URL::route('eventos.index') }}">
+                  <a href="{{ URL::route('negocios.index') }}">
 
                         <p>Cartelera</p>
                   </a>
