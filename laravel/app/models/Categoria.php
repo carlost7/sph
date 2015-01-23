@@ -9,7 +9,7 @@ class Categoria extends Ardent
       protected $fillable = ['categoria'];
 
       public static $rules                  = array(
-          'categoria' => 'required',
+          'categoria' => 'required'
       );
       public static $relationsData          = array(
           'negocios' => array(self::HAS_MANY, 'Negocio'),
