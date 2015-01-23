@@ -1,26 +1,6 @@
 <?php
 
-use Sph\Storage\Categoria\CategoriaRepository as Categoria;
-use Sph\Storage\Subcategoria\SubcategoriaRepository as Subcategoria;
-use Sph\Storage\Estado\EstadoRepository as Estado;
-use Sph\Storage\Zona\ZonaRepository as Zona;
-
-class AdminCatalogoController extends \BaseController
-{
-
-      protected $categoria;
-      protected $subcategoria;
-      protected $estado;
-      protected $zona;
-
-      public function __construct(Categoria $categoria, Subcategoria $subcat, Estado $estado, Zona $zona)
-      {
-            parent::__construct();
-            $this->categoria = $categoria;
-            $this->subcategoria = $subcat;
-            $this->estado = $estado;
-            $this->zona = $zona;            
-      }
+class AdminCatalogoController extends \BaseController {
 
       /**
        * Display a listing of the resource.
@@ -30,14 +10,12 @@ class AdminCatalogoController extends \BaseController
        */
       public function index()
       {
-            $categorias = $this->categoria->all();
-            $subcategorias = $this->subcategoria->all();
-            $estados = $this->estado->all();
-            $zonas = $this->zona->all();
+            $categorias    = Categoria::all();
+            $subcategorias = Subcategoria::all();
+            $estados       = Estado::all();
+            $zonas         = Zona::all();
 
-            return View::make('administradores.catalogo.index')->with(array('categorias' => $categorias,
-                        'estados' => $estados,
-            ));
+            return View::make('administradores.catalogo.index', compact('categorias', 'subcategorias', 'zonas', 'estados'));
       }
 
       /**
@@ -48,10 +26,10 @@ class AdminCatalogoController extends \BaseController
        */
       public function create()
       {
-            $categorias = $this->categoria->all();
-            $estados = $this->estado->all();
+            $categorias = Categoria::all();
+            $estados    = Estado::all();
 
-            return View::make('administradores.catalogo.create')->with(array('categorias' => $categorias, 'estados' => $estados));
+            return View::make('administradores.catalogo.create', compact('categorias', 'estados'));
       }
 
       /**
@@ -64,36 +42,43 @@ class AdminCatalogoController extends \BaseController
       {
             if (Input::get('categoria'))
             {
-                  $this->categoria->create(Input::all());
+                  $categoria = new Categoria;
+                  if (!$categoria->save())
+                  {
+                        return Redirect::back()->withInput();
+                  }
             }
             if (Input::get('subcategoria'))
             {
-                  $this->subcategoria->create(Input::all());
+                  $categoria    = Categoria::findOrFail(Input::get('categoria_id'));
+                  $subcategoria = new Subcategoria;
+                  $subcategoria->categoria()->associate($categoria);
+                  if (!$subcategoria->save())
+                  {
+                        return Redirect::back()->withInput()->withErrors($subcategoria->errors());
+                  }
             }
             if (Input::get('estado'))
             {
-                  $this->estado->create(Input::all());
+                  $estado = new Estado;
+                  if (!$estado->save())
+                  {
+                        return Redirect::back()->withInput()->withErrors($estado->errors());
+                  }
             }
             if (Input::get('zona'))
             {
-                  $this->zona->create(Input::all());
+                  $estado = Estado::findOrFail(Input::get('estado_id'));
+                  $zona   = new Zona;
+                  $zona->estado()->associate($estado);
+                  if (!$zona->save())
+                  {
+                        return Redirect::back()->withInput()->withErrors($zona->errors());
+                  }
             }
 
-            Session::flash('message','Objeto agregado con éxito');
-            
-            return Redirect::back()->withInput();
-      }
-
-      /**
-       * Display the specified resource.
-       * GET /adminbuscador/{id}
-       *
-       * @param  int  $id
-       * @return Response
-       */
-      public function show($id)
-      {
-            
+            Session::flash('message', 'Objeto agregado con éxito');
+            Redirect::back();
       }
 
       /**
@@ -105,18 +90,19 @@ class AdminCatalogoController extends \BaseController
        */
       public function edit($id)
       {
-            $tipo = strtolower(Input::get('tipo'));
+            $tipo = Input::get('tipo');
 
             if (isset($tipo))
             {
-                  $categorias = $this->categoria->all();
-                  $estados = $this->estado->all();
-                  $objeto = $this->$tipo->find($id);
-                  return View::make('administradores.catalogo.edit')->with(array('tipo' => $tipo, 'objeto' => $objeto, 'categorias' => $categorias, 'estados' => $estados));
+                  $categorias = Categoria::all();
+                  $estados    = Estado::all();
+                  $objeto     = $tipo::findOrFail($id);
+                  return View::make('administradores.catalogo.edit',  compact('tipo','objeto','categorias','estados'));
             }
             else
             {
                   Session::flash('error', 'Elige un elemento para editar');
+                  return Redirect::back();
             }
       }
 
@@ -132,18 +118,9 @@ class AdminCatalogoController extends \BaseController
             $tipo = Input::get('tipo');
             if (isset($tipo))
             {
-                  $object_model = Input::All();
+                  $object = $tipo::findOrFail($id);
 
-                  if ($tipo == 'subcategoria')
-                  {
-                        $object_model = array_add($object_model, 'padre', Input::get('categoria_id'));
-                  }
-                  elseif ($tipo == 'zona')
-                  {
-                        $object_model = array_add($object_model, 'padre', Input::get('estado_id'));
-                  }
-
-                  if ($this->$tipo->update($id, $object_model))
+                  if ($object->update())
                   {
                         Session::flash('message', 'Objeto editado con exito');
                         return Redirect::route('administrador_catalogo.index');
@@ -170,11 +147,12 @@ class AdminCatalogoController extends \BaseController
        */
       public function destroy($id)
       {
-            $tipo = strtolower(Input::get('tipo'));
+            $tipo = Input::get('tipo');
 
             if (isset($tipo))
             {
-                  if ($this->$tipo->delete($id))
+                  $object = $tipo::findOrFail($id);
+                  if ($tipo->delete())
                   {
                         Session::flash('message', $tipo . ' eliminado con exito');
                         return Redirect::back();

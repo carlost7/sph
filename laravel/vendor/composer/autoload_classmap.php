@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddAvatarFieldsToMiembrosTable' => $baseDir . '/app/database/migrations/2015_01_21_133315_add_avatar_fields_to_miembros_table.php',
     'AddBuscadorToEventos' => $baseDir . '/app/database/migrations/2014_08_13_163023_add_buscador_to_eventos.php',
     'AddBuscadorToNegocios' => $baseDir . '/app/database/migrations/2014_08_13_163005_add_buscador_to_negocios.php',
     'AddEspecialToEventos' => $baseDir . '/app/database/migrations/2014_12_26_134922_add_especial_to_eventos.php',
@@ -29,7 +30,6 @@ return array(
     'Administrador' => $baseDir . '/app/models/Administrador.php',
     'AdministradoresController' => $baseDir . '/app/controllers/AdministradoresController.php',
     'AdministradoresTableSeeder' => $baseDir . '/app/database/seeds/AdministradoresTableSeeder.php',
-    'AlterHorariosNegocioTable' => $baseDir . '/app/database/migrations/2014_12_23_183042_alter_horarios_negocio_table.php',
     'Appitventures\\Phpgmaps\\Facades\\Phpgmaps' => $vendorDir . '/appitventures/phpgmaps/src/Appitventures/Phpgmaps/Facades/Phpgmaps.php',
     'Appitventures\\Phpgmaps\\Phpgmaps' => $vendorDir . '/appitventures/phpgmaps/src/Appitventures/Phpgmaps/Phpgmaps.php',
     'Appitventures\\Phpgmaps\\PhpgmapsServiceProvider' => $vendorDir . '/appitventures/phpgmaps/src/Appitventures/Phpgmaps/PhpgmapsServiceProvider.php',

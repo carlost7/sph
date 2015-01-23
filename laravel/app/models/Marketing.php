@@ -1,19 +1,20 @@
 <?php
 
-class Marketing extends \Eloquent
-{
+use LaravelBook\Ardent\Ardent;
 
-      protected $table = 'marketings';
-      protected $fillable = ['name'];
+class Marketing extends Ardent {
 
-      public function user()
-      {
-            return $this->morphOne('User', 'userable');
-      }
-
-      public function clientes()
-      {
-            return $this->hasMany('Cliente', 'marketing_id', 'id');
-      }
+      protected $table                      = 'marketings';
+      protected $fillable                   = ['name'];
+      public static $rules                  = array(
+          'name' => 'required',
+      );
+      public static $relationsData          = array(
+          'user'      => array(self::MORPH_TO),
+          'clientes'       => array(self::HAS_MANY, 'Cliente'),
+      );
+      public $autoHydrateEntityFromInput    = true;
+      public $forceEntityHydrationFromInput = true;
+      public $autoPurgeRedundantAttributes  = true;
 
 }

@@ -1,24 +1,8 @@
 <?php
 
-Use Sph\Storage\Evento\EventoRepository as Evento;
-Use Sph\Storage\Categoria\CategoriaRepository as Categoria;
-Use Sph\Storage\Estado\EstadoRepository as Estado;
+class EventosController extends \BaseController {
 
-class EventosController extends \BaseController
-{
-
-      protected $evento;
-      protected $categoria;
-      protected $estado;
-
-      public function __construct(Evento $evento, Categoria $categoria, Estado $estado)
-      {
-            parent::__construct();
-            $this->evento = $evento;
-            $this->estado = $estado;
-            $this->categoria = $categoria;
-      }
-
+      
       /**
        * Display a listing of the resource.
        * GET /eventos
@@ -29,14 +13,14 @@ class EventosController extends \BaseController
       {
             View::share('name', 'Cartelera - Sphellar');
 
-            $categorias = $this->categoria->all();
-            $estados = $this->estado->all();
+            $categorias = Categoria::all();
+            $estados    = Estado::all();
 
-            $tipocat = Input::get('tipocat');
+            $tipocat   = Input::get('tipocat');
             $tipolocal = Input::get('tipolocal');
 
 
-            $queryEventos = \Evento::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc');
+            $queryEventos = Evento::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc');
             if (isset($tipocat))
             {
                   $tipocat = explode("-", $tipocat);
@@ -69,36 +53,11 @@ class EventosController extends \BaseController
 
 
             $eventos = $queryEventos->paginate(20);
-            /* $querys = DB::getQueryLog();
-              $lastQuery = end($querys);
-              //dd($lastQuery); */
+            
+            Session::set('tipolocal', Input::get('estado'));
+            Session::set('tipocat', Input::get('categoria'));
 
-            /*Session::set('tipolocal', Input::get('estado'));
-            Session::set('tipocat', Input::get('categoria'));*/
-
-            return View::make('contenido.eventos_index')->with(array('eventos' => $eventos,'estados'=>$estados,'categorias'=>$categorias));
-      }
-
-      /**
-       * Show the form for creating a new resource.
-       * GET /eventos/create
-       *
-       * @return Response
-       */
-      public function create()
-      {
-            //
-      }
-
-      /**
-       * Store a newly created resource in storage.
-       * POST /eventos
-       *
-       * @return Response
-       */
-      public function store()
-      {
-            //
+            return View::make('contenido.eventos_index',compact('eventos','estados','categorias'));
       }
 
       /**
@@ -110,34 +69,17 @@ class EventosController extends \BaseController
        */
       public function show($id)
       {
-            $evento = $this->evento->find($id);
-            $mapa = null;
-            $categorias = $this->categoria->all();
-            $estados = $this->estado->all();
+            View::share('name', $evento->nombre . ' - Sphellar');
+            $evento     = Evento::find($id);
+            $categorias = Categoria::all();
+            $estados    = Estado::all();
 
-            if ($evento->is_especial && count($evento->especial))
-            {
-                  $config = array();
-                  $config['center'] = $evento->especial->mapa;
-                  $config['zoom'] = '13';
-                  Gmaps::initialize($config);
-
-                  $marker = array();
-                  $marker['position'] = $evento->especial->mapa;
-                  Gmaps::add_marker($marker);
-
-                  $mapa = Gmaps::create_map();
-            }
-            
             $add_rank = true;
 
-            
-            
             if (Auth::check() && Auth::user()->userable_type === 'Miembro')
             {
-                  
-                  $evento_user = Auth::user()->userable->rankeventos->filter(function($rankevento) use($id)
-                  {
+
+                  $evento_user = Auth::user()->userable->rankeventos->filter(function($rankevento) use($id) {
                         return $rankevento->evento_id == $id;
                   });
 
@@ -146,53 +88,8 @@ class EventosController extends \BaseController
                         $add_rank = false;
                   }
             }
-            
-            
-            
-            View::share('name', $evento->nombre . ' - Sphellar');
 
-            return View::make('contenido.show_evento')->with(
-                    array('evento' => $evento, 
-                        'mapa' => $mapa,
-                        'estados'=>$estados,
-                        'categorias'=>$categorias,
-                        'add_rank'=>$add_rank));
-      }
-
-      /**
-       * Show the form for editing the specified resource.
-       * GET /eventos/{id}/edit
-       *
-       * @param  int  $id
-       * @return Response
-       */
-      public function edit($id)
-      {
-            //
-      }
-
-      /**
-       * Update the specified resource in storage.
-       * PUT /eventos/{id}
-       *
-       * @param  int  $id
-       * @return Response
-       */
-      public function update($id)
-      {
-            //
-      }
-
-      /**
-       * Remove the specified resource from storage.
-       * DELETE /eventos/{id}
-       *
-       * @param  int  $id
-       * @return Response
-       */
-      public function destroy($id)
-      {
-            //
+            return View::make('contenido.show_evento',compact('evento','estados','categorias','add_rank'));
       }
 
 }

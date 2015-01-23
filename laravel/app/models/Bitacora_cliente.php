@@ -1,18 +1,20 @@
 <?php
 
-/*
- * Modelo de DB para guardar las respuesta del cliente
- */
-class Bitacora_cliente extends \Eloquent
-{
+use LaravelBook\Ardent\Ardent;
 
-      protected $table = 'bitacora_clientes';
-      
-      protected $fillable = ['fecha', 'mensaje'];
+class Bitacora_cliente extends Ardent {
 
-      public function cliente()
-      {
-            return $this->belongsTo('Clientee', 'cliente_id', 'id');
-      }
+      protected $table                      = 'bitacora_clientes';
+      protected $fillable                   = ['fecha', 'mensaje'];
+      public static $rules                  = array(
+          'fecha'   => 'required',
+          'mensaje' => 'required',
+      );
+      public static $relationsData          = array(
+          'cliente' => array(self::BELONGS_TO, 'Cliente'),
+      );
+      public $autoHydrateEntityFromInput    = true;
+      public $forceEntityHydrationFromInput = true;
+      public $autoPurgeRedundantAttributes  = true;
 
 }

@@ -1,22 +1,15 @@
 <?php
 
-use Illuminate\Events\Dispatcher;
 use Sph\Storage\Checkout\CheckoutRepository as Checkout;
-use Sph\Storage\Pago\PagoRepository as Pago;
 
-class PagosController extends \BaseController
-{
+class PagosController extends \BaseController {
 
       protected $checkout;
-      protected $pago;
-      protected $events;
 
       public function __construct(Checkout $checkout, Pago $pago, Dispatcher $events)
       {
             parent::__construct();
             $this->checkout = $checkout;
-            $this->pago = $pago;
-            $this->events = $events;
       }
 
       /*
@@ -32,55 +25,56 @@ class PagosController extends \BaseController
       {
 
             $items = array();
-            $ids = '';
+            $ids   = '';
             if (Input::get('id'))
             {
-                  $pago = $this->pago->find(Input::get('id'));
+                  $pago = Pago::find(Input::get('id'));
                   $item = array(
-                      "title" => $pago->nombre,
+                      "title"       => $pago->nombre,
                       "description" => $pago->descripcion,
-                      "quantity" => 1,
+                      "quantity"    => 1,
                       "currency_id" => "MEX",
-                      "unit_price" => doubleval($pago->monto)
+                      "unit_price"  => doubleval($pago->monto)
                   );
-                  $ids = $pago->id;
+                  $ids  = $pago->id;
                   array_push($items, $item);
             }
             else
             {
-                  $pagos = Auth::user()->userable->pagos->filter(function($pago)
-                  {
+                  $pagos = Auth::user()->userable->pagos->filter(function($pago) {
                         return $pago->pagado == false;
                   });
 
-                  foreach ($pagos as $pago)
-                  {
+                  foreach ($pagos as $pago) {
 
                         $item = array(
-                            "title" => $pago->nombre,
+                            "title"       => $pago->nombre,
                             "description" => $pago->descripcion,
-                            "quantity" => 1,
+                            "quantity"    => 1,
                             "currency_id" => "MEX",
-                            "unit_price" => doubleval($pago->monto)
+                            "unit_price"  => doubleval($pago->monto)
                         );
-                        $ids = $ids . $pago->id . "-";
+                        $ids  = $ids . $pago->id . "-";
                         array_push($items, $item);
                   }
             }
-            
-            if(Config::get('params.prueba_pago')){
+
+            if (Config::get('params.prueba_pago'))
+            {
                   $referer = Url::route('obtener_pago_prueba');
-            }else{
+            }
+            else
+            {
                   $referer = Request::header('referer');
-            }            
+            }
 
             $preference_data = array(
-                "items" => $items,
-                "payer" => array(
-                    "name" => Auth::user()->userable->nombre,
+                "items"              => $items,
+                "payer"              => array(
+                    "name"  => Auth::user()->userable->nombre,
                     "email" => Auth::user()->email,
                 ),
-                "back_urls" => array(
+                "back_urls"          => array(
                     "success" => $referer,
                     "failure" => $referer,
                     "pending" => $referer,
@@ -91,7 +85,6 @@ class PagosController extends \BaseController
             $preference = $this->checkout->generar_preferencia($preference_data);
             if (isset($preference))
             {
-
                   $link = $preference['response'][Config::get('payment.init_point')];
                   return Redirect::away($link);
             }
@@ -101,11 +94,12 @@ class PagosController extends \BaseController
                   return Redirect::back();
             }
       }
-      
-      public function obtener_pago_prueba(){
-            $exref = Input::get('external_reference');
-            $status = 'approved';            
-            return View::make('pagos.index')->with(array('exref'=>$exref,'status'=>$status));
+
+      public function obtener_pago_prueba()
+      {
+            $exref  = Input::get('external_reference');
+            $status = 'approved';
+            return View::make('pagos.index')->with(array('exref' => $exref, 'status' => $status));
       }
 
       /*
@@ -117,11 +111,11 @@ class PagosController extends \BaseController
       public function recibir_notificacion_prueba()
       {
             Log::info('PagosController.recibir_notificacion_prueba entrada de datos');
-            
+
             if (Request::isMethod('POST'))
             {
                   //Recibimos el status por correo y lo ponemos en la url para que crear el pago
-                  $exref = Input::get('exref');
+                  $exref  = Input::get('exref');
                   $status = Input::get('status');
 
                   $response = array("external_reference" => $exref, "status" => $status);
@@ -129,27 +123,32 @@ class PagosController extends \BaseController
                   {
 
                         $external_reference = $response['external_reference'];
-                        $status = $response['status'];
+                        $status             = $response['status'];
 
-                        $ids = explode("-", rtrim($external_reference,"-"));
-                        
-                        if ($this->pago->update_status($ids, $status))
-                        {
-                              switch ($status)
+                        $ids = explode("-", rtrim($external_reference, "-"));
+
+                        foreach ($ids as $id) {
+                              $pago = Pago::find($id);
+                              if ($status == "approved")
                               {
-                                    case 'approved':
-                                          $this->events->fire('pago_aprobado', array($ids));
-                                          echo "cambios realizados";
-                                          break;
-                                    default:
-                                          $this->events->fire('pago_cancelado', array($ids));
-                                          echo "status diferente a aprobado";
-                                          break;
+                                    $pago->pagado = true;
+                                    $pago->status = $status;
+                                    $pago->metodo = "Mercado Pago";
                               }
+                              else
+                              {
+                                    $pago->status = $status;
+                              }
+                              $pago->update();
                         }
-                        else
-                        {
-                              echo "no existe el id del pago";
+
+                        switch ($status) {
+                              case 'approved':
+                                    echo "cambios realizados";
+                                    break;
+                              default:
+                                    echo "status diferente a aprobado";
+                                    break;
                         }
                   }
                   else
@@ -157,8 +156,10 @@ class PagosController extends \BaseController
                         Log::error('PagosController.obtenerIPNMercadoPago No se recibio informacion de pago ID:' . $id);
                         echo "no recibido";
                   }
-            }else{
-                  
+            }
+            else
+            {
+
                   return View::make('pagos.index');
             }
       }
@@ -173,11 +174,11 @@ class PagosController extends \BaseController
       public function recibir_notificacion()
       {
             Log::info('PagosController.recibir_notificacion entrada de datos');
-                              
+
 
             if (Config::get('params.prueba_pago'))
             {
-                  $id = Input::get('id');                  
+                  $id = Input::get('id');
                   if (isset($id))
                   {
                         $response = $this->checkout->recibir_notificacion($id);
@@ -200,8 +201,7 @@ class PagosController extends \BaseController
                   $data = array(
                       'mensaje' => $mensaje,
                   );
-                  Mail::queue('emails.notificacion_pago_prueba', $data, function($message)
-                  {
+                  Mail::queue('emails.notificacion_pago_prueba', $data, function($message) {
                         $message->to('carlos.juarez@t7marketing.com', 'Carlos Juarez')->subject('Notificación de mercado pago');
                   });
                   echo "Mensaje enviado";
@@ -216,30 +216,32 @@ class PagosController extends \BaseController
                         {
 
                               $external_reference = $response['collection']['external_reference'];
-                              $status = $response['collection']['status'];
+                              $status             = $response['collection']['status'];
 
-                              $ids = explode("-", rtrim($external_reference,"-"));
+                              $ids = explode("-", rtrim($external_reference, "-"));
 
-                              if ($this->pago->update_status($ids, $status))
-                              {
-                                    switch ($status)
+                              foreach ($ids as $id) {
+                                    $pago = Pago::find($id);
+                                    if ($status == "approved")
                                     {
-                                          case 'approved':
-                                                $this->events->fire('pago_aprobado', array($ids));
-                                                echo "cambios realizados";
-                                                break;
-                                          case 'cancelled':
-                                                $this->events->fire('pago_cancelado', array($ids));
-                                                echo "status diferente a aprobado";
-                                                break;
-                                          default:
-                                                echo "status diferente a aprobado";
-                                                break;
+                                          $pago->pagado = true;
+                                          $pago->status = $status;
+                                          $pago->metodo = "Mercado Pago";
                                     }
+                                    else
+                                    {
+                                          $pago->status = $status;
+                                    }
+                                    $pago->update();
                               }
-                              else
-                              {
-                                    
+
+                              switch ($status) {
+                                    case 'approved':
+                                          echo "cambios realizados";
+                                          break;
+                                    default:
+                                          echo "status diferente a aprobado";
+                                          break;
                               }
                         }
                         else

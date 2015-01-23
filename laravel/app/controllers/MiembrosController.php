@@ -1,28 +1,10 @@
 <?php
 
-use Sph\Storage\Miembro\MiembroRepository as Miembro;
-use Sph\Storage\User\UserRepository as User;
-use Sph\Storage\Negocio\NegocioRepository as Negocio;
-use Sph\Storage\Evento\EventoRepository as Evento;
-use Sph\Storage\Rank\RankRepository as Rank;
+class MiembrosController extends \BaseController {
 
-class MiembrosController extends \BaseController
-{
-
-      protected $miembro;
-      protected $user;
-      protected $negocio;
-      protected $evento;
-      protected $rank;
-
-      public function __construct(Miembro $miembro, User $user, Negocio $negocio, Evento $evento, Rank $rank)
+      public function __construct()
       {
             parent::__construct();
-            $this->miembro = $miembro;
-            $this->user = $user;
-            $this->evento = $evento;
-            $this->negocio = $negocio;
-            $this->rank = $rank;
             View::share('section', 'Miembro');
       }
 
@@ -34,7 +16,7 @@ class MiembrosController extends \BaseController
        */
       public function show($id)
       {
-            $miembro = $this->miembro->find($id);
+            $miembro = Miembro::find($id);
             return View::make('miembros.show')->with(array('miembro' => $miembro));
       }
 
@@ -46,7 +28,7 @@ class MiembrosController extends \BaseController
        */
       public function edit($id)
       {
-            $miembro = $this->miembro->find($id);
+            $miembro = Miembro::find($id);
 
             return View::make('miembros.edit')->with(array('miembro' => $miembro));
       }
@@ -59,65 +41,43 @@ class MiembrosController extends \BaseController
        */
       public function update($id)
       {
-            $validateUser = new Sph\Services\Validators\User(Input::all(), 'update');
-            $validateMiembro = new Sph\Services\Validators\Miembro(Input::all(), 'update');
-            $input = array('imagen' => Input::File('imagen'));
-            $validatorImagen = new Sph\Services\Validators\Imagen_perfil($input, 'save');
+            $user    = Auth::user();
+            $miembro = Auth::user()->userable;
 
-            if ($validateUser->passes() & $validateMiembro->passes())
+            // Check if a password has been submitted
+            if (!Input::has('password'))
             {
-                  $user_model = array();
-                  $password = Input::get('password');
-                  if ($password != "")
+                  // If so remove the validation rule
+                  $user::$rules['password']              = '';
+                  $user::$rules['password_confirmation'] = '';
+                  // Also set autoHash to false;
+                  $user->autoHashPasswordAttributes      = false;
+            }
+            // Run the update passing a Dynamic beforeSave() closure as the fourth argument
+            if ($user->updateUniques(
+                            array(), array(), array(), function($user) {
+                          // Check for the presence of a blank password field again
+                          if (empty($user->password))
+                          {
+                                // If present remove it from the update
+                                unset($user->password);
+                                return true;
+                          }
+                    }))
+            {
+                  if ($miembro->update())
                   {
-                        $user_model = array_add($user_model, "password", Input::get('password'));
+                        Session::flash('message', 'Usuario modificado con éxito');
+                        return Redirect::route('clientes.index');
                   }
-                  if ("" !== Input::get('email'))
+                  else
                   {
-                        $user_model = array_add($user_model, "email", Input::get('email'));
-                  }
-                  $user = $this->user->update(Auth::user()->id, $user_model);
-                  if (isset($user))
-                  {
-                        $miembro_model = Input::all();
-
-                        if ($input['imagen'])
-                        {
-                              //Obtener datos de la imagen
-                              $path = Config::get('params.path_user_images').strval(Auth::user()->id) . '/';
-                              $nombre = Auth::user()->userable->id . sha1(time()) . '.' . $input['imagen']->getClientOriginalExtension();
-                              $miembro_model = array_add($miembro_model, 'path', $path);
-                              $miembro_model = array_add($miembro_model, 'nombre_imagen', $nombre);
-                        }
-
-                        $miembro = $this->miembro->update($id, $miembro_model);
-
-                        if (isset($miembro))
-                        {
-                              if ($input['imagen'])
-                              {
-                                    //Guardar la imagen; 
-                                    $path = Config::get('params.path_public_image') . $path;
-                                    try
-                                    {
-                                          $input['imagen']->move($path, $miembro->imagen->nombre);
-                                    } catch (Exception $e)
-                                    {
-                                          Log::error('MiembrosController.edit: ' . print_r($e, true));
-                                          Session::flash('message', 'Error al modificar el usuario, intentelo de nuevo');
-                                    }
-                              }
-                              Session::flash('message', 'Usuario modificado con éxito');
-                              return Redirect::route('miembros.show', $id);
-                        }
+                        Session::flash('error', "Error al actualizar el administrador");
+                        return Redirect::back()->withInput()->withErrors($cliente->errors());
                   }
             }
-            $user_messages = ($validateUser->getErrors() != null) ? $validateUser->getErrors()->all() : array();
-            $miembro_messages = ($validateMiembro->getErrors() != null) ? $validateMiembro->getErrors()->all() : array();
-            $imagen_messages = ($validatorImagen->getErrors() != null) ? $validatorImagen->getErrors()->all() : array();
-            $validationMessages = array_merge_recursive($user_messages, $miembro_messages, $imagen_messages);
-
-            return Redirect::back()->withInput()->withErrors($validationMessages);
+            Session::flash('error', "Error al actualizar el usuario");
+            return Redirect::back()->withInput()->withErrors($user->errors());
       }
 
       /**
@@ -128,52 +88,97 @@ class MiembrosController extends \BaseController
        */
       public function destroy($id)
       {
-            Miembro::destroy($id);
-
-            return Redirect::route('miembros.index');
-      }
-
-      public function add_rank($tipo, $id)
-      {
-            $tipo = strtolower($tipo);
-
-            $rankedObject = $this->$tipo->find($id);
-
-            if (isset($rankedObject))
+            $user = Auth::user();
+            if ($user->delete())
             {
-                  
-                  //Checa si el usuario ya tiene el objet
-                  if ($tipo == "negocio")
+                  $miembro = $user->userable;
+                  if ($miembro->delete())
                   {
-
-                        $ranks = Auth::user()->userable->ranknegocios->filter(function($ranknegocio) use($id)
-                        {
-                              return $ranknegocio->negocio_id == $id;
-                        });
-                        
-                        if(count($ranks)){
-                              $resultado = array('error'=>true,'mensaje'=>'Ya habias rankeado esto antes');
-                              return Response::json($resultado);
-                        } 
-                        
+                        Session::flash('error', 'Usuario eliminado exitosamente');
+                        return Redirect::to('/');
                   }
                   else
                   {
-
-                        $ranks = Auth::user()->userable->rankeventos->filter(function($rankevento) use($id)
-                        {
-                              return $rankevento->evento_id == $id;
-                        });
-                        
-                        if(count($ranks)){
-                              $resultado = array('error'=>true,'mensaje'=>'Ya habias rankeado esto antes');
-                              return Response::json($resultado);
-                        } 
+                        Session::flash('error', 'No se pudo eliminar el usuario');
+                        return Redirect::back();
                   }
+            }
+            else
+            {
+                  Session::flash('error', 'No se pudo eliminar el usuario');
+                  return Redirect::back();
+            }
+      }
 
-                  $objeto = $this->$tipo->agregar_rank($id,Auth::user()->userable);
+      public function add_rank_negocio($id)
+      {
+            $negocio = Negocio::find($id);
+            if (isset($negocio))
+            {
+                  $ranks = Auth::user()->userable->ranknegocios->filter(function($ranknegocio) use($id) {
+                        return $ranknegocio->negocio_id == $id;
+                  });
 
-                  $resultado = array('mensaje' => 'Agregado con exito', 'rank' => $objeto->rank);
+                  if (count($ranks))
+                  {
+                        $resultado = array('error' => true, 'mensaje' => 'Ya habias rankeado esto antes');
+                  }
+                  else
+                  {
+                        $rank          = new RankNegocio;
+                        $rank->miembro()->associate(Auth::user()->userable);
+                        $negocio->rank = $negocio->rank + 1;
+                        $negocio->ranks()->save($rank);
+
+                        if ($negocio->updateUniques())
+                        {
+                              $resultado = array('mensaje' => 'Agregado con exito', 'rank' => $negocio->rank);
+                        }
+                        else
+                        {
+                              $resultado = array('error' => true, 'mensaje' => 'No se guardo el rank');
+                        }
+                  }
+            }
+            else
+            {
+                  $resultado = array('mensaje', 'No existe el objeto para rankear');
+            }
+
+            return Response::json($resultado);
+      }
+
+      public function add_rank_evento($id)
+      {
+            $evento = Evento::find($id);
+
+            if (isset($evento))
+            {
+
+                  $ranks = Auth::user()->userable->rankeventos->filter(function($rankevento) use($id) {
+                        return $rankevento->evento_id == $id;
+                  });
+
+                  if (count($ranks))
+                  {
+                        $resultado = array('error' => true, 'mensaje' => 'Ya habias rankeado esto antes');
+                  }
+                  else
+                  {
+                        $rank         = new RankEvento;
+                        $rank->miembro()->associate(Auth::user()->userable);
+                        $evento->rank = $evento->rank + 1;
+                        $evento->ranks()->save($rank);
+
+                        if ($negocio->updateUniques())
+                        {
+                              $resultado = array('mensaje' => 'Agregado con exito', 'rank' => $evento->rank);
+                        }
+                        else
+                        {
+                              $resultado = array('error' => true, 'mensaje' => 'No se guardo el rank');
+                        }
+                  }
             }
             else
             {

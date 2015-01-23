@@ -35,14 +35,12 @@
 <div class="form-group">
       <div class="row">
             <div class="col-sm-12">
-                  {{ Form::label('imagen','Perfil') }}
-                  <input type="file" name="imagen" id='uploadFile' title="Seleccionar" class="file-inputs" data-filename-placement="inside">
-                  @if($miembro->imagen)
-                  <div id="imagepreview" class="profile_image imagepreview" style="background-image: url({{ Config::get('params.path_serve_image').$miembro->imagen->path.$miembro->imagen->nombre }})"></div>
-                  @else
-                  <div id="imagepreview" class="profile_image imagepreview" style="background-image: url('{{URL::to("/")}}/img/profile_default.png')"></div>
+                  @if($miembro->avatar_file_name != "")
+                  <img src="{{ URL::to("/").$miembro->avatar->url('medium') }}">
                   @endif
-            </div>      
+                  {{ Form::label('avatar','Editar imagen de negocio 250px * 250px') }}
+                  {{ Form::file('avatar') }}
+            </div>
       </div>
 </div>
 
@@ -64,28 +62,8 @@
 
 @section('scripts')
 
-{{ HTML::script('js/vendor/bootstrap-file-input.js') }}
 <script>
-      $('.file-inputs').bootstrapFileInput();
-
-      $(function() {
-            $('#uploadFile').on("change", function() {
-                  var files = !!this.files ? this.files : [];
-                  if (!files.length || !window.FileReader)
-                        return; // no file selected, or no FileReader support
-
-                  if (/^image/.test(files[0].type)) { // only image file
-                        var reader = new FileReader(); // instance of the FileReader
-                        reader.readAsDataURL(files[0]); // read the local file
-
-                        reader.onloadend = function() { // set image data as background of div
-                              $("#imagepreview").css("background-image", "url(" + this.result + ")");
-                        }
-                  }
-            });
-      });
-
-      $("#cambiar_username").click(function() {
+      $("#cambiar_username").click(function () {
             if ($("#cambiar_username").is(':checked')) {
                   $("#username").attr('disabled', false);
             } else {

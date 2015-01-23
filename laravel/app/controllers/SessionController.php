@@ -1,18 +1,14 @@
 <?php
 
-use Sph\Storage\User\UserRepository as User;
 use Sph\Authenticators\Manager;
 
 class SessionController extends \BaseController
 {
-
-      protected $user;
       protected $manager;
 
-      public function __construct(User $user, Manager $manager)
+      public function __construct(Manager $manager)
       {
-            parent::__construct();
-            $this->user = $user;
+            parent::__construct();            
             $this->manager = $manager;
       }
 

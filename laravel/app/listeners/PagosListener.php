@@ -91,30 +91,21 @@ class PagosListener {
        * publica el contenido automaticamente en la aplicacion y envia un correo al usuario con sus datos
        */
 
-      public function publicar_contenido(array $ids)
+      public function publicar_contenido($pago)
       {
-            foreach ($ids as $id) {
-
-                  $pago = Pago::find($id);
-
-                  if ($pago != null)
-                  {
-                        //Obtenemos el objeto a publicar
-                        $object           = $pago->pagable;
-                        $object->publicar = true;
-                        if (get_class($object) != "Promocion")
-                        {
-                              $object->is_especial = true;
-                        }
-                        $object->is_activo = true;
-                        $object->validate();
-                        $object->updateUniques();
-                  }
+            $objeto           = $pago->pagable;
+            $objeto->publicar = true;
+            if (get_class($objeto) != "Promocion")
+            {
+                  $object->is_especial = true;
             }
-
-            $email = $pago->cliente->user->email;
+            $object->is_activo = true;
+            if(!$object->updateUniques()){
+                  return false;
+            }
+            $email  = $pago->cliente->user->email;
             $nombre = $pago->cliente->nombre;
-            Mail::queue('emails.publicacion_contenido_pago', array(), function($message) use ($email,$nombre) {
+            Mail::queue('emails.publicacion_contenido_pago', array(), function($message) use ($email, $nombre) {
                   $message->to($email, $nombre)->subject('Publicación de contenido en Sphellar');
             });
       }
@@ -123,9 +114,8 @@ class PagosListener {
        * Avisa al usuario que su pago fue cancelado para que lo pueda volver a realizar
        */
 
-      public function avisar_cancelacion(array $ids)
+      public function avisar_cancelacion($pago)
       {
-            $pago = $this->pago->find($ids[0]);
             Mail::queue('emails.pago_cancelado', array(), function($message) use ($pago) {
                   $message->to($pago->client->user->email, $pago->client->nombre)->subject('Pago cancelado');
             });

@@ -1,36 +1,23 @@
 <?php
 
-/*
- * Modelo de DB para agregar las categorias de la guia
- */
+use LaravelBook\Ardent\Ardent;
 
-class Categoria extends \Eloquent
+class Categoria extends Ardent
 {
 
       protected $table = 'categorias';
       protected $fillable = ['categoria'];
 
-      /*
-       * Una categoria tiene muchos negocios
-       */
-
-      public function negocios()
-      {
-            return $this->hasMany('Negocio');
-      }
-
-      /*
-       * Una categoria tiene muchos eventos
-       */
-
-      public function eventos()
-      {
-            return $this->hasMany('Evento');
-      }
-
-      public function subcategorias()
-      {
-            return $this->hasMany('Subcategoria');
-      }
+      public static $rules                  = array(
+          'categoria' => 'required',
+      );
+      public static $relationsData          = array(
+          'negocios' => array(self::HAS_MANY, 'Negocio'),
+          'eventos' => array(self::HAS_MANY, 'Evento'),
+          'subcategorias' => array(self::HAS_MANY, 'Subcategoria'),          
+      );
+      public $autoHydrateEntityFromInput    = true;
+      public $forceEntityHydrationFromInput = true;
+      public $autoPurgeRedundantAttributes  = true;
 
 }

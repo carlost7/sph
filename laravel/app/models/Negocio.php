@@ -42,8 +42,8 @@ class Negocio extends Ardent implements StaplerableInterface {
       public static $relationsData          = array(
           'masInfo'      => array(self::HAS_ONE, 'MasInfoNegocio'),
           'horario'      => array(self::HAS_ONE, 'HorarioNegocio'),
-          'promociones'  => array(self::HAS_MANY, 'Promociones'),
-          'ranks'        => array(self::HAS_MANY, 'Ranks'),
+          'promociones'  => array(self::HAS_MANY, 'Promocion'),
+          'ranks'        => array(self::HAS_MANY, 'RankNegocio'),
           'imagenes'     => array(self::HAS_MANY, 'NegocioImagen'),
           'estado'       => array(self::BELONGS_TO, 'Estado'),
           'zona'         => array(self::BELONGS_TO, 'Zona'),

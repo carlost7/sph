@@ -9,7 +9,7 @@ use LaravelBook\Ardent\Ardent;
 class Codigo extends Ardent {
 
       protected $table = 'codigos';
-      protected $fillable = ['numero', 'usado', 'cliente_id'];
+      protected $fillable = ['numero', 'usado'];
       public static $relationsData = array(
           'cliente' => array(self::BELONGS_TO, 'Cliente'),
       );

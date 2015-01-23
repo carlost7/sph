@@ -1,19 +1,20 @@
 <?php
 
-class Administrador extends \Eloquent {
+use LaravelBook\Ardent\Ardent;
 
-	protected $table = 'administradores';
-      
-      
-	// Don't forget to fill this array
-	protected $fillable = ['nombre'];
-      
-      /*
-       * Un administrador tambien es un usuario
-       */
-      public function user()
-      {
-            return $this->morphOne('User', 'userable');
-      }
+class Administrador extends Ardent {
+
+      public static $rules = array(
+          'nombre' => 'required'
+      );
+      protected $table    = 'administradores';
+      // Don't forget to fill this array
+      protected $fillable = ['nombre'];
+      public static $relationsData = array(
+          'user' => array(self::MORPH_ONE, 'User', 'name' => 'userable'),
+      );
+      public $autoHydrateEntityFromInput    = true;
+      public $forceEntityHydrationFromInput = true;
+      public $autoPurgeRedundantAttributes  = true;
 
 }

@@ -10,6 +10,10 @@
   | and give it the Closure to execute when that URI is requested.
   |
  */
+Route::get('prueba_clientes',function(){
+      
+      
+});
 
 Route::get('/', array(
     'uses' => 'ContenidoController@index',
@@ -391,20 +395,18 @@ Route::group(array('before' => 'auth'), function() {
        * ********************************
        */
       Route::group(array('before' => 'is_miembro'), function() {
-            Route::get('miembro/rank/{tipo}/{id}', array(
-                'uses' => 'MiembrosController@add_rank',
-                'as'   => 'miembro.add_rank'
+            
+            Route::any('miembro/rank/negocio/{id}', array(
+                'uses' => 'MiembrosController@add_rank_negocio',
+                'as'   => 'miembro.add_rank_negocio'
+            ));
+            
+
+            Route::any('miembro/rank/evento/{id}', array(
+                'uses' => 'MiembrosController@add_rank_evento',
+                'as'   => 'miembro.add_rank_evento'
             ));
 
-            Route::post('miembro/rank/{tipo}/{id}', array(
-                'uses' => 'MiembrosController@add_rank',
-                'as'   => 'miembro.add_rank'
-            ));
-
-            Route::get('miembro/rank/{tipo}/{id}', array(
-                'uses' => 'MiembrosController@add_rank',
-                'as'   => 'miembro.add_rank'
-            ));
 
             Route::resource('miembros', 'MiembrosController');
       });

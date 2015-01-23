@@ -20,7 +20,7 @@ Event::listen('enviar_codigo', 'CodigosListener@enviar_codigo');
 /*
  * Envia un correo de bienvenida al usuario
  */
-Event::listen('nuevo_usuario_correo', 'CorreosListener@enviar_correo_nuevo_usuario');
+Event::listen('miembro.created', 'CorreosListener@enviar_correo_nuevo_usuario');
 
 /*
  * Crea los pagos automaticos para el contenido

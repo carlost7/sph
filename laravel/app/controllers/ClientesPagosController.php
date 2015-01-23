@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Events\Dispatcher;
 use Carbon\Carbon;
 
 class clientesPagosController extends \BaseController {
@@ -8,7 +7,6 @@ class clientesPagosController extends \BaseController {
       public function __construct(Dispatcher $events)
       {
             parent::__construct();
-            $this->events   = $events;
             View::share('section', 'Pago');
       }
 
@@ -52,9 +50,8 @@ class clientesPagosController extends \BaseController {
                         $pago         = Pago::find($id);
                         $pago->pagado = true;
                         $pago->metodo = "Código Promocional";
-                        if ($pago->updateUniques())
+                        if ($pago->update())
                         {
-                              $this->events->fire('pago_aprobado', array(array($pago->id)));
                               Session::flash('message', 'Código satisfactorio');
                               return Redirect::route('clientes_pagos.index');
                         }
@@ -82,7 +79,7 @@ class clientesPagosController extends \BaseController {
             {
                   $aviso = new Aviso_cliente();
                   $aviso->cliente()->associate(Auth::user()->userable);
-                  $aviso->avisable()->associate($object);
+                  $aviso->avisable()->associate($pago->pagable);
                   if ($aviso->save())
                   {
                         Session::flash('message', 'Un ejecutivo revisará el contenido y se le avisará por correo cuando este sea publicado');

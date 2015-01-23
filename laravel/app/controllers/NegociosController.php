@@ -1,9 +1,6 @@
 <?php
 
-
-
-class NegociosController extends \BaseController
-{
+class NegociosController extends \BaseController {
 
       /**
        * Display a listing of the resource.
@@ -16,8 +13,8 @@ class NegociosController extends \BaseController
             View::share('name', 'Negocios - Sphellar');
 
             $categorias = Categoria::all();
-            $estados = Estado::all();
-            
+            $estados    = Estado::all();
+
             /*
              * Obtenemos el nombre de la categoria y estado a partir del campo 
              */
@@ -56,12 +53,12 @@ class NegociosController extends \BaseController
             }
 
             $negocios = $queryNegocios->paginate(20);
-            
+
             /* $querys = DB::getQueryLog();
               $lastQuery = end($querys);
               //dd($lastQuery); */
 
-            return View::make('contenido.negocios_index',compact('negocios','estados','categorias'));
+            return View::make('contenido.negocios_index', compact('negocios', 'estados', 'categorias'));
       }
 
       /**
@@ -74,54 +71,33 @@ class NegociosController extends \BaseController
       public function show($id)
       {
             $negocio = Negocio::find($id);
-            
-            $mapa = null;
-            $categorias = $this->categoria->all();
-            $estados = $this->estado->all();
 
-            
-            if ($negocio->is_especial && count($negocio->especial))
-            {
-                  $config = array();
-                  $config['center'] = $negocio->especial->mapa;
-                  $config['zoom'] = '13';
-                  Gmaps::initialize($config);
-
-
-                  $marker = array();
-                  $marker['position'] = $negocio->especial->mapa;
-                  Gmaps::add_marker($marker);
-                  $mapa = Gmaps::create_map();
-            }
-
+            $categorias = Categoria::all();
+            $estados = Estado::all();
 
             $add_rank = true;
 
-            //dd($negocio);
-            
+            //Checamos si el usuario esta conectado y si es miembro de sphellar
             if (Auth::check() && Auth::user()->userable_type === 'Miembro')
             {
-                  $negocio_user = Auth::user()->userable->ranknegocios->filter(function($ranknegocio) use($id)
-                  {
+                  //Checamos si el usuario ya dio like al negocio
+                  $negocio_user = Auth::user()->userable->ranknegocios->filter(function($ranknegocio) use($id) {
                         return $ranknegocio->negocio_id == $id;
                   });
 
+                  //No mostrará el rank si ya tiene negocio
                   if (count($negocio_user))
                   {
                         $add_rank = false;
                   }
             }
-            
+
             View::share('name', $negocio->nombre . ' - Sphellar');
 
-            //dd($negocio);
+            $promociones = $negocio->promociones;            
             
-            return View::make('contenido.show_negocio')->with(
-                            array('negocio' => $negocio,
-                                'mapa' => $mapa,
-                                'estados' => $estados,
-                                'categorias' => $categorias,
-                                'add_rank' => $add_rank));
+            return View::make('contenido.show_negocio',compact('negocio','estados','categorias','add_rank','promociones'));
+                            
       }
 
 }

@@ -1,25 +1,15 @@
 <?php
 
-use Illuminate\Events\Dispatcher;
 use Sph\Authenticators\Manager;
-use Sph\Storage\User\UserRepository as User;
-use Sph\Storage\Miembro\MiembroRepository as Miembro;
 
-class AuthenticateController extends \BaseController
-{
+class AuthenticateController extends \BaseController {
 
       protected $manager;
-      protected $user;
-      protected $miembro;
-      protected $events;
-
-      public function __construct(Manager $manager, User $user, Miembro $miembro, Dispatcher $events)
+      
+      public function __construct(Manager $manager)
       {
             parent::__construct();
-            $this->manager = $manager;
-            $this->user = $user;
-            $this->miembro = $miembro;
-            $this->events = $events;
+            $this->manager = $manager;            
       }
 
       /**
@@ -29,8 +19,7 @@ class AuthenticateController extends \BaseController
        */
       public function authorise($provider)
       {
-            try
-            {
+            try {
                   if ($provider == strtolower('twitter'))
                   {
                         $provider = $this->manager->get($provider);
@@ -48,16 +37,14 @@ class AuthenticateController extends \BaseController
                         //dd($provider);
                         return Redirect::to($provider->getAuthorizationUrl());
                   }
-            } catch (Exception $e)
-            {
+            } catch (Exception $e) {
                   return App::abort(404);
             }
       }
 
       public function callback($provider)
       {
-            try
-            {
+            try {
                   if ($provider == strtolower("twitter"))
                   {
                         //dd(Session::all());
@@ -66,23 +53,31 @@ class AuthenticateController extends \BaseController
                         $token = $provider->getTokenCredentials(
                                 Session::get('credentials'), Input::get('oauth_token'), Input::get('oauth_verifier')
                         );
-                        try
-                        {
+                        try {
                               $user = $provider->getUserDetails($token);
-
-                              $auth = $this->user->findByUid($user->uid);
+                              $auth = User::where('uid', $user->uid)->first();
                               //Si existe el usuario, solo lo loggea
                               if ($auth)
                               {
-                                    $data = array(
-                                        'oauth_token' => Session::get('oauth_token'),
-                                        'oauth_token_secret' => Session::get('oauth_token_secret')
-                                    );
-                                    $user = $this->user->update($auth->id, $data);
+                                    $auth->oauth_token        = Session::get('oauth_token');
+                                    $auth->oauth_token_secret = Session::get('oauth_token_secret');
 
-                                    Auth::loginUsingId($auth->id, true);
+                                    // If so remove the validation rule
+                                    $auth::$rules['password']              = '';
+                                    $auth::$rules['password_confirmation'] = '';
+                                    // Also set autoHash to false;
+                                    $auth->autoHashPasswordAttributes      = false;
 
-                                    return Redirect::intended('/');
+                                    if ($auth->updateUniques())
+                                    {
+                                          Auth::loginUsingId($auth->id, true);
+                                          return Redirect::intended('/');
+                                    }
+                                    else
+                                    {
+                                          Session::flash('error', 'No se pudo autenticar el usuario');
+                                          return Redirect::back();
+                                    }
                               }
                               else
                               {
@@ -96,8 +91,7 @@ class AuthenticateController extends \BaseController
 
                                     return Redirect::route('authenticate.register');
                               }
-                        } catch (Exception $e)
-                        {
+                        } catch (Exception $e) {
 
                               Session::flash("ocurrio un error, vuelve a intentarlo");
                               Log::error('callback_facebook', print_r($e, true));
@@ -119,35 +113,46 @@ class AuthenticateController extends \BaseController
 
 
                         // Optional: Now you have a token you can look up a users profile data
-                        try
-                        {
+                        try {
 
                               // We got an access token, let's now get the user's details
-                              $userDetails = $provider->getUserDetails($token);
-                              $auth = $this->user->findByUid($userDetails->uid);
-
+                              $user = $provider->getUserDetails($token);
+                              $auth = User::where('uid', $user->uid)->first();
+                              //Si existe el usuario, solo lo loggea
                               if ($auth)
                               {
-                                    $data = array(
-                                        'oauth_token' => Session::get('oauth_token'),
-                                        'oauth_token_secret' => Session::get('oauth_token_secret')
-                                    );
-                                    $user = $this->user->update($auth->id, $data);
+                                    $auth->oauth_token        = Session::get('oauth_token');
+                                    $auth->oauth_token_secret = Session::get('oauth_token_secret');
 
-                                    Auth::loginUsingId($auth->id, true);
+                                    // If so remove the validation rule
+                                    $auth::$rules['password']              = '';
+                                    $auth::$rules['password_confirmation'] = '';
+                                    // Also set autoHash to false;
+                                    $auth->autoHashPasswordAttributes      = false;
 
-                                    return Redirect::intended('/');
+                                    if ($auth->updateUniques())
+                                    {
+                                          Auth::loginUsingId($auth->id, true);
+                                          return Redirect::intended('/');
+                                    }
+                                    else
+                                    {
+                                          Session::flash('error', 'No se pudo autenticar el usuario');
+                                          return Redirect::back();
+                                    }
                               }
+                              else
+                              {
 
-                              Session::put('username', $userDetails->name);
-                              Session::put('email', $userDetails->email);
-                              Session::put('uid', $userDetails->uid);
-                              Session::put('oauth_token', $token->accessToken);
-                              Session::put('oauth_token_secret', '');
+                                    Session::put('username', $userDetails->name);
+                                    Session::put('email', $userDetails->email);
+                                    Session::put('uid', $userDetails->uid);
+                                    Session::put('oauth_token', $token->accessToken);
+                                    Session::put('oauth_token_secret', '');
 
-                              return Redirect::route('authenticate.register');
-                        } catch (Exception $e)
-                        {
+                                    return Redirect::route('authenticate.register');
+                              }
+                        } catch (Exception $e) {
 
                               Session::flash("ocurrio un error, vuelve a intentarlo");
                               Log::error('callback_facebook', print_r($e, true));
@@ -168,43 +173,53 @@ class AuthenticateController extends \BaseController
 
 
                         // Optional: Now you have a token you can look up a users profile data
-                        try
-                        {
+                        try {
 
                               // We got an access token, let's now get the user's details
-                              $userDetails = $provider->getUserDetails($token);
-                              $auth = $this->user->findByUid($userDetails->uid);
-
+                              $user = $provider->getUserDetails($token);
+                              $auth = User::where('uid', $user->uid)->first();
+                              //Si existe el usuario, solo lo loggea
                               if ($auth)
                               {
-                                    $data = array(
-                                        'oauth_token' => Session::get('oauth_token'),
-                                        'oauth_token_secret' => Session::get('oauth_token_secret')
-                                    );
-                                    $user = $this->user->update($auth->id, $data);
+                                    $auth->oauth_token        = Session::get('oauth_token');
+                                    $auth->oauth_token_secret = Session::get('oauth_token_secret');
 
-                                    Auth::loginUsingId($auth->id, true);
+                                    // If so remove the validation rule
+                                    $auth::$rules['password']              = '';
+                                    $auth::$rules['password_confirmation'] = '';
+                                    // Also set autoHash to false;
+                                    $auth->autoHashPasswordAttributes      = false;
 
-                                    return Redirect::intended('/');
+                                    if ($auth->updateUniques())
+                                    {
+                                          Auth::loginUsingId($auth->id, true);
+                                          return Redirect::intended('/');
+                                    }
+                                    else
+                                    {
+                                          Session::flash('error', 'No se pudo autenticar el usuario');
+                                          return Redirect::back();
+                                    }
                               }
+                              else
+                              {
 
-                              Session::put('username', $userDetails->name);
-                              Session::put('email', $userDetails->email);
-                              Session::put('uid', $userDetails->uid);
-                              Session::put('oauth_token', $token->accessToken);
-                              Session::put('oauth_token_secret', '');
+                                    Session::put('username', $userDetails->name);
+                                    Session::put('email', $userDetails->email);
+                                    Session::put('uid', $userDetails->uid);
+                                    Session::put('oauth_token', $token->accessToken);
+                                    Session::put('oauth_token_secret', '');
 
-                              return Redirect::route('authenticate.register');
-                        } catch (Exception $e)
-                        {
+                                    return Redirect::route('authenticate.register');
+                              }
+                        } catch (Exception $e) {
 
                               Session::flash("ocurrio un error, vuelve a intentarlo");
                               Log::error('callback_facebook', print_r($e, true));
                               return Redirect::to("/");
                         }
                   }
-            } catch (Exception $e)
-            {
+            } catch (Exception $e) {
                   Log::error("Authenticate::callback " . $e->getMessage());
                   return App::abort(404);
             }
@@ -217,50 +232,36 @@ class AuthenticateController extends \BaseController
 
       public function store()
       {
-            $data = array(
-                'username' => Input::get('username'),
-                'email' => Input::get('email'),
-                'uid' => Session::get('uid'),
-                'oauth_token' => Session::get('oauth_token'),
-                'oauth_token_secret' => Session::get('oauth_token_secret')
-            );
+            $user                     = new User;
+            $user->uid                = Session::get('uid');
+            $user->oauth_token        = Session::get('oauth_token');
+            $user->oauth_token_secret = Session::get('oauth_token_secret');
 
-            $validateAuth = new \Sph\Services\Validators\Auth1($data, 'save');
-            $validateMember = new \Sph\Services\Validators\Miembro($data, 'save');
+            // If so remove the validation rule
+            $user::$rules['password']              = '';
+            $user::$rules['password_confirmation'] = '';
+            // Also set autoHash to false;
+            $user->autoHashPasswordAttributes      = false;
 
-            if ($validateAuth->passes() & $validateMember->passes())
+            if ($user->save())
             {
-                  $user = $this->user->create($data);
-                  if ($user)
+                  $miembro = new Miembro;
+                  $miembro->user()->associate($user);
+                  if ($miembro->create())
                   {
-                        $miembro_model = $data;
-                        $miembro_model = array_add($miembro_model, 'user', $user);
-
-                        $miembro = $this->miembro->create($miembro_model);
-
-                        if ($miembro)
-                        {
-                              $this->events->fire('nuevo_usuario_correo', array($miembro));
-                              Auth::login($user, true);
-                              Session::flash('message', 'Bienvenido a Sphellar');
-                              return Redirect::intended('/');
-                        }
-                        else
-                        {
-                              Session::flash('error', "Error al guardar el usuario");
-                        }
+                        Auth::login($user, true);
+                        Session::flash('message', 'Bienvenido a Sphellar');
+                        return Redirect::intended('/');
                   }
                   else
                   {
-                        Session::flash('error', 'Error al crear el usuario, vuelve a intentarlo');
+                        return Redirect::back()->withErrors($miembro->errors())->withInput();
                   }
             }
-
-            $auth_messages = ($validateAuth->getErrors() != null) ? $validateAuth->getErrors()->all() : array();
-            $member_messages = ($validateMember->getErrors() != null) ? $validateMember->getErrors()->all() : array();
-            $validationMessages = array_merge_recursive($auth_messages, $member_messages);
-
-            return Redirect::back()->withErrors($validationMessages)->withInput();
+            else
+            {
+                  return Redirect::back()->withErrors($user->errors())->withInput();
+            }
       }
 
 }

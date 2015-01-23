@@ -1,31 +1,20 @@
 <?php
 
-/*
- * Modelo de BD que guardara los datos de subcategorias
- */
+use LaravelBook\Ardent\Ardent;
 
-class Subcategoria extends \Eloquent
-{
+class Subcategoria extends Ardent {
 
-      protected $fillable = ['subcategoria'];
-
-      /*
-       * Una subcategoria pertenece a una categoria
-       */
-
-      public function categoria()
-      {
-            return $this->belongsTo('Categoria');
-      }
-
-      public function negocios()
-      {
-            return $this->hasMany('Negocio');
-      }
-
-      public function eventos()
-      {
-            return $this->hasMany('Evento');
-      }
+      protected $fillable                   = ['subcategoria'];
+      public static $rules                  = array(
+          'subcategoria' => 'required',
+      );
+      public static $relationsData          = array(
+          'categoria' => array(self::BELONGS_TO, 'Categoria'),
+          'negocios'  => array(self::HAS_MANY, 'Negocio'),
+          'eventos'   => array(self::HAS_MANY, 'Evento'),
+      );
+      public $autoHydrateEntityFromInput    = true;
+      public $forceEntityHydrationFromInput = true;
+      public $autoPurgeRedundantAttributes  = true;
 
 }

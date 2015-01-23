@@ -1,32 +1,21 @@
 <?php
 
-/*
- * Modelo de base de datos en donde se guardarán los avisos del cliente
- * que despues revisarán los usuarios de marketing * 
- */
+use LaravelBook\Ardent\Ardent;
 
-class Aviso_cliente extends \Eloquent
-{
+class Aviso_cliente extends Ardent {
 
       protected $table = 'avisos_clientes';
+      public static $rules = array(
+          '' => ''
+      );
+      public static $relationsData = array(
+          'cliente' => array(self::BELONGS_TO, 'Cliente'),
+          'avisable' => array(self::MORPH_TO)
+      );
+      protected $fillable                   = ['nombre'];
+      public $autoHydrateEntityFromInput    = true;
+      public $forceEntityHydrationFromInput = true;
+      public $autoPurgeRedundantAttributes  = true;
       
-      /*
-       * Pertenece a un cliente 
-       */
-      public function cliente()
-      {
-            return $this->belongsTo('Cliente');
-      }
-
-      /*
-       * Hace una relacion con:
-       * Negocio
-       * Evento
-       * Promocion
-       */
-      public function avisable()
-      {
-            return $this->morphTo();
-      }
 
 }

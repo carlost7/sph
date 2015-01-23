@@ -2,11 +2,8 @@ $(document).ready(function () {
       var lastsPosts = "http://sphellar.com/mx/api/get_recent_posts/?count=3&read_more=More&callback=?";
       $.getJSON(lastsPosts, {
             format: "json"
-      }).done(function (data) {
-            console.log(data);
+      }).done(function (data) {            
             $.each(data.posts, function (i, post) {
-                  console.log(post);
-                  
                   articulo = "<li class='slide'";
                   articulo += "<div class = 'imgwrap' >";
                   articulo += "<a href = '" + post['url'] + "' title = '" + post['title'] + "'>";

@@ -1,32 +1,7 @@
 <?php
 
-use Sph\Storage\Negocio\NegocioRepository as Negocio;
-use Sph\Storage\Evento\EventoRepository as Evento;
-use Sph\Storage\Zona\ZonaRepository as Zona;
-use Sph\Storage\Estado\EstadoRepository as Estado;
-use Sph\Storage\Categoria\CategoriaRepository as Categoria;
-use Sph\Storage\Subcategoria\SubcategoriaRepository as Subcategoria;
-
 class ContenidoController extends \BaseController
 {
-
-      protected $negocio;
-      protected $evento;
-      protected $zona;
-      protected $estado;
-      protected $categoria;
-      protected $subcategoria;
-
-      public function __construct(Evento $evento, Negocio $negocio, Zona $zona, Estado $estado, Categoria $categoria, Subcategoria $subcategoria)
-      {
-            parent::__construct();
-            $this->evento = $evento;
-            $this->negocio = $negocio;
-            $this->zona = $zona;
-            $this->estado = $estado;
-            $this->categoria = $categoria;
-            $this->subcategoria = $subcategoria;
-      }
 
       /**
        * Display a listing of the resource.
@@ -61,7 +36,7 @@ class ContenidoController extends \BaseController
             //Generamos el query para traer los datos de la base de datos
             //Esto debe pasarse a un controller en algun momento
             //negocios:
-            $queryNegocios = \Negocio::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc');
+            $queryNegocios = Negocio::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc');
             //Obtenemos los negocios que tengan categorias
             if ($id_categoria != "")
             {
@@ -112,8 +87,8 @@ class ContenidoController extends \BaseController
 
       public function getCatalogoZonas()
       {
-            $zonas = $this->zona->getZonaLike(Input::get('query'));
-            $estados = $this->estado->getEstadoLike(Input::get('query'));
+            $zonas = Zona::with('estado')->where('zona','LIKE',"%".Input::get('query')."%")->take(25)->get();;
+            $estados = Estado::where('estado','LIKE',"%".Input::get('query')."%")->take(4)->get();
 
             $suggestions = array();
 
@@ -132,8 +107,8 @@ class ContenidoController extends \BaseController
 
       public function getCatalogoCategorias()
       {
-            $subcategorias = $this->subcategoria->getSubcategoriaLike(Input::get('query'));
-            $categorias = $this->categoria->getCategoriaLike(Input::get('query'));
+            $subcategorias = Subcategoria::with('categoria')->where('subcategoria','LIKE',"%".Input::get('query')."%")->take(10)->get();;
+            $categorias = Categoria::where('categoria','LIKE',"%".Input::get('query')."%")->take(10)->get();
 
             $suggestions = array();
 

@@ -1,22 +1,7 @@
 <?php
 
-use Sph\Storage\Comentario\ComentarioRepository as Comentario;
-use Sph\Storage\Negocio\NegocioRepository as Negocio;
-use Sph\Storage\Evento\EventoRepository as Evento;
-
 class ComentariosController extends \BaseController
 {
-
-      protected $comentario;
-      protected $negocio;
-      protected $evento;
-
-      public function __construct(Comentario $comentario, Negocio $negocio, Evento $evento)
-      {
-            $this->comentario = $comentario;
-            $this->negocio = $negocio;
-            $this->evento = $evento;
-      }
 
       /**
        * Store a newly created comentario in storage.
@@ -26,7 +11,7 @@ class ComentariosController extends \BaseController
       public function store()
       {
             $id = Input::get('id');
-            $clase = strtolower(Input::get('clase'));
+            $clase = Input::get('clase');
             $resultado = array();
 
             if (!isset($id) || !isset($clase))
@@ -36,47 +21,33 @@ class ComentariosController extends \BaseController
                   return Response::json($resultado);
             }
 
-            $objeto = $this->$clase->find($id);
+            $objeto = $clase::find($id);
 
             if (isset($objeto))
-            {
-
-                  $commentValidator = new \Sph\Services\Validators\Comentario(Input::all(), 'save');
-
-                  $resultado = array();
-
-                  if ($commentValidator->passes())
+            {                  
+                  $comentario       = new Comentario;
+                  $comentario->user = Auth::user();
+                  $comentario->comentable()->associate($objeto);
+                  if (get_class($objeto) == Comentario::class)
                   {
-                        $comentario_model = Input::all();
-                        $comentario_model = array_add($comentario_model, 'user_id', Auth::user()->id);
-                        $comentario_model = array_add($comentario_model, 'objeto', $objeto);
-
-                        if (get_class($objeto) == \Comentario::class)
-                        {
-                              $comentario_model = array_add($comentario_model, 'topic_id', $objeto->topic_id);
-                              $comentario_model = array_add($comentario_model, 'topic_type', $objeto->topic_type);
-                        }
-                        else
-                        {
-                              $comentario_model = array_add($comentario_model, 'topic_id', $objeto->id);
-                              $comentario_model = array_add($comentario_model, 'topic_type', get_class($objeto));
-                        }
-
-
-                        $comentario = $this->comentario->create($comentario_model);
-                        if (isset($comentario))
-                        {
-                              $status = "exito";
-                              $resultado = array_add($resultado, "status", true);
-                              $resultado = array_add($resultado, "mensaje", "Comentario Agregado con exito");
-                              $resultado = array_add($resultado, "comentario", View::make('layouts.show_comentario')->with(array('comentario' => $comentario))->render());
-                        }
+                        $comentario->topic()->associate($objeto->topic);
                   }
                   else
                   {
+                        $comentario->topic()->associate($objeto);
+                  }
 
+                  if ($comentario->save())
+                  {
+                        $status    = "exito";
+                        $resultado = array_add($resultado, "status", true);
+                        $resultado = array_add($resultado, "mensaje", "Comentario Agregado con exito");
+                        $resultado = array_add($resultado, "comentario", View::make('layouts.show_comentario')->with(array('comentario' => $comentario, 'objeto' => $comentario->topic))->render());
+                  }
+                  else
+                  {
                         $resultado = array_add($resultado, "status", false);
-                        $resultado = array_add($resultado, "mensaje", $commentValidator->getErrors()->first('comentario'));
+                        $resultado = array_add($resultado, "mensaje", $comentario->errors());
                   }
             }
             else
@@ -96,23 +67,16 @@ class ComentariosController extends \BaseController
        */
       public function update($id)
       {
-            $comentario = $this->comentario->find($id);
-            $resultado = array();
+            $comentario = Comentario::find($id);
+            $resultado  = array();
 
             if (isset($comentario) && $comentario->usuario->id == Auth::user()->id)
             {
-                  $commentValidator = new \Sph\Services\Validators\Comentario(Input::all(), 'update');
-
-                  if ($commentValidator->passes())
+                  if ($comentario->update())
                   {
-                        $comentario_model = Input::all();
-                        $comentario = $this->comentario->update($id, $comentario_model);
-                        if (isset($comentario))
-                        {
-                              $resultado = array_add($resultado, "status", true);
-                              $resultado = array_add($resultado, "mensaje", "Comentario Agregado con exito");
-                              $resultado = array_add($resultado, "comentario", View::make('layouts.show_comentario')->with('comentario', $comentario)->render());
-                        }
+                        $resultado = array_add($resultado, "status", true);
+                        $resultado = array_add($resultado, "mensaje", "Comentario Agregado con exito");
+                        $resultado = array_add($resultado, "comentario", View::make('layouts.show_comentario')->with('comentario', $comentario)->render());
                   }
                   else
                   {
@@ -140,33 +104,30 @@ class ComentariosController extends \BaseController
       {
             $resultado = array();
 
-            $comentario = $this->comentario->find($id);
+            $comentario = Comentario::find($id);
+
             if (isset($comentario))
             {
-                  if ($comentario->usuario->id == Auth::user()->id)
+                  $objeto = $comentario->topic;
+                  //Si el topic pertenece al usuario entonces lo eliminar
+                  if ($objeto->cliente->user->id == Auth::user()->id)
                   {
-                        if ($this->comentario->delete($id))
+                        if ($comentario->delete())
                         {
-
                               $resultado = array_add($resultado, "status", true);
                         }
                         else
                         {
                               $resultado = array_add($resultado, "status", false);
-                              $resultado = array_add($resultado, "mensaje", "no se pudo eliminar el comentario");
                         }
                   }
                   else
                   {
                         $resultado = array_add($resultado, "status", false);
-                        $resultado = array_add($resultado, "mensaje", "El comentario no pertenece al usuario");
+                        $resultado = array_add($resultado, "mensaje", 'El comentario no pertenece al objeto');
                   }
             }
-            else
-            {
-                  $resultado = array_add($resultado, "status", false);
-                  $resultado = array_add($resultado, "mensaje", "No existe el comentario a eliminar");
-            }
+
             return Response::json($resultado);
       }
 
