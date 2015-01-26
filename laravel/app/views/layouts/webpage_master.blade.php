@@ -111,7 +111,7 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuario <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                           @if(Auth::user()->userable_type === 'Cliente')
-                                          <li>{{ HTML::linkRoute('publicar.cliente.index','Publicar') }}</li> 
+                                          <li>{{ HTML::linkRoute('publicar.cliente.show','Publicar',array(Auth::user()->userable->id)) }}</li> 
                                           @elseif(Auth::user()->userable_type === 'Administrador')
                                           <li>{{ HTML::linkRoute('administradores.index','Administradores') }}</li> 
                                           @elseif(Auth::user()->userable_type === 'Marketing')

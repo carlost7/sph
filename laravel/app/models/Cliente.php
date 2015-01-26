@@ -31,5 +31,6 @@ class Cliente extends Ardent {
       {
             return $this->hasManyThrough('Promocion', 'Negocio');
       }
+      
 
 }

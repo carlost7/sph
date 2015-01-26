@@ -8,14 +8,16 @@ class ClientesController extends \BaseController {
             View::share('section', 'Cliente');
       }
 
-      /**
-       * Display a listing of clientes
-       *
-       * @return Response
-       */
-      public function index()
+      public function show($id)
       {
-            return View::make('clientes.index');
+            if ($id != Auth::user()->userable->id)
+            {
+                  Session::flash('error', 'El cliente no pertenece al usuario registrado');
+                  return Redirect::back();
+            }
+            $cliente = Cliente::find($id);
+
+            return View::make('clientes.show', compact('cliente'));
       }
 
       /**
@@ -24,9 +26,16 @@ class ClientesController extends \BaseController {
        * @param  int  $id
        * @return Response
        */
-      public function edit()
+      public function edit($id)
       {
-            return View::make('clientes.edit', compact('cliente', Auth::user()->userable));
+            if ($id != Auth::user()->userable->id)
+            {
+                  Session::flash('error', 'El cliente no pertenece al usuario registrado');
+                  return Redirect::back();
+            }   
+            
+            $cliente = Auth::user()->userable;
+            return View::make('clientes.edit', compact('cliente'));
       }
 
       /**
@@ -64,7 +73,7 @@ class ClientesController extends \BaseController {
                   if ($cliente->update())
                   {
                         Session::flash('message', 'Usuario modificado con éxito');
-                        return Redirect::route('clientes.index');
+                        return Redirect::route('publicar.cliente.show',array($cliente->id));
                   }
                   else
                   {

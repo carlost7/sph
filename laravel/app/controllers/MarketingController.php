@@ -66,7 +66,7 @@ class MarketingController extends \BaseController
                   if ($marketing->update())
                   {
                         Session::flash('message', 'Usuario modificado con éxito');
-                        return Redirect::route('clientes.index');
+                        return Redirect::route('marketing.show',array($marketing->id));
                   }
                   else
                   {

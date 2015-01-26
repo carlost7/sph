@@ -27,8 +27,8 @@
       {{ Form::password('password',array('placeholder' => 'password', 'class'=>'form-control')) }}
 </div>
 <div class="form-group">
-      {{ Form::label('password_confirm', 'Confirmar contraseña') }}
-      {{ Form::password('password_confirm',array('placeholder' => 'repetir password', 'class'=>'form-control')) }}
+      {{ Form::label('password_confirmation', 'Confirmar contraseña') }}
+      {{ Form::password('password_confirmation',array('placeholder' => 'repetir password', 'class'=>'form-control')) }}
 </div>
 @endif
 

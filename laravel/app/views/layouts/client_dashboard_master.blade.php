@@ -13,7 +13,7 @@
                                     <span class="badge pull-right">{{ Auth::user()->userable->pagos->filter(function($pago){return $pago->pagado == false;})->count() ? Auth::user()->userable->pagos->filter(function($pago){return $pago->pagado == false;})->count() : '' }}</span>
                               </a> 
                         </li>
-                        <li @if($section === 'Cliente') class='active' @endif>{{ HTML::linkRoute('publicar.cliente.index','Cuenta',null) }}</li>
+                        <li @if($section === 'Cliente') class='active' @endif>{{ HTML::linkRoute('publicar.cliente.show','Cuenta',array(Auth::user()->userable->id)) }}</li>
                   </ul>
             </div>
             <div class="col-md-3 hidden-xs">
@@ -25,7 +25,7 @@
                                     <span class="badge pull-right">{{ Auth::user()->userable->pagos->filter(function($pago){return $pago->pagado == false;})->count() ? Auth::user()->userable->pagos->filter(function($pago){return $pago->pagado == false;})->count() : '' }}</span>
                               </a> 
                         </li>
-                        <li @if($section === 'Cliente') class='active' @endif>{{ HTML::linkRoute('publicar.cliente.index','Cuenta',null) }}</li>
+                        <li @if($section === 'Cliente') class='active' @endif>{{ HTML::linkRoute('publicar.cliente.show','Cuenta',array(Auth::user()->userable->id)) }}</li>
                   </ul>
             </div>
             <div class="col-xs-12 col-md-8 col-md-push-1">

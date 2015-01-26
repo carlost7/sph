@@ -1,6 +1,16 @@
 <?php
 
+use Illuminate\Events\Dispatcher;
+
 class RegisterController extends \BaseController {
+
+      protected $event;
+
+      public function __construct(Dispatcher $event)
+      {
+            parent::__construct();
+            $this->event = $event;
+      }
 
       public function index()
       {
@@ -20,17 +30,16 @@ class RegisterController extends \BaseController {
        */
       public function store_client()
       {
-            $user    = new User;
-            $cliente = new Cliente;
-
-            if ($user->save())
+            $user               = new User;
+            $cliente            = new Cliente;
+            $cliente->token     = sha1(time());
+            $cliente->is_activo = false;
+            if ($cliente->save())
             {
-                  $cliente->token     = Crypt::encrypt(sha1(time()));
-                  $cliente->is_activo = false;
-                  $cliente->user()->associate($user);
-                  if ($cliente->save())
+                  if ($cliente->user()->save($user))
                   {
-                        $data = array('nombre' => $cliente->nombre,
+                        $data = array(
+                            'nombre' => $cliente->nombre,
                             'token'  => $cliente->token,
                             'id'     => $cliente->id,
                         );
@@ -45,13 +54,13 @@ class RegisterController extends \BaseController {
                   }
                   else
                   {
-                        $user->delete();
-                        return Redirect::back()->withInput()->withErrors($cliente->errors());
+                        $cliente->delete();
+                        return Redirect::back()->withInput()->withErrors($user->errors());
                   }
             }
             else
             {
-                  return Redirect::back()->withInput()->withErrors($user->errors());
+                  return Redirect::back()->withInput()->withErrors($cliente->errors());
             }
       }
 
@@ -67,21 +76,40 @@ class RegisterController extends \BaseController {
                   if ($token == $cliente->token)
                   {
                         $cliente->is_activo = true;
+                        $cliente->token     = '';
                         //Asignamos el cliente a un usuario de marketing;
                         //Obtenemos el conteo de los clientes
-                        $clientes           = Cliente::groupBy('marketing_id')->get(array('marketing_id', DB::raw('count(*) as count')));
-                        //Obtenemos el marketing que tiene menos 
-                        $resultado          = $clientes->lists('count', 'marketing_id');
-                        $id                 = array_keys($resultado, min($resultado));
+                        $clientes           = Cliente::whereNotNull('marketing_id')->groupBy('marketing_id')->get(array('marketing_id', DB::raw('count(*) as count')));
+                        if (count($clientes))
+                        {
+                              //Obtenemos los marketings que no tienen ningun cliente
+                              $marketings = Marketing::all()->lists('id');
+                              $mktInTable = $clientes->lists('marketing_id');
+                              $resultados = array_diff($marketings, $mktInTable);
+                              if (count($resultados))
+                              {
+                                    $marketing = Marketing::find(reset($resultados));
+                              }
+                              else
+                              {
+                                    //Obtenemos el marketing que tiene menos 
+                                    $resultado = $clientes->lists('count', 'marketing_id');
+                                    $id        = array_keys($resultado, min($resultado));
+                                    $marketing = Marketing::find($id[0]);
+                              }
+                        }
+                        else
+                        {
+                              $marketing = Marketing::first();
+                        }
 
-                        $marketing = Marketing::find($id);
-
-                        $cliente->marketing()->associate($id);
-                        if ($cliente->updateUnique())
+                        $cliente->marketing()->associate($marketing);
+                        if ($cliente->updateUniques())
                         {
                               Auth::login($cliente->user);
                               Session::flash("message", 'Activación exitosa');
-                              return Redirect::route('publicar.cliente.index');
+                              $this->event->fire("enviar_codigo", array($cliente));
+                              return Redirect::route('publicar.cliente.show',$cliente->id);
                         }
                         else
                         {
@@ -121,24 +149,23 @@ class RegisterController extends \BaseController {
             $user    = new User;
             $miembro = new Miembro;
 
-            if ($user->save())
+            if ($miembro->save())
             {
-                  $miembro->user()->associate($user);
-                  if ($miembro->save())
+                  if ($miembro->user()->save($user))
                   {
                         Session::flash('message', 'Bienvenido a Sphellar');
-                        Auth::login($user);                        
+                        Auth::login($user);
                         return Redirect::intended('/');
                   }
                   else
                   {
-                        $user->delete();
-                        return Redirect::back()->withInput()->withErrors($miembro->errors());
+                        $miembro->delete();
+                        return Redirect::back()->withInput()->withErrors($user->errors());
                   }
             }
             else
             {
-                  return Redirect::back()->withInput()->withErrors($user->errors());
+                  return Redirect::back()->withInput()->withErrors($miembro->errors());
             }
       }
 
@@ -157,27 +184,26 @@ class RegisterController extends \BaseController {
 
       public function store_marketing()
       {
-            $user    = new User;
+            $user      = new User;
             $marketing = new Marketing;
 
-            if ($user->save())
+            if ($marketing->save())
             {
-                  $marketing->user()->associate($marketing);                  
-                  if ($marketing->save())
+                  if ($marketing->user->save($user))
                   {
                         Session::flash('message', 'Bienvenido a Sphellar');
-                        Auth::login($user);                        
+                        Auth::login($user);
                         return Redirect::intended('/');
                   }
                   else
                   {
-                        $user->delete();
-                        return Redirect::back()->withInput()->withErrors($miembro->errors());
+                        $marketing->delete();
+                        return Redirect::back()->withInput()->withErrors($user->errors());
                   }
             }
             else
             {
-                  return Redirect::back()->withInput()->withErrors($user->errors());
+                  return Redirect::back()->withInput()->withErrors($marketing->errors());
             }
       }
 
@@ -197,27 +223,26 @@ class RegisterController extends \BaseController {
       public function store_admin()
       {
 
-            $user    = new User;
+            $user  = new User;
             $admin = new Administrador;
 
-            if ($user->save())
+            if ($admin->save())
             {
-                  $admin->user()->associate($user);
-                  if ($admin->save())
+                  if ($admin->user()->save($user))
                   {
                         Session::flash('message', 'Bienvenido a Sphellar');
-                        Auth::login($user);                        
+                        Auth::login($user);
                         return Redirect::to('/');
                   }
                   else
                   {
-                        $user->delete();
-                        return Redirect::back()->withInput()->withErrors($miembro->errors());
+                        $admin->delete();
+                        return Redirect::back()->withInput()->withErrors($user->errors());
                   }
             }
             else
             {
-                  return Redirect::back()->withInput()->withErrors($user->errors());
+                  return Redirect::back()->withInput()->withErrors($admin->errors());
             }
       }
 

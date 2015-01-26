@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use Illuminate\Events\Dispatcher;
 
 class clientesPagosController extends \BaseController {
 

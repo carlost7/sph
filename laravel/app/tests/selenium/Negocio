@@ -43,7 +43,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=#categorias &gt; option[value=&quot;8&quot;]</td>
+	<td>css=option[value=&quot;8&quot;]</td>
 	<td></td>
 </tr>
 <tr>

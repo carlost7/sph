@@ -68,7 +68,7 @@ class MiembrosController extends \BaseController {
                   if ($miembro->update())
                   {
                         Session::flash('message', 'Usuario modificado con éxito');
-                        return Redirect::route('clientes.index');
+                        return Redirect::route('marketings.show',array($marketing->id));
                   }
                   else
                   {
