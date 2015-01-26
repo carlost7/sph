@@ -22,8 +22,8 @@
                   {{ Form::password('password',array('placeholder' => 'password', 'class'=>'form-control')) }}
             </div>
             <div class="form-group">
-                  {{ Form::label('password_confirm', 'Confirmar password') }}
-                  {{ Form::password('password_confirm',array('placeholder' => 'repetir password', 'class'=>'form-control')) }}
+                  {{ Form::label('password_confirmation', 'Confirmar password') }}
+                  {{ Form::password('password_confirmation',array('placeholder' => 'repetir password', 'class'=>'form-control')) }}
             </div>
 
             @include('layouts.show_form_errors');

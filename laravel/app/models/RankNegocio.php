@@ -1,21 +1,19 @@
 <?php
 
-/*
- * Modelo de BD para guardar los datos de un cliente
- */
+use LaravelBook\Ardent\Ardent;
 
-class RankNegocio extends \Eloquent
-{
+class RankNegocio extends Ardent {
 
-      protected $table = 'negocios_ranks';
-
-      public function negocio(){
-            return $this->belongsTo('Negocio');
-      }
-      
-      public function miembro()
-      {
-            return $this->belongsTo('Miembro');
-      }
+      protected $table                      = 'negocios_ranks';
+      public static $rules                  = array(
+          '' => '',
+      );
+      public static $relationsData          = array(
+          'negocio' => array(self::BELONGS_TO, 'Negocio'),
+          'miembro' => array(self::BELONGS_TO, 'Miembro'),
+      );
+      public $autoHydrateEntityFromInput    = true;
+      public $forceEntityHydrationFromInput = true;
+      public $autoPurgeRedundantAttributes  = true;
 
 }

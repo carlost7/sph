@@ -1,105 +1,36 @@
 <?php
 
-/*
- * Modelo de BD para guardar los datos de un cliente
- */
+use LaravelBook\Ardent\Ardent;
 
-class Cliente extends \Eloquent
-{
+class Cliente extends Ardent {
 
-      protected $table = 'clientes';
-      protected $fillable = ['nombre', 'apellido', 'empresa', 'telefono', 'ext', 'celular', 'token'];
-
-      /*
-       * Un cliente tambien es un usuario
-       */
-
-      public function user()
-      {
-            return $this->morphOne('User', 'userable');
-      }
-
-      /*
-       * Un cliente tiene muchos negocios
-       */
-
-      public function negocios()
-      {
-            return $this->hasMany('Negocio', 'cliente_id', 'id');
-      }
-
-      /*
-       * Un cliente tiene muchos eventos
-       */
-
-      public function eventos()
-      {
-            return $this->hasMany('Evento', 'cliente_id', 'id');
-      }
-
-      /*
-       * Un cliente tiene muchas promociones a traves de un negocio
-       */
+      protected $table                      = 'clientes';
+      protected $fillable                   = ['nombre', 'apellido', 'empresa', 'telefono', 'ext', 'celular', 'token'];
+      public static $rules                  = array(
+          'nombre'   => 'required',
+          'apellido' => 'required',
+          'empresa'  => 'required',
+          'ext'      => 'numeric',
+          'telefono' => 'required',
+          'celular'  => 'required'
+      );
+      public static $relationsData          = array(
+          'marketing' => array(self::BELONGS_TO, 'Marketing'),
+          'negocios'  => array(self::HAS_MANY, 'Negocio'),
+          'eventos'   => array(self::HAS_MANY, 'Evento'),
+          'pagos'     => array(self::HAS_MANY, 'Pago'),
+          'bitacoras' => array(self::HAS_MANY, 'Bitacora_cliente'),
+          'avisos'    => array(self::HAS_MANY, 'Avisos'),
+          'user'      => array(self::MORPH_ONE, 'User', 'name' => 'userable'),
+      );
+      public $autoHydrateEntityFromInput    = true;
+      public $forceEntityHydrationFromInput = true;
+      public $autoPurgeRedundantAttributes  = true;
 
       public function promociones()
       {
             return $this->hasManyThrough('Promocion', 'Negocio');
       }
-
-      /*
-       * Un cliente genera muchos pagos
-       */
-
-      public function pagos()
-      {
-            return $this->hasMany('Pago', 'cliente_id', 'id');
-      }
-
-      /*
-       * Un cliente le pertenece a un usuario de marketing
-       */
-
-      public function marketing()
-      {
-            return $this->belongsTo('Marketing', 'marketing_id', 'id');
-      }
-
-      /*
-       * Un cliente tiene muchos registros de bitacora
-       */
-
-      public function bitacoras()
-      {
-            return $this->hasMany('Bitacora_cliente', 'cliente_id', 'id');
-      }
-
-      /*
-       * Un cliente tiene muchos avisos
-       */
-
-      public function avisos()
-      {
-            return $this->hasMany('Aviso_cliente', 'cliente_id', 'id');
-      }
-
-      /*
-       * Un cliente tiene muchas imagenes
-       */
-
-      public function imagenes()
-      {
-            return $this->hasMany('Imagen', 'cliente_id', 'id');
-      }
-
-      /*
-       * *******************************
-       * Accessor
-       * *******************************
-       */
-
-      public function getTotalImagesAttribute()
-      {
-            return $this->hasMany('Imagen')->count();
-      }
+      
 
 }

@@ -1370,7 +1370,7 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 	public function save(array $options = array())
 	{
 		$query = $this->newQueryWithoutScopes();
-
+                
 		// If the "saving" event returns false we'll bail out of the save and return
 		// false, indicating that the save failed. This gives an opportunities to
 		// listeners to cancel save operations if validations fail or whatever.
@@ -1384,6 +1384,7 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 		// clause to only update this model. Otherwise, we'll just insert them.
 		if ($this->exists)
 		{
+                      
 			$saved = $this->performUpdate($query);
 		}
 
@@ -1392,12 +1393,12 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 		// which is typically an auto-increment value managed by the database.
 		else
 		{
+                      
 			$saved = $this->performInsert($query);
 		}
 
 		if ($saved) $this->finishSave($options);
-
-		return $saved;
+                return $saved;
 	}
 
 	/**
@@ -1476,7 +1477,7 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 		{
 			$this->updateTimestamps();
 		}
-
+                
 		// If the model has an incrementing key, we can use the "insertGetId" method on
 		// the query builder, which will give us back the final inserted ID for this
 		// table from the database. Not all tables have to be incrementing though.
@@ -1484,14 +1485,14 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 
 		if ($this->incrementing)
 		{
-			$this->insertAndSetId($query, $attributes);
+                      $this->insertAndSetId($query, $attributes);                      
 		}
 
 		// If the table is not incrementing we'll simply insert this attributes as they
 		// are, as this attributes arrays must contain an "id" column already placed
 		// there by the developer as the manually determined key for these models.
 		else
-		{
+		{                      
 			$query->insert($attributes);
 		}
 
@@ -1499,9 +1500,9 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 		// the created event is fired, just in case the developer tries to update it
 		// during the event. This will allow them to do so and run an update here.
 		$this->exists = true;
-
+                
 		$this->fireModelEvent('created', false);
-
+                
 		return true;
 	}
 
@@ -1514,8 +1515,8 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 	 */
 	protected function insertAndSetId(Builder $query, $attributes)
 	{
-		$id = $query->insertGetId($attributes, $keyName = $this->getKeyName());
-
+              $id = $query->insertGetId($attributes, $keyName = $this->getKeyName());
+                
 		$this->setAttribute($keyName, $id);
 	}
 

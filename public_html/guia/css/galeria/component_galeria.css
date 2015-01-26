@@ -169,12 +169,13 @@ code {
 }
 
 .slides > li {
-	width: 100%;
+	width: 32%;
 	height: 100%;
-	position: absolute;
-	visibility: hidden;
+	//position: absolute;
+	//visibility: hidden;
 	-webkit-perspective: 1600px;
 	perspective: 1600px;
+        display: inline-block;        
 }
 
 .no-js .slides > li {

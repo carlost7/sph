@@ -40,7 +40,7 @@
 
             <div class="text-right">
                   @if($pago->pagado)
-                  <p>Pagado: {{ ($pago->pagado) ? 'Si' : 'No' }} - Método:{{$pago->metodo}}</p>
+                  <p>Pagado: {{ ($pago->pagado) ? 'Si' : 'No' }} - Método: {{$pago->metodo}}</p>
                   @else
                   <div class="show">
                         @if($pago->pagable->aviso || $pago->pagable->publicar )

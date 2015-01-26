@@ -1,66 +1,71 @@
-$(function() {
-    $('#estados').change(function() {
-        var estado_id = $("#estados").val();
-        url = base_url + "/obtener_zona/" + estado_id;
-        $.get(url).done(function(data) {
-            $("#zonas").empty();
-            for (i = 0; i < data.length; i++) {
-                resultado = data[i];
-                if (resultado.id === '{{""}}') {
-                    elemento = "<option value=" + resultado.id + " selected >" + resultado.zona + "</option>";
-                } else {
-                    elemento = "<option value=" + resultado.id + ">" + resultado.zona + "</option>";
-                }
-                $("#zonas").append(elemento);
+jQuery(function () {
+      jQuery('#estados').change(function () {
+            var estado_id = jQuery("#estados").val();
+            url = base_url + "/obtener_zona/" + estado_id;
+            jQuery.get(url).done(function (data) {
+                  jQuery("#zonas").empty();
+                  elemento = "<option value=''></option>";
+                  jQuery("#zonas").append(elemento);                  
+                  for (i = 0; i < data.length; i++) {
+                        resultado = data[i];
+                        if (resultado.id === '{{""}}') {
+                              elemento = "<option value=" + resultado.id + " selected >" + resultado.zona + "</option>";
+                        } else {
+                              elemento = "<option value=" + resultado.id + ">" + resultado.zona + "</option>";
+                        }
+                        jQuery("#zonas").append(elemento);
+                  }
+            });
+      }).trigger('change');
+      jQuery('#categorias').change(function () {
+            var categoria_id = jQuery("#categorias").val();
+            url = base_url + "/obtener_subcategoria/" + categoria_id;
+            jQuery.get(url).done(function (data) {
+                  jQuery("#subcats").empty();
+                  elemento = "<option value=''></option>";
+                  jQuery("#subcats").append(elemento);
+                  for (i = 0; i < data.length; i++) {
+                        resultado = data[i];
+                        if (resultado.id === '{{""}}') {
+                              elemento = "<option value=" + resultado.id + " selected >" + resultado.subcategoria + "</option>";
+                        } else {
+                              elemento = "<option value=" + resultado.id + ">" + resultado.subcategoria + "</option>";
+                        }
+                        jQuery("#subcats").append(elemento);
+                  }
+            });
+      }).trigger('change');
+
+
+      jQuery("#search_catalog").click(function (e) {
+            e.preventDefault();
+            if (jQuery("#busca_negocio").is(':checked') && jQuery("#busca_cartelera").is(':checked')) {
+                  url = base_url;
+            } else if (jQuery("#busca_negocio").is(':checked')) {
+                  url = base_url + '/negocios';
+            } else if (jQuery("#busca_cartelera").is(':checked')) {
+                  url = base_url + '/cartelera';
+            } else {
+                  url = base_url;
             }
-        });
-    }).trigger('change');
-    $('#categorias').change(function() {
-        var categoria_id = $("#categorias").val();
-        url = base_url + "/obtener_subcategoria/" + categoria_id;
-        $.get(url).done(function(data) {
-            $("#subcats").empty();
-            for (i = 0; i < data.length; i++) {
-                resultado = data[i];
-                if (resultado.id === '{{""}}') {
-                    elemento = "<option value=" + resultado.id + " selected >" + resultado.subcategoria + "</option>";
-                } else {
-                    elemento = "<option value=" + resultado.id + ">" + resultado.subcategoria + "</option>";
-                }
-                $("#subcats").append(elemento);
+            jQuery("#form_catalog").attr("action", url).submit();
+      });
+
+});
+
+jQuery(document).ready(function () {
+      jQuery("#nombre_ubicacion").autocomplete({
+            serviceUrl: base_url + "/catalogo_zonas",
+            onSelect: function (suggestion) {                  
+                  jQuery("#id_ubicacion").val(suggestion.data);
             }
-        });
-    }).trigger('change');
+      });
 
-
-    $("#search_catalog").click(function(e){
-       e.preventDefault();
-       if( $("#busca_negocio").is(':checked') && $("#busca_cartelera").is(':checked') ){
-           url = base_url;
-       }else if($("#busca_negocio").is(':checked')){
-           url = base_url+'/negocios';
-       }else if($("#busca_cartelera").is(':checked')){
-           url = base_url+'/cartelera';
-       }else{
-           url = base_url;
-       }
-       $("#form_catalog").attr("action",url).submit();
-    });
-
+      jQuery("#nombre_categoria").autocomplete({
+            serviceUrl: base_url + "/catalogo_categorias",
+            onSelect: function (suggestion) {
+                  jQuery("#id_categoria").val(suggestion.data);
+            }
+      });
 });
 
-
-$("#nombre_ubicacion").autocomplete({
-    serviceUrl: base_url + "/catalogo_zonas",
-    
-    onSelect: function(suggestion) {
-        $("#id_ubicacion").val(suggestion.data);
-    }
-});
-
-$("#nombre_categoria").autocomplete({
-    serviceUrl: base_url + "/catalogo_categorias",
-    onSelect: function(suggestion) {
-        $("#id_categoria").val(suggestion.data);
-    }
-});

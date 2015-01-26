@@ -1,30 +1,23 @@
 <?php
 
-class Comentario extends \Eloquent
-{
+use LaravelBook\Ardent\Ardent;
 
-      protected $table = 'comentarios';
-      protected $fillable = ['comentario'];
+class Comentario extends Ardent {
 
-      public function comentable()
-      {
-            return $this->morphTo();
-      }
-
-      public function usuario()
-      {
-            return $this->belongsTo('User');
-      }
-
-      public function comentarios()
-      {
-
-            return $this->morphMany('Comentario', 'comentable');
-      }
-
-      public function topic()
-      {
-            return $this->morphTo();
-      }
-
+      protected $table     = 'comentarios';
+      protected $fillable  = ['comentario'];
+      public static $rules = array(
+          'comentario' => 'required|min:2|max:5000'
+      );
+      public $autoHydrateEntityFromInput    = true;
+      public $forceEntityHydrationFromInput = true;
+      public $autoPurgeRedundantAttributes  = true;
+      public static $relationsData          = array(
+          'usuario'     => array(self::BELONGS_TO, 'User'),
+          'comentable'  => array(self::MORPH_TO),
+          'topic'  => array(self::MORPH_TO),
+          'comentarios' => array(self::MORPH_MANY, 'Comentario', 'name' => 'comentable'),
+      );
+      
+      
 }

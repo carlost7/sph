@@ -69,6 +69,7 @@ return array(
     ),
     "unique" => "El campo :attribute ya existe en el sistema.",
     "url" => "El formato para el campo :attribute is invalido.",
+    "boolean" => "El atributo :attribute debe ser cierto o falso.",
     /*
       |--------------------------------------------------------------------------
       | Custom Validation Language Lines

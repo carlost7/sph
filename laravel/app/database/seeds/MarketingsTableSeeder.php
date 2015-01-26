@@ -22,12 +22,12 @@ class MarketingsTableSeeder extends Seeder
                   'name' => 'Nestor Bernardino',
                   'is_activo' => true,
             ));
-            User::create(array(
+            /*User::create(array(
                   'password' => Hash::make('klendactu'),
                   'email' => 'nestor.bernardino@sphellar.com',
                   'userable_type' => 'Marketing',
                   'userable_id' => $marketing->id,
-            ));
+            ));*/
       }
 
 }

@@ -37,36 +37,7 @@
       </section>
 
 
-      <!-- PUBLICIDAD BANNER CHICOS (3) -->
-
-      <section id="publicidad_tres">
-
-            <article class="publi">
-
-                  <a href="http://sphellar.com/mx/cultura/arte/23-el-poder-de-las-tormentas-en-la-fotografia-de-mike-olbinski.html" target="new">
-                        {{HTML::image('img/publicidad/cuadro_1default.jpg','Publicidad uno')}} 
-                  </a>
-
-            </article>
-
-            <article class="publi">
-
-                  <a href="http://sphellar.com/mx/cultura/22-los-4-alimentos-mas-caros-del-mundo.html" target="new">
-                        {{HTML::image('img/publicidad/cuadro_2default.jpg','Publicidad uno')}} 
-                  </a>
-
-            </article>
-
-            <article class="publi">
-
-                  <a href="http://sphellar.com/mx/cultura/literatura/21-encuentros-literarios-en-el-hay-festival-xalapa.html" target="new">
-                        {{HTML::image('img/publicidad/cuadro_3default.jpg','Publicidad uno')}} 
-                  </a>
-
-            </article>
-
-      </section>
-
+      @include('layouts.show_last_posts')
 
       <!-- Comienza sección de Negocios -->
 
@@ -76,8 +47,8 @@
             <!--<h2 class="title_index">Negocios</h2>-->
             @foreach($negocios as $negocio)
             <div class="col-sm-6 cuadro_front_negocios">
-                  @if(count($negocio->imagen))
-                  <a href="{{ route('negocios.show',array($negocio->id,Str::slug($negocio->nombre))) }}"><img src="{{Config::get('params.path_serve_image').$negocio->imagen->path.$negocio->imagen->nombre}}" alt="{{ $negocio->imagen->alt }}" /></a>
+                  @if($negocio->imagen_file_name != "")
+                  <img src="{{ URL::to("/").$negocio->imagen->url('medium')}}">
                   @else
                   <a href="{{ route('negocios.show',array($negocio->id,Str::slug($negocio->nombre))) }}">{{HTML::image('img/negocio-default.jpg')}}</a>
                   @endif
@@ -153,7 +124,7 @@
 
 
 @section('scripts')
-
+{{ HTML::script('js/latest_posts.js') }}
 <script>
       $(function() {
             $("[data-toggle='tooltip']").tooltip();

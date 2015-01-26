@@ -17,6 +17,7 @@ class CorreosListener
             Mail::queue('emails.send_welcome_message', $data, function($message) use ($miembro) {
                   $message->to($miembro->user->email, $miembro->username)->subject('Bienvenido a Sphellar');
             });
+            return true;
       }
 
 }

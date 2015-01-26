@@ -4,7 +4,7 @@
 @if($negocio)
 <div class="col-xs-12">
       <ul class="nav nav-pills">            
-            <li>{{ HTML::linkRoute('clientes_negocios.edit','Editar negocio',$negocio->id) }}</li>            
+            <li>{{ HTML::linkRoute('publicar.clientes_negocios.edit','Editar negocio',$negocio->id) }}</li>            
       </ul>
 </div>
 

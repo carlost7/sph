@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost/" />
+<title>Negocio</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Negocio</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/sph/public_html/guia/publicar/clientes_negocios/create</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'Negocios')])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Agregar negocio</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=estados</td>
+	<td>label=Coahuila</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=option[value=&quot;5&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=categorias</td>
+	<td>label=Centros Comerciales</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=option[value=&quot;8&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=nombre</td>
+	<td>Negocio de prueba</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=telefono</td>
+	<td>56 90 92 33</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=address</td>
+	<td>Calle 51 N. 32 Sta Cruz Meyehualco</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=webpage</td>
+	<td>http://www.google.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=email</td>
+	<td>juvcarl</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=email</td>
+	<td>juvcarl@yahoo.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=descripcion</td>
+	<td>Descripcion de prueba del negocio para la prueba con selenium</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=lun</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[3]/div[2]/div/span/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[3]/div[3]/div/span/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[4]/div[2]/div/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[4]/div[3]/div/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[5]/div[2]/div/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[5]/div[3]/div/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=vie</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=sab</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[8]/div[2]/div/span/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[8]/div[3]/div/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='tc'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='td'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='valet'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='envio_domicilio'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='wifi'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='solo_hombres'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='restaurante'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='informacion'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='membresia'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='devoluciones'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='cita'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='pagos_diferidos'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='alcohol'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=imagen</td>
+	<td>/home/carlos/Downloads/6271_1012371878789472_4994421683090840532_n.png</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@type='button']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='map-canvas']/div/div/div[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//button[@type='submit'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=imagen</td>
+	<td>/home/carlos/Downloads/10748703_1573350779560554_583976996_n.jpg</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=imagen</td>
+	<td>/home/carlos/Downloads/6271_1012371878789472_4994421683090840532_n.png</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'Negocios')])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Negocio de prueba</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Editar negocio</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=descripcion</td>
+	<td>Descripcion de prueba del negocio para la prueba con selenium y los campos aislados</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='barra_libre'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='valet'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='solo_hombres'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='solo_mujeres'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='taller'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=lun</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=span.glyphicon.glyphicon-time</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[3]/div/span/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//button[@type='submit'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=editar imagenes</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@value='eliminar'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=imagen</td>
+	<td>/home/carlos/Downloads/10801658_665102316943683_1057352176300215041_n.png</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input.btn.btn-primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//a[@href='http://localhost/sph/public_html/guia/publicar/clientes_pagos'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'Negocios')])[3]</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

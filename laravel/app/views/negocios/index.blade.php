@@ -5,7 +5,7 @@
 
 <div class="col-xs-12">
       <ul class="nav nav-pills">            
-            <li>{{ HTML::linkRoute('clientes_negocios.create','Agregar negocio') }}</li>            
+            <li>{{ HTML::linkRoute('publicar.clientes_negocios.create','Agregar negocio') }}</li>            
       </ul>
 </div>
 
@@ -18,13 +18,13 @@
 
       <li class="list-group-item">
             <h3 class="text-left">                  
-                  {{ HTML::linkRoute("clientes_negocios.show",$negocio->nombre,$negocio->id) }}
+                  {{ HTML::linkRoute("publicar.clientes_negocios.show",$negocio->nombre,$negocio->id) }}
             </h3>
             <p class="text-right">
-                  {{ HTML::linkRoute('clientes_negocios.edit','editar',$negocio->id,array('class'=>'btn btn-sm btn-info')) }}       
+                  {{ HTML::linkRoute('publicar.clientes_negocios.edit','editar',$negocio->id,array('class'=>'btn btn-sm btn-info')) }}       
             </p>
 
-            {{ Form::open(array('route' => array('clientes_negocios.destroy',$negocio->id))) }}            
+            {{ Form::open(array('route' => array('publicar.clientes_negocios.destroy',$negocio->id))) }}            
             {{ Form::hidden('_method', 'DELETE') }}            
             <p class="text-right">{{ Form::submit('eliminar', array('class' => 'btn btn-sm btn-danger')) }} </p>
             {{ Form::close() }}                        

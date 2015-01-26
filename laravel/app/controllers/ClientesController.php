@@ -1,30 +1,23 @@
 <?php
 
-use Sph\Storage\User\UserRepository as User;
-use Sph\Storage\Cliente\ClienteRepository as Cliente;
-
-class ClientesController extends \BaseController
-{
-
-      protected $user;
-      protected $cliente;
+class ClientesController extends \BaseController {
 
       public function __construct(User $user, Cliente $cliente)
       {
             parent::__construct();
-            $this->user = $user;
-            $this->client = $cliente;
-            View::share('section','Cliente');
+            View::share('section', 'Cliente');
       }
 
-      /**
-       * Display a listing of clientes
-       *
-       * @return Response
-       */
-      public function index()
+      public function show($id)
       {
-            return View::make('clientes.index');
+            if ($id != Auth::user()->userable->id)
+            {
+                  Session::flash('error', 'El cliente no pertenece al usuario registrado');
+                  return Redirect::back();
+            }
+            $cliente = Cliente::find($id);
+
+            return View::make('clientes.show', compact('cliente'));
       }
 
       /**
@@ -33,9 +26,16 @@ class ClientesController extends \BaseController
        * @param  int  $id
        * @return Response
        */
-      public function edit()
+      public function edit($id)
       {
-            return View::make('clientes.edit')->with('cliente',Auth::user()->userable);
+            if ($id != Auth::user()->userable->id)
+            {
+                  Session::flash('error', 'El cliente no pertenece al usuario registrado');
+                  return Redirect::back();
+            }   
+            
+            $cliente = Auth::user()->userable;
+            return View::make('clientes.edit', compact('cliente'));
       }
 
       /**
@@ -46,37 +46,43 @@ class ClientesController extends \BaseController
        */
       public function update()
       {
-            $validateUser = new Sph\Services\Validators\User(Input::all(), 'update');
-            $validateClient = new Sph\Services\Validators\Cliente(Input::all(), 'update');
+            $user    = Auth::user();
+            $cliente = Auth::user()->userable;
 
-            if ($validateUser->passes() & $validateClient->passes())
+            // Check if a password has been submitted
+            if (!Input::has('password'))
             {
-                  $user_model = array();
-                  if ("" !== Input::get('password'))
+                  // If so remove the validation rule
+                  $user::$rules['password']              = '';
+                  $user::$rules['password_confirmation'] = '';
+                  // Also set autoHash to false;
+                  $user->autoHashPasswordAttributes      = false;
+            }
+            // Run the update passing a Dynamic beforeSave() closure as the fourth argument
+            if ($user->updateUniques(
+                            array(), array(), array(), function($user) {
+                          // Check for the presence of a blank password field again
+                          if (empty($user->password))
+                          {
+                                // If present remove it from the update
+                                unset($user->password);
+                                return true;
+                          }
+                    }))
+            {
+                  if ($cliente->update())
                   {
-                        $user_model = array_add($user_model, "password", Input::get('password'));
+                        Session::flash('message', 'Usuario modificado con éxito');
+                        return Redirect::route('publicar.cliente.show',array($cliente->id));
                   }
-                  if ("" !== Input::get('email'))
+                  else
                   {
-                        $user_model = array_add($user_model, "email", Input::get('email'));
-                  }
-                  $user = $this->user->update(Auth::user()->id, $user_model);
-                  if (isset($user))
-                  {
-                        $cliente_model = Input::all();
-                        $cliente = $this->client->update(Auth::user()->userable->id, $cliente_model);
-                        if (isset($cliente))
-                        {
-                              Session::flash('message', 'Usuario modificado con éxito');
-                              return Redirect::route('clientes.index');
-                        }
+                        Session::flash('error', "Error al actualizar el administrador");
+                        return Redirect::back()->withInput()->withErrors($cliente->errors());
                   }
             }
-            $user_messages = ($validateUser->getErrors() != null) ? $validateUser->getErrors()->all() : array();
-            $cliente_messages = ($validateClient->getErrors() != null) ? $validateClient->getErrors()->all() : array();
-            $validationMessages = array_merge_recursive($user_messages, $cliente_messages);
-
-            return Redirect::back()->withInput()->withErrors($validationMessages);
+            Session::flash('error', "Error al actualizar el usuario");
+            return Redirect::back()->withInput()->withErrors($user->errors());
       }
 
       /**
@@ -87,9 +93,26 @@ class ClientesController extends \BaseController
        */
       public function destroy($id)
       {
-            $this->cliente->delete($id);
-
-            return Redirect::route('clientes.index');
+            $user = Auth::user();
+            if ($user->delete())
+            {
+                  $cliente = $user->userable;
+                  if ($cliente->delete())
+                  {
+                        Session::flash('error', 'Cliente eliminado exitosamente');
+                        return Redirect::to('/');
+                  }
+                  else
+                  {
+                        Session::flash('error', 'No se pudo eliminar el cliente');
+                        return Redirect::back();
+                  }
+            }
+            else
+            {
+                  Session::flash('error', 'No se pudo eliminar el usuario');
+                  return Redirect::back();
+            }
       }
 
 }

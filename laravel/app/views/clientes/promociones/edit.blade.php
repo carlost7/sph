@@ -5,7 +5,7 @@
 @if($promocion)
 <h2>Editar: {{ $promocion->nombre }}</h2>
 
-{{ Form::model($promocion, array('route' => array('clientes_promociones.update', $promocion->id), 'method' => 'PUT','files'=>true)) }}
+{{ Form::model($promocion, array('route' => array('publicar.clientes_promociones.update', $promocion->id), 'method' => 'PUT','files'=>true)) }}
 
 <div class="form-group">
       {{ Form::label('negocio','Negocio') }}
@@ -39,19 +39,13 @@
       </div>
 </div>
 <div class="form-group">
-      {{ Form::label('imagen','Imágen') }}
-      <input type="file" name="imagen" id='uploadFile' title="Seleccionar" class="file-inputs" data-filename-placement="inside">
-      @if($promocion->imagen)
-      <div id="imagepreview" class="imagepreview" style="background-image: url({{ Config::get('params.path_serve_image').$promocion->imagen->path.$promocion->imagen->nombre }})"></div>
-      {{ Form::label('alt','Descripción') }}
-      {{ Form::text('alt',$promocion->imagen->alt,array('placeholder' => 'descripción', 'class'=>'form-control')) }}
-      @else
-      <div id="imagepreview" class="imagepreview"></div>
-      {{ Form::label('alt','Descripción') }}
-      {{ Form::text('alt',null,array('placeholder' => 'descripción', 'class'=>'form-control')) }}
-      @endif
+      <div class="row">
+            <div class="col-sm-12">
+                  {{ Form::label('imagen','Editar imagen de promoción 250px * 250px') }}
+                  {{ Form::file('imagen') }}
+            </div>
+      </div>
 </div>
-
 @if($editar_publicacion)
 <div class="form-group">
       <div class="row">

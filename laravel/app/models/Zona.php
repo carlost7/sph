@@ -1,36 +1,20 @@
 <?php
 
-/*
- * Modelo de BD donde se guardaran los datos de las zonas del estado
- */
+use LaravelBook\Ardent\Ardent;
 
-class Zona extends \Eloquent
-{
+class Zona extends Ardent {
 
-      protected $fillable = ['zona'];
-
-      /*
-       * Una zona pertenece a un estado
-       */
-
-      public function estado()
-      {
-            return $this->belongsTo('Estado');
-      }
-      /*
-       * Una zona tiene muchos negocios
-       */
-      public function negocio()
-      {
-            return $this->hasMany('Negocio');
-      }
-
-      /*
-       * Una zona tiene muchos eventos
-       */
-      public function evento()
-      {
-            return $this->hasMany('Evento');
-      }
+      protected $fillable                   = ['zona'];
+      public static $rules                  = array(
+          'zona' => 'required',
+      );
+      public static $relationsData          = array(
+          'estado'   => array(self::BELONGS_TO, 'Estado'),
+          'negocios' => array(self::HAS_MANY, 'Negocio'),
+          'eventos'  => array(self::HAS_MANY, 'Evento'),
+      );
+      public $autoHydrateEntityFromInput    = true;
+      public $forceEntityHydrationFromInput = true;
+      public $autoPurgeRedundantAttributes  = true;
 
 }

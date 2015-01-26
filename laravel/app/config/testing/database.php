@@ -4,9 +4,9 @@ return array(
     'default' => 'sqlite',
     'connections' => array(
         'sqlite' => array(
-            'driver' => 'sqlite',
+            'driver'   => 'sqlite',
             'database' => ':memory:',
-            'prefix' => ''
+            'prefix'   => ''
         ),
     )
 );

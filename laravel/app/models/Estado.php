@@ -1,36 +1,21 @@
 <?php
 
-/*
- * Modelo de BD que guardar los datos de estados 
- */
+use LaravelBook\Ardent\Ardent;
 
-class Estado extends \Eloquent
-{
+class Estado extends Ardent {
 
-      protected $table = 'estados';
-      protected $fillable = ['estado'];
-
-      /*
-       * Un estado tiene muchos negocios
-       */
-
-      public function negocios()
-      {
-            return $this->hasMany('Negocio');
-      }
-
-      /*
-       * Un estado tiene mucohs eventos
-       */
-
-      public function eventos()
-      {
-            return $this->hasMany('Evento');
-      }
-
-      public function zonas()
-      {
-            return $this->hasMany('Zona');
-      }
+      protected $table                      = 'estados';
+      protected $fillable                   = ['estado'];
+      public static $rules                  = array(
+          'estado' => 'required',
+      );
+      public static $relationsData          = array(
+          'negocios' => array(self::HAS_MANY, 'Negocio'),
+          'eventos'  => array(self::HAS_MANY, 'Evento'),
+          'zonas'    => array(self::HAS_MANY, 'Zona'),
+      );
+      public $autoHydrateEntityFromInput    = true;
+      public $forceEntityHydrationFromInput = true;
+      public $autoPurgeRedundantAttributes  = true;
 
 }

@@ -4,8 +4,32 @@
 @if($evento)
 <h2>Editar: {{ $evento->nombre }}</h2>
 
-{{ Form::model($evento, array('route' => array('clientes_eventos.update', $evento->id), 'method' => 'PUT','files'=>true)) }}
+@include('layouts.show_form_errors')
 
+{{ Form::model($evento, array('route' => array('publicar.clientes_eventos.update', $evento->id), 'method' => 'PUT','files'=>true)) }}
+
+<div class="form-group">
+      <div class="row">
+            <div class="col-sm-6">
+                  {{ Form::label('estado_id','Estado') }}
+                  {{ Form::select('estado_id', $estados->lists('estado','id'),null,array('class'=>'form-control','id'=>'estados')) }}
+            </div>
+            <div class="col-sm-6">
+                  {{ Form::label('zona_id','Zona') }}
+                  {{ Form::select('zona_id', array(),null,array('class'=>'form-control', 'id'=>'zonas')) }}
+            </div>
+      </div>
+      <div class="row">
+            <div class="col-sm-6">
+                  {{ Form::label('categoria_id','Categoria') }}
+                  {{ Form::select('categoria_id', $categorias->lists('categoria','id'),null,array('class'=>'form-control','id'=>'categorias')) }}
+            </div>
+            <div class="col-sm-6">
+                  {{ Form::label('subcategoria_id','Subcategoria') }}
+                  {{ Form::select('subcategoria_id', array(),null,array('class'=>'form-control', 'id'=>'subcats')) }}
+            </div>
+      </div>
+</div>
 <div class="form-group">
       {{ Form::label('nombre', 'Nombre') }}
       {{ Form::text('nombre', $evento->nombre, array('placeholder' => 'nombre del negocio', 'class'=>'form-control')) }}
@@ -65,7 +89,14 @@
       {{ Form::text('telefono', $evento->telefono, array('placeholder' => 'teléfono', 'class'=>'form-control')) }}
 </div>
 <div class="form-group">
-      {{ Form::label('mas_info','Más información') }}
+      {{ Form::label('web', 'Página web') }}            
+      {{ Form::text('web', $evento->webpage,array('placeholder'=>'página web','class'=>'form-control')) }}
+</div>        
+<div class="form-group">
+      {{ Form::label('email', 'Correo electrónico') }}            
+      {{ Form::text('email', $evento->email,array('placeholder'=>'correo electrónico','class'=>'form-control')) }}
+</div>        
+<div class="form-group">
       <div class="row">
             <div class="col-sm-6">
                   {{ Form::label('moneda','Moneda') }}
@@ -107,7 +138,7 @@
             <div class="col-sm-4">
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox('tc', true,$evento->masInfo->tc) }}      
+                              <input type="hidden" name="tc" value="0" />{{ Form::checkbox('tc', true,$evento->masInfo->tc) }}      
                               Tarjeta de crédito
                         </label>
                   </div>
@@ -115,7 +146,7 @@
             <div class="col-sm-4">
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox('td', true,$evento->masInfo->td) }}      
+                              <input type="hidden" name="td" value="0" />{{ Form::checkbox('td', true,$evento->masInfo->td) }}      
                               Tarjeta de debito
                         </label>
                   </div>
@@ -123,66 +154,30 @@
             <div class="col-sm-4">
                   <div class="checkbox">
                         <label>
-                              {{ Form::checkbox('efectivo', true,$evento->masInfo->efectivo) }}
+                              <input type="hidden" name="efectivo" value="0" />{{ Form::checkbox('efectivo', true,$evento->masInfo->efectivo) }}
                               Efectivo
                         </label>                        
                   </div>
             </div>
       </div>
 </div>
-<div class="form-group">
-      <div class="row">
-            <div class="col-sm-6">
-                  {{ Form::label('estado','Estado') }}
-                  {{ Form::select('estado', $estados->lists('estado','id'),$evento->estado->id,array('class'=>'form-control','id'=>'estados')) }}
-            </div>
-            <div class="col-sm-6">
-                  {{ Form::label('zona','Zona') }}
-                  {{ Form::select('zona', array(),(count($evento->zona))?$evento->zona->id:'',array('class'=>'form-control', 'id'=>'zonas')) }}
-            </div>
-      </div>
-      <div class="row">
-            <div class="col-sm-6">
-                  {{ Form::label('categoria','Categoria') }}
-                  {{ Form::select('categoria', $categorias->lists('categoria','id'),$evento->categoria->id,array('class'=>'form-control','id'=>'categorias')) }}
-            </div>
-            <div class="col-sm-6">
-                  {{ Form::label('subcategoria','subcategoria') }}
-                  {{ Form::select('subcategoria', array(), (count($evento->subcategoria))?$evento->subcategoria->id:'',array('class'=>'form-control', 'id'=>'subcats')) }}
-            </div>
-      </div>
-</div>
+
 <div class="form-group">
       <div class="row">
             <div class="col-sm-12">
-                  {{ Form::label('imagen','Imágen') }}
-                  <input type="file" name="imagen" id='uploadFile' title="Seleccionar" class="file-inputs" data-filename-placement="inside">
-                  @if($evento->imagen)
-                  <div id="imagepreview" class="imagepreview" style="background-image: url({{ Config::get('params.path_serve_image_transform').Image::path($evento->imagen->path.$evento->imagen->nombre,'resizeCrop',250,250,'left','top') }})"></div>
-                  {{ Form::label('alt','Descripción') }}
-                  {{ Form::text('alt',$evento->imagen->alt,array('placeholder' => 'descripción', 'class'=>'form-control')) }}
-                  @else
-                  <div id="imagepreview" class="imagepreview"></div>
-                  {{ Form::label('alt','Descripción') }}
-                  {{ Form::text('alt',null,array('placeholder' => 'descripción', 'class'=>'form-control')) }}
-                  @endif
-            </div>      
+                  {{ Form::label('imagen','Editar imagen de negocio 250px * 250px') }}
+                  {{ Form::file('imagen') }}
+            </div>
       </div>
 </div>
 <div class="form-group">
-      {{ Form::label('web', 'Página web') }}            
-      {{ Form::text('web', ($evento->especial) ? $evento->especial->web : '' ,array('placeholder'=>'página web','class'=>'form-control')) }}
-</div>        
-<div class="form-group">
-      {{ Form::label('email', 'Correo electrónico') }}            
-      {{ Form::text('email', ($evento->especial) ? $evento->especial->email : '' ,array('placeholder'=>'correo electrónico','class'=>'form-control')) }}
-</div>        
-<div class="form-group">
-      {{ Form::label('mapa', 'Mapa') }}            
-      {{ Form::hidden('mapa',($evento->especial) ? $evento->especial->mapa : '',array('id'=>'latlng')) }}
-      {{ $mapa['js'] }}
-      {{ $mapa['html'] }}      
-</div>  
+      {{ Form::hidden('lat',$evento->lat,array('id'=>'map-lat')) }}
+      {{ Form::hidden('long',$evento->long,array('id'=>'map-lng')) }}
+      <button type="button" class=" btn btn-primary" onclick="searchPlace()">Usar campo dirección</button><div class="address_error" id="address_error"></div>
+      <div id="map-canvas"></div>      
+      <div id="transparente"></div>      
+</div>
+
 
 @if($editar_publicacion)
 <div class="form-group">
@@ -251,7 +246,7 @@
             <div class="col-sm-3">
                   <div class="radio">
                         <label id="gratis" class="publicacion">
-                              {{ Form::radio('tiempo_publicacion','gratis') }}            
+                              {{ Form::radio('tiempo_publicacion',0) }}            
                               Gratis
                         </label>
                   </div>
@@ -261,13 +256,8 @@
 </div>
 @endif
 
-
-{{ Form::hidden('add_images',false,array('id'=>'addimg')) }}                        
-@include('layouts.show_form_errors')
-
 <div class="form-group">
       <button type="submit" class="btn btn-primary">Editar evento</button>
-      <button type="submit" class="btn btn-primary" onclick="$('addimg').val('1')">Agregar imágenes</button>
 </div>
 
 {{ Form::close() }}
@@ -285,7 +275,6 @@
 {{ HTML::script('js/vendor/bootstrap-datepicker.js') }}
 {{ HTML::script('js/vendor/bootstrap-datetimepicker.min.js') }}
 {{ HTML::script('js/vendor/bootstrap-datetimepicker.es.js') }}
-{{ HTML::script('js/vendor/bootstrap-file-input.js') }}
 {{ HTML::script('js/vendor/bootstrap-clockpicker.min.js') }}
 
 <script>
@@ -308,31 +297,11 @@
 </script>
 
 <script>
-      $('.file-inputs').bootstrapFileInput();
-      $(function() {
-            $('#uploadFile').on("change", function() {
-                  var files = !!this.files ? this.files : [];
-                  if (!files.length || !window.FileReader)
-                        return; // no file selected, or no FileReader support
-
-                  if (/^image/.test(files[0].type)) { // only image file
-                        var reader = new FileReader(); // instance of the FileReader
-                        reader.readAsDataURL(files[0]); // read the local file
-
-                        reader.onloadend = function() { // set image data as background of div
-                              $("#imagepreview").css("background-image", "url(" + this.result + ")");
-                        }
-                  }
-            });
-      });
-</script>
-
-<script>
-      $(function() {
-            $('#estados').change(function() {
+      $(function () {
+            $('#estados').change(function () {
                   var estado_id = $("#estados").val();
                   url = base_url + "/obtener_zona/" + estado_id;
-                  $.get(url).done(function(data) {
+                  $.get(url).done(function (data) {
                         $("#zonas").empty();
                         for (i = 0; i < data.length; i++) {
                               resultado = data[i];
@@ -345,10 +314,10 @@
                         }
                   });
             }).trigger('change');
-            $('#categorias').change(function() {
+            $('#categorias').change(function () {
                   var categoria_id = $("#categorias").val();
                   url = base_url + "/obtener_subcategoria/" + categoria_id;
-                  $.get(url).done(function(data) {
+                  $.get(url).done(function (data) {
                         $("#subcats").empty();
                         for (i = 0; i < data.length; i++) {
                               resultado = data[i];
@@ -365,29 +334,18 @@
 </script>
 
 <script>
-      function save_map(event) {
-            $('#latlng').val(event.latLng);
-            createMarker_map({map: map, position: event.latLng});
-      }
-
-      function edit_map(event) {
-            $('#latlng').val(event.latLng);
-      }
-</script>
-
-<script>
       $('.clockpicker').clockpicker();
 
-      $("#1").click(function() {
+      $("#1").click(function () {
             sumar_fecha(30);
       });
-      $("#2").click(function() {
+      $("#2").click(function () {
             sumar_fecha(60);
       });
-      $("#3").click(function() {
+      $("#3").click(function () {
             sumar_fecha(90);
       });
-      $("#gratis").click(function() {
+      $("#gratis").click(function () {
             sumar_fecha(15);
       });
       function sumar_fecha(dias) {
@@ -398,11 +356,11 @@
 </script>
 
 <script>
-      $(function() {
+      $(function () {
             $('.publicacion :input').attr('disabled', true);
       });
 
-      $("#modificar_publicacion").click(function() {
+      $("#modificar_publicacion").click(function () {
             if ($('#modificar_publicacion').is(':checked')) {
                   $('.publicacion :input').attr('disabled', false);
             } else {
@@ -411,5 +369,103 @@
       });
 
 </script>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+<script type="text/javascript">
+      var map;
+      var markers = [];
+      
+      
+      function initialize() {
+
+            var mapOptions = {
+                  center: {lat: 19.43938462939674, lng: -99.13208094891161},
+                  zoom: 16
+            };
+
+            map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+<?php
+if (!isset($evento->lat) || !isset($evento->long))
+{
+      ?>
+            // Try HTML5 geolocation
+            if (navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition(function (position) {
+                        pos = new google.maps.LatLng(position.coords.latitude,
+                                position.coords.longitude);
+                                map.setCenter(pos);
+
+                  }, function () {
+                        handleNoGeolocation(true);
+                  });
+            } else {
+                  // Browser doesn't support Geolocation
+                  handleNoGeolocation(false);
+            }
+      <?php
+}
+else
+{
+      ?>
+            var lat = {{$evento->lat}};
+            var lng = {{$evento->long}};
+            pos = new google.maps.LatLng(lat, lng);
+            map.setCenter(pos);
+            var marker = new google.maps.Marker({
+                  position: pos,
+                  map: map
+            });
+            markers.push(marker);
+      <?php
+}
+?>
+            
+            google.maps.event.addListener(map, 'click', function (event) {
+                  placeMarker(event.latLng);
+            });
+
+      }
+
+      function placeMarker(location) {
+            $("#map-lat").val(location.lat());
+            $("#map-lng").val(location.lng());
+            
+            if(markers.length){
+                  markers[0].setMap(null);
+                  markers = [];
+            }
+            
+            var marker = new google.maps.Marker({
+                  position: location,
+                  map: map
+            });
+            markers.push(marker);
+            map.setCenter(location);
+      }
+      
+      function searchPlace(){
+            
+            geocoder = new google.maps.Geocoder();
+            
+            $("#address_error").html("");
+
+            var address = $('#address').val();
+            geocoder.geocode( { 'address': address}, function(results, status) {
+                  if (status == google.maps.GeocoderStatus.OK) {
+                        //In this case it creates a marker, but you can get the lat and lng from the location.LatLng
+                        map.setCenter(results[0].geometry.location);                        
+                  } else {
+                        $("#address_error").html("no se encontró ningún lugar");
+                  }
+            });
+      }
+            
+      
+      google.maps.event.addDomListener(window, 'load', initialize);
+
+
+</script>
+
+
 
 @stop

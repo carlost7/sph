@@ -5,7 +5,7 @@
 @if($negocio)
 <h2>Editar: {{ $negocio->nombre }}</h2>
 
-{{ Form::model($negocio, array('route' => array('clientes_negocios.update', $negocio->id), 'method' => 'PUT')) }}
+{{ Form::model($negocio, array('route' => array('publicar.clientes_negocios.update', $negocio->id), 'method' => 'PUT')) }}
 
 <div class="form-group">
       {{ Form::label('direccion', 'Dirección') }}

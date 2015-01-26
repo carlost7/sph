@@ -4,15 +4,15 @@
 @if($promocion)
 <div class="col-xs-12">
       <ul class="nav nav-pills">            
-            <li>{{ HTML::linkRoute('clientes_promociones.edit','Editar promoción',$promocion->id) }}</li>            
+            <li>{{ HTML::linkRoute('publicar.clientes_promociones.edit','Editar promoción',$promocion->id) }}</li>            
       </ul>
 </div>
 
 
 <h2>{{ $promocion->nombre }}</h2>
 
-@if($promocion->imagen->count())
-<img src="{{Config::get('params.path_serve_image').$promocion->imagen->path.$promocion->imagen->nombre}}" alt="{{ $promocion->imagen->alt }}" />
+@if($promocion->imagen_file_name != "")
+<img src="{{ URL::to("/").$promocion->imagen->url('medium')}}">
 @endif
 <div class="list-group">  
       <p class="list-group-item"><span class="label label-default">Negocio:</span> {{ $promocion->negocio->nombre }}</p>      

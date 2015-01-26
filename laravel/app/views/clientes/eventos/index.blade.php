@@ -4,7 +4,7 @@
 
 <div class="col-xs-12">
       <ul class="nav nav-pills">            
-            <li>{{ HTML::linkRoute('clientes_eventos.create','Agregar evento') }}</li>            
+            <li>{{ HTML::linkRoute('publicar.clientes_eventos.create','Agregar evento') }}</li>            
       </ul>
 </div>
 
@@ -17,20 +17,23 @@
 
       <div class="list-group-item {{ $evento->publicar ? 'published' : 'not-published' }}">
             <h3 class="text-left">                  
-                  {{ HTML::linkRoute("clientes_eventos.show",$evento->nombre,$evento->id) }}
+                  {{ HTML::linkRoute("publicar.clientes_eventos.show",$evento->nombre,$evento->id) }}
             </h3>
             <p>{{ date('d-m-Y',strtotime($evento->fecha_inicio)).' - '.date('d-m-Y',strtotime($evento->fecha_fin)) }}</p>
             @if($evento->is_especial  && !$evento->especial )
             <p class="text-right">
-                  {{ HTML::linkRoute('clientes_eventos.edit','Agregar datos especiales',$evento->id,array('class'=>'btn btn-sm btn-success')) }}       
+                  {{ HTML::linkRoute('publicar.clientes_eventos.edit','Agregar datos especiales',$evento->id,array('class'=>'btn btn-sm btn-success')) }}       
             </p>
             @endif
             <p class="text-right">
-                  {{ HTML::linkRoute('clientes_eventos.edit','editar',$evento->id,array('class'=>'btn btn-sm btn-info')) }}
+                  {{ HTML::linkRoute('publicar.clientes_eventos.edit','editar',$evento->id,array('class'=>'btn btn-sm btn-info')) }}
+            </p>
+            <p class="text-right">
+                  {{ HTML::linkRoute('publicar.clientes_evento_imagenes.index','editar imagenes',$evento->id,array('class'=>'btn btn-sm btn-info')) }}       
             </p>
 
 
-            {{ Form::open(array('route' => array('clientes_eventos.destroy',$evento->id))) }}            
+            {{ Form::open(array('route' => array('publicar.clientes_eventos.destroy',$evento->id))) }}            
             {{ Form::hidden('_method', 'DELETE') }}            
             <p class="text-right">{{ Form::submit('eliminar', array('class' => 'btn btn-sm btn-danger')) }}</p>
             {{ Form::close() }}                        

@@ -1,32 +1,15 @@
 <?php
 
 use Illuminate\Events\Dispatcher;
-use Sph\Storage\User\UserRepository as User;
-use Sph\Storage\Cliente\ClienteRepository as Cliente;
-use Sph\Storage\Marketing\MarketingRepository as Marketing;
-use Sph\Storage\Miembro\MiembroRepository as Miembro;
-use Sph\Storage\Administrador\AdministradorRepository as Administrador;
-use Sph\Storage\Codigo\CodigoRepository as Codigo;
 
-class RegisterController extends \BaseController
-{
+class RegisterController extends \BaseController {
 
-      protected $user;
-      protected $cliente;
-      protected $marketing;
-      protected $administrador;
-      protected $events;
-      protected $miembro;
+      protected $event;
 
-      public function __construct(User $user, Cliente $cliente, Marketing $marketing, Administrador $administrador, Dispatcher $events, Miembro $miembro)
+      public function __construct(Dispatcher $event)
       {
             parent::__construct();
-            $this->user = $user;
-            $this->cliente = $cliente;
-            $this->marketing = $marketing;
-            $this->administrador = $administrador;
-            $this->events = $events;
-            $this->miembro = $miembro;
+            $this->event = $event;
       }
 
       public function index()
@@ -47,50 +30,38 @@ class RegisterController extends \BaseController
        */
       public function store_client()
       {
-            $validateUser = new Sph\Services\Validators\User(Input::all(), 'save');
-            $validateClient = new Sph\Services\Validators\Cliente(Input::all(), 'save');
-
-            //Validamos datos del usuario y datos del cliente
-            if ($validateUser->passes() & $validateClient->passes())
+            $user               = new User;
+            $cliente            = new Cliente;
+            $cliente->token     = sha1(time());
+            $cliente->is_activo = false;
+            if ($cliente->save())
             {
-                  //Creamos un usario
-                  $user = $this->user->create(Input::all());
-                  if (isset($user))
+                  if ($cliente->user()->save($user))
                   {
-                        //Creamos un codigo de activación
-                        $token = sha1(time());
+                        $data = array(
+                            'nombre' => $cliente->nombre,
+                            'token'  => $cliente->token,
+                            'id'     => $cliente->id,
+                        );
 
-                        //Se crea el objeto de usuario con los datos de entrada y el usuario al que pertenece
-                        $cliente_model = Input::all();
-                        $cliente_model = array_add($cliente_model, 'is_activo', false);
-                        $cliente_model = array_add($cliente_model, 'token', $token);
-                        $cliente_model = array_add($cliente_model, 'user', $user);
+                        Mail::send('emails.auth.confirm_new_user', $data, function($message) use ($user, $cliente) {
+                              $message->to($user->email, $cliente->nombre)->subject('Confirmación de Registro de Sphellar');
+                        });
 
-                        $cliente = $this->cliente->create($cliente_model);
+                        Session::flash('message', 'Usuario creado con éxito, revisa tu correo para activarlo');
 
-                        if (isset($cliente))
-                        {
-                              $data = array('nombre' => $cliente->nombre,
-                                    'token' => $cliente->token,
-                                    'id' => $cliente->id,
-                              );
-
-                              Mail::send('emails.auth.confirm_new_user', $data, function($message) use ($user, $cliente) {
-                                    $message->to($user->email, $cliente->nombre)->subject('Confirmación de Registro de Sphellar');
-                              });
-                              Session::flash('message', 'Usuario creado con éxito, revisa tu correo para activarlo');
-
-                              return Redirect::to('/');
-                        }
+                        return Redirect::to('/');
+                  }
+                  else
+                  {
+                        $cliente->delete();
+                        return Redirect::back()->withInput()->withErrors($user->errors());
                   }
             }
-
-            //Mensaje de error de validaciones
-            $user_messages = ($validateUser->getErrors() != null) ? $validateUser->getErrors()->all() : array();
-            $cliente_messages = ($validateClient->getErrors() != null) ? $validateClient->getErrors()->all() : array();
-            $validationMessages = array_merge_recursive($user_messages, $cliente_messages);
-
-            return Redirect::route('register.client')->withInput()->withErrors($validationMessages);
+            else
+            {
+                  return Redirect::back()->withInput()->withErrors($cliente->errors());
+            }
       }
 
       /*
@@ -99,23 +70,51 @@ class RegisterController extends \BaseController
 
       public function activate_client($token, $id)
       {
-            $cliente = $this->cliente->find($id);
+            $cliente = Cliente::find($id);
             if (isset($cliente))
             {
                   if ($token == $cliente->token)
                   {
-                        $cliente_model = array('is_activo' => true, 'token' => '');
-                        $cliente = $this->cliente->activar_cliente($id);
-                        if (isset($cliente))
+                        $cliente->is_activo = true;
+                        $cliente->token     = '';
+                        //Asignamos el cliente a un usuario de marketing;
+                        //Obtenemos el conteo de los clientes
+                        $clientes           = Cliente::whereNotNull('marketing_id')->groupBy('marketing_id')->get(array('marketing_id', DB::raw('count(*) as count')));
+                        if (count($clientes))
                         {
-                              $marketing = $this->marketing->asignar_cliente($cliente);
+                              //Obtenemos los marketings que no tienen ningun cliente
+                              $marketings = Marketing::all()->lists('id');
+                              $mktInTable = $clientes->lists('marketing_id');
+                              $resultados = array_diff($marketings, $mktInTable);
+                              if (count($resultados))
+                              {
+                                    $marketing = Marketing::find(reset($resultados));
+                              }
+                              else
+                              {
+                                    //Obtenemos el marketing que tiene menos 
+                                    $resultado = $clientes->lists('count', 'marketing_id');
+                                    $id        = array_keys($resultado, min($resultado));
+                                    $marketing = Marketing::find($id[0]);
+                              }
+                        }
+                        else
+                        {
+                              $marketing = Marketing::first();
+                        }
 
-                              $this->events->fire('enviar_codigo', array($cliente));
-
+                        $cliente->marketing()->associate($marketing);
+                        if ($cliente->updateUniques())
+                        {
                               Auth::login($cliente->user);
                               Session::flash("message", 'Activación exitosa');
-
-                              return Redirect::route('clientes.index');
+                              $this->event->fire("enviar_codigo", array($cliente));
+                              return Redirect::route('publicar.cliente.show',$cliente->id);
+                        }
+                        else
+                        {
+                              Session::flash('error', 'No se activo el usuario');
+                              return View::make('register.confirmation')->with('confirmation', false);
                         }
                   }
                   else
@@ -147,31 +146,27 @@ class RegisterController extends \BaseController
       public function store_user()
       {
 
-            $validateUser = new Sph\Services\Validators\User(Input::all(), 'save');
-            $validateMiembro = new Sph\Services\Validators\Miembro(Input::all(), 'save');
-            if ($validateUser->passes() & $validateMiembro->passes())
-            {
-                  $user = $this->user->create(Input::all());
-                  if (isset($user))
-                  {
-                        $miembro_model = Input::all();
-                        $miembro_model = array_add($miembro_model, 'user', $user);
-                        $miembro = $this->miembro->create($miembro_model);
+            $user    = new User;
+            $miembro = new Miembro;
 
-                        $this->events->fire('nuevo_usuario_correo', array($miembro));
-                        
-                        Auth::login($user);
-                        
+            if ($miembro->save())
+            {
+                  if ($miembro->user()->save($user))
+                  {
                         Session::flash('message', 'Bienvenido a Sphellar');
-                        return Redirect::to('/');
+                        Auth::login($user);
+                        return Redirect::intended('/');
+                  }
+                  else
+                  {
+                        $miembro->delete();
+                        return Redirect::back()->withInput()->withErrors($user->errors());
                   }
             }
-
-            $user_messages = ($validateUser->getErrors() != null) ? $validateUser->getErrors()->all() : array();
-            $member_messages = ($validateMiembro->getErrors() != null) ? $validateMiembro->getErrors()->all() : array();
-            $validationMessages = array_merge_recursive($user_messages, $member_messages);
-
-            return Redirect::route('register.user')->withInput()->withErrors($validationMessages);
+            else
+            {
+                  return Redirect::back()->withInput()->withErrors($miembro->errors());
+            }
       }
 
       /*
@@ -189,31 +184,27 @@ class RegisterController extends \BaseController
 
       public function store_marketing()
       {
-            $validateUser = new Sph\Services\Validators\User(Input::all(), 'save');
-            $validateMarketing = new Sph\Services\Validators\Marketing(Input::all(), 'save');
+            $user      = new User;
+            $marketing = new Marketing;
 
-            if ($validateUser->passes() & $validateMarketing->passes())
+            if ($marketing->save())
             {
-                  $user_model = Input::all();
-                  $user = $this->user->create($user_model);
-                  if (isset($user))
+                  if ($marketing->user->save($user))
                   {
-                        $marketing_model = Input::all();
-                        $marketing_model = array_add($marketing_model, 'user', $user);
-                        $marketing = $this->marketing->create($marketing_model);
-                        if (isset($marketing))
-                        {
-                              Session::flash('message', 'Usuario creado con éxito');
-
-                              return Redirect::to('/');
-                        }
+                        Session::flash('message', 'Bienvenido a Sphellar');
+                        Auth::login($user);
+                        return Redirect::intended('/');
+                  }
+                  else
+                  {
+                        $marketing->delete();
+                        return Redirect::back()->withInput()->withErrors($user->errors());
                   }
             }
-            $user_messages = ($validateUser->getErrors() != null) ? $validateUser->getErrors()->all() : array();
-            $marketing_messages = ($validateMarketing->getErrors() != null) ? $validateMarketing->getErrors()->all() : array();
-            $validationMessages = array_merge_recursive($user_messages, $marketing_messages);
-
-            return Redirect::route('register.marketing')->withInput()->withErrors($validationMessages);
+            else
+            {
+                  return Redirect::back()->withInput()->withErrors($marketing->errors());
+            }
       }
 
       /*
@@ -232,31 +223,27 @@ class RegisterController extends \BaseController
       public function store_admin()
       {
 
-            $validateUser = new Sph\Services\Validators\User(Input::all(), 'save');
-            $validateAdmin = new Sph\Services\Validators\Administrador(Input::all(), 'save');
+            $user  = new User;
+            $admin = new Administrador;
 
-            if ($validateUser->passes() & $validateAdmin->passes())
+            if ($admin->save())
             {
-                  $user_model = Input::all();
-                  $user = $this->user->create($user_model);
-                  if (isset($user))
+                  if ($admin->user()->save($user))
                   {
-                        $admin_model = Input::all();
-                        $admin_model = array_add($admin_model, 'user', $user);
-                        $admin = $this->administrador->create($admin_model);
-                        if (isset($admin))
-                        {
-                              Session::flash('message', 'Usuario creado con éxito');
-
-                              return Redirect::to('/');
-                        }
+                        Session::flash('message', 'Bienvenido a Sphellar');
+                        Auth::login($user);
+                        return Redirect::to('/');
+                  }
+                  else
+                  {
+                        $admin->delete();
+                        return Redirect::back()->withInput()->withErrors($user->errors());
                   }
             }
-            $user_messages = ($validateUser->getErrors() != null) ? $validateUser->getErrors()->all() : array();
-            $admin_messages = ($validateAdmin->getErrors() != null) ? $validateAdmin->getErrors()->all() : array();
-            $validationMessages = array_merge_recursive($user_messages, $admin_messages);
-
-            return Redirect::route('register.marketing')->withInput()->withErrors($validationMessages);
+            else
+            {
+                  return Redirect::back()->withInput()->withErrors($admin->errors());
+            }
       }
 
 }

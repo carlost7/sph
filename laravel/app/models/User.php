@@ -4,9 +4,9 @@ use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use LaravelBook\Ardent\Ardent;
 
-class User extends Eloquent implements UserInterface, RemindableInterface
-{
+class User extends Ardent implements UserInterface, RemindableInterface {
 
       use UserTrait,
           RemindableTrait;
@@ -28,20 +28,25 @@ class User extends Eloquent implements UserInterface, RemindableInterface
       /*
        * Create fillable for our data
        */
-      protected $fillable = array('email', 'oauth_token', 'oauth_token_secret', 'uid');
+      protected $fillable = array('email', 'oauth_token', 'oauth_token_secret', 'uid', 'password', 'password_confirmation');
 
       /*
        * Create guarded for our data
        */
-      protected $guarded = array('id', 'password');
-
-      /*
-       * Determine the type of user we have
-       */
-
-      public function userable()
-      {
-            return $this->morphTo();
-      }
+      protected $guarded                    = array('id', 'password');
+      // Auto hash passwords
+      public static $passwordAttributes     = array('password');
+      public $autoHashPasswordAttributes    = true;
+      public static $rules                  = array(
+          'email'                 => 'required|email|unique:users,email',
+          'password'              => 'required|alpha_dash|min:6',
+          'password_confirmation' => 'required|same:password',
+      );
+      public $autoHydrateEntityFromInput    = true;
+      public $forceEntityHydrationFromInput = true;
+      public $autoPurgeRedundantAttributes  = true;
+      public static $relationsData          = array(
+          'userable' => array(self::MORPH_TO)
+      );
 
 }
