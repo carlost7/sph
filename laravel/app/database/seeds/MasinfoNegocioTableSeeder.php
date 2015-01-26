@@ -14,16 +14,14 @@ class MasinfoNegocioTableSeeder extends Seeder
             foreach (range(1, 1000) as $index)
             {
                   MasInfoNegocio::create(array(
-                      "domicilio" => $faker->boolean,
-                      "llevar" => $faker->boolean(),
-                      "moneda" => "MXN",
-                      "rango_min" => $faker->numberBetween(300, 1000),
-                      "rango_max" => $faker->numberBetween(1000, 5000),
                       "efectivo" => $faker->boolean(),
                       "tc" => $faker->boolean(),
                       "td" => $faker->boolean(),
                       "familiar" => $faker->boolean(),
-                      "alcohol" => $faker->boolean(),
+                      "estacionamiento" => $faker->boolean(),
+                      "valet_parking" => $faker->boolean(),
+                      "wifi" => $faker->boolean(),
+                      "mascotas" => $faker->boolean(),
                       "negocio_id" => $faker->unique()->numberBetween(1, 1000)
                   ));
 

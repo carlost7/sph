@@ -24,11 +24,15 @@ class EventoTableSeeder extends Seeder
                       "publicar" => true,
                       "is_especial" => true,
                       "cliente_id" => $faker->numberBetween(1, 100),
-                      "hora_inicio        " => $faker->dateTime,
+                      "hora_inicio" => $faker->dateTime,
                       "hora_fin" => $faker->dateTime,
                       "estado_id" => $faker->numberBetween(1, 32),
                       //"zona_id" => $faker->numberBetween(1, 200),
                       "categoria_id" => $faker->numberBetween(1, 15),
+                      "is_activo" => true,
+                      "fecha_nueva_activacion" => $faker->date($format = 'Y-m-d'),
+                      "publicacion_inicio" => $faker->date($format = 'Y-m-d'),
+                      "publicacion_fin" => $faker->date($format = 'Y-m-d'),
                       //"subcategoria_id" => $faker->numberBetween(1, 200)
                   ));
             }
