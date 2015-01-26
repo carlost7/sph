@@ -8,7 +8,7 @@ class NegocioImagen extends \Eloquent implements StaplerableInterface {
       use EloquentTrait;
 
       public static $rules = [
-          'imagen' => 'image|required|max:20000'
+          'imagen' => 'image|max:20000'
       ];
 
       public function __construct(array $attributes = array())

@@ -61,12 +61,12 @@ class Negocio extends Ardent implements StaplerableInterface {
             return $this->hasManyThrough('RankNegocio', 'Miembro');
       }
 
-      public function afterCreate()
+      /*public function afterCreate()
       {
             if (!count(Event::fire('negocio.created', array($this))))
             {
                   return false;
             }
-      }
+      }*/
 
 }

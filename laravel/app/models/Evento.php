@@ -26,10 +26,6 @@ class Evento extends Ardent implements StaplerableInterface {
 
       public static $rules                  = array(
           'nombre'             => 'required',
-          'fecha_inicio'       => array('required', 'after:Carbon\Carbon::now()'),
-          'fecha_fin'          => 'required|date|after:fecha_inicio',
-          'hora_inicio'        => array('regex:/^([01]?[0-9]|2[0-3]):[0-5][0-9](?::[0-5][0-9])?$/'),
-          'hora_fin'           => array('regex:/^([01]?[0-9]|2[0-3]):[0-5][0-9](?::[0-5][0-9])?$/'),
           'lugar'              => 'required',
           'direccion'          => 'required',
           'descripcion'        => 'required|min:30|max:500',
@@ -68,13 +64,13 @@ class Evento extends Ardent implements StaplerableInterface {
             return $this->hasManyThrough('RankEvento', 'Miembro');
       }
 
-      public function afterCreate()
+      /*public function afterCreate()
       {
             if (!count(Event::fire('evento.created', array($this))))
             {
                   return false;
             }
-      }
+      }*/
       
       public function afterUpdate()
       {
