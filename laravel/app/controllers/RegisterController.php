@@ -155,7 +155,8 @@ class RegisterController extends \BaseController {
                   {
                         Session::flash('message', 'Bienvenido a Sphellar');
                         Auth::login($user);
-                        return Redirect::intended('/');
+                        $this->event->fire("miembro.created", array($miembro));
+                        return Redirect::to('/');
                   }
                   else
                   {
@@ -193,7 +194,7 @@ class RegisterController extends \BaseController {
                   {
                         Session::flash('message', 'Bienvenido a Sphellar');
                         Auth::login($user);
-                        return Redirect::intended('/');
+                        return Redirect::to('/');
                   }
                   else
                   {

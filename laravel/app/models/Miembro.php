@@ -30,8 +30,8 @@ class Miembro extends Ardent implements StaplerableInterface
       public $autoPurgeRedundantAttributes  = true;
       
       public static $relationsData          = array(
-          'ranknegocios'  => array(self::HAS_MANY, 'Promocion'),
-          'rankeventos'  => array(self::HAS_MANY, 'Promocion'),
+          'ranknegocios'  => array(self::HAS_MANY, 'RankNegocio'),
+          'rankeventos'  => array(self::HAS_MANY, 'RankEvento'),
           'user'         => array(self::MORPH_ONE, 'User', 'name' => 'userable'),
       );
       
@@ -40,11 +40,4 @@ class Miembro extends Ardent implements StaplerableInterface
             return $this->hasManyThrough('RankNegocio','Negocio');
       }
       
-      public function afterCreate(){
-            if (!count(Event::fire('miembro.created', array($this))))
-            {
-                  return false;
-            }
-      }
-
 }

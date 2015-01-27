@@ -14,8 +14,12 @@ class CorreosListener
             $data = array(
                   'nombre' => $miembro->username,
             );
-            Mail::queue('emails.send_welcome_message', $data, function($message) use ($miembro) {
-                  $message->to($miembro->user->email, $miembro->username)->subject('Bienvenido a Sphellar');
+            
+            $email = $miembro->user->email;
+            $nombre = $miembro->username;
+            
+            Mail::queue('emails.send_welcome_message', $data, function($message) use ($email,$nombre) {
+                  $message->to($email, $nombre)->subject('Bienvenido a Sphellar');
             });
             return true;
       }

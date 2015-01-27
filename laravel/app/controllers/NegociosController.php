@@ -76,22 +76,22 @@ class NegociosController extends \BaseController {
             $estados = Estado::all();
 
             $add_rank = true;
-
+            
             //Checamos si el usuario esta conectado y si es miembro de sphellar
             if (Auth::check() && Auth::user()->userable_type === 'Miembro')
             {
+                  
                   //Checamos si el usuario ya dio like al negocio
                   $negocio_user = Auth::user()->userable->ranknegocios->filter(function($ranknegocio) use($id) {
                         return $ranknegocio->negocio_id == $id;
-                  });
+                  });                  
 
                   //No mostrará el rank si ya tiene negocio
                   if (count($negocio_user))
                   {
                         $add_rank = false;
                   }
-            }
-
+            }            
             View::share('name', $negocio->nombre . ' - Sphellar');
 
             $promociones = $negocio->promociones;            
