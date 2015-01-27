@@ -419,6 +419,8 @@ Route::group(array('before' => 'auth'), function() {
           'uses' => 'PagosController@generar_link_pago')
       );
 
+      
+      //Route::any("comentarios",array('as' => 'comentario','uses'=>'PagosController@'),
 
       Route::resource('comentarios', 'ComentariosController');
 });

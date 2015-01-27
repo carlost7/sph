@@ -1,7 +1,6 @@
 <?php
 
-class ComentariosController extends \BaseController
-{
+class ComentariosController extends \BaseController {
 
       /**
        * Store a newly created comentario in storage.
@@ -10,8 +9,8 @@ class ComentariosController extends \BaseController
        */
       public function store()
       {
-            $id = Input::get('id');
-            $clase = Input::get('clase');
+            $id        = Input::get('id');
+            $clase     = Input::get('clase');
             $resultado = array();
 
             if (!isset($id) || !isset($clase))
@@ -24,25 +23,27 @@ class ComentariosController extends \BaseController
             $objeto = $clase::find($id);
 
             if (isset($objeto))
-            {                  
-                  $comentario       = new Comentario;
-                  $comentario->user = Auth::user();
-                  $comentario->comentable()->associate($objeto);
-                  if (get_class($objeto) == Comentario::class)
-                  {
-                        $comentario->topic()->associate($objeto->topic);
-                  }
-                  else
-                  {
-                        $comentario->topic()->associate($objeto);
-                  }
+            {
 
-                  if ($comentario->save())
-                  {
+                  $comentario = new Comentario;
+                  $comentario->usuario()->associate(Auth::user());                  
+                  $comentario->comentario = "holas";
+                  
+                  if($comentario->save()){
+                        
+                        $objeto->comentarios()->save($comentario);                        
+                        if(get_class($objeto) == Comentario::class) {
+                              $comentario->topic_id = $objeto->topic->id;                              
+                              $comentario->topic_type = get_class($objeto->topic);                              
+                              $comentario->save();                              
+                        }else{
+                              $objeto->topics()->save($comentario);
+                        }
+                        
                         $status    = "exito";
                         $resultado = array_add($resultado, "status", true);
                         $resultado = array_add($resultado, "mensaje", "Comentario Agregado con exito");
-                        $resultado = array_add($resultado, "comentario", View::make('layouts.show_comentario')->with(array('comentario' => $comentario, 'objeto' => $comentario->topic))->render());
+                        $resultado = array_add($resultado, "comentario", View::make('layouts.show_comentario')->with(array('comentario' => $comentario, 'objeto' => $comentario->topic))->render());                        
                   }
                   else
                   {
