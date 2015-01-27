@@ -64,13 +64,13 @@ class Evento extends Ardent implements StaplerableInterface {
             return $this->hasManyThrough('RankEvento', 'Miembro');
       }
 
-      /*public function afterCreate()
+      public function afterCreate()
       {
             if (!count(Event::fire('evento.created', array($this))))
             {
                   return false;
             }
-      }*/
+      }
       
       public function afterUpdate()
       {
