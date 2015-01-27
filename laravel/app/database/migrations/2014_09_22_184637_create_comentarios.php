@@ -16,10 +16,10 @@ class CreateComentarios extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('usuario_id')->unsigned();
-                  $table->foreign('usuario_id')->references('id')->on('clientes')->onDelete('cascade')->onUpdate('cascade');
+                        $table->foreign('usuario_id')->references('id')->on('clientes')->onDelete('cascade')->onUpdate('cascade');
 			$table->text('comentario');
-			$table->text('comentable_type');
-			$table->integer('comentable_id');
+			$table->text('comentable_type')->nullable();
+			$table->integer('comentable_id')->nullable();
 			$table->timestamps();
 		});
 	}
