@@ -47,7 +47,7 @@ class ClientesTableSeeder extends Seeder {
                             "webpage"     => "http://" . $faker->domainName . ".com",
                             "lat"         => $faker->latitude,
                             "long"        => $faker->longitude,
-                            "imagen"      => "http://sphellar.com/mx/wp-content/uploads/2014/11/desierto-de-liwa-nota.jpg"
+                            "imagen"      => ($i >= 5)?"http://sphellar.com/mx/wp-content/uploads/2014/11/desierto-de-liwa-nota.jpg":"http://sphellar.com/mx/wp-content/uploads/2014/11/mexico-cenotes-cuzama.jpg"
                         ));
                         $negocio->cliente()->associate($cliente);
                         $negocio->zona()->associate(Zona::first());
@@ -117,7 +117,7 @@ class ClientesTableSeeder extends Seeder {
 
                         foreach (range(1, 5) as $im) {
                               $imagen = new NegocioImagen(array(
-                                  "imagen"      => "http://sphellar.com/mx/wp-content/uploads/2014/11/desierto-de-liwa-nota.jpg"
+                                  "imagen"      => ($i >= 5)?"http://www.sphellar.com/mx/wp-content/uploads/2014/11/mexico-palizada.jpg":"http://sphellar.com/mx/wp-content/uploads/2014/11/coyoli.jpg"
                               ));
                               $imagen->negocio()->associate($negocio);
                               $imagen->save();
@@ -146,7 +146,7 @@ class ClientesTableSeeder extends Seeder {
                             "lat"                => $faker->latitude,
                             "long"               => $faker->longitude,
                             "tiempo_publicacion" => $faker->numberBetween(0, 4),
-                            "imagen"      => "http://sphellar.com/mx/wp-content/uploads/2014/11/desierto-de-liwa-nota.jpg"
+                            "imagen"      => ($i >= 5)?"http://www.sphellar.com/mx/wp-content/uploads/2014/11/temporada-de-patos.jpg":"http://www.sphellar.com/mx/wp-content/uploads/2014/11/tu-mama-tambien.jpg"
                         ));
                         $evento->cliente()->associate($cliente);
                         $evento->zona()->associate(Zona::first());
@@ -171,7 +171,7 @@ class ClientesTableSeeder extends Seeder {
 
                         foreach (range(1, 5) as $im) {
                               $imagen = new EventoImagen(array(
-                                  "imagen"      => "http://sphellar.com/mx/wp-content/uploads/2014/11/desierto-de-liwa-nota.jpg"
+                                  "imagen"      => ($i >= 5)?"http://www.sphellar.com/mx/wp-content/uploads/2014/11/MikeOlbinski7.png":"http://www.sphellar.com/mx/wp-content/uploads/2014/11/MikeOlbinski11.png"
                               ));
                               $imagen->evento()->associate($evento);
                               $imagen->save();

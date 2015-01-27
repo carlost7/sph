@@ -140,7 +140,7 @@
 {{ HTML::script('js/comments.js') }}
 <script>
 $("#btn_rank").click(function () {
-      url = "{{ URL::route('miembro.add_rank_negocio',array($negocio->id)) }}";
+      url = "{{ URL::route('miembro.add_rank_evento',array($evento->id)) }}";
       $.post(url).done(function (data) {
             if (data['error']) {
                   $("#rank").html(data['mensaje']);

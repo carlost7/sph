@@ -69,6 +69,7 @@ class EventosController extends \BaseController {
        */
       public function show($id)
       {
+            $evento = Evento::find($id);
             View::share('name', $evento->nombre . ' - Sphellar');
             $evento     = Evento::find($id);
             $categorias = Categoria::all();
