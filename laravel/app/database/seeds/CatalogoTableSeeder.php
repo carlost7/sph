@@ -252,13 +252,13 @@ class CatalogoTableSeeder extends Seeder
 
             $estado = Estado::create(array('estado' => 'Distrito Federal'));
 
-            Zona::create(array('Zona' => 'Condesa', 'estado_id' => $estado->id));
-            Zona::create(array('Zona' => 'Roma', 'estado_id' => $estado->id));
-            Zona::create(array('Zona' => 'Polanco', 'estado_id' => $estado->id));
-            Zona::create(array('Zona' => 'Escandón', 'estado_id' => $estado->id));
-            Zona::create(array('Zona' => 'Juárez', 'estado_id' => $estado->id));
-            Zona::create(array('Zona' => 'Del Valle', 'estado_id' => $estado->id));
-            Zona::create(array('Zona' => 'Narvarte', 'estado_id' => $estado->id));
+            Zona::create(array('zona' => 'Condesa', 'estado_id' => $estado->id));
+            Zona::create(array('zona' => 'Roma', 'estado_id' => $estado->id));
+            Zona::create(array('zona' => 'Polanco', 'estado_id' => $estado->id));
+            Zona::create(array('zona' => 'Escandón', 'estado_id' => $estado->id));
+            Zona::create(array('zona' => 'Juárez', 'estado_id' => $estado->id));
+            Zona::create(array('zona' => 'Del Valle', 'estado_id' => $estado->id));
+            Zona::create(array('zona' => 'Narvarte', 'estado_id' => $estado->id));
 
             $estado = Estado::create(array('estado' => 'Durango'));
 
@@ -314,16 +314,16 @@ class CatalogoTableSeeder extends Seeder
 
             $estado = Estado::create(array('estado' => 'Quintana Roo'));
 
-            Zona::create(array('Zona' => 'Cancún - Zona Hotelera', 'estado_id' => $estado->id));
-            Zona::create(array('Zona' => 'Cancún - Centro', 'estado_id' => $estado->id));
-            Zona::create(array('Zona' => 'Riviera Maya', 'estado_id' => $estado->id));
-            Zona::create(array('Zona' => 'Playa del Carmen', 'estado_id' => $estado->id));
-            Zona::create(array('Zona' => 'Tulúm', 'estado_id' => $estado->id));
-            Zona::create(array('Zona' => 'Holbox', 'estado_id' => $estado->id));
-            Zona::create(array('Zona' => 'Isla Mujeres', 'estado_id' => $estado->id));
-            Zona::create(array('Zona' => 'Cozumel', 'estado_id' => $estado->id));
-            Zona::create(array('Zona' => 'Bacalar', 'estado_id' => $estado->id));
-            Zona::create(array('Zona' => 'Mahahual', 'estado_id' => $estado->id));
+            Zona::create(array('zona' => 'Cancún - Zona Hotelera', 'estado_id' => $estado->id));
+            Zona::create(array('zona' => 'Cancún - Centro', 'estado_id' => $estado->id));
+            Zona::create(array('zona' => 'Riviera Maya', 'estado_id' => $estado->id));
+            Zona::create(array('zona' => 'Playa del Carmen', 'estado_id' => $estado->id));
+            Zona::create(array('zona' => 'Tulúm', 'estado_id' => $estado->id));
+            Zona::create(array('zona' => 'Holbox', 'estado_id' => $estado->id));
+            Zona::create(array('zona' => 'Isla Mujeres', 'estado_id' => $estado->id));
+            Zona::create(array('zona' => 'Cozumel', 'estado_id' => $estado->id));
+            Zona::create(array('zona' => 'Bacalar', 'estado_id' => $estado->id));
+            Zona::create(array('zona' => 'Mahahual', 'estado_id' => $estado->id));
 
             $estado = Estado::create(array('estado' => 'San Luis Potosí'));
 
@@ -339,9 +339,9 @@ class CatalogoTableSeeder extends Seeder
 
             $estado = Estado::create(array('estado' => 'Tabasco'));
 
-            Zona::create(array('Zona' => 'Villahermosa', 'estado_id' => $estado->id));
-            Zona::create(array('Zona' => 'Huimanguillo', 'estado_id' => $estado->id));
-            Zona::create(array('Zona' => 'Cárdenas', 'estado_id' => $estado->id));
+            Zona::create(array('zona' => 'Villahermosa', 'estado_id' => $estado->id));
+            Zona::create(array('zona' => 'Huimanguillo', 'estado_id' => $estado->id));
+            Zona::create(array('zona' => 'Cárdenas', 'estado_id' => $estado->id));
 
             $estado = Estado::create(array('estado' => 'Tamaulipas'));
 
