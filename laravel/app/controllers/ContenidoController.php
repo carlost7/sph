@@ -67,7 +67,7 @@ class ContenidoController extends \BaseController
 
             $queryEventos = Evento::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc');
             
-            $eventos = $queryEventos->paginate(20);
+            $eventos = $queryEventos->paginate(5);
             /* $querys = DB::getQueryLog();
               $lastQuery = end($querys);
               dd($lastQuery);
