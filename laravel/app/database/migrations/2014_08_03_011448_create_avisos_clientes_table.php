@@ -17,8 +17,8 @@ class CreateAvisosClientesTable extends Migration
             {
                   $table->increments('id');
                   $table->integer('cliente_id')->unsigned();
-                  $table->string('avisable_type');
-                  $table->integer('avisable_id');
+                  $table->string('avisable_type')->nullable();
+                  $table->integer('avisable_id')->nullable();
                   $table->timestamps();
                   $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade')->onUpdate('cascade');
             });

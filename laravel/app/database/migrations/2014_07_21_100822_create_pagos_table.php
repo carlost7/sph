@@ -21,8 +21,8 @@ class CreatePagosTable extends Migration
                   $table->float('monto');
                   $table->boolean('pagado');
                   $table->string('metodo');
-                  $table->string('pagable_type');
-                  $table->integer('pagable_id');
+                  $table->string('pagable_type')->nullable();
+                  $table->integer('pagable_id')->nullable();
                   $table->timestamps();
                   $table->integer('cliente_id')->unsigned();
                   $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade')->onUpdate('cascade');

@@ -17,8 +17,8 @@ class CreateUsuariosRanks extends Migration {
 			$table->increments('id');
                   $table->integer('miembro_id')->unsigned();
                   $table->foreign('miembro_id')->references('id')->on('miembros')->onDelete('cascade')->onUpdate('cascade');
-			$table->string('rankable_type');
-                  $table->integer('rankable_id');
+			$table->string('rankable_type')->nullable();
+                  $table->integer('rankable_id')->nullable();
                   $table->timestamps();
 		});
 	}
