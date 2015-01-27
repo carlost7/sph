@@ -14,8 +14,8 @@ class AddTopicToComentarios extends Migration {
 	{
 		Schema::table('comentarios', function(Blueprint $table)
 		{
-			$table->text('topic_type');
-			$table->integer('topic_id');
+			$table->text('topic_type')->nullable();
+			$table->integer('topic_id')->nullable();
 		});
 	}
 
