@@ -20,11 +20,6 @@
                   {{ HTML::linkRoute("publicar.clientes_eventos.show",$evento->nombre,$evento->id) }}
             </h3>
             <p>{{ date('d-m-Y',strtotime($evento->fecha_inicio)).' - '.date('d-m-Y',strtotime($evento->fecha_fin)) }}</p>
-            @if($evento->is_especial  && !$evento->especial )
-            <p class="text-right">
-                  {{ HTML::linkRoute('publicar.clientes_eventos.edit','Agregar datos especiales',$evento->id,array('class'=>'btn btn-sm btn-success')) }}       
-            </p>
-            @endif
             <p class="text-right">
                   {{ HTML::linkRoute('publicar.clientes_eventos.edit','editar',$evento->id,array('class'=>'btn btn-sm btn-info')) }}
             </p>

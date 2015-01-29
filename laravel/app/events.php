@@ -31,5 +31,5 @@ Event::listen('promocion.created', 'PagosListener@store');
 
 /*
  * Modifica el pago para los eventos
- */
-Event::listen('evento.updated', 'PagosListener@update');
+*/
+Event::listen('evento.modified','EventosListener@update');

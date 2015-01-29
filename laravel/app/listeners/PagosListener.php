@@ -9,6 +9,12 @@ class PagosListener {
 
       public function store($object)
       {
+            
+            if ($object->tiempo_publicacion === "0")
+            {
+                  return true;
+            }
+
             $pago              = new Pago;
             $pago->nombre      = 'Publicación de Contenido en Sphellar';
             $pago->descripcion = $object->nombre;
@@ -36,57 +42,6 @@ class PagosListener {
             }
       }
 
-      //Este método solo funciona para eventos
-      public function update($object)
-      {
-            //si es gratis, elimina el pago 
-            if ($object->tiempo_publicacion == 0)
-            {
-                  if (count($object->pago))
-                  {
-                        $object->pago->delete();
-                  }
-            }
-            else
-            {
-
-                  if (count($object->pago))
-                  {
-                        //si es de paga agrega el pago
-                        $object->pago->monto  = Config::get('costos.evento.' . Input::get('tiempo_publicacion'));
-                        $object->pago->pagado = false;
-                        if ($object->pago->save())
-                        {
-                              return true;
-                        }
-                        else
-                        {
-                              return false;
-                        }
-                  }
-                  else
-                  {
-                        //Crear Pago de servicios
-                        $pago              = new Pago;
-                        $pago->nombre      = 'Publicación de Contenido en Sphellar';
-                        $pago->descripcion = $object->nombre;
-                        $pago->monto       = Config::get('costos.' . get_class($object));
-                        $pago->pagado      = false;
-                        $pago->metodo      = "";
-                        $pago->status      = "inicio";
-                        $pago->cliente()->associate(Auth::user()->userable);
-                        if ($object->pago()->save($pago))
-                        {
-                              return true;
-                        }
-                        else
-                        {
-                              return false;
-                        }
-                  }
-            }
-      }
-
       /*
        * publica el contenido automaticamente en la aplicacion y envia un correo al usuario con sus datos
        */
@@ -97,17 +52,13 @@ class PagosListener {
             $objeto->publicar = true;
             if (get_class($objeto) != "Promocion")
             {
-                  $object->is_especial = true;
+                  $objeto->is_especial = true;
             }
-            $object->is_activo = true;
-            if(!$object->updateUniques()){
+            $objeto->is_activo = true;
+            if (!$objeto->updateUniques())
+            {
                   return false;
-            }
-            $email  = $pago->cliente->user->email;
-            $nombre = $pago->cliente->nombre;
-            Mail::queue('emails.publicacion_contenido_pago', array(), function($message) use ($email, $nombre) {
-                  $message->to($email, $nombre)->subject('Publicación de contenido en Sphellar');
-            });
+            }            
       }
 
       /*
@@ -116,9 +67,7 @@ class PagosListener {
 
       public function avisar_cancelacion($pago)
       {
-            Mail::queue('emails.pago_cancelado', array(), function($message) use ($pago) {
-                  $message->to($pago->client->user->email, $pago->client->nombre)->subject('Pago cancelado');
-            });
+            
       }
 
 }

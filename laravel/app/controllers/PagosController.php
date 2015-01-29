@@ -6,7 +6,7 @@ class PagosController extends \BaseController {
 
       protected $checkout;
 
-      public function __construct(Checkout $checkout, Pago $pago, Dispatcher $events)
+      public function __construct(Checkout $checkout)
       {
             parent::__construct();
             $this->checkout = $checkout;
@@ -141,12 +141,23 @@ class PagosController extends \BaseController {
                               }
                               $pago->update();
                         }
+                        $email  = $pago->cliente->user->email;
+                        $nombre = $pago->cliente->nombre;
 
                         switch ($status) {
                               case 'approved':
+                                    Mail::queue('emails.publicacion_contenido_pago', array(), function($message) use ($email, $nombre) {
+                                          $message->to($email, $nombre)->subject('Publicación de contenido en Sphellar');
+                                    });
                                     echo "cambios realizados";
                                     break;
+                              case "cenceled":
+                                    Mail::queue('emails.pago_cancelado', array(), function($message) use ($email, $nombre) {
+                                          $message->to($email, $nombre)->subject('Pago cancelado');
+                                    });
+                                    break;
                               default:
+                                    
                                     echo "status diferente a aprobado";
                                     break;
                         }

@@ -184,7 +184,8 @@ class clientesEventosController extends \BaseController {
             }
 
             $evento->estado()->associate($estado);
-            if (isset($zona))            {
+            if (isset($zona))
+            {
                   $evento->zona()->associate($zona);
             }
             $evento->categoria()->associate($categoria);
@@ -208,7 +209,7 @@ class clientesEventosController extends \BaseController {
             {
 
                   $evento->masInfo->updateUniques();
-
+                  $this->events->fire('evento.modified', array($evento));
                   Session::flash('message', "Evento editado con exito");
                   return Redirect::route('publicar.clientes_eventos.index');
             }
@@ -235,7 +236,7 @@ class clientesEventosController extends \BaseController {
             }
 
             $evento->pago->delete();
-            
+
             if ($evento->delete())
             {
                   Session::flash('message', 'Evento eliminado');
@@ -247,5 +248,5 @@ class clientesEventosController extends \BaseController {
 
             return Redirect::route('publicar.clientes_eventos.index');
       }
-      
+
 }
