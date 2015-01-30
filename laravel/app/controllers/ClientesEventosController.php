@@ -235,7 +235,10 @@ class clientesEventosController extends \BaseController {
                   return Redirect::back();
             }
 
-            $evento->pago->delete();
+            if(count($evento->pago)){
+                  $evento->pago->delete();
+            }
+            
 
             if ($evento->delete())
             {

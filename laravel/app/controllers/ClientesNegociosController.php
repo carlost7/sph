@@ -269,7 +269,9 @@ class clientesNegociosController extends \BaseController {
                   return Redirect::back();
             }
 
-            $negocio->pago->delete();
+            if(count($negocio->pago)){
+                  $negocio->pago->delete();
+            }            
 
             if ($negocio->delete())
             {
