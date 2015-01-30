@@ -14,7 +14,7 @@ class ClientesTableSeeder extends Seeder {
                         'is_activo' => true,
             ));
 
-            foreach (range(1, 100) as $index) {
+            foreach (range(1, 10) as $index) {
                   $cliente = new Cliente(array(
                       'nombre'    => $faker->name,
                       'apellido'  => $faker->name,
