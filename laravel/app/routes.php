@@ -11,6 +11,12 @@
   |
  */
 Route::get('prueba_clientes',function(){      
+      
+      dd();
+      
+      
+      dd(Carbon\Carbon::now());
+      
 });
 
 Route::get('/', array(

@@ -19,10 +19,13 @@
             <h3 class="text-left">                  
                   {{ HTML::linkRoute("publicar.clientes_negocios.show",$negocio->nombre,$negocio->id) }}
             </h3>
-            @if(!$negocio->is_activo && !$negocio->fecha_nueva_activacion)
+            @if($negocio->is_activo && $negocio->fecha_nueva_activacion)
+            
+            @if(Carbon\Carbon::now()->gte(Carbon\Carbon::createFromFormat("Y-m-d", $negocio->fecha_nueva_activacion)))
             <p class="text-right">
                   {{ HTML::linkRoute('publicar.clientes_negocios_activar.get','Activar',$negocio->id,array('class'=>'btn btn-sm btn-warning')) }}       
             </p>
+            @endif
             @endif
             <p class="text-right">
                   {{ HTML::linkRoute('publicar.clientes_negocios.edit','editar',$negocio->id,array('class'=>'btn btn-sm btn-info')) }}       

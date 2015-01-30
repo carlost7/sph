@@ -29,16 +29,6 @@
 <tr>
 	<td>select</td>
 	<td>id=estados</td>
-	<td>label=Chihuahua</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>css=option[value=&quot;8&quot;]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>select</td>
-	<td>id=estados</td>
 	<td>label=Distrito Federal</td>
 </tr>
 <tr>
@@ -58,7 +48,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=#categorias &gt; option[value=&quot;39&quot;]</td>
+	<td>css=option[value=&quot;35&quot;]</td>
 	<td></td>
 </tr>
 <tr>
@@ -72,28 +62,33 @@
 	<td>Libreria de dios</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>css=span.input-group-addon</td>
+	<td>selectWindow</td>
+	<td>null</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//div[@id='sizzle-1422302035870']/div/div/table/tbody/tr[5]/td[2]</td>
+	<td>css=span.glyphicon-calendar.glyphicon</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=#datetimepicker2 &gt; span.input-group-addon &gt; span.glyphicon-calendar.glyphicon</td>
+	<td>//div[@id='sizzle-1422405282608']/div/div/table/tbody/tr[5]/td[4]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//div[@id='sizzle-1422302035870']/div/div/table/tbody/tr[5]/td[5]</td>
+	<td>css=#datetimepicker2 &gt; span.input-group-addon</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=span.glyphicon.glyphicon-time</td>
+	<td>//div[@id='sizzle-1422405282608']/div/div/table/tbody/tr[5]/td[6]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.input-group.clockpicker &gt; span.input-group-addon</td>
 	<td></td>
 </tr>
 <tr>
@@ -114,22 +109,22 @@
 <tr>
 	<td>type</td>
 	<td>id=telefono</td>
-	<td>54 65 89 87</td>
+	<td>54 65 89 78</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=webpage</td>
-	<td>http://webpage.com</td>
+	<td>http://www.google.com</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=email</td>
-	<td>juvcarl@gmail.com</td>
+	<td>juvcarl@yahoo.com</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=descripcion</td>
-	<td>Esta es la primera ultima y unica evento de libreria de todos los tiempos debes venir y ver todos los cambios de politicos y comprandos</td>
+	<td>Descripcion de los campos de prueba de los evento spara le eventopresiso</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -142,24 +137,19 @@
 	<td></td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>//button[@type='button']</td>
-	<td></td>
-</tr>
-<tr>
 	<td>type</td>
 	<td>id=costo</td>
-	<td>456</td>
+	<td>250</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=min_edad</td>
-	<td>20</td>
+	<td>10</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=max_edad</td>
-	<td>50</td>
+	<td>25</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -183,43 +173,23 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=#datetimepicker3 &gt; span.input-group-addon &gt; span.glyphicon-calendar.glyphicon</td>
+	<td>css=#datetimepicker3 &gt; span.input-group-addon</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//div[@id='sizzle-1422302035870']/div/div/table/tbody/tr[5]/td</td>
+	<td>//div[@id='sizzle-1422405282608']/div/div/table/tbody/tr[5]/td[4]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>name=tiempo_publicacion</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>css=#gratis &gt; input[name=&quot;tiempo_publicacion&quot;]</td>
+	<td>css=#2 &gt; input[name=&quot;tiempo_publicacion&quot;]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
 	<td>xpath=(//button[@type='submit'])[2]</td>
 	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=imagen</td>
-	<td>/home/carlos/Downloads/10841762_818188428222287_6834636978125890435_o.jpg</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>css=input.btn.btn-primary</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=imagen</td>
-	<td>/home/carlos/Downloads/6271_1012371878789472_4994421683090840532_n.png</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -252,609 +222,14 @@
 	<td></td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>css=video.video-stream.html5-main-video</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>css=td</td>
-	<td></td>
-</tr>
-<tr>
 	<td>type</td>
-	<td>id=gbqfq</td>
-	<td>tur</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='gs_ars50_3']/table/tbody/tr/td[2]/div/table/tbody/tr[2]/td/div</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>css=body &gt; a</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=Correo</td>
-	<td>carlos.juarez@t7marketing.com</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=Password</td>
-	<td>klendactu</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>id=confirmar</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Siguiente »</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Siguiente »</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>css=font.toplinks</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>name=upw</td>
-	<td>899AXQZ{D</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>name=uemail</td>
-	<td>carlos.juarez@t7marketing.com</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>css=input.btn.btn-primary</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//input[@value='WHM Login']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>selectFrame</td>
-	<td>commander</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=account_information_list_accounts</td>
-	<td></td>
-</tr>
-<tr>
-	<td>selectWindow</td>
-	<td>name=mainFrame</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>css=a[title=&quot;Login to the cPanel interface as “turbcash”.&quot;] &gt; img</td>
-	<td></td>
-</tr>
-<tr>
-	<td>selectWindow</td>
-	<td>null</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>id=icon-manageaccounts</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=add_email_account</td>
-	<td>supervisor</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=create_strong_password</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=generate_password_confirm</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>css=p &gt; label</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>css=button.input-button</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=add_email_create</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>css=span.email_table_page</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//span[@onclick='change_page(3)']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>css=td &gt; span.action_link</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=change_password_input_1_0</td>
-	<td>OperTurbo22</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=change_password_input_2_0</td>
-	<td>OperTurbo22</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=email_table_change_password_confirm_0</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=add_email_account</td>
-	<td>eder.martinez</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=add_email_password1</td>
-	<td>OperTurbo23</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=add_email_password2</td>
-	<td>OperTurbo23</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=add_email_create</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=add_email_account</td>
-	<td>maribel.rojas</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=create_strong_password</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>xpath=(//button[@type='button'])[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=add_email_password1</td>
-	<td>OperTurbo24</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=add_email_password2</td>
-	<td>OperTurbo24</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=add_email_create</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=add_email_account</td>
-	<td>violeta.segundo</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=add_email_password1</td>
-	<td>OperTurbo25</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=add_email_password2</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=add_email_password2</td>
-	<td>OperTurbo25</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=add_email_create</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//span[@onclick='change_page(2)']</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>css=td &gt; span.action_link</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=change_password_input_1_0</td>
-	<td>cJtH7OhHfe..</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=change_password_input_2_0</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=change_password_input_2_0</td>
-	<td>cJtH7OhHfe..</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=email_table_change_password_confirm_0</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>css=#jfk-palette-cell-194 &gt; div.jfk-palette-colorswatch</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>css=#heading-home_on &gt; a</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>id=item_forwardersemail</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Add Forwarder</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=email</td>
-	<td>supervisor</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=fwdemail</td>
-	<td>turbocash009@gmail.com</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>id=submit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>css=a</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>id=item_forwardersemail</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>//span[@onclick=&quot;return CPANEL.ui.widgets.pager.fireGoToPage('DEFAULT',11, 2, 1);&quot;]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>id=DEFAULT-navigate-3</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>id=DEFAULT-navigate-1</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>xpath=(//a[contains(text(),'Delete')])[8]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Delete Forwarder</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=← Go Back</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Add Forwarder</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=email</td>
-	<td>info</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=fwdemail</td>
-	<td>eder.martinez@turbocash.mx</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>id=submit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=← Go Back</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Add Forwarder</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=email</td>
-	<td>info</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=fwdemail</td>
-	<td>maribel.rojas@turbocash.mx</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>id=submit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=← Go Back</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>css=#jfk-palette-cell-204 &gt; div.jfk-palette-colorswatch</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Add Forwarder</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=email</td>
-	<td>eder.martinez</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=fwdemail</td>
-	<td>turbocash010@gmail.com</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>id=submit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=← Go Back</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Add Forwarder</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=email</td>
-	<td>maribel.rojas</td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=fwdemail</td>
-	<td>turbocash011@gmail.com</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>id=submit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=← Go Back</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Add Forwarder</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=email</td>
-	<td>violeta.segundo</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>id=fwdemail</td>
-	<td>turbocash008@gmail.com</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>id=submit</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=← Go Back</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>css=#jfk-palette-cell-204 &gt; div.jfk-palette-colorswatch</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='8-scrollable']/div[2]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='map-canvas']/div/div/div[2]</td>
-	<td></td>
+	<td>id=descripcion</td>
+	<td>Descripcion de los campos de prueba de los eventos para el evento preciso</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=max_edad</td>
-	<td>55</td>
+	<td>50</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -867,11 +242,70 @@
 	<td></td>
 </tr>
 <tr>
+	<td>type</td>
+	<td>id=imagen</td>
+	<td>/home/carlos/Downloads/10748703_1573350779560554_583976996_n.jpg</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='map-canvas']/div/div/div[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=modificar_publicacion</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#datetimepicker3 &gt; span.input-group-addon &gt; span.glyphicon-calendar.glyphicon</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='sizzle-1422405423582']/div/div/table/tbody/tr[4]/td[5]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#datetimepicker3 &gt; span.input-group-addon &gt; span.glyphicon-calendar.glyphicon</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='sizzle-1422405423582']/div/div/table/tbody/tr[5]/td[4]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=tiempo_publicacion</td>
+	<td></td>
+</tr>
+<tr>
 	<td>clickAndWait</td>
 	<td>xpath=(//button[@type='submit'])[2]</td>
 	<td></td>
 </tr>
-
+<tr>
+	<td>clickAndWait</td>
+	<td>link=editar imagenes</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//input[@value='eliminar'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=imagen</td>
+	<td>/home/carlos/Downloads/10841762_818188428222287_6834636978125890435_o.jpg</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input.btn.btn-primary</td>
+	<td></td>
+</tr>
 </tbody></table>
 </body>
 </html>

@@ -23,7 +23,7 @@ class Pago extends Ardent {
           'pagable' => array(self::MORPH_TO)
       );
 
-      public function afterUpdaate()
+      public function afterUpdate()
       {
             if ($this->status == "approved")
             {

@@ -51,6 +51,7 @@ class clientesPagosController extends \BaseController {
                         $pago         = Pago::find($id);
                         $pago->pagado = true;
                         $pago->metodo = "Código Promocional";
+                        $pago->status = "approved";
                         if ($pago->update())
                         {
                               Session::flash('message', 'Código satisfactorio');
@@ -79,9 +80,8 @@ class clientesPagosController extends \BaseController {
             if (isset($pago))
             {
                   $aviso = new Aviso_cliente();
-                  $aviso->cliente()->associate(Auth::user()->userable);
-                  $aviso->avisable()->associate($pago->pagable);
-                  if ($aviso->save())
+                  $aviso->cliente()->associate(Auth::user()->userable);                  
+                  if ($pago->pagable->aviso()->save($aviso))
                   {
                         Session::flash('message', 'Un ejecutivo revisará el contenido y se le avisará por correo cuando este sea publicado');
                   }

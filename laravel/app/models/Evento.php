@@ -72,13 +72,6 @@ class Evento extends Ardent implements StaplerableInterface {
             }
       }
       
-      public function afterUpdate()
-      {
-            if (!count(Event::fire('evento.updated', array($this))))
-            {
-                  return false;
-            }
-      }
 
       public function setFechaInicioAttribute($date)
       {
@@ -179,7 +172,7 @@ class Evento extends Ardent implements StaplerableInterface {
                   return new \Carbon\Carbon($tmpdate);
             }
       }
-      
+
       public function getHoraInicioAttribute()
       {
             $tmpdate = $this->attributes['hora_inicio'];
@@ -192,7 +185,7 @@ class Evento extends Ardent implements StaplerableInterface {
                   return new \Carbon\Carbon($tmpdate);
             }
       }
-      
+
       public function getHoraFinAttribute()
       {
             $tmpdate = $this->attributes['hora_fin'];
