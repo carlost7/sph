@@ -6171,8 +6171,8 @@ td.visible-print {
  /* CUADROS NEGOCIOS INDEX */  
 .cuadro_front{
     height:500px;
-    padding:2%;
-    
+    padding: 5% 5% 2% 5%;
+    text-align:center;
     width:50%;
      border:1px solid #dadada;
     
@@ -6254,8 +6254,8 @@ td.visible-print {
 
 .cuadro_front p{
     color:#515151;
-    font-size: 0.9em; 
-        
+    font-size: 1em; 
+    text-align:left;    
 } 
 
 

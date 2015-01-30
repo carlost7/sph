@@ -62,8 +62,8 @@
                   @foreach($negocios as $negocio)
                   <div class="col-sm-6 cuadro_front">
 
-                        @if(count($negocio->imagen))
-                        <a href="{{ route('negocios.show',array($negocio->id,Str::slug($negocio->nombre))) }}"><img src="{{ URL::to("/").$negocio->imagen->url('medium')}}" alt="{{ $negocio->nombre }}" /></a>
+                        @if($negocio->imagen_file_name != "")
+                        <img src="{{ URL::to("/").$negocio->imagen->url('medium')}}">
                         @else
                         <a href="{{ route('negocios.show',array($negocio->id,Str::slug($negocio->nombre))) }}">{{HTML::image('img/negocio-default.jpg')}}</a>
                         @endif
@@ -97,11 +97,11 @@
                   <h2 class="title_index">Cartelera</h2>
                   @foreach($eventos as $evento)
                   <div class="col-sm-12 cuadro_front especial">
-                        @if(count($evento->imagen))
-                        <a href="{{ route('eventos.show',array($evento->id,Str::slug($evento->nombre))) }}"><img src="{{ URL::to("/").$evento->imagen->url('medium')}}" alt="{{ $evento->imagen->alt }}" /></a>
-                        @else
-                        <a href="{{ route('eventos.show',array($evento->id,Str::slug($evento->nombre))) }}">{{HTML::image('img/evento-default.jpg')}}</a>
-                        @endif
+                        @if($evento->imagen_file_name != "")
+                          <img src="{{ URL::to("/").$evento->imagen->url('medium')}}">
+                          @else
+                          <a href="{{ route('eventos.show',array($evento->id,Str::slug($evento->nombre))) }}">{{HTML::image('img/evento-default.jpg')}}</a>
+                          @endif
                         <h3  class="title_cartelera"><strong>{{HTML::linkRoute('eventos.show',$evento->nombre,$evento->id) }}</strong></h3>
 
                         <p class="img_catego">{{ HTML::image("img/Categorias-icons/".Str::slug($evento->categoria->categoria).".png",$evento->categoria->categoria,array('title'=>$evento->categoria->categoria,'data-toggle'=>'tooltip','data-placement'=>'bottom')) }}</p>

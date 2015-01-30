@@ -169,13 +169,48 @@ code {
 }
 
 .slides > li {
-	width: 32%;
+	width: 33.3%;
 	height: 100%;
 	//position: absolute;
 	//visibility: hidden;
 	-webkit-perspective: 1600px;
 	perspective: 1600px;
-        display: inline-block;        
+        float:left; 
+        padding: 2%;
+         margin:0 auto;
+        text-align:center;
+}
+
+.slides > li h2 a{
+	color: #f96069;
+        font-size: 0.7em;
+        text-align: left;
+        font-family: 'Raleway';
+        font-weight: 700;
+}
+
+.meta.meta_more a{
+    background: #501474;
+    border-radius: 6px 0;
+    box-sizing: border-box;
+    color: #fff !important;
+    display: block;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 4% 7%;
+    text-align: center;
+    width: 40%;
+    
+    vertical-align: bottom;
+    
+}
+
+.slides > li img {
+	width: 80%;
+        margin:0 auto;
+        text-align:center;
+        border-radius: 4%;
+        border:2px solid #3edac0;
 }
 
 .no-js .slides > li {
