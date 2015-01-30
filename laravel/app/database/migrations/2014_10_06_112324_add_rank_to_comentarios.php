@@ -14,7 +14,7 @@ class AddRankToComentarios extends Migration {
 	{
 		Schema::table('comentarios', function(Blueprint $table)
 		{
-			$table->double('rank');
+			$table->double('rank')->nullable();
                   
 		});
 	}
