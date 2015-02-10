@@ -68,7 +68,7 @@ class ContenidoController extends \BaseController
             }
 
             $negocios = $queryNegocios->paginate(20);
-            $eventos = $queryNegocios->paginate(5);
+            $eventos = $queryEventos->paginate(5);
 
             return View::make('contenido.index')->with(array('negocios' => $negocios, 'eventos' => $eventos));
       }
