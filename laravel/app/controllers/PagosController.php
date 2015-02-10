@@ -157,7 +157,7 @@ class PagosController extends \BaseController {
                                     });
                                     break;
                               default:
-                                    
+
                                     echo "status diferente a aprobado";
                                     break;
                         }
@@ -185,7 +185,7 @@ class PagosController extends \BaseController {
       public function recibir_notificacion()
       {
             Log::info('PagosController.recibir_notificacion entrada de datos');
-            Log::error("PagosController.recibir_notificacion".print_r(Input::all(),true));
+            Log::error("PagosController.recibir_notificacion" . print_r(Input::all(), true));
 
             if (Config::get('params.prueba_pago'))
             {
@@ -245,9 +245,14 @@ class PagosController extends \BaseController {
                                     }
                                     $pago->update();
                               }
+                              $email  = $pago->cliente->user->email;
+                              $nombre = $pago->cliente->nombre;
 
                               switch ($status) {
                                     case 'approved':
+                                          Mail::queue('emails.publicacion_contenido_pago', array(), function($message) use ($email, $nombre) {
+                                                $message->to($email, $nombre)->subject('Publicación de contenido en Sphellar');
+                                          });
                                           echo "cambios realizados";
                                           break;
                                     default:
