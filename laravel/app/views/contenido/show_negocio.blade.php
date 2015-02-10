@@ -57,9 +57,7 @@
                   <div class="list-group">  
                         @if ($negocio->masInfo->tc)  
                         <span><p class="list-group-item"><span class="label label-default">tc</span>Si</p></span>
-                        @endif
-
-
+                        @endif                        
                         @if ($negocio->masInfo->td)  
                         <span><p class="list-group-item"><span class="label label-default">td</span>Si</p></span>
                         @endif
@@ -119,7 +117,7 @@
                         @if ($negocio->masInfo->taller)  
                         <span><p class="list-group-item"><span class="label label-default">taller</span>Si</p></span>
                         @endif
-
+                        
                         @if ($negocio->masInfo->clases_extra)  
                         <span><p class="list-group-item"><span class="label label-default">clases_extra</span>Si</p></span>
                         @endif
@@ -131,13 +129,14 @@
                         @if ($negocio->masInfo->lavanderia)  
                         <span><p class="list-group-item"><span class="label label-default">lavanderia</span>Si</p></span>
                         @endif
-
+                        
                         @if ($negocio->masInfo->gimnasio)  
                         <span><p class="list-group-item"><span class="label label-default">gimnasio</span>Si</p></span>
                         @endif
 
                         @if ($negocio->masInfo->restaurante)  
                         <span><p class="list-group-item"><span class="label label-default">restaurante</span>Si</p></span>
+			@endif
 
                         @if ($negocio->masInfo->membresia)  
                         <span><p class="list-group-item"><span class="label label-default">membresia</span>Si</p></span>
@@ -190,6 +189,8 @@
                         @if ($negocio->masInfo->internacional)  
                         <span><p class="list-group-item"><span class="label label-default">internacional</span>Si</p></span>
                         @endif
+                        
+
                   </div>
                   @endif
 
