@@ -15,8 +15,8 @@
                   {{ Form::password('password',array('placeholder' => 'password', 'class'=>'form-control')) }}
             </div>
             <div class="form-group">
-                  {{ Form::label('password_confirmationation', 'Repetir Password') }}
-                  {{ Form::password('password_confirmationation',array('placeholder' => 'Repetir password', 'class'=>'form-control')) }}
+                  {{ Form::label('password_confirmation', 'Repetir Password') }}
+                  {{ Form::password('password_confirmation',array('placeholder' => 'Repetir password', 'class'=>'form-control')) }}
             </div>
             <div class="form-group">
                   <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>                    

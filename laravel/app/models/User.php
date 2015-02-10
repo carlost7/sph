@@ -39,8 +39,8 @@ class User extends Ardent implements UserInterface, RemindableInterface {
       public $autoHashPasswordAttributes    = true;
       public static $rules                  = array(
           'email'                 => 'required|email|unique:users,email',
-          'password'              => 'required|alpha_dash|min:6',
-          'password_confirmation' => 'required|same:password',
+          'password'              => 'required|alpha_dash|min:6|confirmed',
+          'password_confirmation' => 'required',
       );
       public $autoHydrateEntityFromInput    = true;
       public $forceEntityHydrationFromInput = true;
