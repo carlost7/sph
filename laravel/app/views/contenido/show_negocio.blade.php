@@ -55,40 +55,141 @@
 
                   @if(count($negocio->masInfo))
                   <div class="list-group">  
-                        <span><p class="list-group-item"><span class="label label-default">tc</span>{{ ($negocio->masInfo->tc)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">td</span>{{ ($negocio->masInfo->td)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">estacionamiento</span>{{ ($negocio->masInfo->estacionamiento)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">valet</span>{{ ($negocio->masInfo->valet)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">envio_domicilio</span>{{ ($negocio->masInfo->envio_domicilio)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">wifi</span>{{ ($negocio->masInfo->wifi)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">paqueteria</span>{{ ($negocio->masInfo->paqueteria)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">mascotas</span>{{ ($negocio->masInfo->mascotas)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">barra_libre</span>{{ ($negocio->masInfo->barra_libre)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">formal</span>{{ ($negocio->masInfo->formal)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">camara_perm</span>{{ ($negocio->masInfo->camara_perm)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">restaurante</span>{{ ($negocio->masInfo->restaurante)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">solo_mujeres</span>{{ ($negocio->masInfo->solo_mujeres)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">solo_hombres</span>{{ ($negocio->masInfo->solo_hombres)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">personalizado</span>{{ ($negocio->masInfo->personalizado)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">taller</span>{{ ($negocio->masInfo->taller)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">clases_extra</span>{{ ($negocio->masInfo->clases_extra)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">informacion</span>{{ ($negocio->masInfo->informacion)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">lavanderia</span>{{ ($negocio->masInfo->lavanderia)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">gimnasio</span>{{ ($negocio->masInfo->gimnasio)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">restaurante</span>{{ ($negocio->masInfo->restaurante)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">membresia</span>{{ ($negocio->masInfo->membresia)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">cafeteria</span>{{ ($negocio->masInfo->cafeteria)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">pension</span>{{ ($negocio->masInfo->pension)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">cambios</span>{{ ($negocio->masInfo->cambios)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">devoluciones</span>{{ ($negocio->masInfo->devoluciones)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">bicicleta</span>{{ ($negocio->masInfo->bicicleta)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">alcohol</span>{{ ($negocio->masInfo->alcohol)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">familiar</span>{{ ($negocio->masInfo->familiar)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">cita</span>{{ ($negocio->masInfo->cita)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">pagos_diferidos</span>{{ ($negocio->masInfo->pagos_diferidos)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">facturacion</span>{{ ($negocio->masInfo->facturacion)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">mensajeria</span>{{ ($negocio->masInfo->mensajeria)  ? "Si" : "No" }}</p></span>
-                        <span><p class="list-group-item"><span class="label label-default">internacional</span>{{ ($negocio->masInfo->internacional)  ? "Si" : "No" }}</p></span>
+                        @if ($negocio->masInfo->tc)  
+                        <span><p class="list-group-item"><span class="label label-default">tc</span>Si</p></span>
+                        @endif
+
+
+                        @if ($negocio->masInfo->td)  
+                        <span><p class="list-group-item"><span class="label label-default">td</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->estacionamiento)  
+                        <span><p class="list-group-item"><span class="label label-default">estacionamiento</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->valet)  
+                        <span><p class="list-group-item"><span class="label label-default">valet</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->envio_domicilio)  
+                        <span><p class="list-group-item"><span class="label label-default">envio_domicilio</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->wifi)  
+                        <span><p class="list-group-item"><span class="label label-default">wifi</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->paqueteria)  
+                        <span><p class="list-group-item"><span class="label label-default">paqueteria</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->mascotas)  
+                        <span><p class="list-group-item"><span class="label label-default">mascotas</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->barra_libre)  
+                        <span><p class="list-group-item"><span class="label label-default">barra_libre</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->formal)  
+                        <span><p class="list-group-item"><span class="label label-default">formal</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->camara_perm)  
+                        <span><p class="list-group-item"><span class="label label-default">camara_perm</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->restaurante)  
+                        <span><p class="list-group-item"><span class="label label-default">restaurante</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->solo_mujeres)  
+                        <span><p class="list-group-item"><span class="label label-default">solo_mujeres</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->solo_hombres)  
+                        <span><p class="list-group-item"><span class="label label-default">solo_hombres</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->personalizado)  
+                        <span><p class="list-group-item"><span class="label label-default">personalizado</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->taller)  
+                        <span><p class="list-group-item"><span class="label label-default">taller</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->clases_extra)  
+                        <span><p class="list-group-item"><span class="label label-default">clases_extra</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->informacion)  
+                        <span><p class="list-group-item"><span class="label label-default">informacion</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->lavanderia)  
+                        <span><p class="list-group-item"><span class="label label-default">lavanderia</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->gimnasio)  
+                        <span><p class="list-group-item"><span class="label label-default">gimnasio</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->restaurante)  
+                        <span><p class="list-group-item"><span class="label label-default">restaurante</span>Si</p></span>
+
+                        @if ($negocio->masInfo->membresia)  
+                        <span><p class="list-group-item"><span class="label label-default">membresia</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->cafeteria)  
+                        <span><p class="list-group-item"><span class="label label-default">cafeteria</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->pension)  
+                        <span><p class="list-group-item"><span class="label label-default">pension</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->cambios)  
+                        <span><p class="list-group-item"><span class="label label-default">cambios</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->devoluciones)  
+                        <span><p class="list-group-item"><span class="label label-default">devoluciones</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->bicicleta)  
+                        <span><p class="list-group-item"><span class="label label-default">bicicleta</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->alcohol)  
+                        <span><p class="list-group-item"><span class="label label-default">alcohol</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->familiar)  
+                        <span><p class="list-group-item"><span class="label label-default">familiar</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->cita)  
+                        <span><p class="list-group-item"><span class="label label-default">cita</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->pagos_diferidos)  
+                        <span><p class="list-group-item"><span class="label label-default">pagos_diferidos</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->facturacion)  
+                        <span><p class="list-group-item"><span class="label label-default">facturacion</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->mensajeria)  
+                        <span><p class="list-group-item"><span class="label label-default">mensajeria</span>Si</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->internacional)  
+                        <span><p class="list-group-item"><span class="label label-default">internacional</span>Si</p></span>
+                        @endif
                   </div>
                   @endif
 
