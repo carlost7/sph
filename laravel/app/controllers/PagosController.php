@@ -185,7 +185,7 @@ class PagosController extends \BaseController {
       public function recibir_notificacion()
       {
             Log::info('PagosController.recibir_notificacion entrada de datos');
-
+            Log::error("PagosController.recibir_notificacion".print_r(Input::all()));
 
             if (Config::get('params.prueba_pago'))
             {
