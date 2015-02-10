@@ -27,6 +27,17 @@
                   <img src="{{ URL::to("/").$evento->imagen->url('medium') }}">
                   @endif
 
+                  <div class="list-group">  
+                        <p class="list-group-item"><span class="label label-default">Estado:</span> {{ $evento->estado->estado }}</p>
+                        @if(count($evento->zona))
+                        <p class="list-group-item"><span class="label label-default">Zona:</span> {{ $evento->zona->zona }}</p>
+                        @endif
+                        <p class="list-group-item"><span class="label label-default">Categoria:</span> {{ $evento->categoria->categoria }}</p>
+                        @if(count($evento->subcategoria))
+                        <p class="list-group-item"><span class="label label-default">Subcategoria:</span>    {{ $evento->subcategoria->subcategoria }}</p>      
+                        @endif
+                  </div>
+                  
                   <div class="list-group">        
                         <p class="list-group-item"><span class="label label-default">Fecha:</span>{{(($evento->fecha_inicio != "")?$evento->fecha_inicio->format('d/m/Y'):"")." -".(($evento->fecha_fin != "")? $evento->fecha_fin->format('d/m/Y'):"")}}</p>      
                         <p class="list-group-item"><span class="label label-default">Horario:</span> {{ $evento->hora_inicio->format('H:i').' - '.$evento->hora_fin->format('H:i') }}</p>
