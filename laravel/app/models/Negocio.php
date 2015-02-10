@@ -29,8 +29,8 @@ class Negocio extends Ardent implements StaplerableInterface {
           'direccion'   => 'required',
           'telefono'    => 'required',
           'descripcion' => 'required|min:30|max:500',
-          'email'       => 'required|email',
-          'webpage'     => 'required|url',
+          'email'       => 'email',
+          'webpage'     => 'url',
           'lat'         => 'numeric',
           'long'        => 'numeric',
       );
