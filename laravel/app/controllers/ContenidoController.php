@@ -34,9 +34,10 @@ class ContenidoController extends \BaseController
 
 
             //Generamos el query para traer los datos de la base de datos
-            //Esto debe pasarse a un controller en algun momento
             //negocios:
-            $queryNegocios = Negocio::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc');
+            $queryNegocios = Negocio::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'descripcion');
+            //eventos:
+            $queryEventos = Evento::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'descripcion');
             //Obtenemos los negocios que tengan categorias
             if ($id_categoria != "")
             {
@@ -46,10 +47,12 @@ class ContenidoController extends \BaseController
                   {
                         //Agregamos la subcategoria
                         $queryNegocios = $queryNegocios->where('subcategoria_id', $cat[1]);
+                        $queryEventos = $queryEventos->where('subcategoria_id', $cat[1]);
                   }
 
                   //Agregamos la categoria
                   $queryNegocios = $queryNegocios->where('categoria_id', $cat[0]);
+                  $queryEventos = $queryEventos->where('categoria_id', $cat[0]);
             }
 
             if ($id_ubicacion != "")
@@ -58,35 +61,19 @@ class ContenidoController extends \BaseController
                   if (count($ubi) > 1)
                   {
                         $queryNegocios = $queryNegocios->where('zona_id', $ubi[1]);
+                        $queryEventos = $queryEventos->where('zona_id', $ubi[1]);
                   }
                   $queryNegocios = $queryNegocios->where('estado_id', $ubi[0]);
+                  $queryEventos = $queryEventos->where('estado_id', $ubi[0]);
             }
 
             $negocios = $queryNegocios->paginate(20);
-            $eventos = array();
+            $eventos = $queryNegocios->paginate(5);
 
-            $queryEventos = Evento::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc');
-            
-            $eventos = $queryEventos->paginate(5);
-            /* $querys = DB::getQueryLog();
-              $lastQuery = end($querys);
-              dd($lastQuery);
-             */
             return View::make('contenido.index')->with(array('negocios' => $negocios, 'eventos' => $eventos));
       }
 
-      /**
-       * Display the specified resource.
-       * GET /contenido/{id}
-       *
-       * @param  int  $id
-       * @return Response
-       */
-      public function show($id)
-      {
-            //
-      }
-
+      
       public function getCatalogoZonas()
       {
             $zonas = Zona::with('estado')->where('zona','LIKE',"%".Input::get('query')."%")->take(25)->get();;
