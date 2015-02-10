@@ -14,6 +14,18 @@
 @if($negocio->imagen_file_name != "")
 <img src="{{ URL::to("/").$negocio->imagen->url('medium')}}">
 @endif
+
+<div class="list-group">  
+      <p class="list-group-item"><span class="label label-default">Estado:</span> {{ $negocio->estado->estado }}</p>
+      @if(count($negocio->zona))
+      <p class="list-group-item"><span class="label label-default">Zona:</span> {{ $negocio->zona->zona }}</p>
+      @endif
+      <p class="list-group-item"><span class="label label-default">Categoria:</span> {{ $negocio->categoria->categoria }}</p>
+      @if(count($negocio->subcategoria))
+      <p class="list-group-item"><span class="label label-default">Subcategoria:</span>    {{ $negocio->subcategoria->subcategoria }}</p>      
+      @endif
+</div>
+
 <div class="list-group">  
       <p class="list-group-item"><span class="label label-default">Teléfono:</span> {{ $negocio->telefono }}</p>
       <p class="list-group-item"><span class="label label-default">Dirección:</span> {{ $negocio->direccion }}</p>
@@ -23,7 +35,6 @@
       <p class="list-group-item"><span class="label label-default">Rank:</span>   {{ $negocio->likes }}</p>      
       <p class="list-group-item"><span class="label label-default">Publicado:</span> {{ ($negocio->publicar) ? "Si" : "No" }}</p>
 </div>
-
 @if(count($negocio->masInfo))
 <div class="list-group">  
       <span><p class="list-group-item"><span class="label label-default">tc</span>{{ ($negocio->masInfo->tc)  ? "Si" : "No" }}</p></span>
