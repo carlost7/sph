@@ -25,6 +25,7 @@
             <script>
                   var base_url = '{{ URL::to("/") }}';
             </script>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
       </head>
       <body>
             <!--[if lt IE 7]>
@@ -155,11 +156,11 @@
 
             @yield('wrapper')
 
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>                
+            
             {{ HTML::script('js/vendor/bootstrap.min.js') }}
             {{ HTML::script('js/vendor/jquery.autocomplete.js') }}
-            {{ HTML::script('js/main.js') }}
-            {{ HTML::script('js/getCatalog.js') }}
+            {{ HTML::script('js/main.js') }}            
+            {{ HTML::script('js/getCatalog.js') }}   
 
             @section('scripts')
             @show

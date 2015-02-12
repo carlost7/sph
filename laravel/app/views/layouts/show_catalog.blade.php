@@ -9,21 +9,21 @@
             <div class="row">
                   <div class="col-sm-12">
                         {{ Form::label('estado_dd','Estado')}}
-                        {{ Form::select('estado_dd', $estados->lists('estado','id'),null,array('class'=>'form-control guia_buscador','id'=>'estados','placeholder'=>'¿Dónde?')) }}
+                        {{ Form::select('estado_dd', $estados->lists('estado','id'),Session::get('estados'),array('class'=>'form-control guia_buscador','id'=>'estados','placeholder'=>'¿Dónde?')) }}
                   </div>
                   <div class="col-sm-12">
                         {{ Form::label('zona_dd','Zona') }}
-                        {{ Form::select('zona_dd',array(),null,array('class'=>'form-control guia_buscador', 'id'=>'zonas','placeholder'=>'¿Qué buscas?')) }}
+                        {{ Form::select('zona_dd',array(""=>""),"",array('class'=>'form-control guia_buscador', 'id'=>'zonas','placeholder'=>'¿Qué buscas?')) }}
                   </div>
             </div>
             <div class="row">
                   <div class="col-sm-12">
                         {{ Form::label('categoria_dd','Categoria') }}
-                        {{ Form::select('categoria_dd', $categorias->lists('categoria','id'),null,array('class'=>'form-control guia_buscador','id'=>'categorias')) }}
+                        {{ Form::select('categoria_dd', $categorias->lists('categoria','id'),Session::get('categorias'),array('class'=>'form-control guia_buscador','id'=>'categorias')) }}
                   </div>
                   <div class="col-sm-12">
                         {{ Form::label('subcategoria_dd','subcategoria') }}
-                        {{ Form::select('subcategoria_dd', array(),null,array('class'=>'form-control guia_buscador', 'id'=>'subcats')) }}
+                        {{ Form::select('subcategoria_dd', array(""=>""),"",array('class'=>'form-control guia_buscador', 'id'=>'subcats')) }}
                   </div>
             </div>      
             <div class="row">
@@ -51,6 +51,8 @@
 <div class="form-group center">
       <button type="submit" class="btn btn-primary btn_guia" id='search_catalog'>Buscar</button>      
 </div>
+
+{{ HTML::script('js/searchContentCatalog.js') }}
 
 {{ Form::close() }}
 
