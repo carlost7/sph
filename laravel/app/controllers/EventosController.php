@@ -13,51 +13,60 @@ class EventosController extends \BaseController {
       {
             View::share('name', 'Cartelera - Sphellar');
 
-            $categorias = Categoria::all();
+            /*
+             * Del formulario de busqueda, obtenemos nombre y valor y lo metemos en la sesion para 
+             * la barra de busqueda.
+             */
+            //Generamos el query para traer los datos de la base de datos
+            //negocios:
+            $queryEvento = Evento::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc');
+
+            $id_ubicacion = Input::get('id_ubicacion');
+            if ($id_ubicacion != "")
+            {
+                  $ubi    = explode(" - ", trim($id_ubicacion));
+                  //Obtenemos el nombre del estado
+                  $id     = $ubi[0];
+                  $nombre = Estado::find($ubi[0])->estado;
+                  if (count($ubi) > 1)
+                  {
+                        $id     = $id . " - " . $ubi[1];
+                        $nombre = $nombre . " - " . Zona::find($ubi[1])->zona;
+                        $queryNegocios = $queryEvento->where('zona_id', $ubi[1]);
+                  }
+                  Session::set('id_ubicacion', $id);
+                  Session::set('ubicacion', $nombre);
+                  $queryEvento = $queryEvento->where('estado_id', $ubi[0]);
+                  
+            }
+
+
+            $id_categoria = Input::get('id_categoria');
+            if ($id_categoria != "")
+            {
+
+                  $cat    = explode(" - ", trim($id_categoria));
+                  //Obtenemos el nombre del estado
+                  $id     = $cat[0];
+                  $nombre = Categoria::find($cat[0])->categoria;
+                  
+                  if (count($cat) > 1)
+                  {
+                        $id     = $id . " - " . $cat[1];
+                        $nombre = $nombre . " - " . Subcategoria::find($cat[1])->subcategoria;
+                        $queryEvento = $queryEvento->where('subcategoria_id', $cat[1]);
+                  }
+                  Session::set('id_categoria', $id);
+                  Session::set('categoria', $nombre);
+                  $queryEvento = $queryEvento->where('categoria_id', $cat[0]);
+            }
+
+            $eventos = $queryEvento->paginate(20);
+
             $estados    = Estado::all();
+            $categorias = Categoria::all();
 
-            $tipocat   = Input::get('tipocat');
-            $tipolocal = Input::get('tipolocal');
-
-
-            $queryEventos = Evento::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc')->orderBy('is_especial', 'desc');
-            if (isset($tipocat))
-            {
-                  $tipocat = explode("-", $tipocat);
-
-                  if (count($tipocat) > 1)
-                  {
-
-                        $queryEventos = $queryEventos->where('subcategoria_id', $tipocat[1]);
-                  }
-
-                  $queryEventos = $queryEventos->where('categoria_id', $tipocat[0]);
-            }
-
-            if ($tipolocal)
-            {
-
-                  $tipolocal = explode("-", $tipolocal);
-
-
-                  if (count($tipolocal) > 1)
-                  {
-
-                        $queryEventos = $queryEventos->where('zona_id', $tipolocal[1]);
-                  }
-
-
-
-                  $queryEventos = $queryEventos->where('estado_id', $tipolocal[0]);
-            }
-
-
-            $eventos = $queryEventos->paginate(20);
-            
-            Session::set('tipolocal', Input::get('estado'));
-            Session::set('tipocat', Input::get('categoria'));
-
-            return View::make('contenido.eventos_index',compact('eventos','estados','categorias'));
+            return View::make('contenido.eventos_index', compact('eventos', 'estados', 'categorias'));
       }
 
       /**

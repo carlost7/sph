@@ -29,11 +29,11 @@
 
                   <a href="http://sphellar.com/mx/ target="new">
                      {{HTML::image('img/publicidad/banner_publicidad_3.jpg','Publicidad Sphellar')}}   
-            </a>
+                  </a>
+
+            </article>
 
       </article>
-
-</article>
 
 
 @include('layouts.show_last_posts')
@@ -41,14 +41,13 @@
 
 <!-- Comienza sección de Cartelera -->
 
-
+@if(count($eventos))
 <div class="row">
-
 
       @foreach($eventos as $evento)
       <div class="col-sm-6 cuadro_front_negocios">
             @if($evento->imagen_file_name != "")
-                  <img src="{{ URL::to("/").$evento->imagen->url('medium')}}">
+            <img src="{{ URL::to("/").$evento->imagen->url('medium')}}">
             @else
             <a href="{{ route('eventos.show',array($evento->id,Str::slug($evento->nombre))) }}">{{HTML::image('img/evento-default.jpg')}}</a>
             @endif
@@ -107,7 +106,7 @@
       </div>
       @endforeach                  
 </div>
-</div>
+
 <div class="row">
       <div class="col-sm-12">
             <div class="text-center">
@@ -116,8 +115,17 @@
       </div>            
 
 </div>
+@else
+<div class="row">
+      <div class="col-sm-12">
+            <div class="text-center">
+                  <h1>No se encontraron resultados para tu busqueda, si conoces alguno agregalo</h1>
+            </div>                  
+      </div>            
 
-
+</div>
+@endif
+</div>
 
 
 @stop

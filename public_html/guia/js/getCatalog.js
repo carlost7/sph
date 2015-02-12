@@ -48,6 +48,10 @@ jQuery(function () {
             } else {
                   url = base_url;
             }
+            
+            $(".id_ubicacion").val($("#estados").val()+" - "+$("#zonas").val());
+            $(".id_categoria").val($("#categorias").val()+" - "+$("#subcats").val());
+            
             jQuery("#form_catalog").attr("action", url).submit();
       });
 

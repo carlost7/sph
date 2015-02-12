@@ -35,9 +35,9 @@ class ContenidoController extends \BaseController
 
             //Generamos el query para traer los datos de la base de datos
             //negocios:
-            $queryNegocios = Negocio::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'descripcion');
+            $queryNegocios = Negocio::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc');
             //eventos:
-            $queryEventos = Evento::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'descripcion');
+            $queryEventos = Evento::where('publicar', true)->where('is_activo', true)->orderBy('rank', 'desc');
             //Obtenemos los negocios que tengan categorias
             if ($id_categoria != "")
             {

@@ -42,7 +42,7 @@
       <!-- Comienza sección de Negocios -->
 
 
-
+      @if(count($negocios))
       <div class="row">
             <!--<h2 class="title_index">Negocios</h2>-->
             @foreach($negocios as $negocio)
@@ -105,9 +105,7 @@
 
                   <p class="txt_descripcion"><span class="info_guia">Descripción:</span> {{ $negocio->descripcion }}</p> 
             </div>
-            @endforeach    
-
-
+            @endforeach 
       </div>
       <div class="row">
             <div class="col-sm-12">
@@ -116,6 +114,15 @@
                   </div>                  
             </div>    
       </div>
+      @else
+      <div class="row">
+            <div class="col-sm-12">
+                  <div class="text-center">
+                        <h1>No se encontraron negocios para tu busqueda, si conoces alguno agregalo</h1>      
+                  </div>                  
+            </div>    
+      </div>
+      @endif
 </div>
 
 @stop
