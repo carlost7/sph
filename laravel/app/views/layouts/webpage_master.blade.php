@@ -62,7 +62,7 @@
                                     </ul>
                               </li>
                               <li><a href="http://sphellar.com/mx/eventos.html">EVENTOS</a></li>
-                              <li><a class="estoy"href="{{ URL::to('/') }}">GUÍA</a>
+                              <li><a class="estoy" href="{{ URL::to('/') }}">GUÍA</a>
                                     <ul>
                                           <li><a href="{{ URL::route('negocios.index') }}">Negocios</a></li>
                                           <li><a href="{{ URL::route('eventos.index') }}">Cartelera</a></li>
