@@ -10,14 +10,6 @@
   | and give it the Closure to execute when that URI is requested.
   |
  */
-Route::get('prueba_clientes',function(){      
-      
-      dd();
-      
-      
-      dd(Carbon\Carbon::now());
-      
-});
 
 Route::get('/', array(
     'uses' => 'ContenidoController@index',
