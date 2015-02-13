@@ -182,15 +182,16 @@ code {
 }
 
 .slides > li h2 a{
-	color: #f96069;
-        font-size: 0.7em;
+	color: #fd7922;
+        font-size: 0.6em;
+        line-height: 0.6em;
         text-align: left;
         font-family: 'Raleway';
         font-weight: 700;
 }
 
 .meta.meta_more a{
-    background: #501474;
+    background: #f63348;
     border-radius: 6px 0;
     box-sizing: border-box;
     color: #fff !important;
@@ -198,11 +199,16 @@ code {
     margin: 0 auto;
     overflow: hidden;
     padding: 4% 7%;
+    font-size: 1.1em;
     text-align: center;
     width: 40%;
     
     vertical-align: bottom;
     
+}
+
+p.meta{
+    color:#dadada;
 }
 
 .slides > li img {
