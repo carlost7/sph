@@ -3,7 +3,6 @@
 @section('wrapper')
 <div class="container">
       <!-- @include('layouts.show_catalog',array('action'=>'negocio'))-->
-
       <div class="row">
             @if($negocio)
             <div class="col-sm-10">

@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateAvisosClientesTable extends Migration
-{
+class CreateAvisosClientesTable extends Migration {
 
       /**
        * Run the migrations.
@@ -13,8 +12,7 @@ class CreateAvisosClientesTable extends Migration
        */
       public function up()
       {
-            Schema::create('avisos_clientes', function(Blueprint $table)
-            {
+            Schema::create('avisos_clientes', function(Blueprint $table) {
                   $table->increments('id');
                   $table->integer('cliente_id')->unsigned();
                   $table->string('avisable_type')->nullable();

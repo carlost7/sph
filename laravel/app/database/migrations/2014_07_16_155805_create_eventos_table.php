@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateEventosTable extends Migration
-{
+class CreateEventosTable extends Migration {
 
       /**
        * Run the migrations.
@@ -13,8 +12,7 @@ class CreateEventosTable extends Migration
        */
       public function up()
       {
-            Schema::create('eventos', function(Blueprint $table)
-            {
+            Schema::create('eventos', function(Blueprint $table) {
                   $table->increments('id');
                   $table->string('nombre');
                   $table->datetime('fecha_inicio');
@@ -23,7 +21,7 @@ class CreateEventosTable extends Migration
                   $table->string('lugar');
                   $table->string('direccion');
                   $table->text('descripcion');
-                  $table->string('telefono');                  
+                  $table->string('telefono');
                   $table->boolean('publicar');
                   $table->boolean('is_especial');
                   $table->boolean('is_activo');

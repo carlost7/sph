@@ -34,7 +34,6 @@ class AuthenticateController extends \BaseController {
                   else
                   {
                         $provider = $this->manager->get($provider);
-                        //dd($provider);
                         return Redirect::to($provider->getAuthorizationUrl());
                   }
             } catch (Exception $e) {
@@ -47,7 +46,6 @@ class AuthenticateController extends \BaseController {
             try {
                   if ($provider == strtolower("twitter"))
                   {
-                        //dd(Session::all());
                         $provider = $this->manager->get($provider);
 
                         $token = $provider->getTokenCredentials(

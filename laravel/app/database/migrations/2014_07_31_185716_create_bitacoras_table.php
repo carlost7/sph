@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateBitacorasTable extends Migration
-{
+class CreateBitacorasTable extends Migration {
 
       /**
        * Run the migrations.
@@ -13,8 +12,7 @@ class CreateBitacorasTable extends Migration
        */
       public function up()
       {
-            Schema::create('bitacora_clientes', function(Blueprint $table)
-            {
+            Schema::create('bitacora_clientes', function(Blueprint $table) {
                   $table->increments('id');
                   $table->integer('cliente_id')->unsigned();
                   $table->datetime('fecha');

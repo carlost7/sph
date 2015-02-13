@@ -5,30 +5,28 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateTableMiembros extends Migration {
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('miembros', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->string('username');
-			$table->timestamps();
-		});
-	}
+      /**
+       * Run the migrations.
+       *
+       * @return void
+       */
+      public function up()
+      {
+            Schema::create('miembros', function(Blueprint $table) {
+                  $table->increments('id');
+                  $table->string('username');
+                  $table->timestamps();
+            });
+      }
 
-
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('miembros');
-	}
+      /**
+       * Reverse the migrations.
+       *
+       * @return void
+       */
+      public function down()
+      {
+            Schema::drop('miembros');
+      }
 
 }

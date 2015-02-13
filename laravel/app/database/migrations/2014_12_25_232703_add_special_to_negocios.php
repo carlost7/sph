@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddSpecialToNegocios extends Migration
-{
+class AddSpecialToNegocios extends Migration {
 
       /**
        * Run the migrations.

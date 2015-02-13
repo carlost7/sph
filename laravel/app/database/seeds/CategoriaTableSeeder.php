@@ -3,61 +3,60 @@
 // Composer: "fzaninotto/faker": "v1.4.0"
 use Faker\Factory as Faker;
 
-class CategoriaTableSeeder extends Seeder
-{
+class CategoriaTableSeeder extends Seeder {
 
       public function run()
       {
             Categoria::create(array(
-                  'categoria' => 'Antros'));
+                'categoria' => 'Antros'));
             Categoria::create(array(
-                  'categoria' => 'Arte'));
+                'categoria' => 'Arte'));
             Categoria::create(array(
-                  'categoria' => 'Automotriz'));
+                'categoria' => 'Automotriz'));
             Categoria::create(array(
-                  'categoria' => 'Bares'));
+                'categoria' => 'Bares'));
             Categoria::create(array(
-                  'categoria' => 'Belleza'));
+                'categoria' => 'Belleza'));
             Categoria::create(array(
-                  'categoria' => 'Cafeterías'));
+                'categoria' => 'Cafeterías'));
             Categoria::create(array(
-                  'categoria' => 'Casinos'));
+                'categoria' => 'Casinos'));
             Categoria::create(array(
-                  'categoria' => 'Centros Comerciales'));
+                'categoria' => 'Centros Comerciales'));
             Categoria::create(array(
-                  'categoria' => 'Clubes'));
+                'categoria' => 'Clubes'));
             Categoria::create(array(
-                  'categoria' => 'Hospedaje'));
+                'categoria' => 'Hospedaje'));
             Categoria::create(array(
-                  'categoria' => 'Inmobiliarias'));
+                'categoria' => 'Inmobiliarias'));
             Categoria::create(array(
-                  'categoria' => 'Librerías'));
+                'categoria' => 'Librerías'));
             Categoria::create(array(
-                  'categoria' => 'Mascotas'));
+                'categoria' => 'Mascotas'));
             Categoria::create(array(
-                  'categoria' => 'Medicina'));
+                'categoria' => 'Medicina'));
             Categoria::create(array(
-                  'categoria' => 'Museos'));
+                'categoria' => 'Museos'));
             Categoria::create(array(
-                  'categoria' => 'Postres'));
+                'categoria' => 'Postres'));
             Categoria::create(array(
-                  'categoria' => 'Puestos Callejeros'));
+                'categoria' => 'Puestos Callejeros'));
             Categoria::create(array(
-                  'categoria' => 'Restaurantes'));
+                'categoria' => 'Restaurantes'));
             Categoria::create(array(
-                  'categoria' => 'Salud'));
+                'categoria' => 'Salud'));
             Categoria::create(array(
-                  'categoria' => 'Servicios'));
+                'categoria' => 'Servicios'));
             Categoria::create(array(
-                  'categoria' => 'Teatros'));
+                'categoria' => 'Teatros'));
             Categoria::create(array(
-                  'categoria' => 'Tiendas'));
+                'categoria' => 'Tiendas'));
             Categoria::create(array(
-                  'categoria' => 'Viajes'));
+                'categoria' => 'Viajes'));
             Categoria::create(array(
-                  'categoria' => 'Electrónicos'));
+                'categoria' => 'Electrónicos'));
             Categoria::create(array(
-                  'categoria' => 'Casa y Jardín'));
+                'categoria' => 'Casa y Jardín'));
       }
 
 }

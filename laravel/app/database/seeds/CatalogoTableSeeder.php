@@ -3,14 +3,13 @@
 // Composer: "fzaninotto/faker": "v1.4.0"
 use Faker\Factory as Faker;
 
-class CatalogoTableSeeder extends Seeder
-{
+class CatalogoTableSeeder extends Seeder {
 
       public function run()
       {
 
             $categoria = Categoria::create(array('categoria' => 'Noche'));
-            
+
             Subcategoria::create(array('subcategoria' => 'Antro', 'categoria_id' => $categoria->id));
             Subcategoria::create(array('subcategoria' => 'Bares', 'categoria_id' => $categoria->id));
             Subcategoria::create(array('subcategoria' => 'Cantinas', 'categoria_id' => $categoria->id));
@@ -218,36 +217,36 @@ class CatalogoTableSeeder extends Seeder
 
 
 
-            $estado = Estado::create(array('estado' => 'Aguascalientes'));
+            /* $estado = Estado::create(array('estado' => 'Aguascalientes'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Baja California'));
+              $estado = Estado::create(array('estado' => 'Baja California'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Baja California Sur'));
+              $estado = Estado::create(array('estado' => 'Baja California Sur'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Campeche'));
+              $estado = Estado::create(array('estado' => 'Campeche'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Coahuila'));
+              $estado = Estado::create(array('estado' => 'Coahuila'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Colima'));
+              $estado = Estado::create(array('estado' => 'Colima'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Chiapas'));
+              $estado = Estado::create(array('estado' => 'Chiapas'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Chihuahua'));
-
+              $estado = Estado::create(array('estado' => 'Chihuahua'));
+             */
 
 
             $estado = Estado::create(array('estado' => 'Distrito Federal'));
@@ -260,106 +259,108 @@ class CatalogoTableSeeder extends Seeder
             Zona::create(array('zona' => 'Del Valle', 'estado_id' => $estado->id));
             Zona::create(array('zona' => 'Narvarte', 'estado_id' => $estado->id));
 
-            $estado = Estado::create(array('estado' => 'Durango'));
+            /*
+              $estado = Estado::create(array('estado' => 'Durango'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Guanajuato'));
+
+              $estado = Estado::create(array('estado' => 'Guanajuato'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Guerrero'));
+              $estado = Estado::create(array('estado' => 'Guerrero'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Hidalgo'));
+              $estado = Estado::create(array('estado' => 'Hidalgo'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Jalisco'));
+              $estado = Estado::create(array('estado' => 'Jalisco'));
 
 
-
+             */
             $estado = Estado::create(array('estado' => 'Estado de México'));
 
+            /*
 
-
-            $estado = Estado::create(array('estado' => 'Michoacán'));
-
-
-
-            $estado = Estado::create(array('estado' => 'Morelos'));
+              $estado = Estado::create(array('estado' => 'Michoacán'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Nayarit'));
+              $estado = Estado::create(array('estado' => 'Morelos'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Nuevo León'));
+              $estado = Estado::create(array('estado' => 'Nayarit'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Oaxaca'));
+              $estado = Estado::create(array('estado' => 'Nuevo León'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Puebla'));
+              $estado = Estado::create(array('estado' => 'Oaxaca'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Querétaro'));
+              $estado = Estado::create(array('estado' => 'Puebla'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Quintana Roo'));
-
-            Zona::create(array('zona' => 'Cancún - Zona Hotelera', 'estado_id' => $estado->id));
-            Zona::create(array('zona' => 'Cancún - Centro', 'estado_id' => $estado->id));
-            Zona::create(array('zona' => 'Riviera Maya', 'estado_id' => $estado->id));
-            Zona::create(array('zona' => 'Playa del Carmen', 'estado_id' => $estado->id));
-            Zona::create(array('zona' => 'Tulúm', 'estado_id' => $estado->id));
-            Zona::create(array('zona' => 'Holbox', 'estado_id' => $estado->id));
-            Zona::create(array('zona' => 'Isla Mujeres', 'estado_id' => $estado->id));
-            Zona::create(array('zona' => 'Cozumel', 'estado_id' => $estado->id));
-            Zona::create(array('zona' => 'Bacalar', 'estado_id' => $estado->id));
-            Zona::create(array('zona' => 'Mahahual', 'estado_id' => $estado->id));
-
-            $estado = Estado::create(array('estado' => 'San Luis Potosí'));
+              $estado = Estado::create(array('estado' => 'Querétaro'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Sinaloa'));
+              $estado = Estado::create(array('estado' => 'Quintana Roo'));
+
+              Zona::create(array('zona' => 'Cancún - Zona Hotelera', 'estado_id' => $estado->id));
+              Zona::create(array('zona' => 'Cancún - Centro', 'estado_id' => $estado->id));
+              Zona::create(array('zona' => 'Riviera Maya', 'estado_id' => $estado->id));
+              Zona::create(array('zona' => 'Playa del Carmen', 'estado_id' => $estado->id));
+              Zona::create(array('zona' => 'Tulúm', 'estado_id' => $estado->id));
+              Zona::create(array('zona' => 'Holbox', 'estado_id' => $estado->id));
+              Zona::create(array('zona' => 'Isla Mujeres', 'estado_id' => $estado->id));
+              Zona::create(array('zona' => 'Cozumel', 'estado_id' => $estado->id));
+              Zona::create(array('zona' => 'Bacalar', 'estado_id' => $estado->id));
+              Zona::create(array('zona' => 'Mahahual', 'estado_id' => $estado->id));
+
+              $estado = Estado::create(array('estado' => 'San Luis Potosí'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Sonora'));
+              $estado = Estado::create(array('estado' => 'Sinaloa'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Tabasco'));
-
-            Zona::create(array('zona' => 'Villahermosa', 'estado_id' => $estado->id));
-            Zona::create(array('zona' => 'Huimanguillo', 'estado_id' => $estado->id));
-            Zona::create(array('zona' => 'Cárdenas', 'estado_id' => $estado->id));
-
-            $estado = Estado::create(array('estado' => 'Tamaulipas'));
+              $estado = Estado::create(array('estado' => 'Sonora'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Tlaxcala'));
+              $estado = Estado::create(array('estado' => 'Tabasco'));
+
+              Zona::create(array('zona' => 'Villahermosa', 'estado_id' => $estado->id));
+              Zona::create(array('zona' => 'Huimanguillo', 'estado_id' => $estado->id));
+              Zona::create(array('zona' => 'Cárdenas', 'estado_id' => $estado->id));
+
+              $estado = Estado::create(array('estado' => 'Tamaulipas'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Veracruz'));
+              $estado = Estado::create(array('estado' => 'Tlaxcala'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Yucatán'));
+              $estado = Estado::create(array('estado' => 'Veracruz'));
 
 
 
-            $estado = Estado::create(array('estado' => 'Zacatecas'));
+              $estado = Estado::create(array('estado' => 'Yucatán'));
+
+
+
+              $estado = Estado::create(array('estado' => 'Zacatecas')); */
       }
 
 }
