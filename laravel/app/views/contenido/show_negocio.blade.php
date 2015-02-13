@@ -2,8 +2,10 @@
 
 @section('wrapper')
 <div class="container">
-      <!-- @include('layouts.show_catalog',array('action'=>'negocio'))-->
       <div class="row">
+            <div class="col-sm-12">
+                  <a href="{{ URL::previous() }}" >Regresar</a>
+            </div>
             @if($negocio)
             <div class="col-sm-10">
 
