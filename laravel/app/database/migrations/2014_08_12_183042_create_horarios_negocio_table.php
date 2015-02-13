@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateHorariosNegocioTable extends Migration
-{
+class CreateHorariosNegocioTable extends Migration {
 
       /**
        * Run the migrations.
@@ -13,8 +12,7 @@ class CreateHorariosNegocioTable extends Migration
        */
       public function up()
       {
-            Schema::create('horarios_negocio', function(Blueprint $table)
-            {
+            Schema::create('horarios_negocio', function(Blueprint $table) {
                   $table->increments('id');
                   $table->time('lun_ini')->nullable();
                   $table->time('lun_fin')->nullable();

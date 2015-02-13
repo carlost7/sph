@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 
 class AddImagenFieldsToNegociosTable extends Migration {
 
+<<<<<<< HEAD
 	/**
 	 * Make changes to the table.
 	 *
@@ -39,5 +40,38 @@ class AddImagenFieldsToNegociosTable extends Migration {
 
 		});
 	}
+=======
+      /**
+       * Make changes to the table.
+       *
+       * @return void
+       */
+      public function up()
+      {
+            Schema::table('negocios', function(Blueprint $table) {
+
+                  $table->string('imagen_file_name')->nullable();
+                  $table->integer('imagen_file_size')->nullable();
+                  $table->string('imagen_content_type')->nullable();
+                  $table->timestamp('imagen_updated_at')->nullable();
+            });
+      }
+
+      /**
+       * Revert the changes to the table.
+       *
+       * @return void
+       */
+      public function down()
+      {
+            Schema::table('negocios', function(Blueprint $table) {
+
+                  $table->dropColumn('imagen_file_name');
+                  $table->dropColumn('imagen_file_size');
+                  $table->dropColumn('imagen_content_type');
+                  $table->dropColumn('imagen_updated_at');
+            });
+      }
+>>>>>>> d144bd69ba77b51a087a1d0288de0188fcd585a9
 
 }

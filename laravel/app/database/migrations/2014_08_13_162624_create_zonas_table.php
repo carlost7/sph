@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateZonasTable extends Migration
-{
+class CreateZonasTable extends Migration {
 
       /**
        * Run the migrations.
@@ -13,8 +12,7 @@ class CreateZonasTable extends Migration
        */
       public function up()
       {
-            Schema::create('zonas', function(Blueprint $table)
-            {
+            Schema::create('zonas', function(Blueprint $table) {
                   $table->increments('id');
                   $table->string('zona');
                   $table->timestamps();

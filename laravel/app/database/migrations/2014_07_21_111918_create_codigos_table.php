@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCodigosTable extends Migration
-{
+class CreateCodigosTable extends Migration {
 
       /**
        * Run the migrations.
@@ -13,8 +12,7 @@ class CreateCodigosTable extends Migration
        */
       public function up()
       {
-            Schema::create('codigos', function(Blueprint $table)
-            {
+            Schema::create('codigos', function(Blueprint $table) {
                   $table->increments('id');
                   $table->string('numero');
                   $table->boolean('usado');

@@ -64,7 +64,7 @@ class SessionController extends \BaseController
 
                   Session::put('credentials', $credentials);
                   Session::save();
-
+                  
                   return $provider->authorize($credentials);
             }
             catch (Exception $e)

@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatePagosTable extends Migration
-{
+class CreatePagosTable extends Migration {
 
       /**
        * Run the migrations.
@@ -13,8 +12,7 @@ class CreatePagosTable extends Migration
        */
       public function up()
       {
-            Schema::create('pagos', function(Blueprint $table)
-            {
+            Schema::create('pagos', function(Blueprint $table) {
                   $table->increments('id');
                   $table->string('nombre');
                   $table->string('descripcion');

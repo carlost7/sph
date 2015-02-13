@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCategoriasTable extends Migration
-{
+class CreateCategoriasTable extends Migration {
 
       /**
        * Run the migrations.
@@ -13,8 +12,7 @@ class CreateCategoriasTable extends Migration
        */
       public function up()
       {
-            Schema::create('categorias', function(Blueprint $table)
-            {
+            Schema::create('categorias', function(Blueprint $table) {
                   $table->increments('id');
                   $table->string('categoria');
                   $table->timestamps();

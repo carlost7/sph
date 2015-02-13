@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateNegociosTable extends Migration
-{
+class CreateNegociosTable extends Migration {
 
       /**
        * Run the migrations.
@@ -13,13 +12,12 @@ class CreateNegociosTable extends Migration
        */
       public function up()
       {
-            Schema::create('negocios', function(Blueprint $table)
-            {
+            Schema::create('negocios', function(Blueprint $table) {
                   $table->increments('id');
                   $table->string('nombre');
                   $table->string('telefono');
                   $table->string('direccion');
-                  $table->text('descripcion');                                    
+                  $table->text('descripcion');
                   $table->double('likes')->default(0.0);
                   $table->boolean('publicar');
                   $table->boolean('is_especial');

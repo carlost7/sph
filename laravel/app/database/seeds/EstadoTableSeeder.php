@@ -3,8 +3,7 @@
 // Composer: "fzaninotto/faker": "v1.4.0"
 use Faker\Factory as Faker;
 
-class EstadoTableSeeder extends Seeder
-{
+class EstadoTableSeeder extends Seeder {
 
       public function run()
       {

@@ -4,6 +4,9 @@
 <div class="container">
 @if($evento)
       <div class="row">
+            <div class="col-sm-12">
+                  <a href="{{ URL::previous() }}" >Regresar</a>
+            </div>
             <div class="col-lg-12">
                   <!-- @include('layouts.show_catalog',array('action'=>'cartelera'))-->
                   <h2 class="title_cartelera">{{ $evento->nombre }}</h2>

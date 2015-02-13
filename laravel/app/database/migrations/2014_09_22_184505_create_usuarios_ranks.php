@@ -5,33 +5,31 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateUsuariosRanks extends Migration {
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('usuarios_ranks', function(Blueprint $table)
-		{
-			$table->increments('id');
+      /**
+       * Run the migrations.
+       *
+       * @return void
+       */
+      public function up()
+      {
+            Schema::create('usuarios_ranks', function(Blueprint $table) {
+                  $table->increments('id');
                   $table->integer('miembro_id')->unsigned();
                   $table->foreign('miembro_id')->references('id')->on('miembros')->onDelete('cascade')->onUpdate('cascade');
-			$table->string('rankable_type')->nullable();
+                  $table->string('rankable_type')->nullable();
                   $table->integer('rankable_id')->nullable();
                   $table->timestamps();
-		});
-	}
+            });
+      }
 
-
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('usuarios_ranks');
-	}
+      /**
+       * Reverse the migrations.
+       *
+       * @return void
+       */
+      public function down()
+      {
+            Schema::drop('usuarios_ranks');
+      }
 
 }

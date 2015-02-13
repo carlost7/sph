@@ -152,7 +152,7 @@ class AdminCatalogoController extends \BaseController {
             if (isset($tipo))
             {
                   $object = $tipo::findOrFail($id);
-                  if ($tipo->delete())
+                  if ($object->delete())
                   {
                         Session::flash('message', $tipo . ' eliminado con exito');
                         return Redirect::back();
