@@ -11,6 +11,10 @@
                   {{ Form::label('imagen','Agregar imagen de negocio 250px * 250px') }}
                   {{ Form::file('imagen') }}
             </div>
+            <div class="col-sm-12">
+                  {{ Form::label('alt','Descripción de la imagen') }}
+                  {{ Form::text('alt', Input::old('alt') ,array('placeholder'=>'Descripción','class'=>'form-control')) }}
+            </div>
       </div>
       {{ Form::submit('agregar imagen',array("class"=>"btn btn-primary")) }}
       @include('layouts.show_form_errors')
@@ -23,7 +27,7 @@
       <div class="row">
             @foreach($imagenes as $imagen)
             <div class="col-sm-3">
-                  <img src="{{ URL::to("/").$imagen->imagen->url('medium')}}">
+                  <img src="{{ URL::to("/").$imagen->imagen->url('large')}}">
 
                   {{ Form::open(array('route' => array('publicar.clientes_negocio_imagenes.destroy',$negocio->id,$imagen->id),'method'=>'DELETE')) }}            
                   

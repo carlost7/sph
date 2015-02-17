@@ -247,7 +247,7 @@ google.maps.event.addDomListener(window, 'load', initialize);                   
                         <div class="row">
                               @foreach($negocio->imagenes as $imagen)
                               <div class="col-sm-3">
-                                    <img src="{{ URL::to("/").$imagen->imagen->url('medium')}}">
+                                    <img src="{{ URL::to("/").$imagen->imagen->url('large')}}">
                               </div>      
                               @endforeach
                         </div>
