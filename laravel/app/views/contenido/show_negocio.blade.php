@@ -17,16 +17,10 @@
                   
                   <div class="rank" id="rank">
                         @if(Auth::check() && Auth::user()->userable_type == 'Miembro')
-                              @if($negocio->is_especial)    
-                                    @if($add_rank)
-                                          <button type="button" class="btn btn-small btn-primary" id="btn_rank"> + Rank</button>
-                                          rank: {{ $negocio->rank }}
-                                    @else
-                                          rank: {{ $negocio->rank }}
-                                    @endif
-                              @else
-                                    <button type="button" class="btn btn-small btn-primary" id="btn_rank" disabled="disabled"> + Rank</button>                  
-                              @endif                  
+                        @if($negocio->is_especial)    
+                        @if($add_rank)
+                        <button type="button" class="btn btn-small btn-primary" id="btn_rank"> + Rank</button>
+                        rank: {{ $negocio->rank }}
                         @else
                         
                         
@@ -75,7 +69,7 @@
                         
                         
                   </div>
-                  
+
                   <div class="list-group">  
                       
                         <p class="list-group-item"><span class="label label-default">Dirección:</span> {{ $negocio->direccion }}</p>
@@ -154,7 +148,7 @@
                         @if ($negocio->masInfo->taller)  
                         <span><p class="list-group-item"><span class="label label-default">Taller: </span>Si</p></span>
                         @endif
-                        
+
                         @if ($negocio->masInfo->clases_extra)  
                         <span><p class="list-group-item"><span class="label label-default">Clases_extra: </span>Si</p></span>
                         @endif
@@ -166,7 +160,7 @@
                         @if ($negocio->masInfo->lavanderia)  
                         <span><p class="list-group-item"><span class="label label-default">Lavanderia: </span>Si</p></span>
                         @endif
-                        
+
                         @if ($negocio->masInfo->gimnasio)  
                         <span><p class="list-group-item"><span class="label label-default">Gimnasio: </span>Si</p></span>
                         @endif
@@ -226,7 +220,7 @@
                         @if ($negocio->masInfo->internacional)  
                         <span><p class="list-group-item"><span class="label label-default">Internacional: </span>Si</p></span>
                         @endif
-                        
+
 
                   </div>
                   @endif
@@ -248,25 +242,24 @@
                         <div id="transparente"></div>
                         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
                         <script type="text/javascript">
-                        var map;
-                        var markers = [];
-                        var lat = {{ $negocio->lat }};
-                        var long = {{ $negocio->long }};
-                        function initialize() {
+        var map;
+        var markers = [];
+        var lat = {{ $negocio->lat }};
+        var long = {{ $negocio->long }};
+        function initialize() {
 
-                            var mapOptions = {
-                            center: {lat: lat, lng: long},
-                                    zoom: 16
-                            };
-                                    pos = new google.maps.LatLng(lat, long);
-                                    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-                                    var marker = new google.maps.Marker({
-                                    position: pos,
-                                            map: map
-                                    });
-                        }
-                        google.maps.event.addDomListener(window, 'load', initialize);
-                        </script>            
+        var mapOptions = {
+        center: {lat: lat, lng: long},
+                zoom: 16
+        };
+                pos = new google.maps.LatLng(lat, long);
+                map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+                var marker = new google.maps.Marker({
+                position: pos,
+                        map: map
+                });
+        }
+google.maps.event.addDomListener(window, 'load', initialize);                        </script>            
                   </div>
                   @endif
                  
@@ -297,21 +290,8 @@
                   @foreach($promociones as $promocion)
                   <h2>{{ $promocion->nombre }}</h2>
 
-                  @if($promocion->imagen_file_name != "")
-                  <img src="{{ URL::to("/").$promocion->imagen->url('medium')}}">
-                  @endif
-                  <div class="list-group">                          
-                        <p class="list-group-item"><span class="label label-default">Nombre:</span> {{ $promocion->nombre }}</p>      
-                        <p class="list-group-item"><span class="label label-default">Código:</span> {{ $promocion->codigo }}</p>
-                        <p class="list-group-item"><span class="label label-default">Descripción:</span> {{ $promocion->descripcion }}</p>
-                        <p class="list-group-item"><span class="label label-default">Vigencia:</span> {{ date('d-m-Y H:i',strtotime($promocion->vigencia_inicio)).' - '.date('d-m-Y H:i',strtotime($promocion->vigencia_fin)) }}</p>                        
-                  </div>
-                  @endforeach
-            </div>
-            @endif
-            
             @else
-                  <h2>No seleccionó ningún negocio</h2>
+            <h2>No seleccionó ningún negocio</h2>
             @endif
       </div>
       <div class="row">
@@ -335,11 +315,11 @@
                         {{ Form::close() }}                        
                   </div>     
                   @else
-                        <p>{{ HTML::linkRoute('register.user','Regístrate como usuario para comentar ') }}</p> 
+                  <p>{{ HTML::linkRoute('register.user','Regístrate como usuario para comentar ') }}</p> 
                   @endif
             </div>
       </div>
-      
+
 
 </div>
 @stop
@@ -367,15 +347,15 @@
 </script>
 
 <script>
-      $("#btn_rank").click(function() {
-            url = "{{ URL::route('miembro.add_rank_negocio',array($negocio->id)) }}";
-            $.post(url).done(function(data) {
-                  if (data['error']) {
-                        $("#rank").html(data['mensaje']);
-                  } else {
-                        $("#rank").html("rank: " + data['rank']);
-                  }
-            });
+              $("#btn_rank").click(function() {
+      url = "{{ URL::route('miembro.add_rank_negocio',array($negocio->id)) }}";
+              $.post(url).done(function(data) {
+      if (data['error']) {
+      $("#rank").html(data['mensaje']);
+      } else {
+      $("#rank").html("rank: " + data['rank']);
+      }
+      });
       });
 </script>
 

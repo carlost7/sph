@@ -7,9 +7,6 @@ class AdministradoresTableSeeder extends Seeder {
       public function run()
       {
 
-
-
-
             $admin            = new Administrador;
             $admin->nombre    = 'admin';
             $admin->is_activo = true;
@@ -20,7 +17,6 @@ class AdministradoresTableSeeder extends Seeder {
             $user->password              = "klendactu";
             $user->password_confirmation = "klendactu";
             $user->email                 = "admin@sphellar.com";
-
             $admin->user()->save($user);
       }
 

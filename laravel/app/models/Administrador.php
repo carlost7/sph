@@ -11,7 +11,7 @@ class Administrador extends Ardent {
       // Don't forget to fill this array
       protected $fillable = ['nombre'];
       public static $relationsData = array(
-          'user' => array(self::MORPH_ONE, 'User', 'name' => 'userable'),
+          'user'      => array(self::MORPH_ONE, 'User', 'name' => 'userable'),
       );
       public $autoHydrateEntityFromInput    = true;
       public $forceEntityHydrationFromInput = true;
