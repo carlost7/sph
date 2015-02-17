@@ -160,8 +160,10 @@ code {
 	height: 500px;
 	width: 100%;
 	overflow: hidden;
-	background: #000;
+	background: #fff;
 	color: #333;
+        border-bottom: 1px solid #dadada;
+      
 }
 
 .no-js .slides {
@@ -176,18 +178,68 @@ code {
 	-webkit-perspective: 1600px;
 	perspective: 1600px;
         float:left; 
-        padding: 2%;
+        padding: 4%;
          margin:0 auto;
         text-align:center;
 }
 
+
+.slides > li:nth-child(2) {
+	
+        
+        background: linear-gradient(270deg, #fecd2f, #fd7922, #f96069);
+        background-size: 600% 600%;
+
+
+        -webkit-animation: AnimationName 30s ease infinite;
+        -moz-animation: AnimationName 30s ease infinite;
+        -o-animation: AnimationName 30s ease infinite;
+        animation: AnimationName 30s ease infinite;
+}
+
+
+
+
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-o-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes AnimationName { 
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+
+
+
 .slides > li h2 a{
-	color: #fd7922;
-        font-size: 0.6em;
-        line-height: 0.6em;
-        text-align: left;
-        font-family: 'Raleway';
+	color: #501474;
+        font-size: 20px;
+        text-align: center;
+        line-height: 18px;
+        text-transform: uppercase;
+        text-shadow: 1px 1px 1px rgba(62,218,192,1);
         font-weight: 700;
+        font-family: 'Raleway', sans-serif !important;
+}
+
+
+.slides > li:nth-child(2) h2 a{
+	color: #fff; 
+        text-shadow: 2px 1px 1px #501474
 }
 
 .meta.meta_more a{
@@ -215,8 +267,8 @@ p.meta{
 	width: 80%;
         margin:0 auto;
         text-align:center;
-        border-radius: 4%;
-        border:2px solid #3edac0;
+        border-radius: 10px 0 10px 0 !important;
+        
 }
 
 .no-js .slides > li {

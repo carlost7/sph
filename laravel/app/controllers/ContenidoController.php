@@ -67,7 +67,7 @@ class ContenidoController extends \BaseController
                   $queryEventos = $queryEventos->where('estado_id', $ubi[0]);
             }
 
-            $negocios = $queryNegocios->paginate(20);
+            $negocios = $queryNegocios->paginate(10);
             $eventos = $queryEventos->paginate(5);
 
             return View::make('contenido.index')->with(array('negocios' => $negocios, 'eventos' => $eventos));
