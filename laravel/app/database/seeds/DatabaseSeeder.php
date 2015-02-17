@@ -10,7 +10,8 @@ class DatabaseSeeder extends Seeder {
       public function run()
       {
             Eloquent::unguard();
-            $this->call('AdministradoresTableSeeder');
+            $this->call('PromocionesTableSeeder');
+            /*$this->call('AdministradoresTableSeeder');
             /*$this->call('CatalogoTableSeeder');
               /*$this->call('TableSeeder');
               /*
