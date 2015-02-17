@@ -15,9 +15,7 @@
         "league/oauth2-client": "~0.3",        
         "laravelbook/ardent": "~2.4",
         "codesleeve/laravel-stapler": "~1.0",
-        "intervention/imagecache": "2.*",
-        "league/factory-muffin": "~2.1"        
-        
+        "intervention/imagecache": "2.*"
     },
     "autoload": {
         "classmap": [
