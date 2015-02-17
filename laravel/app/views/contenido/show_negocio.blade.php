@@ -266,29 +266,15 @@ google.maps.event.addDomListener(window, 'load', initialize);                   
                   
                   
                   <div class="form-group">
-                       <div class="main">
-				<div id="fc-slideshow" class="fc-slideshow">
-					<ul class="fc-slides">
-                                            
-                                            
-                                            @foreach($negocio->imagenes as $imagen)
-                                          
-                                            <li><img src="{{ URL::to("/").$imagen->imagen->url('medium')}}"><h3>{{$imagen->alt}}</h3></li>
-   
-                                            @endforeach
-                                            
-						
-					</ul>
-				</div>
-			</div>
-                  </div>
-                  
-            
-            @if(count($promociones))
-            <div class="col-sm-2">
-                  
-                  @foreach($promociones as $promocion)
-                  <h2>{{ $promocion->nombre }}</h2>
+                        <div class="row">
+                              @foreach($negocio->imagenes as $imagen)
+                              <div class="col-sm-3">
+                                    <img src="{{ URL::to("/").$imagen->imagen->url('large')}}">
+                              </div>      
+                              @endforeach
+                        </div>
+                  </div>                  
+            </div>
 
             @else
             <h2>No seleccionó ningún negocio</h2>

@@ -106,7 +106,7 @@
                         <div class="row">
                               @foreach($evento->imagenes as $imagen)
                               <div class="col-sm-3">
-                                    <img src="{{ URL::to("/").$imagen->imagen->url('medium')}}">
+                                    <img src="{{ URL::to("/").$imagen->imagen->url('large')}}">
                               </div>      
                               @endforeach
                         </div>
