@@ -15,8 +15,7 @@ class EventoImagen extends \Eloquent implements StaplerableInterface {
       {
             $this->hasAttachedFile('imagen', [
                 'styles' => [
-                    'medium' => '250x250',
-                    'thumb'  => '100x100'
+                    'large' => '400x400',                    
                 ]
             ]);
 
@@ -24,7 +23,7 @@ class EventoImagen extends \Eloquent implements StaplerableInterface {
       }
 
       protected $table    = 'eventos_imagenes';
-      protected $fillable = ['imagen'];
+      protected $fillable = ['imagen','alt'];
 
       public function evento()
       {
