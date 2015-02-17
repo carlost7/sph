@@ -282,7 +282,7 @@
 }
 
 .list-group {
-  border-radius: 4px;
+  border-radius: 0px 10px 0px 10px !important;
   -webkit-box-shadow: 0;
           box-shadow: 0;
   border:1px solid rgba(254,205,47,1);

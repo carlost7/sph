@@ -16,7 +16,9 @@ class NegocioImagen extends \Eloquent implements StaplerableInterface {
       {
             $this->hasAttachedFile('imagen', [
                 'styles' => [
-                    'large' => '400x400',                    
+                    'large' => '400x400',
+                    'medium' => '250x250',
+                    'thumb'  => '100x100'
                 ]
             ]);
 
