@@ -9,16 +9,15 @@ class NegocioImagen extends \Eloquent implements StaplerableInterface {
 
       public static $rules = [
           'imagen' => 'image|max:20000',  
-          'alt' => 'max:40'
+          'alt' => 'max:20'
       ];
 
       public function __construct(array $attributes = array())
       {
             $this->hasAttachedFile('imagen', [
                 'styles' => [
-                    'large' => '400x400',
-                    'medium' => '250x250',
-                    'thumb'  => '100x100'
+                    'large' => '800x800',
+                    
                 ]
             ]);
 

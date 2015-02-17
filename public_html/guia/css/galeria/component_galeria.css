@@ -267,9 +267,20 @@ p.meta{
 	width: 80%;
         margin:0 auto;
         text-align:center;
-        border-radius: 10px 0 10px 0 !important;
+        border-radius: 30px 0 30px 0 !important;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
         
 }
+
+
+
+.slides > li:nth-child(2) img {
+	
+        border:1px solid rgba(255,255,255,0.2);
+        
+}
+
+
 
 .no-js .slides > li {
 	position: relative;

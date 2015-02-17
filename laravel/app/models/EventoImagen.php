@@ -8,14 +8,15 @@ class EventoImagen extends \Eloquent implements StaplerableInterface {
       use EloquentTrait;
 
       public static $rules = [
-          'imagen' => 'image|required|max:20000'
+          'imagen' => 'image|required|max:20000',
+          'alt' => 'max:20'
       ];
 
       public function __construct(array $attributes = array())
       {
             $this->hasAttachedFile('imagen', [
                 'styles' => [
-                    'large' => '400x400',                    
+                    'large' => '800x800',                    
                 ]
             ]);
 

@@ -6518,32 +6518,84 @@ td.visible-print {
 
 
 
-
-
-
-
-
-
-.title_index{
-    
-    color:#000;
+h2.title_index, h2.title_cartelera{
+   margin:3em 0 -0.1em 0;
+    color:#fff;
+  border:0;
     font-weight: 600;
     text-align: center;
-    line-height: 7em;
+    line-height: 3em;
     
-} 
-
-
-h2.title_index{
-    text-transform:uppercase;
-    color:#515151;
-    text-shadow:2px 1px 1px #fecd2f;
 }
 
 
+h2.title_index span{
+    padding:3% 5%;
+    border-radius:20px 20px 0 0px;
+    
+    background: linear-gradient(270deg, #000000, #f96069, #f63348);
+background-size: 600% 600%;
+
+
+-webkit-animation: AnimationName 30s ease infinite;
+-moz-animation: AnimationName 30s ease infinite;
+animation: AnimationName 30s ease infinite;
+
+
+}
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes AnimationName { 
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+h2.title_cartelera span{
+    
+    padding:6% 10%;
+    border-radius:20px 20px 0 0px;
+
+background: linear-gradient(270deg, #000000, #5e58d4, #501474);
+background-size: 600% 600%;
+
+
+-webkit-animation: AnimationName 30s ease infinite;
+-moz-animation: AnimationName 30s ease infinite;
+animation: AnimationName 30s ease infinite;
+
+}
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes AnimationName { 
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+
+/*
 .total{
     background:url(../img/news.png) center top no-repeat;
-} 
+}
+*/
 
 
 .title_negocio, .title_cartelera {
