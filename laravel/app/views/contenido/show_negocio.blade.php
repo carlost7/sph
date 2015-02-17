@@ -39,7 +39,7 @@
             
       </div>
           
-          <div class="row">
+         
               
                <div class="img_negocio">
                   @if($negocio->imagen_file_name != "")
@@ -60,8 +60,7 @@
                     
           </div>
               
-          </div>
-                  
+         
               
                   
                   <div class="list-group principal_info">  
@@ -270,16 +269,27 @@
                         </script>            
                   </div>
                   @endif
+                 
+                  
+                  
                   <div class="form-group">
-                        <div class="row">
-                              @foreach($negocio->imagenes as $imagen)
-                              <div class="col-sm-3">
-                                    <img src="{{ URL::to("/").$imagen->imagen->url('medium')}}">
-                              </div>      
-                              @endforeach
-                        </div>
-                  </div>                  
-            </div>
+                       <div class="main">
+				<div id="fc-slideshow" class="fc-slideshow">
+					<ul class="fc-slides">
+                                            
+                                            
+                                            @foreach($negocio->imagenes as $imagen)
+                                          
+                                            <li><img src="{{ URL::to("/").$imagen->imagen->url('medium')}}"><h3>{{$imagen->alt}}</h3></li>
+   
+                                            @endforeach
+                                            
+						
+					</ul>
+				</div>
+			</div>
+                  </div>
+                  
             
             @if(count($promociones))
             <div class="col-sm-2">
@@ -337,6 +347,25 @@
 @section('scripts')
 
 {{ HTML::script('js/comments.js') }}
+
+{{ HTML::script('js/vendor/galeria_circle/1.9.0.jquery.min.js') }}
+
+{{ HTML::script('js/vendor/galeria_circle/jquery.flipshow.js') }}
+
+{{ HTML::script('js/vendor/galeria_circle/modernizr.custom.js') }}
+
+{{ HTML::style('css/galeria_circle/component.css') }} 
+ 
+{{ HTML::style('css/galeria_circle/default.css') }}   
+
+<script>
+	$( function() {
+				
+	$( '#fc-slideshow' ).flipshow();
+
+	} );
+</script>
+
 <script>
       $("#btn_rank").click(function() {
             url = "{{ URL::route('miembro.add_rank_negocio',array($negocio->id)) }}";
@@ -350,4 +379,6 @@
       });
 </script>
 
+
+                
 @stop
