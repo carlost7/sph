@@ -170,6 +170,15 @@ Route::get('obtener_subcategoria/{categoria_id}', array('as'   => 'obtener_subca
 Route::get('obtener_zona/{estado_id}', array('as'   => 'obtener_zona',
     'uses' => 'ZonasController@getZonas'));
 
+
+Route::get('obtener_categorias', array('as'   => 'obtener_subcategoria',
+    'uses' => 'CategoriasController@getCategorias'));
+
+Route::get('obtener_estados', array('as'   => 'obtener_zona',
+    'uses' => 'EstadosController@getEstados'));
+
+
+
 Route::get('catalogo_zonas', array('as'   => 'catalogo_zonas',
     'uses' => 'ContenidoController@getCatalogoZonas'));
 
