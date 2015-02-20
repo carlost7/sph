@@ -155,13 +155,15 @@ code {
 .slides {
 	list-style: none;
 	padding: 0;
-	margin: 0;
+	margin: 30px 0;
 	position: relative;
 	height: 500px;
 	width: 100%;
 	overflow: hidden;
-	background: #000;
+	background: #f6f6f6;
 	color: #333;
+        border-bottom: 1px solid #dadada;
+      
 }
 
 .no-js .slides {
@@ -176,23 +178,85 @@ code {
 	-webkit-perspective: 1600px;
 	perspective: 1600px;
         float:left; 
-        padding: 2%;
+        padding: 4%;
          margin:0 auto;
         text-align:center;
 }
 
+
+.slides > li:nth-child(2) {
+	
+        
+        background: linear-gradient(270deg, #fecd2f, #fd7922, #f96069);
+        background-size: 600% 600%;
+
+
+        -webkit-animation: AnimationName 30s ease infinite;
+        -moz-animation: AnimationName 30s ease infinite;
+        -o-animation: AnimationName 30s ease infinite;
+        animation: AnimationName 30s ease infinite;
+}
+
+
+
+
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-o-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes AnimationName { 
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+
+
+
 .slides > li h2 a{
-	color: #fd7922;
-        font-size: 0.6em;
-        line-height: 0.6em;
-        text-align: left;
-        font-family: 'Raleway';
+	color: #501474;
+        font-size: 20px;
+        text-align: center;
+        line-height: 18px;
+        text-transform: uppercase;
+        text-shadow: 1px 1px 1px rgba(62,218,192,1);
         font-weight: 700;
+        font-family: 'Raleway', sans-serif !important;
+        
+        transition:all linear 1s;
+        -webkit-transition:all linear 1s;
+        -moz-transition:all linear 1s;
+        -ms-transition:all linear 1s;
+}
+
+
+.slides > li h2 a:hover, .slides > li:nth-child(2) h2 a:hover{
+	text-decoration: none;
+        color:#5e58d4;
+}
+
+
+
+.slides > li:nth-child(2) h2 a{
+	color: #fff; 
+        text-shadow: 2px 1px 1px #501474
 }
 
 .meta.meta_more a{
     background: #f63348;
-    border-radius: 6px 0;
+    border-radius: 12px 0;
     box-sizing: border-box;
     color: #fff !important;
     display: block;
@@ -205,7 +269,20 @@ code {
     
     vertical-align: bottom;
     
+    transition: all linear 0.6s;
+    -webkit-transition:all linear 0.6s;
+    -ms-transition:all linear 0.6s;
+    -moz-transition:all linear 0.6s;
+    
 }
+
+
+.meta.meta_more a:hover{
+    border-radius: 0px 12px;
+    background: #fecd2f;
+    text-decoration:none;
+}
+
 
 p.meta{
     color:#dadada;
@@ -215,9 +292,20 @@ p.meta{
 	width: 80%;
         margin:0 auto;
         text-align:center;
-        border-radius: 4%;
-        border:2px solid #3edac0;
+        border-radius: 30px 0 30px 0 !important;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        
 }
+
+
+
+.slides > li:nth-child(2) img {
+	
+        border:1px solid rgba(255,255,255,0.2);
+        
+}
+
+
 
 .no-js .slides > li {
 	position: relative;

@@ -46,6 +46,7 @@
 
 </section>
 
+
 @include("layouts.show_last_posts")
 
 <!-- CONTENIDO DE NEGOCIOS Y EVENTOS -->
@@ -58,7 +59,7 @@
       <div class="row">
             @if(count($negocios))
             <div class="col-sm-8 sin_padding">
-                  <h2 class="title_index">Negocios</h2>
+                <h2 class="title_index padding_especial"><span>Negocios</span></h2>
                   @foreach($negocios as $negocio)
                   <div class="col-sm-6 cuadro_front">
 
@@ -94,7 +95,7 @@
             </div>
             @endif
             <div class="col-sm-4 col_cartelera sin_padding">
-                  <h2 class="title_index">Cartelera</h2>
+                <h2 class="title_cartelera  padding_especial"><span>Cartelera</span></h2>
                   @foreach($eventos as $evento)
                   <div class="col-sm-12 cuadro_front especial">
                         @if($evento->imagen_file_name != "")

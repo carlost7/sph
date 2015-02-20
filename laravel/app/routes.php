@@ -47,6 +47,14 @@ Route::get('cartelera/{id}/{nombre?}', array(
 ));
 
 /*
+ * Mostrar la promocion del negocio
+ */
+Route::get('promocion/{id}',array(
+    'uses' => 'PromocionesController@show',
+    'as' => 'promociones.show'
+));
+
+/*
  * *******************************
  *            Users Session
  * *******************************
@@ -205,7 +213,6 @@ Route::group(array('before' => 'auth'), function() {
                 'uses' => 'ClientesNegociosImagenesController@store'));
             Route::delete('clientes/negocios/imagenes/{negocio_id}/{id}', array('as'   => 'publicar.clientes_negocio_imagenes.destroy',
                 'uses' => 'ClientesNegociosImagenesController@destroy'));
-
 
 
             /*

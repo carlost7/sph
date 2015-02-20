@@ -28,7 +28,7 @@ Event::listen('miembro.created', 'CorreosListener@enviar_correo_nuevo_usuario');
 
 Event::listen('negocio.created', 'PagosListener@store');
 Event::listen('evento.created', 'PagosListener@store');
-Event::listen('promocion.created', 'PagosListener@store');
+//Event::listen('promocion.created', 'PagosListener@store');
 
 /*
  * Modifica el pago para los eventos

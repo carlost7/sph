@@ -16,7 +16,7 @@ class Promocion extends Ardent implements StaplerableInterface {
       {
             $this->hasAttachedFile('imagen', [
                 'styles' => [
-                    'medium' => '250x250',
+                    'medium' => '300x2000',
                     'thumb'  => '100x100'
                 ]
             ]);
@@ -28,8 +28,8 @@ class Promocion extends Ardent implements StaplerableInterface {
           'nombre'             => 'required',
           'codigo'             => 'required',
           'descripcion'        => 'required|min:30|max:500',
-          'vigencia_inicio'    => array('required', 'after:Carbon\Carbon::now()'),
-          'vigencia_fin'       => 'required|date|after:vigencia_inicio',
+          'vigencia_inicio'    => array('required'),
+          'vigencia_fin'       => 'required|date',
           'negocio_id'         => 'required|exists:negocios,id',
           'tiempo_publicacion' => 'required|numeric'
       );
