@@ -24,6 +24,10 @@ class PromocionesTableSeeder extends Seeder {
                       'tiempo_publicacion' => $faker->numberBetween(1, 3),
                       'negocio_id'         => $negocio->id,
                   ]);
+                  $promocion->is_activo = true;
+                  $promocion->publicacion_inicio = $faker->date();
+                  $promocion->publicacion_fin = $faker->date();
+                  
                   $negocio->promociones()->save($promocion);                   
             }
       }
