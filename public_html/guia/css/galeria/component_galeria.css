@@ -155,12 +155,12 @@ code {
 .slides {
 	list-style: none;
 	padding: 0;
-	margin: 0;
+	margin: 30px 0;
 	position: relative;
 	height: 500px;
 	width: 100%;
 	overflow: hidden;
-	background: #fff;
+	background: #f6f6f6;
 	color: #333;
         border-bottom: 1px solid #dadada;
       
@@ -234,7 +234,19 @@ code {
         text-shadow: 1px 1px 1px rgba(62,218,192,1);
         font-weight: 700;
         font-family: 'Raleway', sans-serif !important;
+        
+        transition:all linear 1s;
+        -webkit-transition:all linear 1s;
+        -moz-transition:all linear 1s;
+        -ms-transition:all linear 1s;
 }
+
+
+.slides > li h2 a:hover, .slides > li:nth-child(2) h2 a:hover{
+	text-decoration: none;
+        color:#5e58d4;
+}
+
 
 
 .slides > li:nth-child(2) h2 a{
@@ -244,7 +256,7 @@ code {
 
 .meta.meta_more a{
     background: #f63348;
-    border-radius: 6px 0;
+    border-radius: 12px 0;
     box-sizing: border-box;
     color: #fff !important;
     display: block;
@@ -257,7 +269,20 @@ code {
     
     vertical-align: bottom;
     
+    transition: all linear 0.6s;
+    -webkit-transition:all linear 0.6s;
+    -ms-transition:all linear 0.6s;
+    -moz-transition:all linear 0.6s;
+    
 }
+
+
+.meta.meta_more a:hover{
+    border-radius: 0px 12px;
+    background: #fecd2f;
+    text-decoration:none;
+}
+
 
 p.meta{
     color:#dadada;

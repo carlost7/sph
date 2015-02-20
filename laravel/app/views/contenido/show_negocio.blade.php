@@ -6,13 +6,7 @@
     
       <div class="row">
            
-          @if(count($promociones))
-          <div class="col-sm-12">
-              @foreach($promociones as $promocion)
-              <a href="{{URL::route("promociones.show",array($promocion->id))}}"> <img src="{{ URL::to("/").$promocion->imagen->url('medium')}}"></a>
-              @endforeach
-          </div>
-          @endif
+         
           
             <div class="col-sm-3 regresar_interno">
                   <a href="{{ URL::previous() }}"  >Regresar</a>
@@ -72,6 +66,9 @@
           </div>
               
          
+    
+    
+    
               
                   
                   <div class="list-group principal_info">  
@@ -87,7 +84,151 @@
                         
                   </div>
                   
-                  <div class="list-group">  
+    
+    
+                   @if(count($negocio->masInfo))
+                  <div class="list-group especial_info">  
+                        @if ($negocio->masInfo->tc)  
+                        <span><p class="list-group-item"><span class="label label-default">Tarjeta de crédito: </span>{{HTML::image('img/icons_masINFO/tarjeta.png','Tarjeta de crédito')}}</p></span>
+                        @endif                        
+                        @if ($negocio->masInfo->td)  
+                        <span><p class="list-group-item"><span class="label label-default">Tarjeta de débito: </span>{{HTML::image('img/icons_masINFO/tarjeta.png','Tarjeta de crédito')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->estacionamiento)  
+                        <span><p class="list-group-item"><span class="label label-default">Estacionamiento: </span>{{HTML::image('img/icons_masINFO/estacionamiento.png','Estacionamiento')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->valet)  
+                        <span><p class="list-group-item"><span class="label label-default">Valet: </span>{{HTML::image('img/icons_masINFO/valet.png','Valet parking')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->envio_domicilio)  
+                        <span><p class="list-group-item"><span class="label label-default">Envio_domicilio: </span>{{HTML::image('img/icons_masINFO/envio_domicilio.png','Envio a domicilio')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->wifi)  
+                        <span><p class="list-group-item"><span class="label label-default">Wifi: </span>{{HTML::image('img/icons_masINFO/wifi.png','Wifi')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->paqueteria)  
+                        <span><p class="list-group-item"><span class="label label-default">Paqueteria: </span>{{HTML::image('img/icons_masINFO/paqueteria.png','Paqueteria')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->mascotas)  
+                        <span><p class="list-group-item"><span class="label label-default">Mascotas: </span>{{HTML::image('img/icons_masINFO/mascotas.png','Mascotas')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->barra_libre)  
+                        <span><p class="list-group-item"><span class="label label-default">Barra_libre: </span>{{HTML::image('img/icons_masINFO/barra_libre.png','Barra libre')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->formal)  
+                        <span><p class="list-group-item"><span class="label label-default">Formal: </span>{{HTML::image('img/icons_masINFO/formal.png','Formal')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->camara_perm)  
+                        <span><p class="list-group-item"><span class="label label-default">Camara_perm: </span>{{HTML::image('img/icons_masINFO/camara.png','Cámara permanente')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->restaurante)  
+                        <span><p class="list-group-item"><span class="label label-default">Restaurante: </span>{{HTML::image('img/icons_masINFO/restaurante.png','Restaurante')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->solo_mujeres)  
+                        <span><p class="list-group-item"><span class="label label-default">Solo_mujeres: </span>{{HTML::image('img/icons_masINFO/solo_mujeres.png','Solo mujeres')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->solo_hombres)  
+                        <span><p class="list-group-item"><span class="label label-default">Solo_hombres: </span>{{HTML::image('img/icons_masINFO/solo_hombres.png','Solo hombres')}}</p></span>
+                        @endif
+                        
+
+                        @if ($negocio->masInfo->personalizado)  
+                        <span><p class="list-group-item"><span class="label label-default">Personalizado: </span>{{HTML::image('img/icons_masINFO/personalizado.png','Personalizado')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->taller)  
+                        <span><p class="list-group-item"><span class="label label-default">Taller: </span>{{HTML::image('img/icons_masINFO/taller.png','Taller')}}</p></span>
+                        @endif
+                        
+                        @if ($negocio->masInfo->clases_extra)  
+                        <span><p class="list-group-item"><span class="label label-default">Clases_extra: </span>{{HTML::image('img/icons_masINFO/clases_extra.png','Clases extra')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->informacion)  
+                        <span><p class="list-group-item"><span class="label label-default">Informacion: </span>{{HTML::image('img/icons_masINFO/informacion.png','Informacion')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->lavanderia)  
+                        <span><p class="list-group-item"><span class="label label-default">Lavanderia: </span>{{HTML::image('img/icons_masINFO/lavanderia.png','Lavanderia')}}</p></span>
+                        @endif
+                        
+                        @if ($negocio->masInfo->gimnasio)  
+                        <span><p class="list-group-item"><span class="label label-default">Gimnasio: </span>{{HTML::image('img/icons_masINFO/gimnasio.png','Gimnasio')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->membresia)  
+                        <span><p class="list-group-item"><span class="label label-default">Membresia: </span>{{HTML::image('img/icons_masINFO/membresia.png','Membresia')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->cafeteria)  
+                        <span><p class="list-group-item"><span class="label label-default">Cafeteria: </span>{{HTML::image('img/icons_masINFO/cafeteria.png','Cafetería')}}</p></span>
+                        @endif
+
+                       <!-- @if ($negocio->masInfo->pension)  
+                        <span><p class="list-group-item"><span class="label label-default">Pension: </span>Si</p></span>
+                        @endif
+                       -->
+
+                        @if ($negocio->masInfo->cambios)  
+                        <span><p class="list-group-item"><span class="label label-default">Cambios: </span>{{HTML::image('img/icons_masINFO/cambios.png','Cambios')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->devoluciones)  
+                        <span><p class="list-group-item"><span class="label label-default">Devoluciones: </span>{{HTML::image('img/icons_masINFO/devoluciones.png','Devoluciones')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->bicicleta)  
+                        <span><p class="list-group-item"><span class="label label-default">Bicicleta: </span>{{HTML::image('img/icons_masINFO/bicicleta.png','Bicicleta')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->alcohol)  
+                        <span><p class="list-group-item"><span class="label label-default">Alcohol:  </span>{{HTML::image('img/icons_masINFO/alcohol.png','Alcohol')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->familiar)  
+                        <span><p class="list-group-item"><span class="label label-default">Familiar: </span>{{HTML::image('img/icons_masINFO/valet.png','Valet parking')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->cita)  
+                        <span><p class="list-group-item"><span class="label label-default">Cita: </span>{{HTML::image('img/icons_masINFO/cita.png','Cita')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->pagos_diferidos)  
+                        <span><p class="list-group-item"><span class="label label-default">Pagos_diferidos: </span>{{HTML::image('img/icons_masINFO/pagos_diferidos.png','Pagos_diferidos')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->facturacion)  
+                        <span><p class="list-group-item"><span class="label label-default">Facturacion: </span>{{HTML::image('img/icons_masINFO/facturacion.png','Facturacion')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->mensajeria)  
+                        <span><p class="list-group-item"><span class="label label-default">Mensajeria: </span>{{HTML::image('img/icons_masINFO/mensajeria.png','Mensajeria')}}</p></span>
+                        @endif
+
+                        @if ($negocio->masInfo->internacional)  
+                        <span><p class="list-group-item"><span class="label label-default">Internacional: </span>{{HTML::image('img/icons_masINFO/internacional.png','Internacional')}}</p></span>
+                        @endif
+                        
+
+                  </div>
+                  @endif
+                  
+                  
+                  
+    
+                  <div class="list-group main_info">  
                       
                         <p class="list-group-item"><span class="label label-default">Dirección:</span> {{ $negocio->direccion }}</p>
                         
@@ -100,147 +241,7 @@
                         <p class="list-group-item"><span class="label label-default">Publicado:</span> {{ ($negocio->publicar) ? "Si" : "No" }}</p>
                   </div>
 
-                  @if(count($negocio->masInfo))
-                  <div class="list-group especial_info">  
-                        @if ($negocio->masInfo->tc)  
-                        <span><p class="list-group-item"><span class="label label-default">Tarjeta de crédito: </span>Si</p></span>
-                        @endif                        
-                        @if ($negocio->masInfo->td)  
-                        <span><p class="list-group-item"><span class="label label-default">Tarjeta de débito: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->estacionamiento)  
-                        <span><p class="list-group-item"><span class="label label-default">Estacionamiento: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->valet)  
-                        <span><p class="list-group-item"><span class="label label-default">Valet: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->envio_domicilio)  
-                        <span><p class="list-group-item"><span class="label label-default">Envio_domicilio: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->wifi)  
-                        <span><p class="list-group-item"><span class="label label-default">Wifi: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->paqueteria)  
-                        <span><p class="list-group-item"><span class="label label-default">Paqueteria: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->mascotas)  
-                        <span><p class="list-group-item"><span class="label label-default">Mascotas: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->barra_libre)  
-                        <span><p class="list-group-item"><span class="label label-default">Barra_libre: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->formal)  
-                        <span><p class="list-group-item"><span class="label label-default">Formal: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->camara_perm)  
-                        <span><p class="list-group-item"><span class="label label-default">Camara_perm: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->restaurante)  
-                        <span><p class="list-group-item"><span class="label label-default">Restaurante: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->solo_mujeres)  
-                        <span><p class="list-group-item"><span class="label label-default">Solo_mujeres: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->solo_hombres)  
-                        <span><p class="list-group-item"><span class="label label-default">Solo_hombres: </span>Si</p></span>
-                        @endif
-                        
-
-                        @if ($negocio->masInfo->personalizado)  
-                        <span><p class="list-group-item"><span class="label label-default">Personalizado: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->taller)  
-                        <span><p class="list-group-item"><span class="label label-default">Taller: </span>Si</p></span>
-                        @endif
-                        
-                        @if ($negocio->masInfo->clases_extra)  
-                        <span><p class="list-group-item"><span class="label label-default">Clases_extra: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->informacion)  
-                        <span><p class="list-group-item"><span class="label label-default">Informacion: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->lavanderia)  
-                        <span><p class="list-group-item"><span class="label label-default">Lavanderia: </span>Si</p></span>
-                        @endif
-                        
-                        @if ($negocio->masInfo->gimnasio)  
-                        <span><p class="list-group-item"><span class="label label-default">Gimnasio: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->restaurante)  
-                        <span><p class="list-group-item"><span class="label label-default">Restaurante: </span>Si</p></span>
-			@endif
-
-                        @if ($negocio->masInfo->membresia)  
-                        <span><p class="list-group-item"><span class="label label-default">Membresia: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->cafeteria)  
-                        <span><p class="list-group-item"><span class="label label-default">Cafeteria: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->pension)  
-                        <span><p class="list-group-item"><span class="label label-default">Pension: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->cambios)  
-                        <span><p class="list-group-item"><span class="label label-default">Cambios: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->devoluciones)  
-                        <span><p class="list-group-item"><span class="label label-default">Devoluciones: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->bicicleta)  
-                        <span><p class="list-group-item"><span class="label label-default">Bicicleta: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->alcohol)  
-                        <span><p class="list-group-item"><span class="label label-default">Alcohol: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->familiar)  
-                        <span><p class="list-group-item"><span class="label label-default">Familiar: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->cita)  
-                        <span><p class="list-group-item"><span class="label label-default">Cita: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->pagos_diferidos)  
-                        <span><p class="list-group-item"><span class="label label-default">Pagos_diferidos: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->facturacion)  
-                        <span><p class="list-group-item"><span class="label label-default">Facturacion: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->mensajeria)  
-                        <span><p class="list-group-item"><span class="label label-default">Mensajeria: </span>Si</p></span>
-                        @endif
-
-                        @if ($negocio->masInfo->internacional)  
-                        <span><p class="list-group-item"><span class="label label-default">Internacional: </span>Si</p></span>
-                        @endif
-                        
-
-                  </div>
-                  @endif
+                 
 
                   @if(count($negocio->horario))
                   <div class="list-group horarios">  
@@ -281,14 +282,19 @@
                   </div>
                   @endif
                  
+                
                   
+                  <div class="row">
+                      
+                      
+                       <div class="col-sm-6">
                   
                   <div class="form-group">
                        <div class="main">
 				<div id="fc-slideshow" class="fc-slideshow">
                                     
                                     
-                                    <h2 class="title_index"><span>Galería de imágenes</span></h2>
+                                    <h2 class="title_index padding_especial"><span>Galería de imágenes</span></h2>
 					<ul class="fc-slides">
                                             
                                             
@@ -310,6 +316,35 @@
 			</div>
                   </div>
                   
+                       </div>
+                           
+                           
+                   @if(count($promociones))
+                   
+                   
+                   
+          <div class="col-sm-6">
+              
+               <div class="form-group">
+                       <div class="main">
+				<div id="fc-slideshow-two" class="fc-slideshow">
+                                    
+                                    
+                                    <h2 class="title_index padding_especial"><span>Promociones</span></h2>
+					<ul class="fc-slides">
+                                            
+                                        @foreach($promociones as $promocion)
+                                        <li> <a href="{{URL::route("promociones.show",array($promocion->id))}}"> <img src="{{ URL::to("/").$promocion->imagen->url('medium')}}"></a></li>
+                                        @endforeach
+                                        
+                                        </ul>
+          </div>
+                           
+                           </div>
+			</div>
+                  </div>
+          @endif
+                  
             
             
             
@@ -317,18 +352,23 @@
                   <h2>No seleccionó ningún negocio</h2>
             @endif
       </div>
-      <div class="row">
-            <div class="col-sm-12">
-                  {{ Form::label('comentario','¿Qué dicen los usuarios?') }}
+                  
+                  
+
+
+
+
+     
+            <div class="col-sm-6">
+                  {{HTML::image('img/comment.png','Comentarios Sphellar')}}{{ Form::label('comentario','¿Qué dicen los usuarios?') }}
                   <div class="list-group" id='all_comments'>
                         @foreach($negocio->comentarios as $comentario)
                         @include('layouts.show_comentario',array('comentario',$comentario))
                         @endforeach
                   </div>                  
             </div>
-      </div>      
-      <div class="row">
-            <div class="col-sm-12">
+     
+            <div class="col-sm-6">
                   @if(Auth::check())
                   <div class="list-group-item">
                         {{ Form::open(array('route' => array('comentarios.store','id'=>$negocio->id,'clase'=>get_class($negocio)),'id'=>'add_res')) }}
@@ -338,13 +378,13 @@
                         {{ Form::close() }}                        
                   </div>     
                   @else
-                        <p>{{ HTML::linkRoute('register.user','Regístrate como usuario para comentar ') }}</p> 
+                         <p class="rank_text">   {{HTML::image('img/comments_user.png','Comentarios Sphellar')}} {{ HTML::linkRoute('register.user','Regístrate como usuario para comentar ') }}</p> 
                   @endif
             </div>
-      </div>
-      
-
+    
 </div>
+
+
 @stop
 
 @section('scripts')
@@ -365,6 +405,14 @@
 	$( function() {
 				
 	$( '#fc-slideshow' ).flipshow();
+
+	} );
+</script>
+
+<script>
+	$( function() {
+				
+	$( '#fc-slideshow-two' ).flipshow();
 
 	} );
 </script>
