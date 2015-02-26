@@ -113,5 +113,45 @@ class ContenidoController extends \BaseController
 
             return Response::json($result);
       }
+      
+      public function getCatalogoEstados()
+      {
+            $zonas = Zona::with('estado')->where('zona','LIKE',"%".Input::get('query')."%")->take(25)->get();;
+            $estados = Estado::where('estado','LIKE',"%".Input::get('query')."%")->take(4)->get();
+
+            $suggestions = array();
+
+            foreach ($estados as $estado) {
+                  array_push($suggestions, array('value' => $estado->estado, 'data' => $estado->id));
+            }
+
+            foreach ($zonas as $zona) {
+                  array_push($suggestions, array('value' => $zona->estado->estado . " - " . $zona->zona, 'data' => $zona->estado->id . '-' . $zona->id));
+            }
+
+            $result = array("suggestions" => $suggestions);
+
+            return Response::json($result);
+      }
+
+      public function getCatalogoSubCategorias()
+      {
+            $subcategorias = Subcategoria::with('categoria')->where('subcategoria','LIKE',"%".Input::get('query')."%")->take(10)->get();;
+            $categorias = Categoria::where('categoria','LIKE',"%".Input::get('query')."%")->take(10)->get();
+
+            $suggestions = array();
+
+            foreach ($categorias as $categoria) {
+                  array_push($suggestions, array('value' => $categoria->categoria, 'data' => $categoria->id));
+            }
+
+            foreach ($subcategorias as $subcategoria) {
+                  array_push($suggestions, array('value' => $subcategoria->categoria->categoria . " - " . $subcategoria->subcategoria, 'data' => $subcategoria->categoria->id . '-' . $subcategoria->id));
+            }
+
+            $result = array("suggestions" => $suggestions);
+
+            return Response::json($result);
+      }
 
 }
