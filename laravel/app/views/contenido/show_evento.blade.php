@@ -46,7 +46,7 @@
           
           
           
-           <div class="col-sm-12">
+           <div class="col-sm-12 clear">
                
                <h2 class="title_eventodetalle">{{ $evento->nombre }}</h2>
                

@@ -1504,6 +1504,15 @@ label {
   font-weight: bold;
   color:#333333 !important;
 }
+
+
+.form_login label{
+    color: #fff !important;
+    font-weight: 700 !important;
+    font-size: 1.4em;
+    text-shadow: 1px 2px rgba(0,0,0,0.5);
+}
+
 input[type="search"] {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -1570,6 +1579,25 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 
+
+.btn_acceso{
+  background:#fd7922 !important;
+  border:0  !important;
+  border-radius:10px 0 10px 0  !important;
+  height:50px;
+  width:100%;
+  display:block;
+  font-size: 16px !important;
+  font-weight:700 !important;
+  text-transform: uppercase;
+  
+  transition:all 0.3s linear;
+  -webkit-transition:all 0.3s linear;
+  -moz-transition:all 0.3s linear;
+  -ms-transition:all 0.3s linear;
+}
+
+
 .regresar_interno, .rank_div{
   padding: 3%;
   color:#fff;
@@ -1616,6 +1644,11 @@ input[type="number"]::-webkit-inner-spin-button {
   border-radius:0px 10px 0px 10px  !important;
 }
 
+.btn_acceso:hover{
+  background:#3edac0 !important;
+  border-radius:0px 10px 0px 10px  !important;
+}
+
 
 .rank_text, .rank p {
     text-align: center;
@@ -1634,6 +1667,10 @@ span.etiquetado_masInfo{
     font-weight: 600;
     float: right;
     border-radius: 6px;
+}
+
+.btn_espacio{
+    margin:2em 0;
 }
 
 
@@ -6619,6 +6656,16 @@ h2.title_index, h2.title_cartelera{
     
 }
 
+h2.title_login, h2.title_login_dos{
+   margin:0em 0 -0.1em 0;
+    color:#fff;
+  border:0;
+    font-weight: 600;
+    text-align: center;
+    line-height: 3em;
+    
+}
+
 h2.title_index.padding_especial span, h2.title_cartelera.padding_especial span{
    padding: 15px 35px;
 }
@@ -6640,8 +6687,38 @@ background-size: 600% 600%;
 -moz-animation: AnimationName 30s ease infinite;
 animation: AnimationName 30s ease infinite;
 
+}
+
+
+
+
+h2.title_login span{
+    padding:3% 5%;
+    border-radius:0px 20px;
+    background: linear-gradient(270deg, #000000, #f96069, #f63348);
+    background-size: 600% 600%;
+
+
+    -webkit-animation: AnimationName 30s ease infinite;
+    -moz-animation: AnimationName 30s ease infinite;
+    animation: AnimationName 30s ease infinite;
 
 }
+
+h2.title_login_dos span{
+    padding:3% 5%;
+    border-radius:0px 20px;
+    background: linear-gradient(270deg, #000000, #5e58d4, #501474);
+    background-size: 600% 600%;
+
+
+    -webkit-animation: AnimationName 30s ease infinite;
+    -moz-animation: AnimationName 30s ease infinite;
+    animation: AnimationName 30s ease infinite;
+
+}
+
+
 @-webkit-keyframes AnimationName {
     0%{background-position:0% 50%}
     50%{background-position:100% 50%}
@@ -6695,6 +6772,10 @@ animation: AnimationName 30s ease infinite;
     background:url(../img/news.png) center top no-repeat;
 }
 */
+
+.clear{
+    clear:both;
+}
 
 
 .title_negocio, .title_cartelera {
@@ -6915,6 +6996,45 @@ img.img_detalle{
     width:4%;
 } 
 
+
+/** Páginas para ingresar **/
+
+.contenido_entrar, .contenido_entrar_registrer, .contenido_entrar_client{
+    
+     background: url(../img/fondo_sphellar2.jpg) center top no-repeat;
+     background-size:contain;
+     margin: 5em 15em;
+     width: 70%;
+     padding: 2em 5em;
+    
+}
+
+.contenido_entrar_registrer{
+     background: url(../img/fondo_sphellar3.jpg) center top no-repeat;
+    
+}
+
+.contenido_entrar_client{
+     background: url(../img/fondo_sphellar4.jpg) center top no-repeat;
+    
+}
+
+.recover_pass{
+background: rgba(0,0,0,0.5);
+padding: 1em 2em;
+width: 100%;
+margin: 2em 0;
+float: right;
+text-align: center;
+color: #3edac0;
+   
+}
+
+.instrucciones p {
+    color:#fff;
+    background: rgba(0,0,0,0.6);
+    padding: 3%;
+}
 
 /* -----------------------------
 ******** MEDIA QUERIES *********

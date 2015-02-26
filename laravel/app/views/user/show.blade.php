@@ -1,7 +1,7 @@
 @extends('layouts.webpage_master')
 
 @section('content')
-<div class="row">
+<div class="row contenido_entrar">
       <div class="col-sm-6 col-sm-push-3">
             <h2>Entrar</h2>
 

@@ -1,9 +1,9 @@
 @extends('layouts.webpage_master')
 
 @section('wrapper')
-<div class="row">
-      <div class="col-sm-6 col-sm-push-3">
-            <h2>Registrar nuevo usuario</h2>
+<div class="row contenido_entrar_registrer">
+      <div class="col-sm-6 col-sm-push-3  form_login">
+          <h2 class="title_login_dos padding_especial"><span>Registrar nuevo usuario</span></h2>
             {{ Form::open(array('route' => 'register.store_user')) }}
             <div class="form-group">
                   {{ Form::label('username', 'Nombre de usuario') }}
@@ -25,12 +25,12 @@
             @include('layouts.show_form_errors')
 
             <div class="form-group">
-                  <button type="submit" class="btn btn-primary">Registrar</button>
+                  <button type="submit" class="btn btn-primary btn_acceso">Registrar</button>
             </div>        
             {{ Form::close() }}
       </div>
 </div>
-<div class="container">
+<div class="container" style="display:none">
       <div class="row">
             <div class="col-sm-4">
                   <div class="form-group">

@@ -1,9 +1,9 @@
 @extends('layouts.webpage_master')
 
 @section('wrapper')
-<div class="row">
-      <div class="col-sm-6 col-sm-push-3">
-            <h2>Entrar</h2>
+<div class="row contenido_entrar">
+      <div class="col-sm-6 col-sm-push-3 form_login">
+          <h2 class="title_login padding_especial"><span>Entrar</span></h2>
 
             @if(Session::has('message'))
             <div class="alert alert-success alert-dismissable">
@@ -39,20 +39,35 @@
             </div>                  
             @if (Session::has('login_errors'))
             <div class="alert alert-danger">Correo o Password Incorrecto</div>
-            @endif                
-            <div class="form-group">
-                  <button type="submit" class="btn btn-primary">Entrar</button>        
-                  {{ HTML::linkAction('RemindersController@getRemind','Recuperar Password')}}
+            @endif   
+            
+            <div class="form-group btn_espacio">
+                  <button type="submit" class="btn btn-primary btn_acceso">Entrar</button>        
+                  {{ HTML::linkAction('RemindersController@getRemind','Recuperar Password', null, array('class'=>'recover_pass')) }}
+                  
+                  
+              
+                  
+                  
+                  
+                
+                  
+                  
             </div>                        
             {{ Form::close() }}
 
       </div>
 </div>
-<div class="row">
+
+<div class="row" style="display:none">
       <div class="col-sm-6 col-sm-push-3">
             <div class="form-group">
                   <h2>Accede con nuestras redes sociales</h2>
                   {{ HTML::LinkRoute('session.authorise','Twitter','twitter',array('class'=>'btn btn-info')) }}
+                  
+                  {{ HTML::LinkRoute('session.authorise','Fcebook','facebook',array('class'=>'btn btn-info')) }}
+                  
+                  {{ HTML::LinkRoute('session.authorise','Google Plus','google',array('class'=>'btn btn-info')) }}
             </div>
       </div>
       
