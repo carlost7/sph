@@ -1509,7 +1509,7 @@ label {
 .form_login label{
     color: #fff !important;
     font-weight: 700 !important;
-    font-size: 1.4em;
+    font-size: 1.3em;
     text-shadow: 1px 2px rgba(0,0,0,0.5);
 }
 
@@ -1616,7 +1616,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 
-.regresar_interno a{
+.regresar_interno a, .link_editar a{
     background:#fd7922 !important;
   border:0  !important;
   border-radius:10px 0 10px 0  !important;
@@ -1633,13 +1633,38 @@ input[type="number"]::-webkit-inner-spin-button {
   -ms-transition:all 0.3s linear;
 }
 
+
+
+.btn_chico{
+    background:#501474 !important;
+  border:0  !important;
+  border-radius:0px 10px  !important;
+  height:40px;
+
+  font-weight:400 !important;
+  text-transform: uppercase;
+  padding:6px 25px;
+  color:#fff;
+  
+  transition:all 0.3s linear;
+  -webkit-transition:all 0.3s linear;
+  -moz-transition:all 0.3s linear;
+  -ms-transition:all 0.3s linear;
+}
+
 .regresar_interno a:hover{
     background:#3edac0 !important;
     border-radius:0px 10px 0px 10px  !important;
     text-decoration:none;
 }
 
-#btn_guia:hover, .btn_guia:hover{
+.btn_chico:hover{
+    background:#5e58d4 !important;
+    border-radius:10px 0px !important;
+    text-decoration:none;
+}
+
+#btn_guia:hover, .btn_guia:hover {
   background:#fd7922 !important;
   border-radius:0px 10px 0px 10px  !important;
 }
@@ -1719,8 +1744,10 @@ span.etiquetado_masInfo{
 .form-control[disabled],
 .form-control[readonly],
 fieldset[disabled] .form-control {
-  cursor: not-allowed;
-  background-color: #f95f68;
+    cursor: not-allowed;
+    background-color: #888;
+    border: none;
+    color: #000;
 }
 textarea.form-control {
   height: auto;
@@ -4554,9 +4581,15 @@ a.thumbnail:focus {
   color: #a47e3c;
 }
 .alert-danger {
-  background-color: #f2dede;
-  border-color: #eed3d7;
-  color: #b94a48;
+  background-color: #ff0000 !important;
+  color: #fff;
+  background: none;
+  background-image: none;
+  padding: 5px;
+  text-align: center;
+  text-shadow: 1px 1px #580101;
+  font-style: italic;
+  font-weight: 500;
 }
 .alert-danger hr {
   border-top-color: #e6c1c7;
@@ -6719,22 +6752,6 @@ h2.title_login_dos span{
 }
 
 
-@-webkit-keyframes AnimationName {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}
-@-moz-keyframes AnimationName {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}
-@keyframes AnimationName { 
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}
-
 h2.title_cartelera span{
     
     padding:6% 10%;
@@ -6773,7 +6790,7 @@ animation: AnimationName 30s ease infinite;
 }
 */
 
-.clear{
+.clear, .col-sm-12.clear{
     clear:both;
 }
 
@@ -7019,6 +7036,17 @@ img.img_detalle{
     
 }
 
+
+.contenido_editar_count{
+    
+     background: url(../img/fondo_sphellar5.jpg) center top no-repeat;
+     background-size:contain;
+     margin: 1em 0em;
+     width: 100%;
+     padding: 2em 5em;
+    
+}
+
 .recover_pass{
 background: rgba(0,0,0,0.5);
 padding: 1em 2em;
@@ -7034,6 +7062,16 @@ color: #3edac0;
     color:#fff;
     background: rgba(0,0,0,0.6);
     padding: 3%;
+}
+
+input#avatar{
+    background: rgba(0,0,0,0.5);
+color: #fff;
+padding: 10px;
+}
+
+.img_profile{
+    width:250px;
 }
 
 /* -----------------------------

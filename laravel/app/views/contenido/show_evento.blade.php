@@ -19,13 +19,13 @@
                         @if(Auth::check() && Auth::user()->userable_type == 'Miembro')
                               @if($evento->is_especial)    
                                     @if($add_rank)
-                                    <button type="button" class="btn btn-small btn-primary" id="btn_rank"> + Rank</button>
+                                     {{HTML::image('img/rank.png','Rank Sphellar')}} <button type="button" class="btn_chico" id="btn_rank"> + Rank</button>
                                     rank: {{ $evento->rank }}
                                     @else
                                     rank: {{ $evento->rank }}
                                     @endif
                               @else
-                              <button type="button" class="btn btn-small btn-primary" id="btn_rank" disabled="disabled"> + Rank</button>                  
+                              <button type="button" class="btn_chico" id="btn_rank" disabled="disabled"> + Rank</button>                  
                               @endif                  
                         @else
                               <p>  {{HTML::image('img/rank.png','Rank Sphellar')}} ¿Te gusta este lugar? {{ HTML::linkRoute('register.user','Regístrate como usuario para rankear el negocio ') }}</p> 
@@ -189,9 +189,9 @@
                   @if(Auth::check())
                   <div class="list-group-item">
                         {{ Form::open(array('route' => array('comentarios.store','id'=>$evento->id,'clase'=>get_class($evento)),'id'=>'add_res')) }}
-                        {{ Form::label('comentario','Agrega tu comentario') }}
+                        {{HTML::image('img/comments_user.png','Agregar Comentarios')}}  {{ Form::label('comentario','Agrega tu comentario') }}
                         {{ Form::textArea('comentario', Input::old('comentario'), array('placeholder' => 'comentario', 'class'=>'form-control','id'=>'new_comentario')) }}
-                        {{ Form::submit('agregar', array('class' => 'btn btn-sm btn-primary')) }}
+                        {{ Form::submit('agregar', array('class' => 'btn_chico')) }}
                         {{ Form::close() }}                        
                   </div>      
                   @else

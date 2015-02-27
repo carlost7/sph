@@ -3,7 +3,7 @@
 @section('wrapper')
 <div class="row contenido_entrar_client">
       <div class="col-sm-6 col-sm-push-3 form_login">
-          <h2 class="title_login padding_especial"><span>Registrar nuevo cliente</span></h2>
+          <h2 class="title_login padding_especial"><span>Nuevo Cliente</span></h2>
             
             <div class="instrucciones">
                   <p>El registro es gratuito, despues de llenar los campos le enviaremos un correo con un link para activarlo en el sistema</p>

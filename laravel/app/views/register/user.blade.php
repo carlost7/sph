@@ -3,7 +3,7 @@
 @section('wrapper')
 <div class="row contenido_entrar_registrer">
       <div class="col-sm-6 col-sm-push-3  form_login">
-          <h2 class="title_login_dos padding_especial"><span>Registrar nuevo usuario</span></h2>
+          <h2 class="title_login_dos padding_especial"><span>Nuevo Usuario</span></h2>
             {{ Form::open(array('route' => 'register.store_user')) }}
             <div class="form-group">
                   {{ Form::label('username', 'Nombre de usuario') }}

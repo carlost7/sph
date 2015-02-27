@@ -5,7 +5,7 @@
 @if($miembro)
 <div class="col-xs-12">
       <ul class="nav nav-pills">            
-            <li>{{ HTML::linkRoute('miembros.edit','Editar Cuenta',$miembro->id) }}</li>            
+            <li class="link_editar">{{ HTML::linkRoute('miembros.edit','Editar Cuenta',$miembro->id) }}</li>            
       </ul>
 </div>
 
@@ -14,7 +14,13 @@
             @if(count($miembro->imagen))
             <img src="{{Config::get('params.path_serve_image').$miembro->imagen->path.$miembro->imagen->nombre}}" alt="{{ $miembro->imagen->alt }}" />
             @else
-            {{HTML::image('img/profile_default.png')}}
+            {{HTML::image('img/profile_default.png', null, array('class'=>'img_profile'))}}
+            
+            
+          
+             
+             
+             
             @endif            
       </div>
       <div class="col-sm-6">

@@ -2,10 +2,14 @@
 
 @section('content')
 
-@if($miembro)
-<h2>Editar: {{ $miembro->username }}</h2>
+<div class="row contenido_editar_count">
 
-{{ Form::model($miembro, array('route' => array('miembros.update', $miembro->id), 'method' => 'PUT','files'=>true)) }}
+@if($miembro)
+<h2 class="title_login padding_especial"><span>Editar: {{ $miembro->username }}</span></h2>
+
+
+
+{{ Form::model($miembro, array('route' => array('miembros.update', $miembro->id), 'method' => 'PUT','files'=>true, 'class' =>'form_login')) }}
 
 <div class="form-group">
       {{ Form::label('username', 'Nombre de usuario') }}
@@ -44,10 +48,11 @@
       </div>
 </div>
 
+
 @include('layouts.show_form_errors')
 
 <div class="form-group">
-      <button type="submit" class="btn btn-primary">Editar usuario</button>
+      <button type="submit" class="btn btn-primary btn_acceso">Editar usuario</button>
 </div>        
 
 {{ Form::close() }}
@@ -57,6 +62,9 @@
 <h2>No existe el usuario a editar</h2>
 
 @endif
+
+</div>
+
 
 @stop
 
