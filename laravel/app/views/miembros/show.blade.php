@@ -10,7 +10,7 @@
 </div>
 
 <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-5">
             @if(count($miembro->imagen))
             <img src="{{Config::get('params.path_serve_image').$miembro->imagen->path.$miembro->imagen->nombre}}" alt="{{ $miembro->imagen->alt }}" />
             @else
@@ -23,7 +23,7 @@
              
             @endif            
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-7">
             <h2> Miembro: {{ $miembro->username }} </h2>
             <p>Ingreso: {{$miembro->created_at}}</p>
       </div>

@@ -14,8 +14,8 @@ class AdministradoresTableSeeder extends Seeder {
 
 
             $user                        = new User;
-            $user->password              = "klendactu";
-            $user->password_confirmation = "klendactu";
+            $user->password              = "passwordsphellar";
+            $user->password_confirmation = "passwordsphellar";
             $user->email                 = "admin@sphellar.com";
             $admin->user()->save($user);
       }
